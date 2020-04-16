@@ -21,8 +21,8 @@
    "extra": {
        "laravel": {
            "providers": [
-               "AndrykVP\\SWC\\API\\ApiServiceProvider",
-               "AndrykVP\\SWC\\IDGen\\IdGenServiceProvider"
+               "AndrykVP\\SWC\\API\\APIServiceProvider",
+               "AndrykVP\\SWC\\IDGen\\IDGenServiceProvider"
            ],
            "aliases": {
                "API": "AndrykVP\\SWC\\API\\Facades\\APIFacade",

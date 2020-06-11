@@ -1,11 +1,19 @@
 {
    "name": "andrykvp/swc",
    "description": "A Laravel Package to make use of common features required by factions or groups of Star Wars Combine",
+   "version": "1.0.0",
    "type": "library",
+   "keywords": [
+       "laravel",
+       "star wars",
+       "star wars combine",
+       "swcombine",
+       "swc"
+   ],
    "license": "MIT",
    "authors": [
        {
-           "name": "AndrykVP",
+           "name": "Andrés Velázquez",
            "email": "andriclucid@gmail.com"
        }
    ],
@@ -14,6 +22,9 @@
       "laravel/tinker": "^2.0"
    },
    "autoload": {
+        "classmap": [
+            "src/database/migrations"
+        ],
        "psr-4": {
            "AndrykVP\\SWC\\": "src/"
        }
@@ -21,12 +32,11 @@
    "extra": {
        "laravel": {
            "providers": [
-               "AndrykVP\\SWC\\API\\APIServiceProvider",
-               "AndrykVP\\SWC\\IDGen\\IDGenServiceProvider"
+               "AndrykVP\\SWC\\Providers\\SWCServiceProvider"
            ],
            "aliases": {
-               "API": "AndrykVP\\SWC\\API\\Facades\\APIFacade",
-               "IDGen": "AndrykVP\\SWC\\IDGen\\Facades\\IdGenFacade"
+               "API": "AndrykVP\\SWC\\Facades\\APIFacade",
+               "IDGen": "AndrykVP\\SWC\\Facades\\IDGenFacade"
            }
        }
    }

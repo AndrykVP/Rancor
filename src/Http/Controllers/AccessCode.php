@@ -1,11 +1,10 @@
 <?php
 
-namespace CasWaryn\API\Http\Controllers;
+namespace AndrykVP\SWC\Http\Controllers;
 
 use Illuminate\Http\Request;
-use CasWaryn\API\Contracts\ApiRequest;
 
-class AccessCode implements ApiRequest
+class AccessCode
 {
    public function dispatch()
    {

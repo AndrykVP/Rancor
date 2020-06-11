@@ -36,7 +36,8 @@ return [
         'colors' => [
             'light' => '#ffffff',
             'dark' => '#000000'
-        ]
+        ],
+        'suffix' => '_avatar'
 
     ],
 
@@ -61,7 +62,8 @@ return [
         'colors' => [
             'light' => '#ffffff',
             'dark' => '#000000'
-        ]
+        ],
+        'suffix' => '_signature'
 
     ],
 

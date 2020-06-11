@@ -1,19 +1,22 @@
 <?php
 
-namespace CasWaryn\IDGen\Helpers;
+namespace AndrykVP\SWC\Facades;
 
-class GenerateIds
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Storage;
+
+class IDGenFacade extends Facade
 { 
     /**
      * Construct the class from configuration variables
      */
-    private $avatar, $signature, $folder;
+    protected static $idconf = [], $folder;
 
-    public function __construct()
+    public static function init()
     {
-        $this->avatar = config('idgen.avatar');
-        $this->signature = config('idgen.signature');
-        $this->folder = config('idgen.output');
+        self::$idconf['avatar'] = config('idgen.avatar');
+        self::$idconf['signature'] = config('idgen.signature');
+        self::$folder = config('idgen.output');
     }
 
     /**
@@ -21,7 +24,7 @@ class GenerateIds
      *
      * @var boolean
      */
-    public function verifyInformation($user)
+    private static function verifyInformation($user)
     {
         if($user->handle != null && $user->rank_id != null)
         {
@@ -31,13 +34,36 @@ class GenerateIds
     }
 
     /**
-     * Funtion to build the avatar images
+     * Verify if the resource image exists
+     * 
+     * @return mixed
+     */
+    private static function checkResource($id, $type)
+    {
+        if (!Storage::exists('private/id_images/'.$id.self::$idconf[$type]->suffix.'.png'))
+        {
+            return null;
+        }
+
+        return storage_path('app/private/id_images/'.$id.self::$idconf[$type]->suffix.'.png');
+    }
+
+    /**
+     * Replace unwanted characters from User Handle for usage as filename
+     */
+    private static function stringHandle($handle)
+    {
+        return preg_replace(['/(\s+)/','/(\'+)/','/(\`+)/','/(\´+)/'],'',$handle);
+    }
+
+    /**
+     * Funtion to process request to build avatars
      *
      * @return void
      */
-    public function makeAvatar($user)
+    public static function makeAvatar($user)
     {
-        $resource = $this->checkResource($user->id);
+        $resource = self::checkResource($user->id,'avatar');
 
         if($resource === null)
         {
@@ -45,18 +71,18 @@ class GenerateIds
             return false;
         }
 
-        $filename = preg_replace(['/(\s+)/','/(\'+)/','/(\`+)/','/(\´+)/'],'',$user->handle);
-        $this->generateAvatars($filename, $user->handle, $user->rank, $user->faction, $faction_logo, $resource, $user->email, $user->department);
+        $filename = self::stringHandle($user->handle);
+        self::generateAvatars($filename, $user->handle, $user->rank, $user->faction, $faction_logo, $resource, $user->email, $user->department);
     }
 
     /**
-     * Funtion to build the signature images
+     * Funtion to process request to build signature
      *
      * @return void
      */
-    public function makeSignature($user)
+    public static function makeSignature($user)
     {
-        $resource = $this->checkResource($user->id);
+        $resource = self::checkResource($user->id,'signature');
 
         if($resource != null)
         {
@@ -64,34 +90,19 @@ class GenerateIds
             return false;
         }
 
-        $filename = preg_replace(['/(\s+)/','/(\'+)/','/(\`+)/','/(\´+)/'],'',$user->handle);
-        return $this->generateSignature($filename, $user->handle, $user->rank, $faction, $faction_logo, $resource, $user->email, $department);
-    }
-
-    /**
-     * Verifies if the resource image exists
-     * 
-     * @return mixed
-     */
-    private function checkResource($id)
-    {
-        if (!Storage::exists('private/id_images/'.$id.'_sig.png'))
-        {
-            return null;
-        }
-
-        return storage_path("app/private/id_images/".$id."_sig.png");
+        $filename = self::stringHandle($user->handle);
+        return self::generateSignature($filename, $user->handle, $user->rank, $faction, $faction_logo, $resource, $user->email, $user->department);
     }
 
     /**
      * Atempts to create Signature ID based on the existing files
      */
-    private function generateSignature($filename, $handle, $rank, $faction, $faction_logo, $resource, $email = null, $department = null)
+    private static function generateSignature($filename, $handle, $rank, $faction, $faction_logo, $resource, $email = null, $department = null)
     {
         try
         {
-            $base = imagecreatefrompng($this->signature->template->background);
-            $frame = imagecreatefrompng($this->signature->template->frame);
+            $base = imagecreatefrompng(self::$signature->template->background);
+            $frame = imagecreatefrompng(self::$signature->template->frame);
             $logo = imagecreatefrompng($faction_logo);
             $tempavi = imagecreatefrompng($resource);
             $avatar = imagecreatetruecolor(122,122);
@@ -150,17 +161,17 @@ class GenerateIds
     {
         try
         {
-            $lgframe = imagecreatefrompng($this->avatar->templates->large->background);
-            $smframe = imagecreatefrompng($this->avatar->templates->small->background);
+            $lgframe = imagecreatefrompng(self::$avatar->templates->large->background);
+            $smframe = imagecreatefrompng(self::$avatar->templates->small->background);
             $tempavi = imagecreatefrompng($resource);
             $lgavatar = imagecreatetruecolor(150,150);
             $smavatar = imagecreatetruecolor(100,100);
-            $lgmask = imagecreatefrompng($this->avatar->templates->large->mask);
-            $smmask = imagecreatefrompng($this->avatar->templates->small->mask);
+            $lgmask = imagecreatefrompng(self::$avatar->templates->large->mask);
+            $smmask = imagecreatefrompng(self::$avatar->templates->small->mask);
             imagecopyresampled($lgavatar,$tempavi,0,0,-28,0,150,150,150,150);
             imagecopyresampled($smavatar,$tempavi,0,0,-28,0,100,100,150,150);
-            $this->imagealphamask($lgavatar,$lgmask);
-            $this->imagealphamask($smavatar,$smmask);
+            self::imagealphamask($lgavatar,$lgmask);
+            self::imagealphamask($smavatar,$smmask);
             imagealphablending($lgframe, true);
             imagesavealpha($lgframe, true);
             imagealphablending($smframe, true);
@@ -205,7 +216,11 @@ class GenerateIds
         }
     }
 
-    private function imagealphamask( &$picture, $mask )
+    /**
+     * Applies mask
+     */
+
+    private static function imagealphamask( &$picture, $mask )
     {
         // Get sizes and set up new picture
         $xSize = imagesx( $picture );

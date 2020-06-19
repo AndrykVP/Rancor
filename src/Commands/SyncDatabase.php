@@ -3,6 +3,7 @@
 namespace AndrykVP\SWC\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use AndrykVP\SWC\Jobs\ProcessSector;
 use AndrykVP\SWC\Jobs\ProcessSystem;
 use AndrykVP\SWC\Jobs\ProcessPlanet;
@@ -14,7 +15,9 @@ class SyncDatabase extends Command
      *
      * @var string
      */
-    protected $signature = 'swcsync:galaxy {resource?* : The type of resource to consume.}';
+    protected $signature = 'swc:sync
+                            {--galaxy=* : The type of galaxy resource to consume.}
+                            {--entities=* : The type of galaxy resource to consume.}';
 
     /**
      * The console command description.
@@ -36,10 +39,33 @@ class SyncDatabase extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {        
+        Log::channel('swc')->notice('['.now().'] Sync has begun');
+
+        $options = [];
+
+        foreach($this->options() as $option => $args)
+        {
+            if($option == 'galaxy' && $args != null || $option == 'entities' && $args != null)
+            {
+                $this->info('Adding '.$option.' to array');
+                $options[$option] = $args;
+            }
+        }
+
+        if(!$options)
+        {
+            $this->info('No options given');
+        }
+        else
+        {
+            $this->info('Arguments given');
+        }
+
+        /*
         $arguments = $this->argument('resource');
 
         // If no arguments are given. Set it to run all 3 queries
@@ -61,41 +87,33 @@ class SyncDatabase extends Command
             else
             {
                 $this->error('['.now().'] Invalid Argument. The only acceptable ones are: "sector", "system" or "planet"');
+                return;
             }
         }
 
-        // Run the queues once all jobs have been added
-        $this->info('['.now().'] Jobs from Sector resources will begin running now');
-        $this->call('queue:work',['--stop-when-empty','--queue=sector,high']);
+        // Run jobs for each argument
+        $this->info('['.now().'] Queued jobs will begin running now');
+        $this->call('queue:work',['--stop-when-empty', '--queue' => implode(',',$arguments)]);
+        
 
-        $this->info('['.now().'] Jobs from System resources will begin running now');
-        $this->call('queue:work',['--stop-when-empty','--queue=system,high']);
-
-        $this->info('['.now().'] Jobs from Planet resources will begin running now');
-        $this->call('queue:work',['--stop-when-empty','--queue=planet,high']);
-    }
-
-    /**
-     * The job failed to process.
-     *
-     * @param  Exception  $exception
-     * @return void
-     */
-    public function failed(Exception $exception)
-    {
-        Log::channel('swc')->error($exception);
-        Log::error($exception);
+        // Log end of command
+        Log::channel('swc')->notice('['.now().'] Sync has completed successfully');
+        return;
+        */
     }
 
     /**
      * Consume Combine's Web Services for Sectors
      * 
      * @param string
-     * @return array
+     * @return void
      */
     private function apiCall($resource)
     {
-        for($i = 1; $i <= 1000000; $i+=50)
+        $i = 1;
+        $running = true;
+
+        while($running)
         {
             $json = file_get_contents('https://www.swcombine.com/ws/v1.0/galaxy/'.$resource.'s.json?start_index='.$i);
             $query = json_decode(str_replace('\\','',$json),TRUE);
@@ -123,8 +141,10 @@ class SyncDatabase extends Command
 
             if($i+50 >= $query['galaxy-'.$resource.'s']['attributes']['total'])
             {
-                break;
+                $running = false;
             }
+
+            $i += 50;
         }
     }
 }

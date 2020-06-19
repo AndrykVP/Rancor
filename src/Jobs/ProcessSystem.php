@@ -52,4 +52,15 @@ class ProcessSystem implements ShouldQueue
 
         $model->save();
     }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        Log::channel('swc')->error($exception);
+    }
 }

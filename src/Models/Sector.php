@@ -9,14 +9,7 @@ class Sector extends Model
     /**
      * Attributes available for mass assignment
      */
-    public $fillable = [ 'id', 'name', 'coordinates' ];
-
-    /**
-     * Attributes to cast to native php type
-     */
-    public $casts = [
-        'coordinates' => 'array'
-    ];
+    public $fillable = [ 'id', 'name'];
 
     /**
      * Disable auto-increments on 'id' column of the Model

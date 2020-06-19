@@ -3,6 +3,7 @@
 namespace AndrykVP\SWC\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -45,10 +46,21 @@ class ProcessPlanet implements ShouldQueue
         $system_id = $query['galaxy-planet']['system']['attributes']['uid'];
 
         $model->name = $query['galaxy-planet']['name'];
-        $model->x_coordinate = $query['galaxy-planet']['coordinates']['system']['attributes']['x'];
-        $model->y_coordinate = $query['galaxy-planet']['coordinates']['system']['attributes']['y'];
+        $model->x_coordinate = $query['galaxy-planet']['coordinates']['system']['attributes']['x'] || $query['galaxy-planet']['coordinates']['galaxy']['attributes']['x'];
+        $model->y_coordinate = $query['galaxy-planet']['coordinates']['system']['attributes']['y'] || $query['galaxy-planet']['coordinates']['galaxy']['attributes']['y'];
         $model->system_id = $system_id ? (int)explode(':',$system_id)[1] : null;
 
         $model->save();
+    }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        Log::channel('swc')->error($exception);
     }
 }

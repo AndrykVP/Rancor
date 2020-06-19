@@ -3,6 +3,7 @@
 namespace AndrykVP\SWC\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -39,5 +40,16 @@ class ProcessSector implements ShouldQueue
         $model = Sector::firstOrNew(['id' => $id]);
         $model->name = $query['galaxy-sector']['name'];
         $model->save();
+    }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        Log::channel('swc')->error($exception);
     }
 }

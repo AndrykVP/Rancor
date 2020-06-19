@@ -14,12 +14,9 @@ class CreateSectorsTable extends Migration
     public function up()
     {
         Schema::create('sectors', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique;
-            $table->string('name');
-            $table->json('coordinates');
+            $table->unsignedBigInteger('id')->unique();
+            $table->string('name')->nullable()->default(null);
             $table->timestamps();
-
-            $table->primary('id');
         });
     }
 

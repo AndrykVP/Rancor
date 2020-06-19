@@ -14,14 +14,13 @@ class CreateSystemsTable extends Migration
     public function up()
     {
         Schema::create('systems', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique;
-            $table->string('name');
+            $table->unsignedBigInteger('id')->unique();
+            $table->string('name')->nullable()->default(null);;
             $table->integer('x_coordinate');
             $table->integer('y_coordinate');
-            $table->unsignedBigInteger('sector_id');
+            $table->unsignedBigInteger('sector_id')->nullable()->default(null);;
             $table->timestamps();
 
-            $table->primary('id');
             $table->foreign('sector_id')->references('id')->on('sectors');
         });
     }

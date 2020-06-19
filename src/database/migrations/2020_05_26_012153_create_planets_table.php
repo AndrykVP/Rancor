@@ -14,14 +14,13 @@ class CreatePlanetsTable extends Migration
     public function up()
     {
         Schema::create('planets', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique;
-            $table->string('name');
+            $table->unsignedBigInteger('id')->unique();
+            $table->string('name')->nullable()->default(null);
             $table->unsignedInteger('x_coordinate');
             $table->unsignedInteger('y_coordinate');
-            $table->unsignedBigInteger('system_id');
+            $table->unsignedBigInteger('system_id')->nullable()->default(null);
             $table->timestamps();
 
-            $table->primary('id');
             $table->foreign('system_id')->references('id')->on('systems');
         });
     }

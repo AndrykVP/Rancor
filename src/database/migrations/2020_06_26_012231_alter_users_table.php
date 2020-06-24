@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AlterUsersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('avatar')->nullable()->default(null)->after('name');
+            $table->mediumtext('biography')->nullable()->default(null)->after('email');
+            $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('biography');
+            $table->timestamp('last_login')->nullable()->default(null);
+
+            $table->foreign('rank_id')->references('id')->on('ranks');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function(Blueprint $table) {
+            $table->dropColumn('avatar');
+            $table->dropColumn('biography');
+            $table->dropColumn('rank_id');
+            $table->dropColumn('last_login');
+        });
+    }
+}

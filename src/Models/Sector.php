@@ -8,16 +8,22 @@ class Sector extends Model
 {
     /**
      * Attributes available for mass assignment
+     * 
+     * @var array
      */
     public $fillable = [ 'id', 'name'];
 
     /**
      * Disable auto-increments on 'id' column of the Model
+     * 
+     * @var boolean
      */
     public $incrementing = false;
 
     /**
-     * Many-to-one Relationship
+     * Relationship to System model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function systems()
     {
@@ -25,7 +31,9 @@ class Sector extends Model
     }
 
     /**
-     * Many-to-one through another relationship
+     * Relationship to Planet model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function planets()
     {

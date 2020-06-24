@@ -21,7 +21,7 @@ class CreatePlanetsTable extends Migration
             $table->unsignedBigInteger('system_id')->nullable()->default(null);
             $table->timestamps();
 
-            $table->foreign('system_id')->references('id')->on('systems');
+            $table->foreign('system_id')->references('id')->on('systems')->onDelete('set null');
         });
     }
 

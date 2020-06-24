@@ -21,7 +21,7 @@ class CreateSystemsTable extends Migration
             $table->unsignedBigInteger('sector_id')->nullable()->default(null);;
             $table->timestamps();
 
-            $table->foreign('sector_id')->references('id')->on('sectors');
+            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('set null');
         });
     }
 

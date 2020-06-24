@@ -8,16 +8,22 @@ class Planet extends Model
 {
     /**
      * Attributes available for mass assignment
+     * 
+     * @var array
      */
     public $fillable = [ 'id' ];
     
     /**
      * Disable auto-increments on 'id' column of the Model
+     * 
+     * @var boolean
      */
     public $incrementing = false;
 
     /**
-     * Inverse Relationship
+     * Relationship to System model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function system()
     {

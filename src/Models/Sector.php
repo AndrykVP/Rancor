@@ -27,7 +27,7 @@ class Sector extends Model
      */
     public function systems()
     {
-        return $this->hasMany(System::class);
+        return $this->hasMany('AndrykVP\SWC\Models\System');
     }
 
     /**
@@ -37,6 +37,6 @@ class Sector extends Model
      */
     public function planets()
     {
-        return $this->hasManyThrough(Planet::class, System::class);
+        return $this->hasManyThrough('AndrykVP\SWC\Models\Planet', 'AndrykVP\SWC\Models\System');
     }
 }

@@ -27,16 +27,16 @@ class System extends Model
      */
     public function planets()
     {
-        return $this->hasMany(Planet::class);
+        return $this->hasMany('AndrykVP\SWC\Models\Planet');
     }
 
     /**
-     * Relationship to System model
+     * Relationship to Sector model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function system()
+    public function sector()
     {
-        return $this->belongsTo(System::class);
+        return $this->belongsTo('AndrykVP\SWC\Models\Sector');
     }
 }

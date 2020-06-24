@@ -27,6 +27,6 @@ class Planet extends Model
      */
     public function system()
     {
-        return $this->belongsTo(System::class);
+        return $this->belongsTo('AndrykVP\SWC\Models\System');
     }
 }

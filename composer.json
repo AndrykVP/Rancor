@@ -1,7 +1,7 @@
 {
    "name": "andrykvp/swc",
    "description": "A Laravel Package to make use of common features required by factions or groups of Star Wars Combine",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "type": "library",
    "keywords": [
        "laravel",
@@ -19,7 +19,8 @@
    ],
    "require": {
       "laravel/framework": "^7.0",
-      "laravel/tinker": "^2.0"
+      "illuminate/support": "^7.0",
+      "doctrine/dbal": "^2.10"
    },
    "autoload": {
         "classmap": [

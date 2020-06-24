@@ -11,14 +11,14 @@ class Sector extends Model
      * 
      * @var array
      */
-    public $fillable = [ 'id', 'name'];
+    protected $fillable = [ 'id', 'name'];
 
     /**
      * Disable auto-increments on 'id' column of the Model
      * 
      * @var boolean
      */
-    public $incrementing = false;
+    protected $incrementing = false;
 
     /**
      * Relationship to System model

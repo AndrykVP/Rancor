@@ -11,14 +11,14 @@ class Planet extends Model
      * 
      * @var array
      */
-    public $fillable = [ 'id' ];
+    protected $fillable = [ 'id' ];
     
     /**
      * Disable auto-increments on 'id' column of the Model
      * 
      * @var boolean
      */
-    public $incrementing = false;
+    protected $incrementing = false;
 
     /**
      * Relationship to System model

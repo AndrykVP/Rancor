@@ -1,4 +1,5 @@
 # Rancor
+![repo size](https://img.shields.io/github/repo-size/AndrykVP/Rancor) ![license](https://img.shields.io/github/license/AndrykVP/Rancor) ![activity](https://img.shields.io/github/last-commit/AndrykVP/Rancor)
 
 Rancor is a [Laravel](http://www.laravel.com) package built to quickly implement a way to consume web services provided by the MMORPG [Star Wars Combine](http://www.swcombine.com), as well as scafoold regular features used by factions in the game such as:
 
@@ -30,7 +31,3 @@ See also the list of [contributors](https://github.com/your/project/contributors
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)

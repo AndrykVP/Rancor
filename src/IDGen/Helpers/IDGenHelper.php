@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\IDGen\Helpers;
+namespace AndrykVP\Rancor\IDGen\Helpers;
 
 use Illuminate\Support\Facades\Storage;
 

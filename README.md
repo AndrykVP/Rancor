@@ -1,6 +1,6 @@
-# SWC API
+# Rancor
 
-SWC API is a [Laravel](http://www.laravel.com) package built to quickly implement a way to consume web services provided by the MMORPG [Star Wars Combine](http://www.swcombine.com), as well as regular features used by factions in the game such as:
+Rancor is a [Laravel](http://www.laravel.com) package built to quickly implement a way to consume web services provided by the MMORPG [Star Wars Combine](http://www.swcombine.com), as well as scafoold regular features used by factions in the game such as:
 
 - Generating server-side avatars and signatures using a given template
 - Recording scan logs and accessing them by coordinates
@@ -11,22 +11,15 @@ SWC API is a [Laravel](http://www.laravel.com) package built to quickly implemen
 What things you need to install the software and how to install them
 
 ```
-Laravel 7 or above
+Laravel 7^
+PHP 7.4^
 ```
 
 ### Installing
 
-The package is installed through composer with the following command:
+At the moment, installation for projects in production is not available, since the package is still unreleased.
 
-```bash
-composer require "andrykvp/swc"
-```
-
-Then register the service provider to your `'providers'` array in `config/app.php`
-
-```php
-AndrykVP\SWC\Providers\FrameworkServiceProvider::class,
-```
+Instructions for installation will appear here once the package is released.
 
 ## Authors
 

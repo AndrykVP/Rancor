@@ -1,7 +1,7 @@
 {
-   "name": "andrykvp/swc",
+   "name": "andrykvp/rancor",
    "description": "A Laravel Package to make use of common features required by factions or groups of Star Wars Combine",
-   "version": "1.0.3",
+   "version": "1.1.0",
    "type": "library",
    "keywords": [
        "laravel",
@@ -27,16 +27,16 @@
             "database/migrations"
         ],
        "psr-4": {
-           "AndrykVP\\SWC\\": "src/"
+           "AndrykVP\\Rancor\\": "src/"
        }
    },
    "extra": {
        "laravel": {
            "providers": [
-               "AndrykVP\\SWC\\Providers\\FrameworkServiceProvider"
+               "AndrykVP\\Rancor\\Providers\\FrameworkServiceProvider"
            ],
            "aliases": {
-               "IDGen": "AndrykVP\\SWC\\IDGen\\Facades\\IDGenFacade"
+               "IDGen": "AndrykVP\\Rancor\\IDGen\\Facades\\IDGenFacade"
            }
        }
    }

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Auth;
+namespace AndrykVP\Rancor\Auth;
 
 use Illuminate\Database\Eloquent\Model;
 

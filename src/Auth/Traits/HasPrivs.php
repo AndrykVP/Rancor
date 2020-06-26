@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Auth\Traits;
+namespace AndrykVP\Rancor\Auth\Traits;
 
 trait HasPrivs
 {
@@ -11,6 +11,6 @@ trait HasPrivs
      */
     public function permissions()
     {
-        return $this->belongsToMany('AndrykVP\SWC\Auth\Permission')->withTimestamps();
+        return $this->belongsToMany('AndrykVP\Rancor\Auth\Permission')->withTimestamps();
     }
 }

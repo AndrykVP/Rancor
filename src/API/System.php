@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\API;
+namespace AndrykVP\Rancor\API;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,7 +27,7 @@ class System extends Model
      */
     public function planets()
     {
-        return $this->hasMany('AndrykVP\SWC\API\Planet');
+        return $this->hasMany('AndrykVP\Rancor\API\Planet');
     }
 
     /**
@@ -37,6 +37,6 @@ class System extends Model
      */
     public function sector()
     {
-        return $this->belongsTo('AndrykVP\SWC\API\Sector');
+        return $this->belongsTo('AndrykVP\Rancor\API\Sector');
     }
 }

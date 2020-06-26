@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\SWC\Providers;
+namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use AndrykVP\SWC\IDGen\Helpers\IDGenHelper;
+use AndrykVP\Rancor\IDGen\Helpers\IDGenHelper;
 
 class IDGenServiceProvider extends ServiceProvider
 {
@@ -34,7 +34,7 @@ class IDGenServiceProvider extends ServiceProvider
       $this->app->booting(function()
       {
           $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-          $loader->alias('IDGen', 'AndrykVP\SWC\IDGen\Facades\IDGenFacade');
+          $loader->alias('IDGen', 'AndrykVP\Rancor\IDGen\Facades\IDGenFacade');
       });
 
       // Shortcut so developers don't need to add to array in app/config/filesystems.php

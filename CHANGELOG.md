@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2020-06-26
+### Changed
+- Package renamed from `swc_api` to `Rancor`!
+
+### Added
+- Custom log channel added to stack through the `FrameworkServiceProvider`
+
 ## [1.0.3] - 2020-06-26
 ### Added
 - **Helper** for _IDGen_ feature that runs as static class to generate Signatures and Avatars using a configuration file, and assets that are published in the Service Provider. (WIP)

@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\SWC\API\Commands;
+namespace AndrykVP\Rancor\API\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use AndrykVP\SWC\Jobs\ProcessSector;
-use AndrykVP\SWC\Jobs\ProcessSystem;
-use AndrykVP\SWC\Jobs\ProcessPlanet;
+use AndrykVP\Rancor\Jobs\ProcessSector;
+use AndrykVP\Rancor\Jobs\ProcessSystem;
+use AndrykVP\Rancor\Jobs\ProcessPlanet;
 
 class SyncDatabase extends Command
 {

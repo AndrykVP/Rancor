@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\IDGen\Facades;
+namespace AndrykVP\Rancor\IDGen\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

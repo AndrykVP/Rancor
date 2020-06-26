@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Faction;
+namespace AndrykVP\Rancor\Faction;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,7 @@ class Department extends Model
      */
     public function ranks()
     {
-        return $this->hasMany('AndrykVP\SWC\Faction\Rank');
+        return $this->hasMany('AndrykVP\Rancor\Faction\Rank');
     }
 
     /**
@@ -30,7 +30,7 @@ class Department extends Model
      */
     public function users()
     {
-        return $this->hasManyThrough('App\User', 'AndrykVP\SWC\Faction\Rank');
+        return $this->hasManyThrough('App\User', 'AndrykVP\Rancor\Faction\Rank');
     }
 
     /**
@@ -40,6 +40,6 @@ class Department extends Model
      */
     public function faction()
     {
-        return $this->belongsTo('AndrykVP\SWC\Faction\Faction');
+        return $this->belongsTo('AndrykVP\Rancor\Faction\Faction');
     }
 }

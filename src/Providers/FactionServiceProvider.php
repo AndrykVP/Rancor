@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Providers;
+namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -25,7 +25,7 @@ composer require "andrykvp/swc"
 Then register the service provider to your `'providers'` array in `config/app.php`
 
 ```php
-AndrykVP\SWC\Providers\SWCServiceProvider::class,
+AndrykVP\SWC\Providers\FrameworkServiceProvider::class,
 ```
 
 ## Authors

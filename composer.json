@@ -33,7 +33,7 @@
    "extra": {
        "laravel": {
            "providers": [
-               "AndrykVP\\SWC\\SWCServiceProvider"
+               "AndrykVP\\SWC\\Providers\\FrameworkServiceProvider"
            ],
            "aliases": {
                "IDGen": "AndrykVP\\SWC\\IDGen\\Facades\\IDGenFacade"

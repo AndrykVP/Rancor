@@ -24,7 +24,7 @@
    },
    "autoload": {
         "classmap": [
-            "src/database/migrations"
+            "database/migrations"
         ],
        "psr-4": {
            "AndrykVP\\SWC\\": "src/"
@@ -36,7 +36,7 @@
                "AndrykVP\\SWC\\SWCServiceProvider"
            ],
            "aliases": {
-               "IDGen": "AndrykVP\\SWC\\Facades\\IDGen"
+               "IDGen": "AndrykVP\\SWC\\IDGen\\Facades\\IDGenFacade"
            }
        }
    }

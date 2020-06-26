@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Models;
+namespace AndrykVP\SWC\Faction;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +30,6 @@ class Rank extends Model
      */
     public function department()
     {
-        return $this->belongsTo('AndrykVP\SWC\Models\Department');
+        return $this->belongsTo('AndrykVP\SWC\Faction\Department');
     }
 }

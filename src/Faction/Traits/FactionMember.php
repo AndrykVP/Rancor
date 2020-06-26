@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Traits;
+namespace AndrykVP\SWC\Faction\Traits;
 
 trait FactionMember
 {
@@ -11,16 +11,6 @@ trait FactionMember
      */
     public function rank()
     {
-        return $this->belongsTo('AndrykVP\SWC\Models\Rank');
-    }
-
-    /**
-     * Relationship to Permission model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function permissions()
-    {
-        return $this->belongsToMany('AndrykVP\SWC\Models\Permission')->withTimestamps();
+        return $this->belongsTo('AndrykVP\SWC\Faction\Rank');
     }
 }

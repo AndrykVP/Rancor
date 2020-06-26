@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Commands;
+namespace AndrykVP\SWC\API\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;

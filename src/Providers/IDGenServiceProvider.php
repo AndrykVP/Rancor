@@ -3,10 +3,9 @@
 namespace AndrykVP\SWC\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use AndrykVP\SWC\Commands\SyncDatabase;
-use AndrykVP\SWC\Helpers\IDGen;
+use AndrykVP\SWC\IDGen\Helpers\IDGenHelper;
 
-class SWCServiceProvider extends ServiceProvider
+class IDGenServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -17,13 +16,12 @@ class SWCServiceProvider extends ServiceProvider
     {
       // Publish Configuration
       $this->publishes([
-        __DIR__.'/../config/APIconfig.php' => config_path('swc.php'),
-        __DIR__.'/../config/IDGenconfig.php' => config_path('idgen.php'),
+        __DIR__.'/IDGen/config.php' => config_path('idgen.php'),
       ]);
 
       // Merge Configuration for access in Package Helpers
       $this->mergeConfigFrom(
-        __DIR__.'/../config/IDGenconfig.php', 'idgen'
+        __DIR__.'/IDGen/config.php', 'idgen'
       );
 
       // Instantiate IDGen and bind to app for global access
@@ -36,7 +34,7 @@ class SWCServiceProvider extends ServiceProvider
       $this->app->booting(function()
       {
           $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-          $loader->alias('IDGen', 'AndrykVP\SWC\Facades\IDGen');
+          $loader->alias('IDGen', 'AndrykVP\SWC\IDGen\Facades\IDGenFacade');
       });
 
       // Shortcut so developers don't need to add to array in app/config/filesystems.php
@@ -57,15 +55,6 @@ class SWCServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      // Load routes and migrations
-      $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
-      $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-      // Bind Package's console commands
-      if ($this->app->runningInConsole()) {
-        $this->commands([
-            SyncDatabase::class,
-        ]);
-      }
+      //
     }
 }

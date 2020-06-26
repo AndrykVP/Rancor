@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Models;
+namespace AndrykVP\SWC\Auth;
 
 use Illuminate\Database\Eloquent\Model;
 

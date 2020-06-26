@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\SWC\Jobs;
+namespace AndrykVP\SWC\API\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;

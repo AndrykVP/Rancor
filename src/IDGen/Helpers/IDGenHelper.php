@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\SWC\Helpers;
+namespace AndrykVP\SWC\IDGen\Helpers;
 
 use Illuminate\Support\Facades\Storage;
 
-class IDGen
+class IDGenHelper
 { 
     protected static $templates, $images, $display;
 

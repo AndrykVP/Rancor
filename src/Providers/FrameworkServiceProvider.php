@@ -31,5 +31,12 @@ class FrameworkServiceProvider extends ServiceProvider
     {
         // Load routes and migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        
+        // Add log channel to stack
+        $this->app->make('config')->set('logging.channels.swc', [
+            'driver' => 'single',
+            'path' => storage_path('logs/swc.log'),
+            'level' => 'debug',
+        ]);
     }
 }

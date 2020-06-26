@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      // Load routes and migrations
+      // Load routes
       $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/web.php');
     }
 }

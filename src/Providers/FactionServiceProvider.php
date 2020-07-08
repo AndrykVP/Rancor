@@ -23,6 +23,7 @@ class FactionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      //
+        // Load routes
+        $this->loadRoutesFrom(__DIR__.'/../Faction/Routes/api.php');
     }
 }

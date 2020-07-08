@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-      //
+        //
     }
 
     /**
@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      // Load routes
-      $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/web.php');
+        // Load routes
+        $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/api.php');
     }
 }

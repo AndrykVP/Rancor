@@ -14,12 +14,9 @@ class FrameworkServiceProvider extends ServiceProvider
     public function register()
     {
         // Register all the Package's Service Providers
-        $this->app->register(
-            APIServiceProvider::class,
-            AuthServiceProvider::class,
-            FactionServiceProvider::class,
-            IDGenServiceProvider::class,
-        );  
+        $this->app->register(AuthServiceProvider::class);  
+        $this->app->register(FactionServiceProvider::class);  
+        $this->app->register(IDGenServiceProvider::class);  
     }
 
     /**
@@ -31,7 +28,7 @@ class FrameworkServiceProvider extends ServiceProvider
     {
         // Load routes and migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-        
+ 
         // Add log channel to stack
         $this->app->make('config')->set('logging.channels.swc', [
             'driver' => 'single',

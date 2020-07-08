@@ -3,8 +3,11 @@
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\User;
+use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 
 class UserController extends Controller
 {
@@ -18,21 +21,6 @@ class UserController extends Controller
         $query = User::paginate(15);
 
         return UserResource::collection($query);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $model = User::create($request);
-
-        return response()->json([
-            'message' => 'User {$data->name} has been created'
-        ], 200);
     }
 
     /**
@@ -55,13 +43,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserForm $request, $id)
     {
+        $data = $request->all();
         $query = User::findOrFail($id);
-        $query->update($request);
+        $query->update($data);
+
+        if($request->has('permissions'))
+        {
+            $query->permissions()->sync($request->permissions);
+        }
+        if($request->has('roles'))
+        {
+            $query->roles()->sync($request->roles);
+        }
 
         return response()->json([
-            'message' => 'User {$data->name} has been updated'
+            'message' => 'User "'.$query->name.'" has been updated'
         ], 200);
     }
 
@@ -77,7 +75,7 @@ class UserController extends Controller
         $query->delete();
 
         return response()->json([
-            'message' => 'User {$data->name} has been deleted'
+            'message' => 'User "'.$query->name.'" has been deleted'
         ], 200);        
     }
 }

@@ -19,7 +19,7 @@ class AlterUsersTable extends Migration
             $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('biography');
             $table->timestamp('last_login')->nullable()->default(null);
 
-            $table->foreign('rank_id')->references('id')->on('ranks');
+            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('set null');
         });
     }
 

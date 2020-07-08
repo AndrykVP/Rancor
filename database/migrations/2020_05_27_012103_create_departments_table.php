@@ -16,11 +16,11 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable()->default(null);
             $table->unsignedBigInteger('faction_id');
             $table->timestamps();
 
-            $table->foreign('faction_id')->references('id')->on('factions');
+            $table->foreign('faction_id')->references('id')->on('factions')->onDelete('cascade');
         });
     }
 

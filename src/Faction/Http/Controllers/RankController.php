@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Faction\Rank;
 use AndrykVP\Rancor\Faction\Http\Resources\RankResource;
+use AndrykVP\Rancor\Faction\Http\Requests\RankForm;
 
 class RankController extends Controller
 {
@@ -27,9 +28,9 @@ class RankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RankForm $request)
     {
-        $data = $request->all()->toArray();
+        $data = $request->all();
         $query = Rank::create($data);
 
         return response()->json([
@@ -57,10 +58,11 @@ class RankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RankForm $request, $id)
     {
+        $data = $request->all();
         $query = Rank::findOrFail($id);
-        $query->update($request);
+        $query->update($data);
 
         return response()->json([
             'message' => 'Rank "'.$query->name.'" has been updated'

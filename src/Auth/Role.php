@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Auth;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class Role extends Model
 {
     /**
      * Attributes available for mass assignment
@@ -14,22 +14,22 @@ class Permission extends Model
     protected $fillable = [ 'name', 'description' ];
 
     /**
+     * Relationship to Permission model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible')->withTimestamps();
+    }
+
+    /**
      * Relationship to User model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->morphedByMany('users','permissible');
-    }
-
-    /**
-     * Relationship to Role model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->morphedByMany('roles','permissible');
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 }

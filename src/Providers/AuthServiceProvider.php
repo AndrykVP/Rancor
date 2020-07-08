@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/api.php');
+
+        Relation::morphMap([
+            'users' => 'App\User',
+            'roles' => 'AndrykVP\Rancor\Auth\Role',
+        ]);
     }
 }

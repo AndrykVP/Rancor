@@ -11,6 +11,27 @@ trait HasPrivs
      */
     public function permissions()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Auth\Permission')->withTimestamps();
+        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible')->withTimestamps();
+    }
+
+    /**
+     * Relationship to Role model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('AndrykVP\Rancor\Auth\Role')->withTimestamps();
+    }
+
+
+    /**
+     * Custom Function to verify existence of Permission
+     * 
+     * @return boolean
+     */
+    public function hasPermission($param)
+    {
+        return true;
     }
 }

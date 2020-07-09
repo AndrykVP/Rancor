@@ -17,6 +17,7 @@ class FrameworkServiceProvider extends ServiceProvider
         $this->app->register(AuthServiceProvider::class);  
         $this->app->register(FactionServiceProvider::class);  
         $this->app->register(IDGenServiceProvider::class);  
+        $this->app->register(NewsServiceProvider::class);  
     }
 
     /**

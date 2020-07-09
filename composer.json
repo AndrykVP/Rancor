@@ -4,40 +4,41 @@
    "version": "1.1.0",
    "type": "library",
    "keywords": [
-       "laravel",
-       "star wars",
-       "star wars combine",
-       "swcombine",
-       "swc"
+      "laravel",
+      "star wars",
+      "star wars combine",
+      "swcombine",
+      "swc"
    ],
    "license": "MIT",
    "authors": [
-       {
-           "name": "Andrés Velázquez",
-           "email": "andriclucid@gmail.com"
-       }
+      {
+         "name": "Andrés Velázquez",
+         "email": "andriclucid@gmail.com"
+      }
    ],
    "require": {
-       "php": "^7.0",
+      "php": "^7.0",
       "laravel/framework": "^7.0",
-      "doctrine/dbal": "^2.10"
+      "doctrine/dbal": "^2.10",
+      "mews/purifier": "^3.2"
    },
    "autoload": {
-        "classmap": [
-            "database/migrations"
-        ],
-       "psr-4": {
-           "AndrykVP\\Rancor\\": "src/"
-       }
+      "classmap": [
+         "database/migrations"
+      ],
+      "psr-4": {
+         "AndrykVP\\Rancor\\": "src/"
+      }
    },
    "extra": {
-       "laravel": {
-           "providers": [
-               "AndrykVP\\Rancor\\Providers\\FrameworkServiceProvider"
-           ],
-           "aliases": {
-               "IDGen": "AndrykVP\\Rancor\\IDGen\\Facades\\IDGenFacade"
-           }
-       }
+      "laravel": {
+         "providers": [
+            "AndrykVP\\Rancor\\Providers\\FrameworkServiceProvider"
+         ],
+         "aliases": {
+            "IDGen": "AndrykVP\\Rancor\\IDGen\\Facades\\IDGenFacade"
+         }
+      }
    }
 }

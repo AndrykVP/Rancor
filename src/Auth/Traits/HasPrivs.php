@@ -32,6 +32,14 @@ trait HasPrivs
      */
     public function hasPermission($param)
     {
-        return true;
+        if($this->roles != null && $this->roles->permissions->contains('name',$param))
+        {
+            return true;
+        }
+        elseif($this->permissions != null && $this->permissions->contains('name',$param))
+        {
+            return true;
+        }
+        return false;
     }
 }

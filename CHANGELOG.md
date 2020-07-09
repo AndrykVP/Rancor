@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2020-07-09
+### Added
+- New feature `Rancor\News` with [mews/purifier](https://github.com/mewebstudio/Purifier) dependency.
+- Routes, API Controllers, Resources and Requests for `Faction\Faction`, `Faction\Department`, `Faction\Rank`, `Auth\User` and `News\Article` models.
+- `Role` model to the Auth feature, and its relationship to `App\User` via trait.
+
+### Changed
+- `Auth\Permission` to be have a Many to Many polymorphic relation with `Auth\Role` and Laravel's `App\User` model.
+- `hasPermission()`method in Auth trait, to account for change in `Permission` model.
+
+### Removed
+- API functionality. It's been moved to a development branch as it is not yet completed.
+
 ## [1.1.0] - 2020-06-26
 ### Changed
 - Package renamed from `swc_api` to `Rancor`!

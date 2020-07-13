@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2020-07-09
+### Added
+- Controller, Request Validation, Resource and Routes for `Auth\Role`
+- Policies for `Auth\Role`, `App\User`, `Faction\Faction`, `Faction\Department`, `Faction\Rank` and , `News\Article`.
+- Configuration file for defining what authentication middleware to use in API Controllers.
+
+### Changed
+- Config files have been moved from `src/<Feature>/config.php` to `config/<feature>.php`. 
+
+### Removed
+- IDGen functionality. It's been moved to a development branch as it is not yet completed.
+
 ## [1.1.1] - 2020-07-09
 ### Added
 - New feature `Rancor\News` with [mews/purifier](https://github.com/mewebstudio/Purifier) dependency.

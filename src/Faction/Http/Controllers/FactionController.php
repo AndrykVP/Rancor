@@ -11,6 +11,16 @@ use AndrykVP\Rancor\Faction\Http\Requests\FactionForm;
 class FactionController extends Controller
 {
     /**
+     * Construct Controller
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(config('rancor.middleware'));
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

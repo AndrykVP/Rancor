@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Requests;
+namespace AndrykVP\Rancor\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ArticleForm extends FormRequest
+class RoleForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,8 @@ class ArticleForm extends FormRequest
         $id = $this->segment(3);
 
         return [
-            'title' => ['required', 'string', Rule::unique('articles')->ignore($id)],
-            'content' => 'required|min:1',
-            'is_published' => 'required|boolean',
-            'author_id' => 'required_without:editor_id|integer|exists:users,id',
-            'editor_id' => 'required_without:autor_id|integer|exists:users,id',
+            'name' => ['required', 'string', Rule::unique('roles')->ignore($id)],
+            'description' => 'required|min:3|max:3000',
         ];
     }
 }

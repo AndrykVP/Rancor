@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Controllers;
+namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Article;
-use AndrykVP\Rancor\News\Http\Resources\ArticleResource;
-use AndrykVP\Rancor\News\Http\Requests\ArticleForm;
+use AndrykVP\Rancor\Auth\Role;
+use AndrykVP\Rancor\Auth\Http\Resources\RoleResource;
+use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 
-class ArticleController extends Controller
+class RoleController extends Controller
 {
     /**
      * Construct Controller
@@ -19,7 +19,7 @@ class ArticleController extends Controller
     {
         $this->middleware(config('rancor.middleware'));
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -27,11 +27,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',Article::class);
+        $query = Role::paginate(15);
 
-        $query = Article::paginate(15);
-
-        return ArticleResource::collection($query);
+        return RoleResource::collection($query);
     }
 
     /**
@@ -40,15 +38,13 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleForm $request)
+    public function store(RoleForm $request)
     {
-        $this->authorize('create',Article::class);
-        
         $data = $request->all();
-        $query = Article::create($data);
+        $query = Role::create($data);
 
         return response()->json([
-            'message' => 'Article "'.$query->title.'" has been created'
+            'message' => 'Role "'.$query->name.'" has been created'
         ], 200);
     }
 
@@ -60,11 +56,9 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('view',Article::class);
-        
-        $query = Article::findOrFail($id);
+        $query = Role::findOrFail($id);
 
-        return new ArticleResource($query);
+        return new RoleResource($query);
     }
 
     /**
@@ -74,16 +68,14 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleForm $request, $id)
+    public function update(RoleForm $request, $id)
     {
-        $this->authorize('edit',Article::class);
-        
         $data = $request->all();
-        $query = Article::findOrFail($id);
+        $query = Role::findOrFail($id);
         $query->update($data);
 
         return response()->json([
-            'message' => 'Article "'.$query->title.'" has been updated'
+            'message' => 'Role "'.$query->name.'" has been updated'
         ], 200);
     }
 
@@ -95,13 +87,11 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete',Article::class);
-        
-        $query = Article::findOrFail($id);
+        $query = Role::findOrFail($id);
         $query->delete();
 
         return response()->json([
-            'message' => 'Article "'.$query->title.'" has been deleted'
+            'message' => 'Role "'.$query->name.'" has been deleted'
         ], 200);        
     }
 }

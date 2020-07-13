@@ -16,12 +16,12 @@ class IDGenServiceProvider extends ServiceProvider
     {
       // Publish Configuration
       $this->publishes([
-        __DIR__.'/../IDGen/config.php' => config_path('idgen.php'),
+        __DIR__.'/../../config/idgen.php' => config_path('idgen.php'),
       ]);
 
       // Merge Configuration for access in Package Helpers
       $this->mergeConfigFrom(
-        __DIR__.'/../IDGen/config.php', 'idgen'
+        __DIR__.'/../../config/idgen.php', 'idgen'
       );
 
       // Instantiate IDGen and bind to app for global access

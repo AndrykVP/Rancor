@@ -45,7 +45,13 @@ class ArticleController extends Controller
         $this->authorize('create',Article::class);
         
         $data = $request->all();
-        $query = Article::create($data);
+
+        $query = new Article;
+        $query->title = $data->title;
+        $query->content = $data->content;
+        $query->is_published = $data->is_published;
+        $query->author_id = $request->user()->id;
+        $query->save();
 
         return response()->json([
             'message' => 'Article "'.$query->title.'" has been created'
@@ -80,7 +86,11 @@ class ArticleController extends Controller
         
         $data = $request->all();
         $query = Article::findOrFail($id);
-        $query->update($data);
+        $query->title = $data->title;
+        $query->content = $data->content;
+        $query->is_published = $data->is_published;
+        $query->editor_id = $request->user()->id;
+        $query->save();
 
         return response()->json([
             'message' => 'Article "'.$query->title.'" has been updated'

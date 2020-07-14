@@ -28,6 +28,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('view',User::class);
+        
         $query = User::paginate(15);
 
         return UserResource::collection($query);
@@ -41,6 +43,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view',User::class);
+        
         $query = User::findOrFail($id);
 
         return new UserResource($query);
@@ -55,6 +59,8 @@ class UserController extends Controller
      */
     public function update(UserForm $request, $id)
     {
+        $this->authorize('edit',User::class);
+        
         $data = $request->all();
         $query = User::findOrFail($id);
         $query->update($data);
@@ -81,6 +87,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',User::class);
+        
         $query = User::findOrFail($id);
         $query->delete();
 

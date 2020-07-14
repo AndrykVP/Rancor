@@ -27,6 +27,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('view',Role::class);
+
         $query = Role::paginate(15);
 
         return RoleResource::collection($query);
@@ -40,6 +42,8 @@ class RoleController extends Controller
      */
     public function store(RoleForm $request)
     {
+        $this->authorize('create',Role::class);
+        
         $data = $request->all();
         $query = Role::create($data);
 
@@ -56,6 +60,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view',Role::class);
+        
         $query = Role::findOrFail($id);
 
         return new RoleResource($query);
@@ -70,6 +76,8 @@ class RoleController extends Controller
      */
     public function update(RoleForm $request, $id)
     {
+        $this->authorize('edit',Role::class);
+        
         $data = $request->all();
         $query = Role::findOrFail($id);
         $query->update($data);
@@ -87,6 +95,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Role::class);
+        
         $query = Role::findOrFail($id);
         $query->delete();
 

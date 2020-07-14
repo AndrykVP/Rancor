@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Faction\Policies;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FactionPolicy
@@ -17,7 +18,7 @@ class FactionPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPriv('view-factions')
+        return $user->hasPermission('view-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view factions.');
     }
@@ -30,7 +31,7 @@ class FactionPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPriv('create-factions')
+        return $user->hasPermission('create-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create factions.');
     }
@@ -43,7 +44,7 @@ class FactionPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPriv('edit-factions')
+        return $user->hasPermission('edit-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit factions.');
     }
@@ -56,7 +57,7 @@ class FactionPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPriv('delete-factions')
+        return $user->hasPermission('delete-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete factions.');
     }

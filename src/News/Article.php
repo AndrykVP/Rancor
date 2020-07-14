@@ -11,7 +11,7 @@ class Article extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'title', 'content', 'is_published', 'author_id', 'editor_id' ];
+    protected $fillable = [ 'title', 'content', 'is_published' ];
 
     /**
      * Attributes casted to native types

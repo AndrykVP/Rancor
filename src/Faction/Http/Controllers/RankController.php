@@ -40,6 +40,8 @@ class RankController extends Controller
      */
     public function store(RankForm $request)
     {
+        $this->authorize('create',Rank::class);
+        
         $data = $request->all();
         $query = Rank::create($data);
 
@@ -56,6 +58,8 @@ class RankController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view',Rank::class);
+        
         $query = Rank::findOrFail($id);
 
         return new RankResource($query);
@@ -70,6 +74,8 @@ class RankController extends Controller
      */
     public function update(RankForm $request, $id)
     {
+        $this->authorize('edit',Rank::class);
+        
         $data = $request->all();
         $query = Rank::findOrFail($id);
         $query->update($data);
@@ -87,6 +93,8 @@ class RankController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Rank::class);
+        
         $query = Rank::findOrFail($id);
         $query->delete();
 

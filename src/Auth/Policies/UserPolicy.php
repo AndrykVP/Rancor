@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -18,7 +19,7 @@ class UserPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPriv('view-users')
+        return $user->hasPermission('view-users')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view users.');
     }
@@ -32,7 +33,7 @@ class UserPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPriv('edit-users')
+        return $user->hasPermission('edit-users')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit users.');
     }
@@ -46,7 +47,7 @@ class UserPolicy
      */
     public function uploadArt(User $user)
     {
-        return $user->hasPriv('edit-users-art')
+        return $user->hasPermission('edit-users-art')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to upload IDs.');
     }
@@ -60,7 +61,7 @@ class UserPolicy
      */
     public function changeRank(User $user)
     {
-        return $user->hasPriv('edit-users-rank')
+        return $user->hasPermission('edit-users-rank')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to change a user\'s faction info.');
     }
@@ -74,7 +75,7 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPriv('delete-users')
+        return $user->hasPermission('delete-users')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete users.');
     }

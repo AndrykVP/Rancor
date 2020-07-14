@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Faction\Policies;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DepartmentPolicy
@@ -17,7 +18,7 @@ class DepartmentPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPriv('view-departments')
+        return $user->hasPermission('view-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view departments.');
     }
@@ -30,7 +31,7 @@ class DepartmentPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPriv('create-departments')
+        return $user->hasPermission('create-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create departments.');
     }
@@ -43,7 +44,7 @@ class DepartmentPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPriv('edit-departments')
+        return $user->hasPermission('edit-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit departments.');
     }
@@ -56,7 +57,7 @@ class DepartmentPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPriv('delete-departments')
+        return $user->hasPermission('delete-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete departments.');
     }

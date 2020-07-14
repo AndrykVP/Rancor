@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\News\Policies;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy
@@ -17,7 +18,7 @@ class ArticlePolicy
      */
     public function view(User $user)
     {
-        return $user->hasPriv('view-articles')
+        return $user->hasPermission('view-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view articles.');
     }
@@ -30,7 +31,7 @@ class ArticlePolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPriv('create-articles')
+        return $user->hasPermission('create-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create articles.');
     }
@@ -43,7 +44,7 @@ class ArticlePolicy
      */
     public function update(User $user)
     {
-        return $user->hasPriv('edit-articles')
+        return $user->hasPermission('edit-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit articles.');
     }
@@ -56,7 +57,7 @@ class ArticlePolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPriv('delete-articles')
+        return $user->hasPermission('delete-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete articles.');
     }

@@ -29,9 +29,7 @@ class ArticleForm extends FormRequest
         return [
             'title' => ['required', 'string', Rule::unique('articles')->ignore($id)],
             'content' => 'required|min:1',
-            'is_published' => 'required|boolean',
-            'author_id' => 'required_without:editor_id|integer|exists:users,id',
-            'editor_id' => 'required_without:autor_id|integer|exists:users,id',
+            'is_published' => 'required|boolean'
         ];
     }
 }

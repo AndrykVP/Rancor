@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Faction\Policies;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RankPolicy
@@ -17,7 +18,7 @@ class RankPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPriv('view-ranks')
+        return $user->hasPermission('view-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view ranks.');
     }
@@ -30,7 +31,7 @@ class RankPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPriv('create-ranks')
+        return $user->hasPermission('create-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create ranks.');
     }
@@ -43,7 +44,7 @@ class RankPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPriv('edit-ranks')
+        return $user->hasPermission('edit-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit ranks.');
     }
@@ -56,7 +57,7 @@ class RankPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPriv('delete-ranks')
+        return $user->hasPermission('delete-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete ranks.');
     }

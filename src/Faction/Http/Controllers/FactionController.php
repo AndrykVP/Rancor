@@ -40,6 +40,8 @@ class FactionController extends Controller
      */
     public function store(FactionForm $request)
     {
+        $this->authorize('create',Faction::class);
+        
         $data = $request->all();
         $query = Faction::create($data);
 
@@ -56,6 +58,8 @@ class FactionController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view',Faction::class);
+        
         $query = Faction::findOrFail($id);
 
         return new FactionResource($query);
@@ -70,6 +74,8 @@ class FactionController extends Controller
      */
     public function update(FactionForm $request, $id)
     {
+        $this->authorize('edit',Faction::class);
+        
         $data = $request->all();
 
         $query = Faction::findOrFail($id);
@@ -88,6 +94,8 @@ class FactionController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Faction::class);
+        
         $query = Faction::findOrFail($id);
         $query->delete();
 

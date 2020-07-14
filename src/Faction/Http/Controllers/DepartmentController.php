@@ -40,6 +40,8 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentForm $request)
     {
+        $this->authorize('create',Department::class);
+        
         $data = $request->all();
         $query = Department::create($data);
 
@@ -56,6 +58,8 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view',Department::class);
+        
         $query = Department::findOrFail($id);
 
         return new DepartmentResource($query);
@@ -70,6 +74,8 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentForm $request, $id)
     {
+        $this->authorize('edit',Department::class);
+        
         $data = $request->all();
         $query = Department::findOrFail($id);
         $query->update($data);
@@ -87,6 +93,8 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Department::class);
+        
         $query = Department::findOrFail($id);
         $query->delete();
 

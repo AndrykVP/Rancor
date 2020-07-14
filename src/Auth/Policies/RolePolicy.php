@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Auth\Policies;
 
 use App\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
@@ -17,7 +18,7 @@ class RolePolicy
      */
     public function view(User $user)
     {
-        return $user->hasPriv('view-roles')
+        return $user->hasPermission('view-roles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view roles.');
     }
@@ -30,7 +31,7 @@ class RolePolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPriv('create-roles')
+        return $user->hasPermission('create-roles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create roles.');
     }
@@ -43,7 +44,7 @@ class RolePolicy
      */
     public function update(User $user)
     {
-        return $user->hasPriv('edit-roles')
+        return $user->hasPermission('edit-roles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit roles.');
     }
@@ -56,7 +57,7 @@ class RolePolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPriv('delete-roles')
+        return $user->hasPermission('delete-roles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete roles.');
     }

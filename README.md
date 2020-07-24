@@ -11,7 +11,7 @@ Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffold
 ## Getting Started
 ### Prerequisites
 
-What things you need to install this package
+Before installing the Rancor package. Make sure that you meet the following requirements:
 
 - PHP 7.4
 - Laravel 7
@@ -33,12 +33,22 @@ composer require andrykvp/rancor
 
 Because of the development in Laravel 7, the package is auto-discovered and you do not need to register the Service Provider.
 
-Backwards compatibility to previous versions of Laravel has not been tested and it is not recommended to use with previous versions of Laravel 6. However, if you wish to test it yourself, you may add the following lines of code at the end of your `config/app.php` file:
+Backwards compatibility to previous versions of Laravel has not been tested and it is not recommended to use with previous versions of Laravel 7. However, if you wish to test it yourself, you may add the following lines of code at the end of your `config/app.php` file:
 
 ```php
 AndrykVP\Rancor\Providers\FrameworkServiceProvider::class,
 Mews\Purifier\PurifierServiceProvider::class,
 ```
+
+### Configuring
+
+After installation of the package, some configurations need to be set before you can make full use of its functionality. Such as:
+
+- User API Authentication
+- Implementing User Traits
+- Running Migrations
+
+For detailed instructions, visit the [Wiki](https://github.com/AndrykVP/Rancor/wiki). 
 
 ## Authors
 

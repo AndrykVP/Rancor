@@ -1,5 +1,5 @@
 # Rancor
-![repo size](https://img.shields.io/github/repo-size/AndrykVP/Rancor) ![license](https://img.shields.io/github/license/AndrykVP/Rancor) ![activity](https://img.shields.io/github/last-commit/AndrykVP/Rancor) ![downloads](https://img.shields.io/packagist/dt/andrykvp/rancor)
+![version](https://img.shields.io/github/v/release/andrykvp/rancor?color=orange) ![repo size](https://img.shields.io/github/repo-size/AndrykVP/Rancor) ![license](https://img.shields.io/github/license/AndrykVP/Rancor) ![activity](https://img.shields.io/github/last-commit/AndrykVP/Rancor) ![downloads](https://img.shields.io/packagist/dt/andrykvp/rancor)
 
 Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffolding a project related to the MMORPG [Star Wars Combine](http://www.swcombine.com), and make use of common functionality required by factions and/or groups of this game. Such as:
 
@@ -13,8 +13,8 @@ Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffold
 
 Before installing the Rancor package. Make sure that you meet the following requirements:
 
-- PHP 7.4
-- Laravel 7
+- PHP 7^
+- Laravel 7^
 
 ### Dependencies
 
@@ -54,7 +54,7 @@ For detailed instructions, visit the [Wiki](https://github.com/AndrykVP/Rancor/w
 
 * **Andrés Velázquez** - *Initial work* - [AndrykVP](https://github.com/AndrykVP)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/AndrykVP/Rancor/graphs/contributors) who participated in this project.
 
 ## License
 

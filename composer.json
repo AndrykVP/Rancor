@@ -14,7 +14,8 @@
    "authors": [
       {
          "name": "Andrés Velázquez",
-         "email": "andriclucid@gmail.com"
+         "email": "andriclucid@gmail.com",
+         "role": "Developer"
       }
    ],
    "require": {
@@ -23,9 +24,13 @@
       "doctrine/dbal": "^2.10",
       "mews/purifier": "^3.2"
    },
+   "support": {
+      "wiki": "https://github.com/AndrykVP/Rancor/wiki"
+   },
    "autoload": {
       "classmap": [
-         "database/migrations"
+         "database/migrations",
+         "database/seeds"
       ],
       "psr-4": {
          "AndrykVP\\Rancor\\": "src/"

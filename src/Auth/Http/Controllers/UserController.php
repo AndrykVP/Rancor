@@ -41,9 +41,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $this->authorize('view',User::class);
+        if($request->user()->id != $id)
+        {
+            $this->authorize('view',User::class);
+        }
         
         $query = User::findOrFail($id);
 
@@ -59,20 +62,41 @@ class UserController extends Controller
      */
     public function update(UserForm $request, $id)
     {
-        $this->authorize('update',User::class);
-        
-        $data = $request->all();
         $query = User::findOrFail($id);
-        $query->update($data);
+        $data = $request->all();
 
-        if($request->has('permissions'))
+        if($request->user()->can('update', User::class) || $request->user()->id == $id)
         {
-            $query->permissions()->sync($request->permissions);
+            $query->name = $data['name'];
+            $query->email = $data['email'];
+
+            if($request->has('nickname'))
+            {
+                $query->nickname = $data['nickname'];
+            }
         }
-        if($request->has('roles'))
+
+        if($request->user()->can('update', User::class) || $request->user()->can('changeRank', User::class))
         {
-            $query->roles()->sync($request->roles);
+            if($request->has('rank_id'))
+            {
+                $query->rank_id = $data['rank_id'];
+            }
         }
+
+        if($request->user()->can('update', User::class) || $request->user()->can('changePrivs', User::class))
+        {
+            if($request->has('permissions'))
+            {
+                $query->permissions()->sync($request->permissions);
+            }
+            if($request->has('roles'))
+            {
+                $query->roles()->sync($request->roles);
+            }
+        }
+
+        $query->save();
 
         return response()->json([
             'message' => 'User "'.$query->name.'" has been updated'

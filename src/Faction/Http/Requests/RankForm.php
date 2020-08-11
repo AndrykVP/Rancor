@@ -28,6 +28,7 @@ class RankForm extends FormRequest
         return [
             'name' => 'required|string',
             'department_id' => 'required|integer|exists:departments,id',
+            'level' => 'required|integer|min:0|max:255',
             'description' => 'nullable|string',
         ];
     }

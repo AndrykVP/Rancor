@@ -11,7 +11,7 @@ class Rank extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'department_id' ];
+    protected $fillable = [ 'name', 'description', 'department_id', 'level' ];
 
     /**
      * Relationship to User model

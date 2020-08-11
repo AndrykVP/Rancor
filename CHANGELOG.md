@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.2.0] - 2020-08-11
+### Added
+- Controller, Listeners and Routes for `Audit` module that tracks promotions/demotions of Users, as well as IP logging.
+- Listener for `Auth` module to fill User's `last_login` column on login.
+- Event and Listener for `Audit` module to log when a User's rank changes.
+- `Faction\Rank` Model has a `level` column to keep track of promotions/demotions in `Audit` module.
+
+### Changed
+- User table uses `nickname` column instead of `biography`
+
 ## [1.1.2] - 2020-07-09
 ### Added
 - Controller, Request Validation, Resource and Routes for `Auth\Role`

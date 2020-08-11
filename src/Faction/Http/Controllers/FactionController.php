@@ -74,7 +74,7 @@ class FactionController extends Controller
      */
     public function update(FactionForm $request, $id)
     {
-        $this->authorize('edit',Faction::class);
+        $this->authorize('update',Faction::class);
         
         $data = $request->all();
 

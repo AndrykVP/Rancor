@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function update(UserForm $request, $id)
     {
-        $this->authorize('edit',User::class);
+        $this->authorize('update',User::class);
         
         $data = $request->all();
         $query = User::findOrFail($id);

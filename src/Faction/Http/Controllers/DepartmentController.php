@@ -74,7 +74,7 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentForm $request, $id)
     {
-        $this->authorize('edit',Department::class);
+        $this->authorize('update',Department::class);
         
         $data = $request->all();
         $query = Department::findOrFail($id);

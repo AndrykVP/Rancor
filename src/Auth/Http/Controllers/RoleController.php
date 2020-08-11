@@ -76,7 +76,7 @@ class RoleController extends Controller
      */
     public function update(RoleForm $request, $id)
     {
-        $this->authorize('edit',Role::class);
+        $this->authorize('update',Role::class);
         
         $data = $request->all();
         $query = Role::findOrFail($id);

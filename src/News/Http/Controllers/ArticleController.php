@@ -82,7 +82,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleForm $request, $id)
     {
-        $this->authorize('edit',Article::class);
+        $this->authorize('update',Article::class);
         
         $data = $request->all();
         $query = Article::findOrFail($id);

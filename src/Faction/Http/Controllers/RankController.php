@@ -74,7 +74,7 @@ class RankController extends Controller
      */
     public function update(RankForm $request, $id)
     {
-        $this->authorize('edit',Rank::class);
+        $this->authorize('update',Rank::class);
         
         $data = $request->all();
         $query = Rank::findOrFail($id);

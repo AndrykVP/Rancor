@@ -26,15 +26,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Automatically publish database Seeds and UserPolicy
-        $this->publishes([
-            __DIR__.'/../../database/seeds/PermissionSeeder.php' => database_path('seeds/PermissionSeeder.php'),
-            __DIR__.'/../../database/seeds/RoleSeeder.php' => database_path('seeds/RoleSeeder.php'),
-        ]);
-        $this->publishes([
-            __DIR__.'/../Auth/Policies/UserPolicy.php' => app_path('Policies/UserPolicy.php')
-        ]);
-
         // Merge Configuration for access in Package Helpers
         $this->mergeConfigFrom(
             __DIR__.'/../../config/auth.php', 'rancor'
@@ -56,10 +47,23 @@ class AuthServiceProvider extends ServiceProvider
             'roles' => 'AndrykVP\Rancor\Auth\Role',
         ]);
 
-        // Publish config file
+        // Automatically publish database Seeds and UserPolicy
         $this->publishes([
-            __DIR__.'/../../config/auth.php' => config_path('rancor.php'),
-        ]);
+            __DIR__.'/../../database/seeds/PermissionSeeder.php' => database_path('seeds/PermissionSeeder.php'),
+            __DIR__.'/../../database/seeds/RoleSeeder.php' => database_path('seeds/RoleSeeder.php'),
+        ], 'seeders');
+
+        // Publish Http Files
+        $this->publishes([
+            __DIR__.'/../Auth/Http/Controllers' => app_path('Http/Controllers/Rancor/Auth'),
+            __DIR__.'/../Auth/Http/Requests' => app_path('Http/Requests/Rancor/Auth'),
+            __DIR__.'/../Auth/Http/Resources' => app_path('Http/Resources/Rancor/Auth'),
+        ], 'http');
+
+        // Publish Policies
+        $this->publishes([
+            __DIR__.'/../Auth/Policies/UserPolicy.php' => app_path('Policies/UserPolicy.php')
+        ], 'policies');
 
         // Register policies
         $this->registerPolicies();

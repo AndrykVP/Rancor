@@ -35,5 +35,10 @@ class FrameworkServiceProvider extends ServiceProvider
             'path' => storage_path('logs/swc.log'),
             'level' => 'debug',
         ]);
+
+        // Publishes config files
+        $this->publishes([
+            __DIR__.'/../../config/auth.php' => config_path('rancor.php'),
+        ],'config');
     }
 }

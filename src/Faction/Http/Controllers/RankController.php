@@ -27,7 +27,7 @@ class RankController extends Controller
      */
     public function index()
     {
-        $query = Rank::paginate(15);
+        $query = Rank::all();
 
         return RankResource::collection($query);
     }

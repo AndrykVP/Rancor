@@ -27,7 +27,7 @@ class FactionController extends Controller
      */
     public function index()
     {
-        $query = Faction::paginate(15);
+        $query = Faction::all();
 
         return FactionResource::collection($query);
     }

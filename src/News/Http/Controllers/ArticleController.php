@@ -47,9 +47,9 @@ class ArticleController extends Controller
         $data = $request->all();
 
         $query = new Article;
-        $query->title = $data->title;
-        $query->content = $data->content;
-        $query->is_published = $data->is_published;
+        $query->title = $data['title'];
+        $query->content = $data['content'];
+        $query->is_published = $data['is_published'];
         $query->author_id = $request->user()->id;
         $query->save();
 
@@ -86,9 +86,9 @@ class ArticleController extends Controller
         
         $data = $request->all();
         $query = Article::findOrFail($id);
-        $query->title = $data->title;
-        $query->content = $data->content;
-        $query->is_published = $data->is_published;
+        $query->title = $data['title'];
+        $query->content = $data['content'];
+        $query->is_published = $data['is_published'];
         $query->editor_id = $request->user()->id;
         $query->save();
 

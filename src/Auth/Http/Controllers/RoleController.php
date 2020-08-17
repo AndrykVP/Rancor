@@ -27,8 +27,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',Role::class);
-
         $query = Role::paginate(15);
 
         return RoleResource::collection($query);

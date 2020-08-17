@@ -39,39 +39,49 @@ class UserRank
         if($event->user->isDirty('rank_id'))
         {
             $rank_id = $event->user->getOriginal('rank_id');
-
-            $old_rank = Rank::find($rank_id);
             $new_rank = Rank::find($event->user->rank_id);
 
-            if($old_rank->level != $new_rank->level)
+            if($rank_id != null)
             {
-                if($old_rank->level > $new_rank->level)
+                $old_rank = Rank::find($rank_id);
+    
+                if($old_rank->level != $new_rank->level)
                 {
-                    $message = 'Demotion';
+                    if($old_rank->level > $new_rank->level)
+                    {
+                        $message = 'Demotion';
+                    }
+                    else if($old_rank->level < $new_rank->level)
+                    {
+                        $message = 'Promotion';
+                    }
+    
+                    $message = $message . ' from ' . $old_rank->name . '(' . $old_rank->level . ') to ' . $new_rank->name . '(' . $new_rank->level . ')';
+    
+                    $this->createEntry($event->user->id, $message);
                 }
-                else if($old_rank->level < $new_rank->level)
+    
+                if($old_rank->department->name != $new_rank->department->name)
                 {
-                    $message = 'Promotion';
+                    $message = 'Reassigned to the ' . $new_rank->department->name . ' department';
+    
+                    $this->createEntry($event->user->id, $message);
                 }
-
-                $message = $message . ' from ' . $old_rank->name . '(' . $old_rank->level . ') to ' . $new_rank->name . '(' . $new_rank->level . ')';
-
-                $this->createEntry($event->user->id, $message);
+    
+                if($old_rank->department->faction_id != $new_rank->department->faction_id)
+                {
+                    $message = 'Reassigned to the ' . $new_rank->department->faction->name . ' faction';
+    
+                    $this->createEntry($event->user->id, $message);
+                }
             }
-
-            if($old_rank->department->name != $new_rank->department->name)
+            else
             {
-                $message = 'Reassigned to the ' . $old_rank->department->name . ' department';
-
-                $this->createEntry($event->user->id, $message);
+                $this->createEntry($event->user->id, 'Assigned the ' . $new_rank->name . ' rank');
+                $this->createEntry($event->user->id, 'Assigned to the ' . $new_rank->department->name . ' department');
+                $this->createEntry($event->user->id, 'Assigned to the ' . $new_rank->department->faction->name . ' faction');
             }
 
-            if($old_rank->department->faction_id != $new_rank->department->faction_id)
-            {
-                $message = 'Reassigned to the ' . $old_rank->department->faction->name . ' faction';
-
-                $this->createEntry($event->user->id, $message);
-            }
         }
     }
 

@@ -30,8 +30,9 @@ class LogController extends Controller
     {
         $query = DB::table('changelog_users')
                     ->where('user_id',$id)
-                    ->join('users','changelog_users.updated_by','=','users.id')
+                    ->leftJoin('users','changelog_users.updated_by','=','users.id')
                     ->select('changelog_users.action','users.id','users.name')
+                    ->latest()
                     ->get();
 
         return [
@@ -50,6 +51,7 @@ class LogController extends Controller
     {
         $query = DB::table('changelog_ips')
                     ->where('user_id',$id)
+                    ->latest()
                     ->get();
 
         return [

@@ -45,5 +45,11 @@ class UserRegisteredIP
             'type' => 'registration',
             'created_at' => now(),
         ]);
+
+        DB::table('changelog_users')->insert([
+            'user_id' => $user_id,
+            'action' => 'registered a new account',
+            'created_at' => now(),
+        ]);
     }
 }

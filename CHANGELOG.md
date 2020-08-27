@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.2.1] - 2020-08-26
+### Fixed
+- Listener for `Audit` module to log when a User's rank changes, now checks first if the rank_id column changed, and also that the previous rank_id was not null. Otherwise creates a first log.
+
 ## [1.2.0] - 2020-08-11
 ### Added
 - Controller, Listeners and Routes for `Audit` module that tracks promotions/demotions of Users, as well as IP logging.

@@ -4,5 +4,6 @@ Route::group(['namespace' => 'AndrykVP\Rancor\News\Http\Controllers', 'prefix' =
 	Route::apiResources([
 		'articles' => 'ArticleController',
 	]);
-	Route::resource('news', 'NewsController')->only(['index','show']);
+	Route::get('articles/public', 'ArticleController@public');
+	Route::get('articles/drafts', 'ArticleController@drafts');
 });

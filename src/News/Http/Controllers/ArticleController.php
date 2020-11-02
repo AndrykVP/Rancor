@@ -17,7 +17,7 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'));
+        $this->middleware(config('rancor.middleware'))->except('public');
     }
 
     /**
@@ -29,7 +29,33 @@ class ArticleController extends Controller
     {
         $this->authorize('view',Article::class);
 
-        $query = Article::paginate(15);
+        $query = Article::latest()->paginate(10);
+
+        return ArticleResource::collection($query);
+    }
+    
+    /**
+     * Display a listing of published resources.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function public()
+    {
+        $query = Article::where('is_published',true)->latest()->paginate(10);
+
+        return ArticleResource::collection($query);
+    }
+
+    /**
+     * Display a listing of drafted resources.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function drafts()
+    {
+        $this->authorize('view',Article::class);
+
+        $query = Article::where('is_published',false)->latest()->paginate(10);
 
         return ArticleResource::collection($query);
     }

@@ -38,12 +38,28 @@ class UserLoginIP
         $ip = $this->request->ip();
         $ua = $this->request->header('User-Agent');
 
-        DB::table('changelog_ips')->insert([
-            'user_id' => $user_id,
-            'ip_address' => $ip,
-            'user_agent' => $ua,
-            'type' => 'login',
-            'created_at' => now(),
-        ]);
+        $log = DB::table('changelog_ips')->where([
+                    ['user_id','=',$user_id],
+                    ['ip_address','=',$ip],
+                    ['type','=','login']
+                ]);
+
+        if($log->count() > 0)
+        {
+            $log->update([
+                'user_agent' => $ua,
+                'created_at' => now(),
+            ]);
+        }
+        else
+        {
+            DB::table('changelog_ips')->insert([
+                'user_id' => $user_id,
+                'ip_address' => $ip,
+                'user_agent' => $ua,
+                'type' => 'login',
+                'created_at' => now(),
+            ]);
+        }
     }
 }

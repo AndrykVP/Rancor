@@ -31,7 +31,7 @@ class ArticleResource extends JsonResource
                     'name' => $this->editor->name,
                 ];
             }),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('M j, Y, G:i e'),
             'updated_at' => $this->updated_at,
         ];
     }

@@ -20,8 +20,10 @@ class UserResource extends JsonResource
             'nickname' => $this->nickname,
             'avatar' => $this->avatar,
             'email' => $this->email,
-            'joined' => $this->created_at->format('M j Y, G:i'),
-            'last_login' => $this->last_login,
+            'joined' => $this->created_at->format('M j, Y, G:i e'),
+            'last_login' => $this->when($this->last_login != null, function() {
+                return $this->last_login->format('M j, Y, G:i e');
+            }),
             $this->mergeWhen($this->rank_id != null, function() {
                 return [
                     'rank' => [

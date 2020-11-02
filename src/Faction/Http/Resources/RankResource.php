@@ -14,6 +14,19 @@ class RankResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'level' => $this->level,
+            'department' => [
+                'id' => $this->department->id,
+                'name' => $this->department->name,
+            ],
+            'faction' => [
+                'id' => $this->department->faction->id,
+                'name' => $this->department->faction->name,
+            ],
+            'created_at' => $this->created_at->format('M j, Y, G:i e'),
+        ];
     }
 }

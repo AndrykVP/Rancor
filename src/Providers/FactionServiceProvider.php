@@ -65,5 +65,9 @@ class FactionServiceProvider extends ServiceProvider
         foreach ($this->policies as $key => $value) {
             Gate::policy($key, $value);
         }
+
+        Gate::define('manage-faction', function ($user) {
+            return $user->hasPermission('manage-faction');
+        });
     }
 }

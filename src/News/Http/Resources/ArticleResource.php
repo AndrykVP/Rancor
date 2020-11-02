@@ -32,7 +32,7 @@ class ArticleResource extends JsonResource
                 ];
             }),
             'created_at' => $this->created_at->format('M j, Y, G:i e'),
-            'updated_at' => $this->updated_at,
+            'updated_at' => $this->updated_at->format('M j, Y, G:i e'),
         ];
     }
 }

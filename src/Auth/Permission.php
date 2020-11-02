@@ -32,11 +32,4 @@ class Permission extends Model
     {
         return $this->morphedByMany('roles','permissible');
     }
-
-    /**
-     * The storage format of the model's date columns.
-     *
-     * @var string
-     */
-    protected $dateFormat = 'M j, Y, G:i e';
 }

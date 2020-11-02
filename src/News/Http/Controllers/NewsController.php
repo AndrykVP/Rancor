@@ -15,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $query = Article::where('is_published',true)->latest()->limit(10)->get();
+        $query = Article::where('is_published',true)->latest()->paginate(10);
 
         return ArticleResource::collection($query);
     }

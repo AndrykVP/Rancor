@@ -120,4 +120,19 @@ class UserController extends Controller
             'message' => 'User "'.$query->name.'" has been deleted'
         ], 200);        
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('view',User::class);
+        
+        $query = User::where('name','like','%'.$request->search.'%')->paginate(15);
+
+        return UserResource::collection($query);
+    }
 }

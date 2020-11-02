@@ -17,6 +17,7 @@ class CreateUserLogsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('updated_by')->nullable()->default(null);
             $table->text('action');
+            $table->string('color');
             $table->timestamp('created_at');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

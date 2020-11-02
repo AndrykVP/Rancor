@@ -14,6 +14,7 @@ class CreateIPLogsTable extends Migration
     public function up()
     {
         Schema::create('changelog_ips', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('ip_address');
             $table->longText('user_agent');

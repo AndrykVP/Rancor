@@ -5,4 +5,5 @@ Route::group(['namespace' => 'AndrykVP\Rancor\Auth\Http\Controllers', 'prefix' =
 	Route::apiResources([
 		'roles' => 'RoleController',
 	]);
+	Route::post('users/search', 'UserController@search')->name('users.search');
 });

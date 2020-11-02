@@ -48,7 +48,7 @@ class UserRegisteredIP
 
         DB::table('changelog_users')->insert([
             'user_id' => $user_id,
-            'action' => 'registered a new account',
+            'action' => 'Registered a new account',
             'color' => 'yellow',
             'created_at' => now(),
         ]);

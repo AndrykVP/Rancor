@@ -61,6 +61,10 @@ class PermissionSeeder extends Seeder
                 'description' => 'Can delete Scans'
             ],
             [
+                'name' => 'manage-faction',
+                'description' => 'Can access Faction management page'
+            ],
+            [
                 'name' => 'view-factions',
                 'description' => 'Can view Factions'
             ],

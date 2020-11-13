@@ -43,18 +43,20 @@ class Entry extends Model
     ];
 
     /**
-     * The primary keys of the table are not auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'scanner_entries';
+
+    /**
+     * Registers custom events for the model.
+     * 
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updating' => \AndrykVP\Rancor\Scanner\Events\EditScan::class,
+    ];
 
     /**
      * Relationship to Log model

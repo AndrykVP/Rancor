@@ -26,20 +26,13 @@ class Log extends Model
     ];
 
     /**
-     * The attributes that should be cast to date format.
+     * The attributes that should be cast to dates.
      *
      * @var array
      */
     protected $dates = [
-        'previously_seen', 'last_seen'
+        'created_at',
     ];
-
-    /**
-     * The primary keys of the table are not auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
 
     /**
      * Deactivating timestamp tables.
@@ -56,13 +49,25 @@ class Log extends Model
     protected $table = 'scanner_logs';
 
     /**
+     * Enable only 'created_at' column
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->created_at = $model->freshTimestamp();
+        });
+    }
+
+    /**
      * Relationship to User model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contributor()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_id');
     }
 
     /**

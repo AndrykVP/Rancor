@@ -5,4 +5,5 @@ Route::group(['namespace' => 'AndrykVP\Rancor\Scanner\Http\Controllers', 'prefix
 		'scans' => 'EntryController',
 	]);
 	Route::post('scans/search','EntryController@search');
+	Route::get('scans/logs/{id}','LogController');
 });

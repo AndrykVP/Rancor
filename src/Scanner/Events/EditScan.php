@@ -9,24 +9,22 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use AndrykVP\Rancor\Scanner\Entry;
 
 class EditScan
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $old_entry;
-    public $new_entry;
-    public $user_id;
+    public $entry;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($old, $new, $uid)
+    public function __construct(Entry $entry)
     {
-        $this->old_entry = $old;
-        $this->new_entry = $new;
-        $this->user_id = $uid;
+        $this->entry = $entry;
     }
 
     /**

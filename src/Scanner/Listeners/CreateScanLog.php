@@ -25,57 +25,34 @@ class CreateScanLog
      * @param  EditScan  $event
      * @return void
      */
-    public function handle(EditScan $event)
+public function handle(EditScan $event)
+{
+    if($event->entry->isDirty('type') || $event->entry->isDirty('name') || $event->entry->isDirty('owner') || $event->entry->isDirty('position'))
     {
-        $compare = $this->compareProps($event->new_entry,$event->old_entry);
-
-        if($compare)
+        $log = new Log;
+        $log->entry_id = $event->entry->id;
+        $log->user_id = $event->entry->updated_by;
+        if($event->entry->isDirty('type'))
         {
-            $log = new Log;
-            $log->entry_id = $event->old_entry['id'];
-            $log->user_id = $event->user_id;
-            $log->new_type = isset($event->new_entry['type']) && $event->new_entry['type'] != $event->old_entry['type'] ? $event->new_entry['type'] : null;
-            $log->old_type = isset($event->new_entry['type']) && $event->new_entry['type'] != $event->old_entry['type'] ? $event->old_entry['type'] : null;
-            $log->new_name = isset($event->new_entry['name']) && $event->new_entry['name'] != $event->old_entry['name'] ? $event->new_entry['name'] : null;
-            $log->old_name = isset($event->new_entry['name']) && $event->new_entry['name'] != $event->old_entry['name'] ? $event->old_entry['name'] : null;
-            $log->new_owner = isset($event->new_entry['owner']) && $event->new_entry['owner'] != $event->old_entry['owner'] ? $event->new_entry['owner'] : null;
-            $log->old_owner = isset($event->new_entry['owner']) && $event->new_entry['owner'] != $event->old_entry['owner'] ? $event->old_entry['owner'] : null;
-            $log->new_position = isset($event->new_entry['position']) && $event->new_entry['position'] != $event->old_entry['position'] ? $event->new_entry['position'] : null;
-            $log->old_position = isset($event->new_entry['position']) && $event->new_entry['position'] != $event->old_entry['position'] ? $event->old_entry['position'] : null;
-            $log->recently_seen = isset($event->new_entry['last_seen']) ? $event->new_entry['last_seen']->toDateTimeString() : null;
-            $log->previously_seen = isset($event->new_entry['last_seen']) ? $event->old_entry['last_seen']->toDateTimeString() : null;
-            $log->updated_at = now();
-            $log->save();
+            $log->new_type = $event->entry->type;
+            $log->old_type = $event->entry->getOriginal('type');
         }
+        if($event->entry->isDirty('name'))
+        {
+            $log->new_name = $event->entry->name;
+            $log->old_name = $event->entry->getOriginal('name');
+        }
+        if($event->entry->isDirty('owner'))
+        {
+            $log->new_owner = $event->entry->owner;
+            $log->old_owner = $event->entry->getOriginal('owner');
+        }
+        if($event->entry->isDirty('position'))
+        {
+            $log->new_position = $event->entry->position;
+            $log->old_position = $event->entry->getOriginal('position');
+        }
+        $log->save();
     }
-
-    /**
-     * Private function that helps compare an updated Entry model
-     * against a previously stored one in the database.
-     * 
-     * @param array $new
-     * @param array $old
-     * @return boolean
-     */
-    private function compareProps($new,$old)
-    {
-        $values = [];
-
-        foreach($old as $key => $value)
-        {
-            if(isset($new[$key]) && $new[$key] != $old[$key])
-            {
-                $values[] = $value;
-            }
-        }
-
-        if(empty($values))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+}
 }

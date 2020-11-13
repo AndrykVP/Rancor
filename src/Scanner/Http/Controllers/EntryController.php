@@ -8,6 +8,7 @@ use AndrykVP\Rancor\Scanner\Entry;
 use AndrykVP\Rancor\Scanner\Log;
 use AndrykVP\Rancor\Scanner\Events\EditScan;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
+use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -55,14 +56,14 @@ class EntryController extends Controller
             ],400);
         }
 
-        $scan = $request->file('files');
+        $entry = $request->file('files');
         $contributor = $request->user();
         $updated = 0;
         $new = 0;
         $unchanged = 0;
 
-        foreach($scan as $entry)
-        {
+        //foreach($scan as $entry)
+        //{
             $xml = File::get($entry);
             $parse = simplexml_load_string($xml);
             $parse = json_decode(json_encode($parse));
@@ -76,18 +77,20 @@ class EntryController extends Controller
             {
                 if(property_exists($ship,'entityID'))
                 {
-                    $model = Entry::find($ship->entityID);
+                    $model = Entry::where([
+                        ['entity_id',$ship->entityID],
+                        ['type',$ship->typeName],
+                    ])->first();
                     $new_data = $this->parseModel($ship,$location,$date);
     
                     if($model == null)
                     {
                         $model = new Entry;
-                        $model->id = $ship->entityID;
+                        $model->entity_id = $ship->entityID;
                         $new += 1;
                     }
                     elseif($model != null && $model->last_seen < $new_data['last_seen'])
                     {
-                        EditScan::dispatch($model->toArray(),$new_data,$contributor->id);
                         $updated += 1;
                     }
                     else
@@ -106,7 +109,7 @@ class EntryController extends Controller
 
                 }
             }
-        }
+        //}
 
         return response()->json([
             'updated' => $updated,
@@ -143,14 +146,12 @@ class EntryController extends Controller
         $contributor = $request->user();
         $new_data = $request->all();
 
-        $record = Entry::findOrFail($id);
-
-        EditScan::dispatch($record->toArray(),$new_data,$contributor->id);
-        
+        $record = Entry::findOrFail($id);        
         $record->updated_by = $contributor->id;
-        $record->update($new_data);    
+        $record->update($new_data);
+        
         return response()->json([
-            'message' => 'Record for '.$record->type.' "'.$record->name.'" (#'.$record->id.') has been updated.',
+            'message' => 'Record for '.$record->type.' "'.$record->name.'" (#'.$record->entity_id.') has been updated.',
         ],200);
     }
 
@@ -168,7 +169,7 @@ class EntryController extends Controller
         $Entry->delete();
 
         return response()->json([
-            'message' => 'All records of the Entry "'.$Entry->name.'" (#'.$Entry->id.') have been successfully deleted.'
+            'message' => 'All records of the Entry "'.$Entry->name.'" (#'.$Entry->entity_id.') have been successfully deleted.'
         ],200);
     }
 
@@ -178,17 +179,19 @@ class EntryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(SearchEntry $request)
     {
         $this->authorize('view',Entry::class);
 
-        $param = $request->parameter;
-        $record = Entry::where('id',$param)
-                        ->orWhere('type','like','%'.$param.'%')
-                        ->orWhere('owner','like','%'.$param.'%')
-                        ->paginate(15);
+        $query = $request->all();
 
+        $attribute = $query['attribute'];
+        $value = $query['value'];
+        $record = Entry::where($attribute,'like','%'.$value.'%')->paginate(15);
+        
         return EntryResource::collection($record);
+
+
     }
 
     /**

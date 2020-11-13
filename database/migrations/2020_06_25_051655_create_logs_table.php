@@ -14,6 +14,7 @@ class CreateLogsTable extends Migration
     public function up()
     {
         Schema::create('scanner_logs', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('entry_id');
             $table->unsignedBigInteger('user_id');
             $table->string('old_type')->nullable();
@@ -24,9 +25,7 @@ class CreateLogsTable extends Migration
             $table->string('new_owner')->nullable();
             $table->json('old_position')->nullable();
             $table->json('new_position')->nullable();
-            $table->timestamp('previously_seen')->nullable();
-            $table->timestamp('recently_seen')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nullable();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('entry_id')->references('id')->on('scanner_entries')->onDelete('cascade');

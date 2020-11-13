@@ -14,7 +14,8 @@ class CreateEntriesTable extends Migration
     public function up()
     {
         Schema::create('scanner_entries', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('entity_id');
             $table->string('type')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
             $table->string('owner')->nullable()->default(null);
@@ -23,7 +24,6 @@ class CreateEntriesTable extends Migration
             $table->timestamps();
             $table->timestamp('last_seen')->nullable()->default(null);
 
-            $table->primary('id');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }

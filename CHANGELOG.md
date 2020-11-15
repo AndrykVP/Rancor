@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Released]
 
+## [1.2.2] - 2020-11-14
+### Added
+- Column `color` on `user_logs` table for UI display
+- Audit/LogController to include more information on JSON request
+- Permission `manage-faction` and its respective Gate for easier rendering of conditional menus in Navbar
+- Custom date format on all resources
+- Search method on UserController
+- New `drafts()` method on `News/ArticleController` to see only drafted articles
+
+### Changed
+- Moved config files from individual modules to a `config/` folder in root directory
+- Moved `index()` method on `News/NewsController` to `public()` method on `News/ArticleController`
+
+### Fixed
+- Audit module's logging of user IPs on registration and login
+
+### Deleted
+- News/NewsController, as it's only relevant method was moved to `News/ArticleController`
+
+
 ## [1.2.1] - 2020-08-26
 ### Fixed
 - Listener for `Audit` module to log when a User's rank changes, now checks first if the rank_id column changed, and also that the previous rank_id was not null. Otherwise creates a first log.

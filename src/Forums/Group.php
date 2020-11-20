@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $table = 'forum_groups';
+
+    /**
      * Attributes available for mass assignment
      * 
      * @var array
@@ -18,7 +25,7 @@ class Group extends Model
      * 
      * @var string
      */
-    protected $table = 'forum_groups';
+    protected $hidden = ['pivot'];
 
     /**
      * Relationship to User model
@@ -27,7 +34,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User','forum_group_user')->withTimestamps();
     }
 
     /**
@@ -37,6 +44,6 @@ class Group extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Category');
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Category','forum_category_group')->withTimestamps();
     }
 }

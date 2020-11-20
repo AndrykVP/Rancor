@@ -7,18 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $table = 'forum_categories';
+    
+    /**
      * Attributes available for mass assignment
      * 
      * @var array
      */
-    protected $fillable = [ 'title', 'color' ];
+    protected $fillable = [ 'title', 'color', 'slug' ];
+
 
     /**
      * Defines the table name
      * 
      * @var string
      */
-    protected $table = 'forum_categories';
+    protected $hidden = ['pivot'];
 
     /**
      * Relationship to Group model
@@ -27,7 +35,7 @@ class Category extends Model
      */
     public function group()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group');
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_category_group')->withTimestamps();
     }
 
     /**

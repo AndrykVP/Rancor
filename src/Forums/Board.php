@@ -21,6 +21,16 @@ class Board extends Model
     protected $table = 'forum_boards';
 
     /**
+     * Relationship to Discussion model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function category()
+    {
+        return $this->belongsTo('AndrykVP\Rancor\Forums\Category');
+    }
+
+    /**
      * Inverse Relationship to Board model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -61,6 +61,16 @@ class Board extends Model
     }
 
     /**
+     * Relationship to User model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function moderators()
+    {
+        return $this->belongsToMany('App\User', 'forum_board_user');
+    }
+
+    /**
      * Relationship to Reply model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -22,8 +22,15 @@
         </ul>
     </nav>
     -->
+    <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
+             <li class="breadcrumb-item"><a href="/forums/category/{{$discussion->board->category->slug}}" id="category-breadcrumb">{{$discussion->board->category->title}}</a></li>
+             <li class="breadcrumb-item"><a href="/forums/board/{{$discussion->board->slug}}" id="board-breadcrumb">{{$discussion->board->title}}</a></li>
+       </ol>
+    </nav>
     <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col">
           <div class="card mb-4">
             <div class="card-header">{{ __($discussion->title) }}</div>
                 @foreach($replies as $reply)

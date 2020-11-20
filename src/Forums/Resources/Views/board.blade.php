@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="container">
-   @if(count($boards) > 0)
+   <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="/forums" id="index-breadcrumb">{{ __('Index') }}</a></li>
+         <li class="breadcrumb-item"><a href="/forums/category/{{$board->category->slug}}" id="category-breadcrumb">{{$board->category->title}}</a></li>
+      </ol>
+   </nav>
+   @if(count($board->children) > 0)
    <div class="row justify-content-center">
       <div class="col">
          <div class="card mb-4">
@@ -17,10 +23,10 @@
                   </tr>
                </thead>
                <tbody>
-                  @foreach($boards as $board)
+                  @foreach($board->children as $board)
                   <tr class="d-flex">
                      <td class="col-8">
-                        <a class="h5" href="/forums/{{ $board->slug }}">{{ __($board->title) }}</a><br>
+                        <a class="h5" href="/forums/board/{{ $board->slug }}">{{ __($board->title) }}</a><br>
                         <span class="text-muted">{{ __($board->description) }}</span>
                         @if(count($board->children) > 0)
                         <br/><strong>Child Boards:</strong>

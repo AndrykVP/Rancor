@@ -50,7 +50,7 @@ class ForumsServiceProvider extends ServiceProvider
             __DIR__.'/../Forums/Http/Resources' => app_path('Http/Resources/Rancor/Forums'),
         ], 'http');        
         $this->publishes([
-            __DIR__.'/../Forums/Resources/Views' => resource_path('views/andrykvp/rancor'),
+            __DIR__.'/../Forums/Resources/Views' => resource_path('views/rancor/forums'),
         ], 'views');        
     }
 

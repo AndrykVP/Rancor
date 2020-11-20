@@ -8,6 +8,7 @@ use AndrykVP\Rancor\Forums\Board;
 use AndrykVP\Rancor\Forums\Category;
 use AndrykVP\Rancor\Forums\Discussion;
 use AndrykVP\Rancor\Forums\Reply;
+use Auth;
 
 class ForumController extends Controller
 {
@@ -18,7 +19,9 @@ class ForumController extends Controller
     */
    public function __construct()
    {
-      //
+      $this->middleware('auth');
+      $this->middleware('forum.board')->only('board');
+      $this->middleware('forum.discussion')->only('discussion');
    }
    
    /**
@@ -28,12 +31,28 @@ class ForumController extends Controller
     */
    public function index()
    {
-      $categories = Category::with(['boards' => function($query) {
+      $user_categories = Auth::user()->getCategoryIDs();
+
+      $categories = Category::whereIn('id',$user_categories)->with(['boards' => function($query) {
          $query->withCount('discussions','replies','children')->with('latest_reply')->where('parent_id',null)->orderBy('order');
       }])->get();
 
       return view('rancor.forums::index',['categories' => $categories]);
    }
+
+   /**
+    * Display a listing of parent categories.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function category($slug)
+    { 
+       $categories = Category::where('slug',$slug)->with(['boards' => function($query) {
+          $query->withCount('discussions','replies','children')->with('latest_reply')->where('parent_id',null)->orderBy('order');
+       }])->get();
+ 
+       return view('rancor.forums::index',['categories' => $categories]);
+    }
    
    /**
     * Display the specified Board.
@@ -46,8 +65,6 @@ class ForumController extends Controller
          $query->withCount('discussions','replies','children')->with('latest_reply')->orderBy('order');
       }])->where('slug',$slug)->first();
 
-      if($board == null) abort(404);
-
       $sticky = Discussion::withCount('replies')->where([
          ['board_id',$board->id],
          ['is_sticky',true],
@@ -58,7 +75,7 @@ class ForumController extends Controller
          ['is_sticky',false],
       ])->get();
 
-      return view('rancor.forums::Board',['boards' => $board->children, 'sticky' => $sticky, 'normal' => $normal]);
+      return view('rancor.forums::Board',['board' => $board, 'sticky' => $sticky, 'normal' => $normal]);
    }
    
    /**
@@ -68,7 +85,7 @@ class ForumController extends Controller
     */
    public function discussion($id)
    {
-      $discussion = Discussion::with('board')->findOrFail($id);
+      $discussion = Discussion::with('board')->find($id);
       $replies = Reply::with('author')->where('discussion_id',$id)->paginate(20);
 
       return view('rancor.forums::discussion',['discussion' => $discussion, 'replies' => $replies ]);

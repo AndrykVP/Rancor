@@ -3,7 +3,17 @@
 namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use AndrykVP\Rancor\Faction\Faction;
+use Illuminate\Support\Facades\Gate;
+use AndrykVP\Rancor\Forum\Board;
+use AndrykVP\Rancor\Forum\Category;
+use AndrykVP\Rancor\Forum\Discussion;
+use AndrykVP\Rancor\Forum\Group;
+use AndrykVP\Rancor\Forum\Reply;
+use AndrykVP\Rancor\Forum\Policies\BoardPolicy;
+use AndrykVP\Rancor\Forum\Policies\CategoryPolicy;
+use AndrykVP\Rancor\Forum\Policies\DiscussionPolicy;
+use AndrykVP\Rancor\Forum\Policies\GroupPolicy;
+use AndrykVP\Rancor\Forum\Policies\ReplyPolicy;
 
 class ForumsServiceProvider extends ServiceProvider
 {
@@ -13,7 +23,11 @@ class ForumsServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-       //
+       Board::class => BoardPolicy::class,
+       Category::class => CategoryPolicy::class,
+       Discussion::class => DiscussionPolicy::class,
+       Group::class => GroupPolicy::class,
+       Reply::class => BoardPolicy::class,
     ];
 
     /**

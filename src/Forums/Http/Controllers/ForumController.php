@@ -20,8 +20,6 @@ class ForumController extends Controller
    public function __construct()
    {
       $this->middleware('auth');
-      $this->middleware('forum.board')->only('board');
-      $this->middleware('forum.discussion')->only('discussion');
    }
    
    /**
@@ -47,11 +45,13 @@ class ForumController extends Controller
     */
     public function category($slug)
     { 
-       $categories = Category::where('slug',$slug)->with(['boards' => function($query) {
+       $category = Category::where('slug',$slug)->with(['boards' => function($query) {
           $query->withCount('discussions','replies','children')->with('latest_reply')->where('parent_id',null)->orderBy('order');
-       }])->get();
+       }])->first();
+
+       $this->authorize('view',$category);
  
-       return view('rancor.forums::index',['categories' => $categories]);
+       return view('rancor.forums::category',['category' => $category]);
     }
    
    /**
@@ -64,6 +64,9 @@ class ForumController extends Controller
       $board = Board::with(['children' => function($query) {
          $query->withCount('discussions','replies','children')->with('latest_reply')->orderBy('order');
       }])->where('slug',$slug)->first();
+
+      if($board == null) abort(404);
+      $this->authorize('view',$board);
 
       $sticky = Discussion::withCount('replies')->where([
          ['board_id',$board->id],
@@ -85,7 +88,10 @@ class ForumController extends Controller
     */
    public function discussion($id)
    {
-      $discussion = Discussion::with('board')->find($id);
+      $discussion = Discussion::with('board')->findOrFail($id);
+
+      $this->authorize('view',$discussion);
+
       $replies = Reply::with('author')->where('discussion_id',$id)->paginate(20);
 
       return view('rancor.forums::discussion',['discussion' => $discussion, 'replies' => $replies ]);

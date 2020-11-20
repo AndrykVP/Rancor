@@ -17,6 +17,7 @@ class FrameworkServiceProvider extends ServiceProvider
         $this->app->register(AuditServiceProvider::class);  
         $this->app->register(AuthServiceProvider::class);  
         $this->app->register(FactionServiceProvider::class); 
+        $this->app->register(ForumsServiceProvider::class); 
         $this->app->register(NewsServiceProvider::class);  
     }
 
@@ -39,7 +40,8 @@ class FrameworkServiceProvider extends ServiceProvider
 
         // Publishes config files
         $this->publishes([
-            __DIR__.'/../../config/auth.php' => config_path('rancor.php'),
+            __DIR__.'/../../config/app.php' => config_path('rancor.php'),
+            __DIR__.'/../../config/forums.php' => config_path('rancor.forums.php'),
         ],'config');
     }
 }

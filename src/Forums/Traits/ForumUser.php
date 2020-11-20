@@ -31,6 +31,10 @@ trait ForumUser
      */
     public function getCategoryIDs()
     {
+        if($this->hasPermission('view-forum-categories'))
+        {
+            return Category::all()->pluck('id')->toArray();
+        }
         return $this->groups->pluck('categories')->collapse()->pluck('id')->toArray();
     }
 }

@@ -17,9 +17,11 @@ class AlterUsersTable extends Migration
             $table->string('avatar')->nullable()->default(null)->after('name');
             $table->mediumtext('nickname')->nullable()->default(null)->after('email');
             $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('nickname');
+            $table->unsignedBigInteger('group_id')->nullable()->default(null)->after('rank_id');
             $table->timestamp('last_login')->nullable()->default(null);
 
             $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('set null');
+            $table->foreign('group_id')->references('id')->on('forum_groups')->onDelete('set null');
         });
     }
 

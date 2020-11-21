@@ -27,7 +27,7 @@ class ReplyController extends Controller
      */
     public function index()
     {
-        $replies = Reply::all();
+        $replies = Reply::all()->paginate(20);
 
         return ReplyResource::collection($replies);
     }
@@ -43,7 +43,11 @@ class ReplyController extends Controller
         $this->authorize('create',Reply::class);
         
         $data = $request->all();
-        $reply = Reply::create($data);
+        $reply = Reply::create([
+            'body' => $data['body'],
+            'discussion_id' => $data['discussion_id'],
+            'author_id' => $data['user_id'],
+        ]);
 
         return response()->json([
             'message' => 'Reply has been posted'
@@ -60,7 +64,7 @@ class ReplyController extends Controller
     {
         $this->authorize('view',$reply);
 
-        return new ReplyResource($reply->load('author','discussion'));
+        return new ReplyResource($reply->load('author','discussion','editor'));
     }
 
     /**
@@ -75,7 +79,11 @@ class ReplyController extends Controller
         $this->authorize('update',$reply);
         
         $data = $request->all();
-        $reply->update($data);
+        $reply->update([
+            'body' => $data['body'],
+            'discussion_id' => $data['discussion_id'],
+            'editor_id' => $data['user_id'],
+        ]);
 
         return response()->json([
             'message' => 'Reply #'.$reply->id.' has been updated'

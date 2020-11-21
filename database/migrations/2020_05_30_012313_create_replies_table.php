@@ -17,11 +17,13 @@ class CreateRepliesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('discussion_id');
             $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('editor_id')->nullable()->default(null);
             $table->longText('body');
             $table->timestamps();
 
             $table->foreign('discussion_id')->references('id')->on('forum_discussions')->onDelete('cascade');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('editor_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

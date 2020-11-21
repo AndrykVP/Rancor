@@ -18,6 +18,18 @@ class DiscussionForm extends FormRequest
     }
 
     /**
+     * Prepare the data for validation
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -30,7 +42,7 @@ class DiscussionForm extends FormRequest
             'title' => 'required|string',
             'is_sticky' => 'required|boolean',
             'board_id' => 'required|integer|exists:forum_boards,id',
-            'author_id' => 'required|integer|exists:users,id',
+            'user_id' => 'required|integer|exists:users,id',
         ];
     }
 }

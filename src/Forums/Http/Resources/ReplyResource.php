@@ -19,6 +19,7 @@ class ReplyResource extends JsonResource
             'id' => $this->id,
             'body' => clean($this->body),
             'author' => new UserResource($this->whenLoaded('author')),
+            'editor' => new UserResource($this->whenLoaded('editor')),
             'discussion' => new DiscussionResource($this->whenLoaded('discussion')),
             'created_at' => $this->created_at->format(config('rancor.dateFormat')),
             'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),

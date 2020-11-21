@@ -11,7 +11,7 @@ class Reply extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'body', 'discussion_id', 'author_id' ];
+    protected $fillable = [ 'body', 'discussion_id', 'author_id', 'editor_id' ];
 
     /**
      * Defines the table name
@@ -35,6 +35,16 @@ class Reply extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function author()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Relationship to User model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function editor()
     {
         return $this->belongsTo('App\User');
     }

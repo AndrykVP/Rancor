@@ -16,6 +16,18 @@ class ReplyForm extends FormRequest
     {
         return true;
     }
+    
+    /**
+     * Prepare the data for validation
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+        ]);
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -29,7 +41,7 @@ class ReplyForm extends FormRequest
         return [
             'body' => 'required|string|min:6',
             'discussion_id' => 'required|integer|exists:forum_discussions,id',
-            'author_id' => 'required|integer|exists:users,id',
+            'user_id' => 'required|integer|exists:users,id',
         ];
     }
 }

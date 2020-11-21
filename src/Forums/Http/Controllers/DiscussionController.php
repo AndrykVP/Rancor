@@ -43,7 +43,12 @@ class DiscussionController extends Controller
         $this->authorize('create',Discussion::class);
         
         $data = $request->all();
-        $discussion = Discussion::create($data);
+        $discussion = Discussion::create([
+            'title' => $data['title'],
+            'is_sticky' => $data['is_sticky'],
+            'board_id' => $data['board_id'],
+            'author_id' => $data['user_id'],
+        ]);
 
         return response()->json([
             'message' => 'Discussion "'.$discussion->title.'" has been created'
@@ -75,7 +80,12 @@ class DiscussionController extends Controller
         $this->authorize('update',$discussion);
         
         $data = $request->all();
-        $discussion->update($data);
+        $discussion->update([
+            'title' => $data['title'],
+            'is_sticky' => $data['is_sticky'],
+            'board_id' => $data['board_id'],
+            'editor_id' => $data['user_id'],
+        ]);
 
         return response()->json([
             'message' => 'Discussion "'.$discussion->title.'" has been updated'

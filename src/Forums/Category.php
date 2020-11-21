@@ -18,7 +18,7 @@ class Category extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'title', 'color', 'slug' ];
+    protected $fillable = [ 'title', 'color', 'slug', 'order' ];
 
 
     /**
@@ -33,7 +33,7 @@ class Category extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function group()
+    public function groups()
     {
         return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_category_group')->withTimestamps();
     }

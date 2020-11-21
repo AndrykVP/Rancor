@@ -18,7 +18,6 @@ class CreateDiscussionsTable extends Migration
             $table->string('title');
             $table->boolean('is_sticky');
             $table->unsignedBigInteger('views')->default(0);
-            $table->unsignedBigInteger('replies')->default(0);
             $table->unsignedBigInteger('board_id');
             $table->unsignedBigInteger('author_id');
             $table->timestamps();

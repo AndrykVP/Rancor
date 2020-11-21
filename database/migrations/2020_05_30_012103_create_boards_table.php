@@ -16,7 +16,7 @@ class CreateBoardsTable extends Migration
         Schema::create('forum_boards', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable()->default(null);
             $table->string('slug')->unique();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('parent_id')->nullable()->default(null);

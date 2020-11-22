@@ -82,4 +82,20 @@ class DiscussionPolicy
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Delete this Forum Discussion.');
     }
+
+    /**
+     * Determine whether the user can post to the model.
+     *
+     * @param  \App\User  $user
+     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @return mixed
+     */
+    public function post(User $user, Discussion $discussion)
+    {
+        return !$discussion->is_locked
+                || $discussion->author_id === $user->id
+                || $user->hasPermission('update-forum-discussions')
+                ? Response::allow()
+                : Response::deny('You do not have Permissions to Reply to this Forum Discussion.');
+    }
 }

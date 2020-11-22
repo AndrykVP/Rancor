@@ -15,7 +15,7 @@ class BoardResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resource = [
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
@@ -29,5 +29,18 @@ class BoardResource extends JsonResource
             'created_at' => $this->created_at->format(config('rancor.dateFormat')),
             'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
         ];
+
+
+        if ($this->discussions_count) {
+            $resource['discussions_count'] = $this->discussions_count;
+        }
+        if ($this->children_count) {
+            $resource['children_count'] = $this->children_count;
+        }
+        if ($this->replies_count) {
+            $resource['replies_count'] = $this->replies_count;
+        }
+
+        return $resource;
     }
 }

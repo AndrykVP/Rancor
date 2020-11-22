@@ -24,6 +24,17 @@ trait ForumUser
     {
         return $this->belongsToMany('AndrykVP\Rancor\Forums\Board', 'forum_board_user');
     }
+
+    /**
+     * Relationship to Board model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function replies()
+    {
+        return $this->hasMany('AndrykVP\Rancor\Forums\Reply', 'author_id');
+    }
+
     /**
      * Relationship to Categories model through Group model
      * 
@@ -31,10 +42,17 @@ trait ForumUser
      */
     public function getCategoryIDs()
     {
+        $cacheKey = `USER.{$this->id}.CATEGORIES`;
+        $timeLimit = now()->addMinutes(5);
+
         if($this->hasPermission('view-forum-categories'))
         {
-            return Category::all()->pluck('id')->toArray();
+            return cache()->remember($cacheKey, $timeLimit, function() {
+                return Category::all()->pluck('id')->toArray();
+            });
         }
-        return $this->groups->pluck('categories')->collapse()->pluck('id')->toArray();
+        return cache()->remember($cacheKey, $timeLimit, function() {
+            return $this->groups->pluck('categories')->collapse()->pluck('id')->toArray();
+        });
     }
 }

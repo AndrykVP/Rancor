@@ -3,6 +3,9 @@
 namespace AndrykVP\Rancor\Auth\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use AndrykVP\Rancor\Faction\Http\Resources\RankResource;
+use AndrykVP\Rancor\Faction\Http\Resources\DepartmentResource;
+use AndrykVP\Rancor\Faction\Http\Resources\FactionResource;
 
 class UserResource extends JsonResource
 {
@@ -20,49 +23,14 @@ class UserResource extends JsonResource
             'nickname' => $this->nickname,
             'avatar' => $this->avatar,
             'email' => $this->email,
+            'rank' => new RankResource($this->whenLoaded('rank')),
+            'department' => new DepartmentResource($this->whenLoaded('rank.department')),
+            'faction' => new FactionResource($this->whenLoaded('rank.department.faction')),
+            'permissions' => new PermissionResource($this->whenLoaded('permissions')),
+            'roles' => new RoleResource($this->whenLoaded('roles')),
             'joined' => $this->created_at->format('M j, Y, G:i e'),
             'last_login' => $this->when($this->last_login != null, function() {
                 return $this->last_login->format('M j, Y, G:i e');
-            }),
-            $this->mergeWhen($this->rank_id != null, function() {
-                return [
-                    'rank' => [
-                        'id' => $this->rank->id,
-                        'name' => $this->rank->name
-                    ],
-                    'department' => [
-                        'id' => $this->rank->department->id,
-                        'name' => $this->rank->department->name
-                    ],
-                    'faction' => [
-                        'id' => $this->rank->department->faction->id,
-                        'name' => $this->rank->department->faction->name
-                    ],
-                ];
-            }),
-            'permissions' => $this->when($this->permissions()->count() > 0, function() {
-                $array = [];
-                foreach($this->permissions as $permission)
-                {
-                    $array[] = [
-                        'id' => $permission->id,
-                        'name' => $permission->name
-                    ];
-                }
-
-                return $array;
-            }),
-            'roles' => $this->when($this->roles()->count() > 0, function() {
-                $array = [];
-                foreach($this->roles as $role)
-                {
-                    $array[] = [
-                        'id' => $role->id,
-                        'name' => $role->name
-                    ];
-                }
-
-                return $array;
             }),
         ];;
     }

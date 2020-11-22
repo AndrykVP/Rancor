@@ -11,7 +11,7 @@ class Discussion extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'title', 'is_sticky', 'board_id', 'author_id' ];
+    protected $fillable = [ 'title', 'is_sticky', 'is_locked', 'board_id', 'author_id' ];
 
     /**
      * Defines the table name
@@ -27,6 +27,7 @@ class Discussion extends Model
      */
     protected $casts = [
         'is_sticky' => 'boolean',
+        'is_locked' => 'boolean',
     ];
 
     /**

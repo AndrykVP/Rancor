@@ -35,7 +35,9 @@ class BoardPolicy
     {
         $categoryIDs = $user->getCategoryIDs();
 
-        return $board->moderators->contains($user) || in_array($board->category_id,$categoryIDs)
+        return $board->moderators->contains($user)
+                || in_array($board->category_id,$categoryIDs)
+                || $user->hasPermission('view-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Board.');
     }
@@ -81,5 +83,23 @@ class BoardPolicy
         return $user->hasPermission('delete-forum-boards')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Delete this Forum Board.');
+    }
+
+    /**
+     * Determine whether the user can post to the model.
+     *
+     * @param  \App\User  $user
+     * @param  \AndrykVP\Rancor\Forums\Board  $board
+     * @return mixed
+     */
+    public function post(User $user, Board $board)
+    {
+        $categoryIDs = $user->getCategoryIDs();
+
+        return $board->moderators->contains($user)
+                || in_array($board->category_id,$categoryIDs)
+                || $user->hasPermission('update-forum-discussions')
+                ? Response::allow()
+                : Response::deny('You do not have Permissions to Create a Discussion in this Forum Board.');
     }
 }

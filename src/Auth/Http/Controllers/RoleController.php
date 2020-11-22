@@ -42,7 +42,7 @@ class RoleController extends Controller
     {
         $this->authorize('create',Role::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Role::create($data);
 
         return response()->json([
@@ -76,7 +76,7 @@ class RoleController extends Controller
     {
         $this->authorize('update',Role::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Role::findOrFail($id);
         $query->update($data);
 

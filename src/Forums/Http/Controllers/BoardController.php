@@ -42,7 +42,7 @@ class BoardController extends Controller
     {
         $this->authorize('create',Board::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $board = Board::create($data);
 
         return response()->json([
@@ -74,7 +74,7 @@ class BoardController extends Controller
     {
         $this->authorize('update',$board);
         
-        $data = $request->all();
+        $data = $request->validated();
         $board->update($data);
 
         return response()->json([

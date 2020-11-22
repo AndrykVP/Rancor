@@ -25,10 +25,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $this->authorize('viewAny',Cateogry::class);
 
+        $category = Category::all();
+        
         return CategoryResource::collection($categories);
     }
 
@@ -42,7 +44,7 @@ class CategoryController extends Controller
     {
         $this->authorize('create',Category::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $category = Category::create($data);
 
         return response()->json([
@@ -74,7 +76,7 @@ class CategoryController extends Controller
     {
         $this->authorize('update',$category);
         
-        $data = $request->all();
+        $data = $request->validated();
         $category->update($data);
 
         return response()->json([

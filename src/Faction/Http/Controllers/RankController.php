@@ -42,7 +42,7 @@ class RankController extends Controller
     {
         $this->authorize('create',Rank::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Rank::create($data);
 
         return response()->json([
@@ -76,7 +76,7 @@ class RankController extends Controller
     {
         $this->authorize('update',Rank::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Rank::findOrFail($id);
         $query->update($data);
 

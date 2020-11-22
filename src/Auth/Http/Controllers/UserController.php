@@ -63,7 +63,7 @@ class UserController extends Controller
     public function update(UserForm $request, $id)
     {
         $query = User::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
 
         if($request->user()->can('update', User::class) || $request->user()->id == $id)
         {

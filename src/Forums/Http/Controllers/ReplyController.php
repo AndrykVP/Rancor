@@ -27,7 +27,7 @@ class ReplyController extends Controller
      */
     public function index()
     {
-        $replies = Reply::all()->paginate(20);
+        $replies = Reply::paginate(20);
 
         return ReplyResource::collection($replies);
     }
@@ -42,7 +42,7 @@ class ReplyController extends Controller
     {
         $this->authorize('create',Reply::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $reply = Reply::create([
             'body' => $data['body'],
             'discussion_id' => $data['discussion_id'],
@@ -78,7 +78,7 @@ class ReplyController extends Controller
     {
         $this->authorize('update',$reply);
         
-        $data = $request->all();
+        $data = $request->validated();
         $reply->update([
             'body' => $data['body'],
             'discussion_id' => $data['discussion_id'],

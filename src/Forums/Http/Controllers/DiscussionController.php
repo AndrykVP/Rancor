@@ -27,7 +27,7 @@ class DiscussionController extends Controller
      */
     public function index()
     {
-        $discussions = Discussion::all();
+        $discussions = Discussion::paginate(20);
 
         return DiscussionResource::collection($discussions);
     }
@@ -42,7 +42,7 @@ class DiscussionController extends Controller
     {
         $this->authorize('create',Discussion::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $discussion = Discussion::create([
             'title' => $data['title'],
             'is_sticky' => $data['is_sticky'],
@@ -79,7 +79,7 @@ class DiscussionController extends Controller
     {
         $this->authorize('update',$discussion);
         
-        $data = $request->all();
+        $data = $request->validated();
         $discussion->update([
             'title' => $data['title'],
             'is_sticky' => $data['is_sticky'],

@@ -42,7 +42,7 @@ class GroupController extends Controller
     {
         $this->authorize('create',Group::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $group = Group::create($data);
 
         return response()->json([
@@ -74,7 +74,7 @@ class GroupController extends Controller
     {
         $this->authorize('update',$group);
         
-        $data = $request->all();
+        $data = $request->validated();
         $group->update($data);
 
         return response()->json([

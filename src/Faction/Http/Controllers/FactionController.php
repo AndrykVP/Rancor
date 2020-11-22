@@ -42,7 +42,7 @@ class FactionController extends Controller
     {
         $this->authorize('create',Faction::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Faction::create($data);
 
         return response()->json([
@@ -76,7 +76,7 @@ class FactionController extends Controller
     {
         $this->authorize('update',Faction::class);
         
-        $data = $request->all();
+        $data = $request->validated();
 
         $query = Faction::findOrFail($id);
         $query->update($data);

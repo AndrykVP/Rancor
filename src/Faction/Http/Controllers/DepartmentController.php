@@ -42,7 +42,7 @@ class DepartmentController extends Controller
     {
         $this->authorize('create',Department::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Department::create($data);
 
         return response()->json([
@@ -76,7 +76,7 @@ class DepartmentController extends Controller
     {
         $this->authorize('update',Department::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Department::findOrFail($id);
         $query->update($data);
 

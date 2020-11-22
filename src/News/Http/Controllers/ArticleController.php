@@ -70,7 +70,7 @@ class ArticleController extends Controller
     {
         $this->authorize('create',Article::class);
         
-        $data = $request->all();
+        $data = $request->validated();
 
         $query = new Article;
         $query->title = $data['title'];
@@ -110,7 +110,7 @@ class ArticleController extends Controller
     {
         $this->authorize('update',Article::class);
         
-        $data = $request->all();
+        $data = $request->validated();
         $query = Article::findOrFail($id);
         $query->title = $data['title'];
         $query->content = $data['content'];

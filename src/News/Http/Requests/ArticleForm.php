@@ -3,7 +3,6 @@
 namespace AndrykVP\Rancor\News\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ArticleForm extends FormRequest
 {
@@ -27,7 +26,7 @@ class ArticleForm extends FormRequest
         $id = $this->segment(3);
 
         return [
-            'title' => ['required', 'string', Rule::unique('articles')->ignore($id)],
+            'title' => 'required|string',
             'content' => 'required|min:1',
             'is_published' => 'required|boolean'
         ];

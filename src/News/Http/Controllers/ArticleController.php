@@ -71,11 +71,8 @@ class ArticleController extends Controller
         $this->authorize('create',Article::class);
         
         $data = $request->validated();
-
         $article = new Article;
-        $article->title = $data['title'];
-        $article->content = $data['content'];
-        $article->is_published = $data['is_published'];
+        $article->fill($data);
         $article->author_id = $request->user()->id;
         $article->save();
 
@@ -109,9 +106,7 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
         
         $data = $request->validated();
-        $article->title = $data['title'];
-        $article->content = $data['content'];
-        $article->is_published = $data['is_published'];
+        $article->fill($data);
         $article->editor_id = $request->user()->id;
         $article->save();
 

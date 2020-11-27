@@ -14,6 +14,7 @@ class FrameworkServiceProvider extends ServiceProvider
     public function register()
     {
         // Register all the Package's Service Providers
+        $this->app->register(EventServiceProvider::class);  
         $this->app->register(AuditServiceProvider::class);  
         $this->app->register(AuthServiceProvider::class);  
         $this->app->register(FactionServiceProvider::class); 

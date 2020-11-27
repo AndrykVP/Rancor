@@ -12,17 +12,27 @@ trait ForumUser
      */
     public function groups()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_group_user');
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_group_user')->withTimestamps();
     }
 
     /**
      * Relationship to Board model
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function boards()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Board', 'forum_board_user');
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Board', 'forum_board_user')->withTimestamps();
+    }
+
+    /**
+     * Relationship to Board model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function unreadDiscussions()
+    {
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Discussion', 'forum_discussion_user')->withTimestamps()->orderBy('updated_at','DESC');
     }
 
     /**
@@ -36,9 +46,9 @@ trait ForumUser
     }
 
     /**
-     * Relationship to Categories model through Group model
+     * List of IDs from Category Model that User has access to
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\Collection
+     * @return array
      */
     public function getCategoryIDs()
     {

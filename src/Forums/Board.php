@@ -67,7 +67,7 @@ class Board extends Model
      */
     public function moderators()
     {
-        return $this->belongsToMany('App\User', 'forum_board_user');
+        return $this->belongsToMany('App\User', 'forum_board_user')->withTimestamps();
     }
 
     /**

@@ -41,6 +41,16 @@ class Discussion extends Model
     }
 
     /**
+     * Relationship to User model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function visitors()
+    {
+        return $this->belongsToMany('App\User', 'forum_discussion_user')->withTimestamps();
+    }
+
+    /**
      * Relationship to Categories model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Rancor\Forums\Events\CreateReply;
 
 class Reply extends Model
 {
@@ -27,6 +28,22 @@ class Reply extends Model
      */
     protected $casts = [
         'is_locked' => 'boolean',
+    ];
+
+    /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['discussion'];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => CreateReply::class,
     ];
 
     /**

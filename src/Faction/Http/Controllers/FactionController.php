@@ -35,72 +35,67 @@ class FactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Faction\Http\Requests\FactionForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(FactionForm $request)
     {
         $this->authorize('create',Faction::class);
         
-        $data = $request->all();
-        $query = Faction::create($data);
+        $data = $request->validated();
+        $faction = Faction::create($data);
 
         return response()->json([
-            'message' => 'Faction "'.$query->name.'" has been created'
+            'message' => 'Faction "'.$faction->name.'" has been created'
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Faction $faction)
     {
-        $this->authorize('view',Faction::class);
-        
-        $query = Faction::findOrFail($id);
+        $this->authorize('view', $faction);
 
-        return new FactionResource($query);
+        return new FactionResource($faction);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Faction\Http\Requests\FactionForm  $request
+     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function update(FactionForm $request, $id)
+    public function update(FactionForm $request, Faction $faction)
     {
-        $this->authorize('update',Faction::class);
+        $this->authorize('update', $faction);
         
-        $data = $request->all();
-
-        $query = Faction::findOrFail($id);
-        $query->update($data);
+        $data = $request->validated();
+        $faction->update($data);
 
         return response()->json([
-            'message' => 'Faction "'.$query->name.'" has been updated'
+            'message' => 'Faction "'.$faction->name.'" has been updated'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Faction $faction)
     {
-        $this->authorize('delete',Faction::class);
+        $this->authorize('delete', $faction);
         
-        $query = Faction::findOrFail($id);
-        $query->delete();
+        $faction->delete();
 
         return response()->json([
-            'message' => 'Faction "'.$query->name.'" has been deleted'
+            'message' => 'Faction "'.$faction->name.'" has been deleted'
         ], 200);        
     }
 }

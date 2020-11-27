@@ -11,6 +11,32 @@ class DepartmentPolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine whether the user can view all records of model.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->hasPermission('view-departments')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view departments.');
+    }
+    
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
@@ -44,7 +70,7 @@ class DepartmentPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('edit-departments')
+        return $user->hasPermission('update-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit departments.');
     }

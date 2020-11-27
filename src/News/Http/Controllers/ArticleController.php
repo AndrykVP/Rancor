@@ -27,7 +27,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',Article::class);
+        $this->authorize('viewAny',Article::class);
 
         $query = Article::latest()->paginate(10);
 
@@ -53,7 +53,7 @@ class ArticleController extends Controller
      */
     public function drafts()
     {
-        $this->authorize('view',Article::class);
+        $this->authorize('viewAny',Article::class);
 
         $query = Article::where('is_published',false)->latest()->paginate(10);
 
@@ -70,17 +70,17 @@ class ArticleController extends Controller
     {
         $this->authorize('create',Article::class);
         
-        $data = $request->all();
+        $data = $request->validated();
 
-        $query = new Article;
-        $query->title = $data['title'];
-        $query->content = $data['content'];
-        $query->is_published = $data['is_published'];
-        $query->author_id = $request->user()->id;
-        $query->save();
+        $article = new Article;
+        $article->title = $data['title'];
+        $article->content = $data['content'];
+        $article->is_published = $data['is_published'];
+        $article->author_id = $request->user()->id;
+        $article->save();
 
         return response()->json([
-            'message' => 'Article "'.$query->title.'" has been created'
+            'message' => 'Article "'.$article->title.'" has been created'
         ], 200);
     }
 
@@ -90,13 +90,11 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        $this->authorize('view',Article::class);
-        
-        $query = Article::findOrFail($id);
+        $this->authorize('view', $article);
 
-        return new ArticleResource($query);
+        return new ArticleResource($article);
     }
 
     /**
@@ -106,20 +104,19 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleForm $request, $id)
+    public function update(ArticleForm $request, Article $article)
     {
-        $this->authorize('update',Article::class);
+        $this->authorize('update', $article);
         
-        $data = $request->all();
-        $query = Article::findOrFail($id);
-        $query->title = $data['title'];
-        $query->content = $data['content'];
-        $query->is_published = $data['is_published'];
-        $query->editor_id = $request->user()->id;
-        $query->save();
+        $data = $request->validated();
+        $article->title = $data['title'];
+        $article->content = $data['content'];
+        $article->is_published = $data['is_published'];
+        $article->editor_id = $request->user()->id;
+        $article->save();
 
         return response()->json([
-            'message' => 'Article "'.$query->title.'" has been updated'
+            'message' => 'Article "'.$article->title.'" has been updated'
         ], 200);
     }
 
@@ -129,15 +126,14 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        $this->authorize('delete',Article::class);
-        
-        $query = Article::findOrFail($id);
-        $query->delete();
+        $this->authorize('delete', $article);
+
+        $article->delete();
 
         return response()->json([
-            'message' => 'Article "'.$query->title.'" has been deleted'
+            'message' => 'Article "'.$article->title.'" has been deleted'
         ], 200);        
     }
 }

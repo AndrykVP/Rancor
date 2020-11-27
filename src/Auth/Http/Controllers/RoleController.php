@@ -27,6 +27,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Role::class);
+
         $query = Role::paginate(15);
 
         return RoleResource::collection($query);
@@ -42,64 +44,60 @@ class RoleController extends Controller
     {
         $this->authorize('create',Role::class);
         
-        $data = $request->all();
-        $query = Role::create($data);
+        $data = $request->validated();
+        $role = Role::create($data);
 
         return response()->json([
-            'message' => 'Role "'.$query->name.'" has been created'
+            'message' => 'Role "'.$role->name.'" has been created'
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Auth\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
         $this->authorize('view',Role::class);
-        
-        $query = Role::findOrFail($id);
 
-        return new RoleResource($query);
+        return new RoleResource($role);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Auth\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleForm $request, $id)
+    public function update(RoleForm $request, Role $role)
     {
-        $this->authorize('update',Role::class);
+        $this->authorize('update', Role::class);
         
-        $data = $request->all();
-        $query = Role::findOrFail($id);
-        $query->update($data);
+        $data = $request->validated();
+        $role->update($data);
 
         return response()->json([
-            'message' => 'Role "'.$query->name.'" has been updated'
+            'message' => 'Role "'.$role->name.'" has been updated'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Auth\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        $this->authorize('delete',Role::class);
+        $this->authorize('delete',$role);
         
-        $query = Role::findOrFail($id);
-        $query->delete();
+        $role->delete();
 
         return response()->json([
-            'message' => 'Role "'.$query->name.'" has been deleted'
+            'message' => 'Role "'.$role->name.'" has been deleted'
         ], 200);        
     }
 }

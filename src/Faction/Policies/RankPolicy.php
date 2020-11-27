@@ -11,6 +11,32 @@ class RankPolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine whether the user can view all records model.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->hasPermission('view-ranks')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view ranks.');
+    }
+    
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
@@ -44,7 +70,7 @@ class RankPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('edit-ranks')
+        return $user->hasPermission('update-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit ranks.');
     }

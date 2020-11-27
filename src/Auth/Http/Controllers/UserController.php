@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',User::class);
+        $this->authorize('viewAny',User::class);
         
         $query = User::paginate(15);
 
@@ -38,100 +38,89 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, User $user)
     {
-        if($request->user()->id != $id)
-        {
-            $this->authorize('view',User::class);
-        }
-        
-        $query = User::findOrFail($id);
+        $this->authorize('view',$user);
 
-        return new UserResource($query);
+        return new UserResource($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserForm $request, $id)
+    public function update(UserForm $request, User $user)
     {
-        $query = User::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
 
-        if($request->user()->can('update', User::class) || $request->user()->id == $id)
+        $this->authorize('update',$user);
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+
+        if($request->has('nickname'))
         {
-            $query->name = $data['name'];
-            $query->email = $data['email'];
-
-            if($request->has('nickname'))
-            {
-                $query->nickname = $data['nickname'];
-            }
+            $user->nickname = $data['nickname'];
         }
 
-        if($request->user()->can('update', User::class) || $request->user()->can('changeRank', User::class))
+        if($request->has('rank_id') && $request->user()->can('changeRank', $user))
         {
-            if($request->has('rank_id'))
-            {
-                $query->rank_id = $data['rank_id'];
-            }
+            $user->rank_id = $data['rank_id'];
         }
 
-        if($request->user()->can('update', User::class) || $request->user()->can('changePrivs', User::class))
+        if($request->user()->can('changePrivs', $user))
         {
             if($request->has('permissions'))
             {
-                $query->permissions()->sync($request->permissions);
+                $user->permissions()->sync($request->permissions);
             }
             if($request->has('roles'))
             {
-                $query->roles()->sync($request->roles);
+                $user->roles()->sync($request->roles);
             }
         }
 
-        $query->save();
+        $user->save();
 
         return response()->json([
-            'message' => 'User "'.$query->name.'" has been updated'
+            'message' => 'User "'.$user->name.'" has been updated'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $this->authorize('delete',User::class);
+        $this->authorize('delete', $user);
         
-        $query = User::findOrFail($id);
-        $query->delete();
+        $user->delete();
 
         return response()->json([
-            'message' => 'User "'.$query->name.'" has been deleted'
+            'message' => 'User "'.$user->name.'" has been deleted'
         ], 200);        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
-        $this->authorize('view',User::class);
+        $this->authorize('viewAny',User::class);
         
-        $query = User::where('name','like','%'.$request->search.'%')->paginate(15);
+        $query = User::where('name','like','%'.$request->input('search').'%')->paginate(15);
 
         return UserResource::collection($query);
     }

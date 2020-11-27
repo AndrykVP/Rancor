@@ -35,18 +35,18 @@ class RankController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Faction\Http\Requests\RankForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(RankForm $request)
     {
         $this->authorize('create',Rank::class);
         
-        $data = $request->all();
-        $query = Rank::create($data);
+        $data = $request->validated();
+        $rank = Rank::create($data);
 
         return response()->json([
-            'message' => 'Rank "'.$query->name.'" has been created'
+            'message' => 'Rank "'.$rank->name.'" has been created'
         ], 200);
     }
 
@@ -56,32 +56,29 @@ class RankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Rank $rank)
     {
-        $this->authorize('view',Rank::class);
-        
-        $query = Rank::findOrFail($id);
+        $this->authorize('view', $rank);
 
-        return new RankResource($query);
+        return new RankResource($rank);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Faction\Http\Requests\RankForm  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RankForm $request, $id)
+    public function update(RankForm $request, Rank $rank)
     {
-        $this->authorize('update',Rank::class);
+        $this->authorize('update',$rank);
         
-        $data = $request->all();
-        $query = Rank::findOrFail($id);
-        $query->update($data);
+        $data = $request->validated();
+        $rank->update($data);
 
         return response()->json([
-            'message' => 'Rank "'.$query->name.'" has been updated'
+            'message' => 'Rank "'.$rank->name.'" has been updated'
         ], 200);
     }
 
@@ -91,15 +88,14 @@ class RankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Rank $rank)
     {
-        $this->authorize('delete',Rank::class);
+        $this->authorize('delete', $rank);
         
-        $query = Rank::findOrFail($id);
-        $query->delete();
+        $rank->delete();
 
         return response()->json([
-            'message' => 'Rank "'.$query->name.'" has been deleted'
+            'message' => 'Rank "'.$rank->name.'" has been deleted'
         ], 200);        
     }
 }

@@ -11,6 +11,32 @@ class RolePolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine whether the user can view all records of model.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->hasPermission('view-roles')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view roles.');
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
@@ -20,7 +46,7 @@ class RolePolicy
     {
         return $user->hasPermission('view-roles')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view roles.');
+                : Response::deny('You do not have permissions to view this role.');
     }
 
     /**
@@ -44,9 +70,9 @@ class RolePolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('edit-roles')
+        return $user->hasPermission('update-roles')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit roles.');
+                : Response::deny('You do not have permissions to edit this role.');
     }
 
     /**
@@ -59,6 +85,6 @@ class RolePolicy
     {
         return $user->hasPermission('delete-roles')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete roles.');
+                : Response::deny('You do not have permissions to delete this role.');
     }
 }

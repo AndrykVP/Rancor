@@ -35,71 +35,67 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DepartmentForm $request)
     {
         $this->authorize('create',Department::class);
         
-        $data = $request->all();
-        $query = Department::create($data);
+        $data = $request->validated();
+        $department = Department::create($data);
 
         return response()->json([
-            'message' => 'Department "'.$query->name.'" has been created'
+            'message' => 'Department "'.$department->name.'" has been created'
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Faction\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Department $department)
     {
-        $this->authorize('view',Department::class);
-        
-        $query = Department::findOrFail($id);
+        $this->authorize('view', $department);
 
-        return new DepartmentResource($query);
+        return new DepartmentResource($department);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm  $request
+     * @param  \AndrykVP\Rancor\Faction\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(DepartmentForm $request, $id)
+    public function update(DepartmentForm $request, Department $department)
     {
-        $this->authorize('update',Department::class);
+        $this->authorize('update', $department);
         
-        $data = $request->all();
-        $query = Department::findOrFail($id);
-        $query->update($data);
+        $data = $request->validated();
+        $department->update($data);
 
         return response()->json([
-            'message' => 'Department "'.$query->name.'" has been updated'
+            'message' => 'Department "'.$department->name.'" has been updated'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\Faction\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        $this->authorize('delete',Department::class);
+        $this->authorize('delete', $department);
         
-        $query = Department::findOrFail($id);
-        $query->delete();
+        $department->delete();
 
         return response()->json([
-            'message' => 'Department "'.$query->name.'" has been deleted'
+            'message' => 'Department "'.$department->name.'" has been deleted'
         ], 200);        
     }
 }

@@ -17,6 +17,9 @@ class CreateBoardUserTable extends Migration
             $table->unsignedBigInteger('board_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('board_id')->references('id')->on('forum_boards')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

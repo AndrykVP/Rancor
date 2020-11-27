@@ -17,6 +17,9 @@ class CreateCategoryGroupTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('group_id');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('forum_categories')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('forum_groups')->onDelete('cascade');
         });
     }
 

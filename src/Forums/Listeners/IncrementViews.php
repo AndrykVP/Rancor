@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Listeners;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 
 class IncrementViews
@@ -27,7 +28,9 @@ class IncrementViews
     {
         if(!in_array($event->discussion->id,$this->visited_discussions))
         {
-            $event->discussion->increment('views');
+            DB::table('forum_discussions')
+                ->where('id', $event->discussion->id)
+                ->increment('views');
         }
     }
 }

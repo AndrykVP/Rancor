@@ -13,6 +13,11 @@ class FrameworkServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merge Configuration for access in Package Helpers
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/app.php', 'rancor'
+        );
+
         // Register all the Package's Service Providers
         $this->app->register(AuditServiceProvider::class);  
         $this->app->register(AuthServiceProvider::class);  

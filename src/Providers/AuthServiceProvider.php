@@ -26,10 +26,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Merge Configuration for access in Package Helpers
-        $this->mergeConfigFrom(
-            __DIR__.'/../../config/auth.php', 'rancor'
-        );
+        //
     }
 
     /**

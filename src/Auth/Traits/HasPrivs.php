@@ -24,7 +24,6 @@ trait HasPrivs
         return $this->belongsToMany('AndrykVP\Rancor\Auth\Role')->withTimestamps();
     }
 
-
     /**
      * Custom Function to verify existence of Permission
      * 
@@ -32,20 +31,15 @@ trait HasPrivs
      */
     public function hasPermission($param)
     {
-        if($this->roles != null)
+        if($this->roles()->exists())
         {
-            foreach($this->roles as $role)
-            {
-                if($role->permissions->contains('name',$param))
-                {
+            $permissions = $this->roles()->with('permissions')->get()->pluck('permissions')->collapse();
 
-                    return true;
-                }
-            }
+            return $permissions->contains('name', $param);
         }
-        elseif($this->permissions != null && $this->permissions->contains('name',$param))
+        if($this->permissions()->exists())
         {
-            return true;
+            return $this->permissions->contains('name',$param);
         }
         
         return false;

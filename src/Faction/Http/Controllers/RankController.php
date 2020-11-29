@@ -27,7 +27,7 @@ class RankController extends Controller
      */
     public function index()
     {
-        $query = Rank::all();
+        $query = Rank::with('department.faction')->get();
 
         return RankResource::collection($query);
     }
@@ -60,7 +60,7 @@ class RankController extends Controller
     {
         $this->authorize('view', $rank);
 
-        return new RankResource($rank);
+        return new RankResource($rank->load('department.faction'));
     }
 
     /**

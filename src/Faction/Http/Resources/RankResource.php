@@ -19,14 +19,7 @@ class RankResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'level' => $this->level,
-            'department' => [
-                'id' => $this->department->id,
-                'name' => $this->department->name,
-            ],
-            'faction' => [
-                'id' => $this->department->faction->id,
-                'name' => $this->department->faction->name,
-            ],
+            'department' => new DepartmentResource($this->whenLoaded('department')),
             'created_at' => $this->created_at->format('M j, Y, G:i e'),
         ];
     }

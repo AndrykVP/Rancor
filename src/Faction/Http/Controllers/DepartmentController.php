@@ -27,7 +27,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $query = Department::all();
+        $query = Department::with('faction')->get();
 
         return DepartmentResource::collection($query);
     }
@@ -60,7 +60,7 @@ class DepartmentController extends Controller
     {
         $this->authorize('view', $department);
 
-        return new DepartmentResource($department);
+        return new DepartmentResource($department->load('faction','ranks'));
     }
 
     /**

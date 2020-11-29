@@ -60,7 +60,7 @@ class FactionController extends Controller
     {
         $this->authorize('view', $faction);
 
-        return new FactionResource($faction);
+        return new FactionResource($faction->load('departments','ranks'));
     }
 
     /**

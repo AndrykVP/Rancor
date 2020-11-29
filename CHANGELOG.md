@@ -9,22 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - 2020-11-14
 ### Added
-- Column `color` on `user_logs` table for UI display
-- Audit/LogController to include more information on JSON request
-- Permission `manage-faction` and its respective Gate for easier rendering of conditional menus in Navbar
-- Custom date format on all resources
-- Search method on UserController
-- New `drafts()` method on `News/ArticleController` to see only drafted articles
+- Column `color` on `user_logs` table for UI display.
+- `Audit\Http\Controllers\LogController` to include more information on JSON request
+- Permission `manage-faction` and its respective Gate for easier rendering of conditional menus in Navbar.
+- Custom `dateFormat` field in config file for date rendering on all resources.
+- New `search()` method in `Auth\Http\Controllers\UserController` to search Users by name.
+- New `drafts()` method on `News\Http\Controllers\ArticleController` to see only unpublished articles.
+- `Auth\Http\Resources\PermissionResource` for conditional rendering in `UserResource`
+- `Providers\EventServiceProvider` to automatically register Rancor's events and listeners into the service container.
 
 ### Changed
 - Moved config files from individual modules to a `config/` folder in root directory
-- Moved `index()` method on `News/NewsController` to `public()` method on `News/ArticleController`
+- Moved `News\Http\Controllers\NewsController@index` method to `...\ArticleController@public` method for simplicity.
+- `Resources` on modules `Auth`, `Faction` and `News` now use `whenLoaded()` method for conditional rendering of relationships.
 
 ### Fixed
-- Audit module's logging of user IPs on registration and login
+- Error in `Audit\Listeners` where old database fields were still included during inserts.
+- Condition `elseif($this->permissions()` in `Auth\Traits\HasPrivs` was fixed to `if()`, and both conditions now use an improved check.
+- Method `$request->all()` changed to `$request->validated()` in all Api Controllers for security.
+- Model binding in all Api Controllers for simplicity.
+- Model binding in all Policies for advanced conditions.
 
 ### Deleted
-- News/NewsController, as it's only relevant method was moved to `News/ArticleController`
+- `News\Http\Controllers\NewsController`, as its only relevant method was moved to `News\Http\Controllers\ArticleController`
 
 
 ## [1.2.1] - 2020-08-26

@@ -32,7 +32,9 @@ trait ForumUser
      */
     public function unreadDiscussions()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Discussion', 'forum_discussion_user')->withTimestamps()->orderBy('updated_at','DESC');
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Discussion', 'forum_discussion_user')->whereHas('board', function($query) {
+            $query->whereIn('category_id', $this->getCategoryIDs());
+      })->withTimestamps()->orderByDesc('updated_at');
     }
 
     /**
@@ -53,7 +55,7 @@ trait ForumUser
     public function getCategoryIDs()
     {
         $cacheKey = `USER.{$this->id}.CATEGORIES`;
-        $timeLimit = now()->addMinutes(5);
+        $timeLimit = now()->addMinutes(15);
 
         if($this->hasPermission('view-forum-categories'))
         {
@@ -61,6 +63,7 @@ trait ForumUser
                 return Category::all()->pluck('id')->toArray();
             });
         }
+
         return cache()->remember($cacheKey, $timeLimit, function() {
             return $this->groups->pluck('categories')->collapse()->pluck('id')->toArray();
         });

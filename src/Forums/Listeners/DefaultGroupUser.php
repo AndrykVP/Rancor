@@ -17,9 +17,10 @@ class DefaultGroupUser
     {
         $user = $event->user->id;
 
-        DB::table('forum_group_user')->insert([
-            'user_id' => $user,
+        DB::table('forum_groupables')->insert([
             'group_id' => 1,
+            'groupable_id' => $user,
+            'groupable_type' => 'users',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

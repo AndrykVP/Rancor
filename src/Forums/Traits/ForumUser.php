@@ -1,6 +1,7 @@
 <?php
 
 namespace AndrykVP\Rancor\Forums\Traits;
+use AndrykVP\Rancor\Forums\Board;
 use AndrykVP\Rancor\Forums\Category;
 
 trait ForumUser
@@ -12,7 +13,7 @@ trait ForumUser
      */
     public function groups()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_group_user')->withTimestamps();
+        return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
     }
 
     /**
@@ -48,12 +49,32 @@ trait ForumUser
     }
 
     /**
-     * List of IDs from Category Model that User has access to
+     * List of IDs from Board model that User has access to
      * 
      * @return array
      */
     public function topics()
     {
+        if($this->hasPermission('view-forum-boards'))
+        {
+            return Board::all()->pluck('id');
+        }
+
         return $this->groups->pluck('boards')->flatten()->merge($this->boards)->pluck('id')->unique();
+    }
+
+    /**
+     * List of IDs from Category model that User has access to
+     * 
+     * @return array
+     */
+    public function categories()
+    {
+        if($this->hasPermission('view-forum-categories'))
+        {
+            return Category::all()->pluck('id');
+        }
+
+        return $this->groups->pluck('categories')->flatten()->pluck('id')->unique();
     }
 }

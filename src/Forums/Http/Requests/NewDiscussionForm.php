@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Forums\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class DiscussionForm extends FormRequest
+class NewDiscussionForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class DiscussionForm extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'user_id' => $this->user()->id,
+            'author_id' => $this->user()->id,
         ]);
     }
 
@@ -40,9 +40,11 @@ class DiscussionForm extends FormRequest
 
         return [
             'title' => 'required|string',
-            'is_sticky' => 'required|boolean',
+            'body' => 'required|string',
+            'is_sticky' => 'nullable|boolean',
+            'is_locked' => 'nullable|boolean',
             'board_id' => 'required|integer|exists:forum_boards,id',
-            'user_id' => 'required|integer|exists:users,id',
+            'author_id' => 'required|integer|exists:users,id',
         ];
     }
 }

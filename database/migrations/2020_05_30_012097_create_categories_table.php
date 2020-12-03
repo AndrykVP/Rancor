@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('forum_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('color')->nullable()->default(null);
+            $table->string('color')->default('#000000');
             $table->string('slug')->unique();
             $table->unsignedBigInteger('order')->unique();
             $table->timestamps();

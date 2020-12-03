@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class FrameworkServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,14 @@ class FrameworkServiceProvider extends ServiceProvider
         $this->app->register(AuthServiceProvider::class);  
         $this->app->register(FactionServiceProvider::class); 
         $this->app->register(ForumsServiceProvider::class); 
-        $this->app->register(NewsServiceProvider::class);  
+        $this->app->register(NewsServiceProvider::class); 
+        
+        // Add log channel to stack
+        $this->app->make('config')->set('logging.channels.swc', [
+            'driver' => 'single',
+            'path' => storage_path('logs/swc.log'),
+            'level' => 'debug',
+        ]); 
     }
 
     /**
@@ -29,15 +37,16 @@ class FrameworkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Register Morph Map
+        Relation::morphMap([
+            'users' => 'App\User',
+            'roles' => 'AndrykVP\Rancor\Auth\Role',
+            'categories' => 'AndrykVP\Rancor\Forums\Category',
+            'boards' => 'AndrykVP\Rancor\Forums\Board',
+        ]);
+
         // Load routes and migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
- 
-        // Add log channel to stack
-        $this->app->make('config')->set('logging.channels.swc', [
-            'driver' => 'single',
-            'path' => storage_path('logs/swc.log'),
-            'level' => 'debug',
-        ]);
 
         // Publishes config files
         $this->publishes([

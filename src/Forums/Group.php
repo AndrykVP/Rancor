@@ -42,8 +42,8 @@ class Group extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categories()
+    public function boards()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Category','forum_category_group')->withTimestamps();
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Board','forum_board_group')->withTimestamps();
     }
 }

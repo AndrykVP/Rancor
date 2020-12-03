@@ -20,24 +20,6 @@ class Category extends Model
      */
     protected $fillable = [ 'title', 'color', 'slug', 'order' ];
 
-
-    /**
-     * Defines the table name
-     * 
-     * @var string
-     */
-    protected $hidden = ['pivot'];
-
-    /**
-     * Relationship to Group model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function groups()
-    {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_category_group')->withTimestamps();
-    }
-
     /**
      * Relationship to Group model
      * 
@@ -45,6 +27,6 @@ class Category extends Model
      */
     public function boards()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Board');
+        return $this->hasMany('AndrykVP\Rancor\Forums\Board')->orderBy('order');
     }
 }

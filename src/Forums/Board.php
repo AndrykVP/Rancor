@@ -21,6 +21,23 @@ class Board extends Model
     protected $table = 'forum_boards';
 
     /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $hidden = ['pivot'];
+
+    /**
+     * Relationship to Group model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_board_group')->withTimestamps();
+    }
+
+    /**
      * Relationship to Discussion model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

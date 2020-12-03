@@ -33,9 +33,8 @@ class ReplyPolicy
      */
     public function view(User $user, Reply $reply)
     {
-        $categoryIDs = $user->getCategoryIDs();
-
-        return $reply->author_id == $user->id || in_array($reply->discussion->board->category_id,$categoryIDs)
+        return $reply->author_id == $user->id
+                || $user->topics()->contains($reply->discussion->board->id)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Reply.');
     }

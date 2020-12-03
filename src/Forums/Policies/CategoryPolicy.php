@@ -33,9 +33,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category)
     {
-        $categoryIDs = $user->getCategoryIDs();
-
-        return in_array($category->id,$categoryIDs)
+        return $user->hasPermission('view-forum-categories')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to View this Forum Category.');
     }

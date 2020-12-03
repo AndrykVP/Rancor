@@ -33,10 +33,8 @@ class BoardPolicy
      */
     public function view(User $user, Board $board)
     {
-        $categoryIDs = $user->getCategoryIDs();
-
         return $board->moderators->contains($user)
-                || in_array($board->category_id,$categoryIDs)
+                || $user->topics()->contains($board->id)
                 || $user->hasPermission('view-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Board.');
@@ -64,8 +62,6 @@ class BoardPolicy
      */
     public function update(User $user, Board $board)
     {
-        $categoryIDs = $user->getCategoryIDs();
-
         return $board->moderators->contains($user) || $user->hasPermission('update-forum-boards')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Update this Forum Board.');
@@ -94,10 +90,8 @@ class BoardPolicy
      */
     public function post(User $user, Board $board)
     {
-        $categoryIDs = $user->getCategoryIDs();
-
         return $board->moderators->contains($user)
-                || in_array($board->category_id,$categoryIDs)
+                || $user->topics()->contains($board->id)
                 || $user->hasPermission('update-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Create a Discussion in this Forum Board.');

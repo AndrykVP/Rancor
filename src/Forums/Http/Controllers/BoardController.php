@@ -5,7 +5,8 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Board;
-use AndrykVP\Rancor\Forums\Http\Resources\BoardResource;
+use AndrykVP\Rancor\Forums\Group;
+use AndrykVP\Rancor\Forums\Category;
 use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
 
 class BoardController extends Controller
@@ -17,19 +18,38 @@ class BoardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'));
+        $this->middleware('auth');
     }
     
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $boards = Board::all();
+        $this->authorize('viewAny',Board::class);
 
-        return BoardResource::collection($boards);
+        $boards = Board::with('category')->orderBy('category_id')->orderBy('order')->get();
+        
+        return view('rancor::boards.index',['boards' => $boards]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $this->authorize('create',Board::class);
+        $category = Category::find($request->category);
+        $boards = Board::orderBy('title')->get();
+        $groups = Group::all();
+        $categories = Category::all();
+
+        return view('rancor::boards.create',['groups' => $groups,'boards' => $boards,'categories' => $categories, 'selCategory' => $category]);
     }
 
     /**
@@ -38,16 +58,16 @@ class BoardController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BoardForm $request)
+    public function store(Request $request)
     {
         $this->authorize('create',Board::class);
         
         $data = $request->validated();
         $board = Board::create($data);
 
-        return response()->json([
-            'message' => 'Board "'.$board->title.'" has been created'
-        ], 200);
+        $board->groups()->sync($data['groups']);
+
+        return redirect()->route('forums.boards.index')->with('success', 'Board "'.$board->title.'" has been successfully created');
     }
 
     /**
@@ -60,7 +80,23 @@ class BoardController extends Controller
     {
         $this->authorize('view',$board);
 
-        return new BoardResource($board->load('category','parent','children','discussions','moderators','latest_reply'));
+        return view('rancor::boards.show',['board' => $board->load('category','groups')]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Forums\Board  $board
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Board $board, Request $request)
+    {
+        $this->authorize('update', $board);
+        $boards = Board::all();
+        $groups = Group::all();
+        $categories = Category::all();
+
+        return view('rancor::boards.edit',['board' => $board->load('category','groups'), 'groups' => $groups,'boards' => $boards,'categories' => $categories]);
     }
 
     /**
@@ -77,9 +113,9 @@ class BoardController extends Controller
         $data = $request->validated();
         $board->update($data);
 
-        return response()->json([
-            'message' => 'Board "'.$board->title.'" has been updated'
-        ], 200);
+        $board->groups()->sync($data['groups']);
+
+        return redirect()->route('forums.boards.index')->with('success', 'Board "'.$board->title.'" has been successfully updated');
     }
 
     /**
@@ -94,8 +130,6 @@ class BoardController extends Controller
         
         $board->delete();
 
-        return response()->json([
-            'message' => 'Board "'.$board->title.'" has been deleted'
-        ], 200);        
+        return redirect()->route('forums.boards.index')->with('success', 'Board "'.$board->title.'" has been successfully deleted');
     }
 }

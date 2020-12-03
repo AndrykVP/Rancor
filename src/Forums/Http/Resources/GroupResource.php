@@ -21,7 +21,7 @@ class GroupResource extends JsonResource
             'description' => $this->description,
             'color' => $this->color,
             'users' => UserResource::collection($this->whenLoaded('users')),
-            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'boards' => BoardResource::collection($this->whenLoaded('boards')),
             'created_at' => $this->created_at->format(config('rancor.dateFormat')),
             'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
         ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers;
+namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

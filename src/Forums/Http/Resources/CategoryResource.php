@@ -19,7 +19,6 @@ class CategoryResource extends JsonResource
             'title' => $this->title,
             'color' => $this->color,
             'uri' => $this->slug,
-            'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'boards' => BoardResource::collection($this->whenLoaded('boards')),
             'created_at' => $this->created_at->format(config('rancor.dateFormat')),
             'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),

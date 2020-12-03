@@ -24,15 +24,16 @@ class BoardForm extends FormRequest
      */
     public function rules()
     {
-        $id = last($this->segments());
-
         return [
             'title' => 'required|string',
+            'slug' => ['required', 'string', Rule::unique('forum_boards')->ignore($this->id)],
             'description' => 'nullable|string',
-            'slug' => ['required', 'string', Rule::unique('forum_boards')->ignore($id)],
             'category_id' => 'required|integer|exists:forum_categories,id',
             'parent_id' => 'nullable|integer|exists:forum_boards,id',
-            'order' => 'required|integer',
+            'groups' => 'required|array',
+            'order' => ['required','integer', Rule::unique('forum_boards')->where(function ($query) {
+                return $query->where('category_id', $this->category);
+            })->ignore($this->id)],
         ];
     }
 }

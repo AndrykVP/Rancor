@@ -33,9 +33,8 @@ class DiscussionPolicy
      */
     public function view(User $user, Discussion $discussion)
     {
-        $categoryIDs = $user->getCategoryIDs();
-
-        return $discussion->author_id == $user->id || in_array($discussion->board->category_id,$categoryIDs)
+        return $discussion->author_id == $user->id
+                || $user->topics()->contains($discussion->board->id)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Discussion.');
     }

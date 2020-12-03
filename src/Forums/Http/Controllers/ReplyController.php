@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Reply;
-use AndrykVP\Rancor\Forums\Http\Resources\ReplyResource;
+use AndrykVP\Rancor\Forums\Discussion;
 use AndrykVP\Rancor\Forums\Http\Requests\ReplyForm;
 
 class ReplyController extends Controller
@@ -17,19 +17,35 @@ class ReplyController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'));
+        $this->middleware('auth');
     }
     
     /**
      * Display a listing of the resource.
      *
+     * @param \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        $replies = Reply::paginate(20);
+        $this->authorize('viewAny',Reply::class);
+        $replies = Reply::where('id',$user->id)->with('board.category')->orderBy('created_at')->paginate(15);
+        
+        return view('rancor::replies.index',['replies' => $replies]);
+    }
 
-        return ReplyResource::collection($replies);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $this->authorize('create',Reply::class);
+        $discussion = Discussion::with('board.category')->find($request->discussion);
+        $quote = Reply::with('author')->where('id',$request->quote)->first();
+
+        return view('rancor::replies.create',['discussion' => $discussion, 'quote' => $quote]);
     }
 
     /**
@@ -43,15 +59,12 @@ class ReplyController extends Controller
         $this->authorize('create',Reply::class);
         
         $data = $request->validated();
-        $reply = Reply::create([
-            'body' => $data['body'],
-            'discussion_id' => $data['discussion_id'],
-            'author_id' => $data['user_id'],
-        ]);
+        $reply = Reply::create($data);
 
-        return response()->json([
-            'message' => 'Reply has been posted'
-        ], 200);
+        $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
+        $page = $page > 0 ? ceil($page / config('rancor.forums.pagination')) : 1;
+
+        return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('success', 'Reply has been successfully posted');
     }
 
     /**
@@ -64,7 +77,21 @@ class ReplyController extends Controller
     {
         $this->authorize('view',$reply);
 
-        return new ReplyResource($reply->load('author','discussion','editor'));
+        return view('rancor::replies.show',['reply' => $reply->load('category','groups')]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Reply $reply, Request $request)
+    {
+        $this->authorize('update', $reply);
+        $discussion = $reply->discussion()->with('board.category')->first();
+
+        return view('rancor::replies.edit',['discussion' => $discussion, 'reply' => $reply]);
     }
 
     /**
@@ -79,15 +106,11 @@ class ReplyController extends Controller
         $this->authorize('update',$reply);
         
         $data = $request->validated();
-        $reply->update([
-            'body' => $data['body'],
-            'discussion_id' => $data['discussion_id'],
-            'editor_id' => $data['user_id'],
-        ]);
+        $reply->update($data);
 
-        return response()->json([
-            'message' => 'Reply #'.$reply->id.' has been updated'
-        ], 200);
+        $reply->groups()->sync($data['groups']);
+
+        return redirect()->route('forums.Replys.index')->with('success', 'Reply "'.$reply->title.'" has been successfully updated');
     }
 
     /**
@@ -102,8 +125,6 @@ class ReplyController extends Controller
         
         $reply->delete();
 
-        return response()->json([
-            'message' => 'Reply #'.$reply->id.' has been deleted'
-        ], 200);        
+        return redirect()->route('forums.Replys.index')->with('success', 'Reply "'.$reply->title.'" has been successfully deleted');
     }
 }

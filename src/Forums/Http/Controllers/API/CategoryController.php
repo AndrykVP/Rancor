@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers;
+namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Category;
-use AndrykVP\Rancor\Forums\Group;
+use AndrykVP\Rancor\Forums\Http\Resources\CategoryResource;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
 
 class CategoryController extends Controller
@@ -17,34 +17,19 @@ class CategoryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(config('rancor.middleware'));
     }
     
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->authorize('viewAny',Category::class);
+        $categories = Category::paginate(20);
 
-        $categories = Category::orderBy('order')->get();
-        
-        return view('rancor::categories.index',['categories' => $categories]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create',Category::class);
-
-        return view('rancor::categories.create');
+        return CategoryResource::collection($categories);
     }
 
     /**
@@ -58,9 +43,15 @@ class CategoryController extends Controller
         $this->authorize('create',Category::class);
         
         $data = $request->validated();
-        $category = Category::create($data);
+        $category = Category::create([
+            'body' => $data['body'],
+            'discussion_id' => $data['discussion_id'],
+            'author_id' => $data['user_id'],
+        ]);
 
-        return redirect()->route('forums.categories.index')->with('success', 'Category "'.$category->title.'" has been successfully created');
+        return response()->json([
+            'message' => 'Category has been posted'
+        ], 200);
     }
 
     /**
@@ -73,21 +64,7 @@ class CategoryController extends Controller
     {
         $this->authorize('view',$category);
 
-        return view('rancor::categories.show',['category' => $category->load('boards')]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category, Request $request)
-    {
-        $this->authorize('update', $category);
-        $groups = Group::all();
-
-        return view('rancor::categories.edit',['category' => $category ]);
+        return new CategoryResource($category->load('author','discussion','editor'));
     }
 
     /**
@@ -102,9 +79,15 @@ class CategoryController extends Controller
         $this->authorize('update',$category);
         
         $data = $request->validated();
-        $category->update($data);
+        $category->update([
+            'body' => $data['body'],
+            'discussion_id' => $data['discussion_id'],
+            'editor_id' => $data['user_id'],
+        ]);
 
-        return redirect()->route('forums.categories.index')->with('success', 'Category "'.$category->title.'" has been successfully updated');
+        return response()->json([
+            'message' => 'Category #'.$category->id.' has been updated'
+        ], 200);
     }
 
     /**
@@ -119,6 +102,8 @@ class CategoryController extends Controller
         
         $category->delete();
 
-        return redirect()->route('forums.categories.index')->with('success', 'Category "'.$category->title.'" has been successfully deleted');
+        return response()->json([
+            'message' => 'Category #'.$category->id.' has been deleted'
+        ], 200);        
     }
 }

@@ -25,7 +25,7 @@ class ReplyForm extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'user_id' => $this->user()->id,
+            'author_id' => $this->user()->id,
         ]);
     }
 
@@ -36,12 +36,10 @@ class ReplyForm extends FormRequest
      */
     public function rules()
     {
-        $id = last($this->segments());
-
         return [
             'body' => 'required|string|min:6',
             'discussion_id' => 'required|integer|exists:forum_discussions,id',
-            'user_id' => 'required|integer|exists:users,id',
+            'author_id' => 'required|integer|exists:users,id',
         ];
     }
 }

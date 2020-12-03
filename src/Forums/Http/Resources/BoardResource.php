@@ -23,6 +23,7 @@ class BoardResource extends JsonResource
             'category' => new CategoryResource($this->whenLoaded('category')),
             'parent' => new BoardResource($this->whenLoaded('parent')),
             'children' => BoardResource::collection($this->whenLoaded('children')),
+            'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'discussions' => DiscussionResource::collection($this->whenLoaded('discussions')),
             'moderators' => UserResource::collection($this->whenLoaded('moderators')),
             'latest_reply' => new ReplyResource($this->whenLoaded('latest_reply')),

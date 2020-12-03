@@ -49,6 +49,10 @@ class ForumsServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Forums/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Forums/Routes/web.php');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/../Forums/Resources/Views', 'rancor');
         
         // Register policies
         $this->registerPolicies();
@@ -59,6 +63,9 @@ class ForumsServiceProvider extends ServiceProvider
             __DIR__.'/../Forums/Http/Requests' => app_path('Http/Requests/Rancor/Forums'),
             __DIR__.'/../Forums/Http/Resources' => app_path('Http/Resources/Rancor/Forums'),
         ], 'http');        
+        $this->publishes([
+            __DIR__.'/../Forums/Resources/Views' => resource_path('views/rancor'),
+        ], 'views');        
     }
 
     /**

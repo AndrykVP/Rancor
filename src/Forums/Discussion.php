@@ -79,4 +79,15 @@ class Discussion extends Model
     {
         return $this->hasOne('AndrykVP\Rancor\Forums\Reply')->with('author')->latest();
     }
+
+    /**
+     * Scope a query to include discussions by their is_sticky status.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSticky($query, $value = true)
+    {
+        return $query->where('is_sticky', $value);
+    }
 }

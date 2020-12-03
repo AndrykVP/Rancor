@@ -34,16 +34,26 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User','forum_group_user')->withTimestamps();
+        return $this->morphedByMany('App\User','groupable','forum_groupables')->withTimestamps();
     }
 
     /**
-     * Relationship to Categories model
+     * Relationship to Board model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function boards()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Board','forum_board_group')->withTimestamps();
+        return $this->morphedByMany('AndrykVP\Rancor\Forums\Board','groupable','forum_groupables')->withTimestamps();
+    }
+
+    /**
+     * Relationship to Category model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function categories()
+    {
+        return $this->morphedByMany('AndrykVP\Rancor\Forums\Category','groupable','forum_groupables')->withTimestamps();
     }
 }

@@ -34,7 +34,7 @@ class Board extends Model
      */
     public function groups()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Group','forum_board_group')->withTimestamps();
+        return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
     }
 
     /**
@@ -105,5 +105,16 @@ class Board extends Model
     public function latest_reply()
     {
         return $this->hasOneThrough('AndrykVP\Rancor\Forums\Reply','AndrykVP\Rancor\Forums\Discussion')->with(['author','discussion'])->latest();
+    }
+
+    /**
+     * Scope a query to only include boards that do not have parents.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTopTier($query)
+    {
+        return $query->where('parent_id', null);
     }
 }

@@ -21,12 +21,22 @@ class Category extends Model
     protected $fillable = [ 'title', 'color', 'slug', 'order' ];
 
     /**
-     * Relationship to Group model
+     * Relationship to Board model
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function boards()
     {
         return $this->hasMany('AndrykVP\Rancor\Forums\Board')->orderBy('order');
+    }
+
+    /**
+     * Relationship to Group model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
     }
 }

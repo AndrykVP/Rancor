@@ -4,11 +4,7 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Board;
 use AndrykVP\Rancor\Forums\Category;
-use AndrykVP\Rancor\Forums\Discussion;
-use AndrykVP\Rancor\Forums\Reply;
-use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 use Auth;
 
 class ForumController extends Controller
@@ -31,10 +27,9 @@ class ForumController extends Controller
    public function index()
    {
       $boards = Auth::user()->topics();
+      $categories = Auth::user()->categories();
 
-      $categories = Category::whereHas('boards', function($query) use($boards) {
-         $query->whereIn('id', $boards);
-      })->with(['boards' => function($query) use($boards) {
+      $categories = Category::whereIn('id',$categories)->with(['boards' => function($query) use($boards) {
          $query->whereIn('id',$boards)
                ->where('parent_id',null)
                ->withCount('discussions','replies')
@@ -43,78 +38,6 @@ class ForumController extends Controller
       }])->withCount('boards')->get();
 
       return view('rancor::forums.index',['categories' => $categories]);
-   }
-
-   /**
-    * Display a listing of parent categories.
-    *
-    * @return \Illuminate\Http\Response
-    */
-   public function category(Category $category)
-   { 
-      $this->authorize('view',$category);
-
-      $boards = Auth::user()->topics();
-
-      $category->load(['boards' => function($query) use($boards) {
-         $query->whereIn('id',$boards)
-               ->where('parent_id',null)
-               ->withCount('discussions','replies')
-               ->with('latest_reply','children')
-               ->orderBy('order');
-      }])->loadCount('boards');
-
-      return view('rancor::forums.category',['category' => $category]);
-   }
-   
-   /**
-    * Display the specified Board.
-    *
-    * @return \Illuminate\Http\Response
-    */
-   public function board(Category $category, Board $board)
-   {
-      $this->authorize('view',$board);
-
-      $board->load('category','moderators')->load(['children' => function($query) {
-         $query->withCount('discussions','replies','children')->with('latest_reply')->orderBy('order');
-      }]);
-
-      $sticky = Discussion::withCount('replies')->where([
-         ['board_id',$board->id],
-         ['is_sticky',true],
-      ])->get();
-
-      $normal = Discussion::withCount('replies')->where([
-         ['board_id',$board->id],
-         ['is_sticky',false],
-      ])->paginate(config('rancor.forums.pagination'));
-
-      return view('rancor::forums.Board',['board' => $board, 'sticky' => $sticky, 'normal' => $normal]);
-   }
-   
-   /**
-    * Display the specified discussion.
-    *
-    * @return \Illuminate\Http\Response
-    */
-   public function discussion(Category $category, Board $board, Discussion $discussion)
-   {
-      $this->authorize('view',$discussion);
-
-      event(new VisitDiscussion($discussion));
-      if(!in_array($discussion->id, session()->get('visited_discussions',array())))
-      {
-          session()->push('visited_discussions',$discussion->id);
-      }
-
-      $discussion->load('board.category');
-
-      $replies = $discussion->replies()->with(['author' => function($query) {
-         $query->with('rank.department')->withCount('replies');
-      }])->paginate(config('rancor.forums.pagination'));
-
-      return view('rancor::forums.discussion',['discussion' => $discussion, 'replies' => $replies ]);
    }
    
    /**

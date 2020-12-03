@@ -73,7 +73,17 @@ class CategoryController extends Controller
     {
         $this->authorize('view',$category);
 
-        return view('rancor::categories.show',['category' => $category->load('boards')]);
+        $boards = Auth::user()->topics();
+  
+        $category->load(['boards' => function($query) use($boards) {
+           $query->whereIn('id',$boards)
+                ->topTier()
+                ->withCount('discussions','replies')
+                ->with('latest_reply','children')
+                ->orderBy('order');
+        }])->loadCount('boards');
+  
+        return view('rancor::categories.show',['category' => $category]);
     }
 
     /**
@@ -87,7 +97,7 @@ class CategoryController extends Controller
         $this->authorize('update', $category);
         $groups = Group::all();
 
-        return view('rancor::categories.edit',['category' => $category ]);
+        return view('rancor::categories.edit',compact('category','groups'));
     }
 
     /**

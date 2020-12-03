@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 use AndrykVP\Rancor\Forums\Reply;
 use AndrykVP\Rancor\Forums\Discussion;
 use AndrykVP\Rancor\Forums\Http\Requests\ReplyForm;
@@ -29,9 +30,9 @@ class ReplyController extends Controller
     public function index(User $user)
     {
         $this->authorize('viewAny',Reply::class);
-        $replies = Reply::where('id',$user->id)->with('board.category')->orderBy('created_at')->paginate(15);
+        $replies = $user->replies()->with('discussion.board.category')->latest()->paginate(config('rancor.forums.pagination'));
         
-        return view('rancor::replies.index',['replies' => $replies]);
+        return view('rancor::replies.index',compact('replies','user'));
     }
 
     /**

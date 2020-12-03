@@ -33,7 +33,7 @@ class BoardController extends Controller
 
         $boards = Board::with('category')->orderBy('category_id')->orderBy('order')->get();
         
-        return view('rancor::boards.index',['boards' => $boards]);
+        return view('rancor::boards.index',compact('boards'));
     }
 
     /**
@@ -49,7 +49,7 @@ class BoardController extends Controller
         $groups = Group::all();
         $categories = Category::all();
 
-        return view('rancor::boards.create',['groups' => $groups,'boards' => $boards,'categories' => $categories, 'selCategory' => $category]);
+        return view('rancor::boards.create',compact('groups','boards','categories','selCategory'));
     }
 
     /**
@@ -76,11 +76,25 @@ class BoardController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Board  $board
      * @return \Illuminate\Http\Response
      */
-    public function show(Board $board)
+    public function show(Category $category, Board $board)
     {
         $this->authorize('view',$board);
 
-        return view('rancor::boards.show',['board' => $board->load('category','groups')]);
+        $board->load('category','moderators')->load(['children' => function($query) {
+            $query->withCount('discussions','replies','children')->with('latest_reply')->orderBy('order');
+         }]);
+   
+         $sticky = $board->discussions()
+                    ->sticky()
+                    ->withCount('replies')
+                    ->get();
+   
+         $normal = $board->discussions()
+                    ->sticky(false)
+                    ->withCount('replies')
+                    ->paginate(config('rancor.forums.pagination'));
+   
+         return view('rancor::boards.show',compact('category','board','sticky','normal'));
     }
 
     /**
@@ -95,8 +109,9 @@ class BoardController extends Controller
         $boards = Board::all();
         $groups = Group::all();
         $categories = Category::all();
+        $board->load('category','groups');
 
-        return view('rancor::boards.edit',['board' => $board->load('category','groups'), 'groups' => $groups,'boards' => $boards,'categories' => $categories]);
+        return view('rancor::boards.edit',compact('board', 'groups','boards','categories'));
     }
 
     /**

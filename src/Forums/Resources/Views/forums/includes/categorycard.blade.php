@@ -19,13 +19,13 @@
                @if(count($board->children) > 0)
                <br/><strong>Child Boards:</strong>
                @foreach ($board->children as $child)
-               <a href="/forums/{{ $category->slug }}/{{ $child->slug }}">{{ $child->title}}</a>
+               » <a href="/forums/{{ $category->slug }}/{{ $child->slug }}">{{ $child->title}}</a>
                @endforeach
                @endif
                @if(count($board->moderators) > 0)
                <br/><strong>Moderators:</strong>
                @foreach ($board->moderators as $moderator)
-               <a href="/profile/{{ $moderator->id }}">{{ $moderator->name}}</a>
+               » <a href="/profile/{{ $moderator->id }}">{{ $moderator->name}}</a>
                @endforeach
                @endif
             </td>

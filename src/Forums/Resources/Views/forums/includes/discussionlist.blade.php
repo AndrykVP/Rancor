@@ -18,7 +18,7 @@
          }
          @endphp
          <tr class="d-flex">
-            <td class="col-9  px-4">
+            <td class="col-9 px-4">
                <div class="row justify-content-between">
                   <a class="h5" href="/forums/{{ $discussion->board->category->slug }}/{{ $discussion->board->slug }}/{{ $discussion->id }}">{{ __($discussion->title) }}</a> <br>
                   <div>

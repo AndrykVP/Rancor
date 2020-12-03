@@ -1,38 +1,55 @@
 @extends(config('rancor.forums.layout'))
 
+@php
+$board_count =  count($board->children);
+$sticky_count = count($sticky);
+$normal_count = count($normal);
+@endphp
+
 @section('content')
 <div class="container">
    <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col">
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
-               <li class="breadcrumb-item"><a href="/forums/{{ $board->category->slug }}" id="category-breadcrumb">{{ __($board->category->title) }}</a></li>
-               <li class="breadcrumb-item active">{{ __($board->title) }}</li>
+               <li class="breadcrumb-item"><a href="/forums" id="index-breadcrumb">{{ __('Index') }}</a></li>
+               <li class="breadcrumb-item"><a href="/forums/{{$category->slug}}" id="category-breadcrumb">{{$category->title}}</a></li>
+               <li class="breadcrumb-item active">{{$board->title}}</li>
             </ol>
          </nav>
-         <div class="card mb-4">
-            <div class="card-header">
-               {{ __('Discussions in "'.$board->title.'"') }}
+         <div class="d-flex flex-row justify-content-between align-items-center p-0 mb-2">
+            <div class="btn-group" role="group" aria-label="Board Actions">
+               <a type="button" class="btn btn-success" href="{{ route('forums.discussions.create', [ 'board' => $board ]) }}">New Topic</a>
+               @can('update',$board)
+               <a type="button" class="btn btn-primary" href="{{ route('forums.boards.edit', [ 'board' => $board ]) }}">Modify Board</a>
+               @endcan
+               @can('create',$board)
+               <a type="button" class="btn btn-secondary" href="{{ route('forums.boards.create', [ 'board' => $board ]) }}">New Child Board</a>
+               @endcan
+               @can('delete',$board)
+               <a type="button" class="btn btn-danger" href="#">Delete Board</a>
+               @endcan
             </div>
-            <div class="card-body">
-               <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Title</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                     @foreach($board->discussions as $discussion)
-                     <tr>
-                        <th scope="row"><a href="/forums/{{ $board->category->slug }}/{{ $board->slug }}/{{ $discussion->id }}">{{ $discussion->id }}</a></th>
-                        <td>{{ $discussion->title }}</td>
-                     </tr>
-                     @endforeach
-                  </tbody>
-                </table>
+         </div>
+         @if($board_count > 0 || $sticky_count > 0 || $normal_count > 0)
+         @if($board_count > 0)
+            @include('rancor::forums.includes.boardlist',['header' => 'Child Boards', 'board' => $board])
+         @endif
+         @if($sticky_count > 0)
+            @include('rancor::forums.includes.discussionlist',['header' => 'Sticky Discussions', 'discussions' => $sticky])
+         @endif
+         @if($normal_count > 0)
+            @include('rancor::forums.includes.discussionlist',['header' => 'Normal Discussions', 'discussions' => $normal])
+         @endif
+         @else
+         <div class="row justify-content-center">
+            <div class="col">
+               <div class="card mb-4">
+                  <div class="card-body">No Child Boards or Discussions found in this Board</div>
+               </div>
             </div>
+         </div>
+         @endif
       </div>
    </div>
 </div>

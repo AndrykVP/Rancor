@@ -5,8 +5,8 @@
    <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
-         <li class="breadcrumb-item"><a href="/forums/{{$discussion->board->category->slug}}" id="category-breadcrumb">{{$discussion->board->category->title}}</a></li>
-         <li class="breadcrumb-item"><a href="/forums/{{$discussion->board->category->slug}}/{{$discussion->board->slug}}" id="board-breadcrumb">{{$discussion->board->title}}</a></li>
+         <li class="breadcrumb-item"><a href="/forums/{{$category->slug}}" id="category-breadcrumb">{{$category->title}}</a></li>
+         <li class="breadcrumb-item"><a href="/forums/{{$category->slug}}/{{$board->slug}}" id="board-breadcrumb">{{$board->title}}</a></li>
          <li class="breadcrumb-item active">{{$discussion->title}}</li>
       </ol>
    </nav>
@@ -39,7 +39,7 @@
                      Guest
                      @endif
 
-                     @if($discussion->board->moderators->contains(Auth::user()))
+                     @if($board->moderators->contains(Auth::user()))
                      Moderator<br>
                      @endif
                      

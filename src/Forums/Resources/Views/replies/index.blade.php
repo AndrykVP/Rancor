@@ -9,30 +9,26 @@
             {{ session('success') }}
          </div>
          @endif
+         {!! $replies->links() !!}
          <div class="card mb-4">
             <div class="card-header">
-               {{ __('List of Categories') }}
+               {{ __('Replies from '.$user->name) }}
             </div>
             <div class="card-body">
                <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">Order</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">URL</th>
-                      <th scope="col">Color</th>
+                      <th scope="col">Content</th>
+                      <th scope="col">Topic</th>
                     </tr>
                   </thead>
                   <tbody>
-                     @foreach($categories as $category)
+                     @foreach($replies as $reply)
                      <tr>
-                        <th scope="row">{{ $category->order }}</th>
-                        <td>{{ $category->title }}</td>
-                        <td><a href="/forums/{{ $category->slug }}">{{ $category->slug }}</a></td>
+                        <td>{{ $reply->body }}</td>
                         <td>
-                           <svg height="20" width="20">
-                              <circle fill="{{ $category->order }}" cx="10" cy="10" r="10"/>
-                           </svg>
+                           {{ $reply->created_at->format(config('rancor.dateFormat')) }}<br/>
+                           <strong>In:</strong> <a href="/forums/{{$reply->discussion->board->category->slug}}/{{$reply->discussion->board->slug}}/{{ $reply->discussion->id}}">{{ $reply->discussion->title}}</a>
                         </td>
                      </tr>
                      @endforeach

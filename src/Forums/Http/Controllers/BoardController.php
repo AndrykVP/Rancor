@@ -44,12 +44,13 @@ class BoardController extends Controller
     public function create(Request $request)
     {
         $this->authorize('create',Board::class);
-        $category = Category::find($request->category);
+        $parentBoard = Board::find($request->board);
+        $selCategory = $parentBoard ? $parentBoard->category : Category::find($request->category);
         $boards = Board::orderBy('title')->get();
-        $groups = Group::all();
-        $categories = Category::all();
+        $groups = Group::orderBy('name')->get();
+        $categories = Category::orderBy('title')->get();
 
-        return view('rancor::boards.create',compact('groups','boards','categories','selCategory'));
+        return view('rancor::boards.create',compact('groups','boards','categories','selCategory','parentBoard'));
     }
 
     /**
@@ -58,7 +59,7 @@ class BoardController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BoardForm $request)
     {
         $this->authorize('create',Board::class);
         
@@ -81,7 +82,7 @@ class BoardController extends Controller
         $this->authorize('view',$board);
 
         $board->load('category','moderators')->load(['children' => function($query) {
-            $query->withCount('discussions','replies','children')->with('latest_reply')->orderBy('order');
+            $query->withCount('discussions','replies','children')->with('latest_reply.discussion')->orderBy('order');
          }]);
    
          $sticky = $board->discussions()
@@ -103,12 +104,12 @@ class BoardController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Board  $board
      * @return \Illuminate\Http\Response
      */
-    public function edit(Board $board, Request $request)
+    public function edit(Board $board)
     {
         $this->authorize('update', $board);
-        $boards = Board::all();
-        $groups = Group::all();
-        $categories = Category::all();
+        $boards = Board::orderBy('title')->get();
+        $groups = Group::orderBy('name')->get();
+        $categories = Category::orderBy('title')->get();
         $board->load('category','groups');
 
         return view('rancor::boards.edit',compact('board', 'groups','boards','categories'));

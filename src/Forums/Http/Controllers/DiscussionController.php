@@ -102,12 +102,14 @@ class DiscussionController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Discussion $discussion)
+    public function edit(Request $request, Discussion $discussion)
     {
         $this->authorize('update', $discussion);
-        $discussions = Discussion::all();
+        $topics = $request->user()->topics();
+        $boards = Board::whereIn('id',$topics)->orderBy('title')->get();
+        $discussion->load('board.category');
 
-        return view('rancor::discussions.edit',['discussion' => $discussion->load('category','groups'), 'groups' => $groups,'discussions' => $discussions,'categories' => $categories]);
+        return view('rancor::discussions.edit',compact('discussion', 'boards'));
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Category;
 use AndrykVP\Rancor\Forums\Group;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -79,7 +80,7 @@ class CategoryController extends Controller
            $query->whereIn('id',$boards)
                 ->topTier()
                 ->withCount('discussions','replies')
-                ->with('latest_reply','children')
+                ->with('latest_reply.discussion','children')
                 ->orderBy('order');
         }])->loadCount('boards');
   

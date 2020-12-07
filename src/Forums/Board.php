@@ -115,6 +115,6 @@ class Board extends Model
      */
     public function scopeTopTier($query)
     {
-        return $query->where('parent_id', null);
+        return $query->whereNull('parent_id');
     }
 }

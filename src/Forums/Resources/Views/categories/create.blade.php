@@ -7,7 +7,8 @@
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
-               <li class="breadcrumb-item active">{{ __('Create Categories') }}</li>
+               <li class="breadcrumb-item"><a href="/forums/categories" id="category-breadcrumb">{{ __('Categories') }}</a></li>
+               <li class="breadcrumb-item active">{{ __('Create') }}</li>
             </ol>
          </nav>
          <div class="card mb-4">
@@ -17,7 +18,6 @@
             <div class="card-body">
                <form action="/forums/categories" method="POST">
                   @csrf
-                  <input type="hidden" name="id" id="id" value="{{ $category->id }}">
                   <div class="form-group">
                      <label for="title">Title</label>
                      <input type="text" class="form-control" name="title" id="title" aria-describedby="titleHelp" placeholder="Enter a new title">

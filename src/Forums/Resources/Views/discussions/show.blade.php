@@ -10,7 +10,7 @@
          <li class="breadcrumb-item active">{{$discussion->title}}</li>
       </ol>
    </nav>
-   @include('rancor::forums.includes.boardactions', ['links' => $replies->links() ])
+   @include('rancor::forums.includes.discussionactions', ['links' => $replies->links() ])
     <div class="row justify-content-center">
       <form class="col">
          @if(session('success'))

@@ -20,10 +20,13 @@
          <tr class="d-flex">
             <td class="col-9 px-4">
                <div class="row justify-content-between">
-                  <a class="h5" href="/forums/{{ $discussion->board->category->slug }}/{{ $discussion->board->slug }}/{{ $discussion->id }}">{{ __($discussion->title) }}</a> <br>
+                  <a class="h5" href="/forums/{{ $discussion->board->category->slug }}/{{ $discussion->board->slug }}/{{ $discussion->id }}">{{ __($discussion->title) }}</a>
                   <div>
-                     <span class="badge badge-pill badge-secondary">{{ __($discussion->views)}} Views</span>
-                     <span class="badge badge-pill badge-secondary">{{ __($discussion->replies_count)}} Replies</span>
+                     @if($discussion->is_locked)
+                     <span class="badge badge-pill badge-danger">Locked</span>
+                     @endif
+                     <span class="badge badge-pill badge-primary">{{ __($discussion->views)}} Views</span>
+                     <span class="badge badge-pill badge-primary">{{ __($discussion->replies_count)}} Replies</span>
                   </div>
                </div>
                @if($pages > 1)

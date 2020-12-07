@@ -7,18 +7,16 @@
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
-               @if($selCategory != null)
-               <li class="breadcrumb-item"><a href="/forums/{{$selCategory->slug}}" id="category-breadcrumb">{{ $selCategory->title }}</a></li>
-               @endif
-               <li class="breadcrumb-item active">{{ __('New Board') }}</li>
+               <li class="breadcrumb-item"><a href="/forums/boards" id="board-breadcrumb">{{ __('Boards') }}</a></li>
+               <li class="breadcrumb-item active">{{ __('Create') }}</li>
             </ol>
          </nav>
          <div class="card mb-4">
             <div class="card-header">
-               {{ __('Create Board'). ($selCategory != null ? ' on "'.$selCategory->title.'"' : '') }}
+               {{ __('New '.($parentBoard != null ? 'Child ' : '').'Board'. ($selCategory != null ? ' on "'.$selCategory->title.'"' : ''))}}
             </div>
             <div class="card-body">
-               <form action="/forums/boards" method="POST">
+               <form action="/forums/boards" method="POST" onsubmit="document.getElementById('category').disabled = false; document.getElementById('board').disabled = false;" >
                   @csrf
                   <div class="form-group">
                      <label for="title">Title</label>
@@ -54,10 +52,10 @@
                   </div>
                   <div class="form-group">
                      <label for="board">Parent Board</label>
-                     <select class="form-control @error('parent_id')border border-danger @enderror" name="parent_id" id="board" aria-describedby="boardHelp">
+                     <select class="form-control @error('parent_id')border border-danger @enderror" name="parent_id" id="board" aria-describedby="boardHelp" {{ $parentBoard != null ? 'disabled' : ''}}>
                         <option value="">None</option>
                         @foreach($boards as $board)
-                        <option value="{{ $board->id }}">{{ $board->title }}</option>
+                        <option value="{{ $board->id }}" {{ $parentBoard != null && $parentBoard->id === $board->id ? 'selected' : ''}}>{{ $board->title }}</option>
                         @endforeach
                      </select>
                      @error('parent_id')

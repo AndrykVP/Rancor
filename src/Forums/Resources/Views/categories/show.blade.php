@@ -3,37 +3,16 @@
 @section('content')
 <div class="container">
    <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col">
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
+               <li class="breadcrumb-item"><a href="/forums/categories" id="category-breadcrumb">{{ __('Categories') }}</a></li>
                <li class="breadcrumb-item active">{{ __($category->title) }}</li>
             </ol>
          </nav>
-         <div class="card mb-4">
-            <div class="card-header">
-               {{ __('Boards in "'.$category->title.'"') }}
-            </div>
-            <div class="card-body">
-               <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">Order</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">URL</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                     @foreach($category->boards as $board)
-                     <tr>
-                        <th scope="row">{{ $board->order }}</th>
-                        <td>{{ $board->title }}</td>
-                        <td><a href="/forums/{{ $board->slug }}">{{ $board->slug }}</a></td>
-                     </tr>
-                     @endforeach
-                  </tbody>
-                </table>
-            </div>
+         @include('rancor::forums.includes.categoryactions', ['category' => $category])
+         @include('rancor::forums.includes.categorycard', ['category' => $category])
       </div>
    </div>
 </div>

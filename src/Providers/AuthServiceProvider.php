@@ -4,7 +4,6 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use AndrykVP\Rancor\Auth\Role;
 use AndrykVP\Rancor\Auth\Policies\RolePolicy;
 
@@ -38,11 +37,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/api.php');
-
-        Relation::morphMap([
-            'users' => 'App\User',
-            'roles' => 'AndrykVP\Rancor\Auth\Role',
-        ]);
 
         // Automatically publish database Seeds and UserPolicy
         $this->publishes([

@@ -18,6 +18,8 @@ class CreatePermissiblesTable extends Migration
             $table->unsignedBigInteger('permissible_id');
             $table->string('permissible_type');
             $table->timestamps();
+
+            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
         });
     }
 

@@ -19,6 +19,12 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name' => 'User Manager',
+                'description' => 'Can create, edit or delete roles',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'Faction Manager',
                 'description' => 'Can create, edit or delete factions, departments and ranks',
                 'created_at' => now(),
@@ -26,12 +32,6 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name' => 'Role Manager',
-                'description' => 'Can create, edit or delete roles',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'User Manager',
                 'description' => 'Can create, edit or delete roles',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -49,14 +49,20 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name' => 'News Team',
+                'description' => 'Can create, edit and delete news articles',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'Scout Team',
                 'description' => 'Can view and upload to the Reconnaisance Center',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'News Team',
-                'description' => 'Can create, edit and delete news articles',
+                'name' => 'Forum Manager',
+                'description' => 'Can create, edit and delete forum categories, boards and usergroups',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -78,13 +84,14 @@ class RoleSeeder extends Seeder
         }
 
         $roles = [
-            2 => [13,14,15,16,17,18,19,20,21,22,23,24,25],
-            3 => [1,2,3,4],
-            4 => [26,27,28,29,30],
-            5 => [26,29],
-            6 => [26,28],
-            7 => [9,10,11,12],
-            8 => [5,6,7,8],
+            2 => [1,2,3,4,5],
+            3 => [12,13,14,15,16,17,18,19,20,21,22,23],
+            4 => [6,7,8,9],
+            5 => [1,4],
+            6 => [1,3],
+            7 => [24,25,26,27],
+            8 => [28,29,30,31],
+            9 => [32,33,34,35,36,37,38,39,40,41,42,43,45,46,47,48,49,50,51,52],
         ];
 
         foreach($roles as $role => $privs)

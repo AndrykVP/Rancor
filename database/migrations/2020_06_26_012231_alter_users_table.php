@@ -15,8 +15,10 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('avatar')->nullable()->default(null)->after('name');
+            $table->text('signature')->nullable()->default(null)->after('avatar');
             $table->mediumtext('nickname')->nullable()->default(null)->after('email');
-            $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('nickname');
+            $table->mediumtext('quote')->nullable()->default(null)->after('nickname');
+            $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('quote');
             $table->boolean('is_admin')->default(0)->after('rank_id');
             $table->timestamp('last_login')->nullable()->default(null);
 
@@ -33,7 +35,9 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function(Blueprint $table) {
             $table->dropColumn('avatar');
+            $table->dropColumn('signature');
             $table->dropColumn('nickname');
+            $table->dropColumn('quote');
             $table->dropColumn('rank_id');
             $table->dropColumn('is_admin');
             $table->dropColumn('last_login');

@@ -10,6 +10,12 @@ use AndrykVP\Rancor\Audit\Events\RankChange;
 use AndrykVP\Rancor\Audit\Listeners\UserLoginIP;
 use AndrykVP\Rancor\Audit\Listeners\UserRegisteredIP;
 use AndrykVP\Rancor\Audit\Listeners\UserRank;
+use AndrykVP\Rancor\Forums\Listeners\DefaultGroupUser;
+use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
+use AndrykVP\Rancor\Forums\Events\CreateReply;
+use AndrykVP\Rancor\Forums\Listeners\IncrementViews;
+use AndrykVP\Rancor\Forums\Listeners\MarkDiscussionRead;
+use AndrykVP\Rancor\Forums\Listeners\LinkUserDiscussion;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             UserRegisteredIP::class,
+            DefaultGroupUser::class,
         ],
         Login::class => [
             UserLoginIP::class,
@@ -24,6 +31,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         RankChange::class => [
             UserRank::class,
+        ],
+        VisitDiscussion::class => [
+            IncrementViews::class,
+            MarkDiscussionRead::class,
+        ],
+        CreateReply::class => [
+            LinkUserDiscussion::class,
         ],
     ];
 

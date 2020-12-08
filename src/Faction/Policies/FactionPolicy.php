@@ -3,7 +3,6 @@
 namespace AndrykVP\Rancor\Faction\Policies;
 
 use App\User;
-use AndrykVP\Rancor\Faction\Faction;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -69,7 +68,7 @@ class FactionPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function update(User $user, Faction $faction)
+    public function update(User $user)
     {
         return $user->hasPermission('update-factions')
                 ? Response::allow()

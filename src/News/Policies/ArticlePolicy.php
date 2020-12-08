@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\News\Policies;
 
 use App\User;
+use AndrykVP\Rancor\News\Article;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -40,6 +41,7 @@ class ArticlePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
+     * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */
     public function view(User $user, Article $article)
@@ -67,9 +69,10 @@ class ArticlePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
+     * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Article $article)
     {
         return $user->id === $article->author_id
                 ||$user->hasPermission('edit-articles')
@@ -81,12 +84,12 @@ class ArticlePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
+     * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Article $article)
     {
-        return $user->id === $article->author_id
-                ||$user->hasPermission('delete-articles')
+        return $user->hasPermission('delete-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete articles.');
     }

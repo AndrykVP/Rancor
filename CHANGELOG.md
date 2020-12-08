@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New `drafts()` method on `News\Http\Controllers\ArticleController` to see only unpublished articles.
 - `Auth\Http\Resources\PermissionResource` for conditional rendering in `UserResource`
 - `Providers\EventServiceProvider` to automatically register Rancor's events and listeners into the service container.
+- `Forum` module, including Models, Controllers, Resources, Requests, Events and Listeners.
 
 ### Changed
 - Moved config files from individual modules to a `config/` folder in root directory

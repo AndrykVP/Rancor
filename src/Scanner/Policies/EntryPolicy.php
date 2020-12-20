@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Scanner\Policies;
 use App\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use AndrykVP\Rancor\Scanner\Entry;
 
 class EntryPolicy
 {
@@ -14,13 +15,31 @@ class EntryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
+     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
      * @return mixed
      */
-    public function view(User $user)
+    public function viewAny(User $user)
     {
-        return $user->hasPermission('view-scans')
+        return $user->is_admin
+                || $user->hasPermission('view-scans')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view scanner entries.');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\User  $user
+     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @return mixed
+     */
+    public function view(User $user, Entry $entry)
+    {
+        return $user->is_admin
+                || $user->hasPermission('view-scans')
+                || $entry->updated_by === $user->id
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view this scanner entry.');
     }
 
     /**
@@ -31,7 +50,8 @@ class EntryPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-scans')
+        return $user->is_admin
+                || $user->hasPermission('create-scans')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create scanner entries.');
     }
@@ -42,11 +62,13 @@ class EntryPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Entry $entry)
     {
-        return $user->hasPermission('edit-scans')
+        return $user->is_admin
+                || $user->hasPermission('edit-scans')
+                || $entry->updated_by === $user->id
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit scanner entries.');
+                : Response::deny('You do not have permissions to edit this scanner entry.');
     }
 
     /**
@@ -55,10 +77,11 @@ class EntryPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Entry $entry)
     {
-        return $user->hasPermission('delete-scans')
+        return $user->is_admin
+                || $user->hasPermission('delete-scans')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete scanner entries.');
+                : Response::deny('You do not have permissions to delete this scanner entry.');
     }
 }

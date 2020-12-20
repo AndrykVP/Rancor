@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 
 class LogResource extends JsonResource
 {
@@ -15,7 +16,7 @@ class LogResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'attributes' => [
+            'changes' => [
                 'type' => $this->when($this->old_type != null && $this->new_type != null, function() {
                     return [
                         'old' => $this->old_type,
@@ -41,14 +42,9 @@ class LogResource extends JsonResource
                     ];
                 }),
             ],
-            'contributor' => $this->when($this->user_id != null, function() {
-                return [
-                    'id' => $this->contributor->id,
-                    'name' => $this->contributor->name,
-                    'avatar' => $this->contributor->avatar,
-                ];
-            }),
-            'created_at' => $this->created_at->toDateTimeString(),
+            'contributor' => new UserResource($this->whenLoaded('contributor')),
+            'entry' => new EntryResource($this->whenLoaded('entry')),
+            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
         ];
     }
 }

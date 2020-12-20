@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\User;
+use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 
 class EntryResource extends JsonResource
 {
@@ -18,18 +18,15 @@ class EntryResource extends JsonResource
         return [
             'entity' => [
                 'id' => $this->id,
+                'entityID' => $this->entity_id,
                 'type' => $this->type,
                 'name' => $this->name,
                 'owner' => $this->owner,
             ],
             'location' => $this->position,
-            'contributor' => $this->when($this->updated_by != null, function() {
-                return [
-                    'id' => $this->contributor->id,
-                    'name' => $this->contributor->name,
-                ];
-            }),
-            'last_scanned' => $this->last_seen->format('F jS, H:i T')
+            'contributor' => new UserResource($this->whenLoaded('contributor')),
+            'changelog' => LogResource::collection($this->whenLoaded('changelog')),
+            'last_scanned' => $this->last_seen->format(config('rancor.dateFormat'))
         ];
     }
 }

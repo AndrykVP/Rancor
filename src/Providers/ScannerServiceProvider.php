@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use AndrykVP\Rancor\Scanner\Entry;
 use AndrykVP\Rancor\Scanner\Policies\EntryPolicy;
+use AndrykVP\Rancor\Scanner\Log;
+use AndrykVP\Rancor\Scanner\Policies\LogPolicy;
 
 class ScannerServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class ScannerServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Entry::class => EntryPolicy::class,
+        Log::class => LogPolicy::class,
     ];
 
     /**
@@ -37,6 +40,7 @@ class ScannerServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Scanner/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Scanner/Routes/web.php');
         
         // Register policies
         $this->registerPolicies();

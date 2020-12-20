@@ -25,7 +25,9 @@ class EntryController extends Controller
      */
     public function index()
     {
-        //
+        $entries = Entry::with('contributor')->paginate(config('rancor.pagination'));
+
+        return view('rancor::scanner.index',compact('entries'));
     }
 
     /**

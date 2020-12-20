@@ -41,6 +41,9 @@ class ScannerServiceProvider extends ServiceProvider
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Scanner/Routes/api.php');
         $this->loadRoutesFrom(__DIR__.'/../Scanner/Routes/web.php');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/../Scanner/Resources/Views', 'rancor');
         
         // Register policies
         $this->registerPolicies();

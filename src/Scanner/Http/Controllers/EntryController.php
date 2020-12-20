@@ -29,7 +29,7 @@ class EntryController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',Entry::class);
+        $this->authorize('viewAny',Entry::class);
 
         $records = Entry::paginate(15);
 
@@ -67,6 +67,8 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         $this->authorize('view', $entry);
+
+        $entry->load('contributor','changelog');
 
         return new EntryResource($entry);
     }

@@ -1,9 +1,8 @@
 <?php 
 
-Route::group(['namespace' => 'AndrykVP\Rancor\Scanner\Http\Controllers', 'prefix' => 'api', 'middleware' => ['api']], function(){
+Route::group(['namespace' => 'AndrykVP\Rancor\Scanner\Http\Controllers', 'prefix' => 'api/scanner', 'middleware' => ['api']], function(){
+	Route::post('search','EntryController@search');
 	Route::apiResources([
-		'scans' => 'EntryController',
+		'entries' => 'EntryController',
 	]);
-	Route::post('scans/search','EntryController@search');
-	Route::get('scans/logs/{id}','LogController');
 });

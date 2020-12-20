@@ -5,12 +5,9 @@ namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 use App\User;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Entry;
-use AndrykVP\Rancor\Scanner\Log;
-use AndrykVP\Rancor\Scanner\Events\EditScan;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
+use AndrykVP\Rancor\Scanner\Services\EntryParseService;
 use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class EntryController extends Controller
@@ -49,127 +46,67 @@ class EntryController extends Controller
     {
         $this->authorize('create',Entry::class);
 
-        if(!$request->hasFile('files'))
-        {
-            return response()->json([
-                'message' => 'At least 1 XML file must be uploaded.',
-            ],400);
-        }
+        abort_if(!$request->hasFile('files'), 400, 'At least 1 XML file must be uploaded.');
 
-        $entry = $request->file('files');
-        $contributor = $request->user();
-        $updated = 0;
-        $new = 0;
-        $unchanged = 0;
-
-        //foreach($scan as $entry)
-        //{
-            $xml = File::get($entry);
-            $parse = simplexml_load_string($xml);
-            $parse = json_decode(json_encode($parse));
-
-            $date = $parse->channel->cgt;
-            $date = ($date->years*365*24*60*60) + ($date->days*24*60*60) + ($date->hours*60*60) + ($date->minutes*60) + $date->seconds + 912668400;
-
-            $location = $parse->channel->location;
-
-            foreach($parse->channel->item as $ship)
-            {
-                if(property_exists($ship,'entityID'))
-                {
-                    $model = Entry::where([
-                        ['entity_id',$ship->entityID],
-                        ['type',$ship->typeName],
-                    ])->first();
-                    $new_data = $this->parseModel($ship,$location,$date);
-    
-                    if($model == null)
-                    {
-                        $model = new Entry;
-                        $model->entity_id = $ship->entityID;
-                        $new += 1;
-                    }
-                    elseif($model != null && $model->last_seen < $new_data['last_seen'])
-                    {
-                        $updated += 1;
-                    }
-                    else
-                    {
-                        $unchanged += 1;
-                        continue;
-                    }
-
-                    $model->type = $new_data['type'];
-                    $model->name = $new_data['name'];
-                    $model->owner = $new_data['owner'];
-                    $model->position = $new_data['position'];
-                    $model->last_seen = $new_data['last_seen'];
-                    $model->updated_by = $contributor->id;
-                    $model->save();
-
-                }
-            }
-        //}
+        $scans = new EntryParseService($request);
+        $scans->start();
 
         return response()->json([
-            'updated' => $updated,
-            'new' => $new,
-            'unchanged' => $unchanged,
+            'updated' => $scans->updated,
+            'new' => $scans->new,
+            'unchanged' => $scans->unchanged,
         ],200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Entry $entry)
     {
-        $this->authorize('view',Entry::class);
+        $this->authorize('view', $entry);
 
-        $record = Entry::findOrFail($id);
-
-        return new EntryResource($record);
+        return new EntryResource($entry);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Entry $entry)
     {
-        $this->authorize('update',Entry::class);
+        $this->authorize('update', $entry);
 
         $contributor = $request->user();
         $new_data = $request->all();
-
-        $record = Entry::findOrFail($id);        
-        $record->updated_by = $contributor->id;
-        $record->update($new_data);
+     
+        $entry->updated_by = $contributor->id;
+        $entry->update($new_data);
         
         return response()->json([
-            'message' => 'Record for '.$record->type.' "'.$record->name.'" (#'.$record->entity_id.') has been updated.',
+            'message' => 'Record for '.$entry->type.' "'.$entry->name.'" (#'.$entry->entity_id.') has been updated.',
         ],200);
     }
 
     /**
      * Remove the specified Usergroup resource from storage.
      *
-     * @param  \App\Title  $title
+     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Entry $entry)
     {
-        $this->authorize('delete',Entry::class);
+        $this->authorize('delete', $entry);
 
-        $Entry = Entry::findOrFail($id);
-        $Entry->delete();
+        $entry->delete();
 
         return response()->json([
-            'message' => 'All records of the Entry "'.$Entry->name.'" (#'.$Entry->entity_id.') have been successfully deleted.'
+            'message' => 'All records of the '.$entry->type.' "'.$entry->name.'" (#'.$entry->entity_id.') have been successfully deleted.'
         ],200);
     }
 
@@ -181,52 +118,14 @@ class EntryController extends Controller
      */
     public function search(SearchEntry $request)
     {
-        $this->authorize('view',Entry::class);
+        $this->authorize('viewAny', Entry::class);
 
-        $query = $request->all();
+        $param = $request->validated();
 
-        $attribute = $query['attribute'];
-        $value = $query['value'];
-        $record = Entry::where($attribute,'like','%'.$value.'%')->paginate(15);
+        $query = Entry::where($param['attribute'],'like','%'.$param['value'].'%')->paginate(15);
         
-        return EntryResource::collection($record);
+        return EntryResource::collection($query);
 
 
-    }
-
-    /**
-     * Parse input data from XML into a PHP array
-     * 
-     * @param array $data
-     * @param array $location
-     * @param int $date
-     * @return array
-     */
-    private function parseModel($data,$location,$date)
-    {
-        return [
-            'type' => $data->typeName,
-            'name' => isset($data->name) ?  $data->name : NULL,
-            'owner' => $data->ownerName,
-            'position' => [
-                'galaxy' => [
-                    'x' => $location->galX,
-                    'y' => $location->galY,
-                ],
-                'system' => [
-                    'x' => isset($location->surfX) ? $location->sysX : ( isset($data->x) ? $data->x : $location->sysX ),
-                    'y' => isset($location->surfY) ? $location->sysY : ( isset($data->y) ? $data->y : $location->sysY ),
-                ],
-                'surface' => [
-                    'x' => isset($location->surfX) ? ( isset($location->groundX) ? $location->surfX : $data->x ) : NULL,
-                    'y' => isset($location->surfY) ? ( isset($location->groundY) ? $location->surfY : $data->y ) : NULL,
-                ],
-                'ground' => [
-                    'x' => isset($location->groundX) ? $data->x : NULL,
-                    'y' => isset($location->groundY) ? $data->y : NULL,
-                ],
-            ],
-            'last_seen' => Carbon::createFromTimestamp($date)
-        ];
     }
 }

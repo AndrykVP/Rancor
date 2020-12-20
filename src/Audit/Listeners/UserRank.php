@@ -56,11 +56,11 @@ class UserRank
             else
             {
                 $rank_id = $event->user->getOriginal('rank_id');
-                $new_rank = Rank::find($event->user->rank_id);
+                $new_rank = Rank::with('department.faction')->find($event->user->rank_id);
     
                 if($rank_id != null)
                 {
-                    $old_rank = Rank::find($rank_id);
+                    $old_rank = Rank::with('department.faction')->find($rank_id);
         
                     if($old_rank->level != $new_rank->level)
                     {
@@ -85,7 +85,7 @@ class UserRank
                         $this->createEntry($event->user->id, $message, $this->info);
                     }
         
-                    if($old_rank->department->faction_id != $new_rank->department->faction_id)
+                    if($old_rank->department->faction->id != $new_rank->department->faction->id)
                     {
                         $message = 'Reassigned to the ' . $new_rank->department->faction->name . ' faction';
         

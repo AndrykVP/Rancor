@@ -4,8 +4,10 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Routing\Router;
 use AndrykVP\Rancor\Auth\Role;
 use AndrykVP\Rancor\Auth\Policies\RolePolicy;
+use AndrykVP\Rancor\Auth\Http\Middleware\AdminAccess;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -49,6 +51,10 @@ class AuthServiceProvider extends ServiceProvider
 
         // Register policies
         $this->registerPolicies();
+
+        // Register Middleware Alias
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('admin', AdminAccess::class);
     }
 
     /**

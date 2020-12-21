@@ -50,8 +50,11 @@ class FrameworkServiceProvider extends ServiceProvider
             'boards' => 'AndrykVP\Rancor\Forums\Board',
         ]);
 
-        // Load routes and migrations
+        // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        // Load factories
+        $this->loadFactoriesFrom(__DIR__.'/../../database/factories');
 
         // Publishes config files
         $this->publishes([

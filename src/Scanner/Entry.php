@@ -65,7 +65,7 @@ class Entry extends Model
      */
     public function changelog()
     {
-        return $this->hasMany('AndrykVP\Rancor\Scanner\Log');
+        return $this->hasMany('AndrykVP\Rancor\Scanner\Log')->latest();
     }
 
     /**

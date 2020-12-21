@@ -25,6 +25,8 @@ class EntryController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Entry::class);
+
         $entries = Entry::with('contributor')->paginate(config('rancor.pagination'));
 
         return view('rancor::scanner.index',compact('entries'));
@@ -37,7 +39,9 @@ class EntryController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create',Entry::class);
+
+        return view('rancor::scanner.create');
     }
 
     /**
@@ -59,7 +63,10 @@ class EntryController extends Controller
      */
     public function show(Entry $entry)
     {
-        //
+        $this->authorize('view', $entry);
+
+        $entry->load('contributor','changelog.contributor');
+        return view('rancor::scanner.show', compact('entry'));
     }
 
     /**
@@ -70,7 +77,7 @@ class EntryController extends Controller
      */
     public function edit(Entry $entry)
     {
-        //
+        $this->authorize('update', $entry);
     }
 
     /**
@@ -82,7 +89,7 @@ class EntryController extends Controller
      */
     public function update(Request $request, Entry $entry)
     {
-        //
+        $this->authorize('update', $entry);
     }
 
     /**
@@ -93,6 +100,6 @@ class EntryController extends Controller
      */
     public function destroy(Entry $entry)
     {
-        //
+        $this->authorize('delete', $entry);
     }
 }

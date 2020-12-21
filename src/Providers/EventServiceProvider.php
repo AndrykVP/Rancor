@@ -13,9 +13,11 @@ use AndrykVP\Rancor\Audit\Listeners\UserRank;
 use AndrykVP\Rancor\Forums\Listeners\DefaultGroupUser;
 use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
-use AndrykVP\Rancor\Forums\Listeners\IncrementViews;
+use AndrykVP\Rancor\Forums\Listeners\IncrementDiscussionViews;
 use AndrykVP\Rancor\Forums\Listeners\MarkDiscussionRead;
 use AndrykVP\Rancor\Forums\Listeners\LinkUserDiscussion;
+use AndrykVP\Rancor\News\Events\VisitArticle;
+use AndrykVP\Rancor\News\Listeners\IncrementArticleViews;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -33,8 +35,11 @@ class EventServiceProvider extends ServiceProvider
             UserRank::class,
         ],
         VisitDiscussion::class => [
-            IncrementViews::class,
+            IncrementDiscussionViews::class,
             MarkDiscussionRead::class,
+        ],
+        VisitArticle::class => [
+            IncrementArticleViews::class,
         ],
         CreateReply::class => [
             LinkUserDiscussion::class,

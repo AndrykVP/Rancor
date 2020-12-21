@@ -36,13 +36,6 @@ class NewsServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../News/Routes/api.php');
-
-        // Publish Assets
-        $this->publishes([
-            __DIR__.'/../News/Http/Controllers' => app_path('Http/Controllers/Rancor/News'),
-            __DIR__.'/../News/Http/Requests' => app_path('Http/Requests/Rancor/News'),
-            __DIR__.'/../News/Http/Resources' => app_path('Http/Resources/Rancor/News'),
-        ], 'http');
         
         // Register policies
         $this->registerPolicies();

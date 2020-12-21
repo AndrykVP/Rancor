@@ -45,14 +45,7 @@ class FactionServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../Faction/Routes/api.php');
         
         // Register policies
-        $this->registerPolicies();
-
-        // Publish Assets
-        $this->publishes([
-            __DIR__.'/../Faction/Http/Controllers' => app_path('Http/Controllers/Rancor/Faction'),
-            __DIR__.'/../Faction/Http/Requests' => app_path('Http/Requests/Rancor/Faction'),
-            __DIR__.'/../Faction/Http/Resources' => app_path('Http/Resources/Rancor/Faction'),
-        ], 'http');        
+        $this->registerPolicies();       
     }
 
     /**

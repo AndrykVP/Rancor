@@ -25,7 +25,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Automatically publish database Seeds and UserPolicy
+        $this->publishes([
+            __DIR__.'/../../database/seeds/PermissionSeeder.php' => database_path('seeds/PermissionSeeder.php'),
+            __DIR__.'/../../database/seeds/RoleSeeder.php' => database_path('seeds/RoleSeeder.php'),
+        ], 'seeders');
+
+        // Publish Policies
+        $this->publishes([
+            __DIR__.'/../Auth/Policies/UserPolicy.php' => app_path('Policies/UserPolicy.php')
+        ], 'policies');
     }
 
     /**
@@ -37,24 +46,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/api.php');
-
-        // Automatically publish database Seeds and UserPolicy
-        $this->publishes([
-            __DIR__.'/../../database/seeds/PermissionSeeder.php' => database_path('seeds/PermissionSeeder.php'),
-            __DIR__.'/../../database/seeds/RoleSeeder.php' => database_path('seeds/RoleSeeder.php'),
-        ], 'seeders');
-
-        // Publish Http Files
-        $this->publishes([
-            __DIR__.'/../Auth/Http/Controllers' => app_path('Http/Controllers/Rancor/Auth'),
-            __DIR__.'/../Auth/Http/Requests' => app_path('Http/Requests/Rancor/Auth'),
-            __DIR__.'/../Auth/Http/Resources' => app_path('Http/Resources/Rancor/Auth'),
-        ], 'http');
-
-        // Publish Policies
-        $this->publishes([
-            __DIR__.'/../Auth/Policies/UserPolicy.php' => app_path('Policies/UserPolicy.php')
-        ], 'policies');
 
         // Register policies
         $this->registerPolicies();

@@ -27,10 +27,5 @@ class AuditServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Audit/Routes/api.php');
-
-        // Publish Http Files
-        $this->publishes([
-            __DIR__.'/../Audit/Http/Controllers' => app_path('Http/Controllers/Rancor/Audit'),
-        ], 'http');
     }
 }

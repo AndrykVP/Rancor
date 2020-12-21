@@ -57,12 +57,7 @@ class ForumsServiceProvider extends ServiceProvider
         // Register policies
         $this->registerPolicies();
 
-        // Publish Assets
-        $this->publishes([
-            __DIR__.'/../Forums/Http/Controllers' => app_path('Http/Controllers/Rancor/Forums'),
-            __DIR__.'/../Forums/Http/Requests' => app_path('Http/Requests/Rancor/Forums'),
-            __DIR__.'/../Forums/Http/Resources' => app_path('Http/Resources/Rancor/Forums'),
-        ], 'http');        
+        // Publish Assets   
         $this->publishes([
             __DIR__.'/../Forums/Resources/Views' => resource_path('views/rancor'),
         ], 'views');        

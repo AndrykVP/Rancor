@@ -20,7 +20,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name' => 'User Manager',
-                'description' => 'Can create, edit or delete roles',
+                'description' => 'Can create, edit or delete users',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -85,13 +85,13 @@ class RoleSeeder extends Seeder
 
         $roles = [
             2 => [1,2,3,4,5],
-            3 => [12,13,14,15,16,17,18,19,20,21,22,23],
+            3 => [10,11,12,13,14,15,16,17,18,19,20,21],
             4 => [6,7,8,9],
             5 => [1,4],
             6 => [1,3],
-            7 => [24,25,26,27],
-            8 => [28,29,30,31],
-            9 => [32,33,34,35,36,37,38,39,40,41,42,43,45,46,47,48,49,50,51,52],
+            7 => [22,23,24,25],
+            8 => [26,27,28,29],
+            9 => [30,31,32,33,34,35,36,37,38,39,40,41,42,43,45,46,47,48,49],
         ];
 
         foreach($roles as $role => $privs)

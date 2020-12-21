@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 
-class IncrementViews
+class IncrementDiscussionViews
 {
     public $visited_discussions;
 

@@ -39,9 +39,21 @@ trait HasPrivs
         }
         if($this->permissions()->exists())
         {
-            return $this->permissions->contains('name',$param);
+            return $this->permissions->contains('name', $param);
         }
         
+        return false;
+    }
+
+    /**
+     * Custom function to verify if User can access the admin panel
+     * 
+     * @return boolean
+     */
+    public function hasAdminAccess()
+    {
+        if($this->roles()->exists() || $this->is_admin) return true;
+
         return false;
     }
 }

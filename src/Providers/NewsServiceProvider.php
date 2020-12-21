@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use AndrykVP\Rancor\News\Article;
 use AndrykVP\Rancor\News\Policies\ArticlePolicy;
+use AndrykVP\Rancor\News\Tag;
+use AndrykVP\Rancor\News\Policies\TagPolicy;
 
 class NewsServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class NewsServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Article::class => ArticlePolicy::class,
+        Tag::class => TagPolicy::class,
     ];
     /**
      * Register services.
@@ -36,6 +39,7 @@ class NewsServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../News/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../News/Routes/web.php');
         
         // Register policies
         $this->registerPolicies();

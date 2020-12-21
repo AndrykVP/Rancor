@@ -28,9 +28,9 @@ class FrameworkServiceProvider extends ServiceProvider
         $this->app->register(NewsServiceProvider::class); 
         
         // Add log channel to stack
-        $this->app->make('config')->set('logging.channels.swc', [
+        $this->app->make('config')->set('logging.channels.rancor', [
             'driver' => 'single',
-            'path' => storage_path('logs/swc.log'),
+            'path' => storage_path('logs/rancor.log'),
             'level' => 'debug',
         ]); 
     }

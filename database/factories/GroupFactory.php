@@ -9,6 +9,5 @@ $factory->define(Group::class, function (Faker $faker) {
     return [
         'name' => $faker->jobTitle,
         'description' => $faker->catchPhrase,
-        'color' => $faker->hexcolor,
     ];
 });

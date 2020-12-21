@@ -17,6 +17,7 @@ class CreateRanksTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable()->default(null);
+            $table->string('color')->nullable()->default(null);
             $table->unsignedBigInteger('department_id');
             $table->unsignedTinyInteger('level')->default(0);
             $table->timestamps();

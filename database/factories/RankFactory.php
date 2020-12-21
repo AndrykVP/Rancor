@@ -9,6 +9,7 @@ $factory->define(Rank::class, function (Faker $faker) {
     return [
         'name' => $faker->jobTitle,
         'description' => $faker->text(150),
+        'color' => $faker->hexcolor,
         'department_id' => rand(1,12),
         'level' => rand(1,12),
     ];

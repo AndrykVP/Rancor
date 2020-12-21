@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $table = 'news_articles';
+
+    /**
      * Attributes available for mass assignment
      * 
      * @var array
@@ -21,6 +28,13 @@ class Article extends Model
     protected $casts = [
         'is_published' => 'boolean',
     ];
+
+    /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $hidden = ['pivot'];
 
     /**
      * Relationship to User model
@@ -40,5 +54,15 @@ class Article extends Model
     public function editor()
     {
         return $this->belongsTo('App\User','editor_id');
+    }
+
+    /**
+     * Relationship to Tags model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('AndrykVP\Rancor\News\Tag','news_article_tag');
     }
 }

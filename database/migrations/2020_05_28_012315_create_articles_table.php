@@ -13,11 +13,12 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('news_articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->longText('content');
             $table->boolean('is_published');
+            $table->unsignedBigInteger('views')->default(0);
             $table->unsignedBigInteger('author_id')->nullable()->default(null);
             $table->unsignedBigInteger('editor_id')->nullable()->default(null);
             $table->timestamps();
@@ -34,6 +35,6 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('news_articles');
     }
 }

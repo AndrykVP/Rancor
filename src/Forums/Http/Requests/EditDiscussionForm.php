@@ -25,7 +25,9 @@ class EditDiscussionForm extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'author_id' => $this->user()->id,
+            'editor_id' => $this->user()->id,
+            'is_sticky' => $this->is_sticky ?? null,
+            'is_locked' => $this->is_locked ?? null,
         ]);
     }
 
@@ -40,10 +42,10 @@ class EditDiscussionForm extends FormRequest
 
         return [
             'title' => 'required|string',
-            'is_sticky' => 'nullable|boolean',
-            'is_locked' => 'nullable|boolean',
+            'is_sticky' => 'required|boolean',
+            'is_locked' => 'required|boolean',
             'board_id' => 'required|integer|exists:forum_boards,id',
-            'author_id' => 'required|integer|exists:users,id',
+            'editor_id' => 'required|integer|exists:users,id',
         ];
     }
 }

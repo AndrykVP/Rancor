@@ -38,17 +38,12 @@ class DiscussionController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DiscussionForm $request)
+    public function store(NewDiscussionForm $request)
     {
         $this->authorize('create',Discussion::class);
         
         $data = $request->validated();
-        $discussion = Discussion::create([
-            'title' => $data['title'],
-            'is_sticky' => $data['is_sticky'],
-            'board_id' => $data['board_id'],
-            'author_id' => $data['user_id'],
-        ]);
+        $discussion = Discussion::create($data);
 
         return response()->json([
             'message' => 'Discussion "'.$discussion->title.'" has been created'
@@ -75,17 +70,12 @@ class DiscussionController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function update(DiscussionForm $request, Discussion $discussion)
+    public function update(EditDiscussionForm $request, Discussion $discussion)
     {
         $this->authorize('update',$discussion);
         
         $data = $request->validated();
-        $discussion->update([
-            'title' => $data['title'],
-            'is_sticky' => $data['is_sticky'],
-            'board_id' => $data['board_id'],
-            'editor_id' => $data['user_id'],
-        ]);
+        $discussion->update($data);
 
         return response()->json([
             'message' => 'Discussion "'.$discussion->title.'" has been updated'

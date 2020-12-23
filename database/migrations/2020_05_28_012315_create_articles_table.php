@@ -16,8 +16,8 @@ class CreateArticlesTable extends Migration
         Schema::create('news_articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->longText('content');
-            $table->boolean('is_published');
+            $table->longText('body');
+            $table->boolean('is_published')->default(0);
             $table->unsignedBigInteger('views')->default(0);
             $table->unsignedBigInteger('author_id')->nullable()->default(null);
             $table->unsignedBigInteger('editor_id')->nullable()->default(null);

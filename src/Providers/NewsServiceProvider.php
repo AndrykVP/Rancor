@@ -40,6 +40,9 @@ class NewsServiceProvider extends ServiceProvider
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../News/Routes/api.php');
         $this->loadRoutesFrom(__DIR__.'/../News/Routes/web.php');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/../News/Resources/Views','rancor');
         
         // Register policies
         $this->registerPolicies();

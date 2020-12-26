@@ -73,7 +73,7 @@ class TagPolicy
      */
     public function update(User $user, Tag $tag)
     {
-        return $user->hasPermission('edit-tags')
+        return $user->hasPermission('update-tags')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this Tag.');
     }

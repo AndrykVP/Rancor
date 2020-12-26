@@ -34,6 +34,6 @@ class Tag extends Model
      */
     public function articles()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\News\Article','news_article_tag');
+        return $this->belongsToMany('AndrykVP\Rancor\News\Article','news_article_tag')->withTimestamps();
     }
 }

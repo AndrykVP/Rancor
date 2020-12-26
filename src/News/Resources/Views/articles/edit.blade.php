@@ -27,6 +27,17 @@
                      <small id="bodyHelp" class="form-text text-danger">{{ $message }}</small>
                      @enderror
                   </div>
+                  <div class="form-group">
+                     <label for="tags">Tags</label>
+                     <select class="form-control @error('tags')border border-danger @enderror" name="tags[]" id="tags" aria-describedby="tagsHelp" multiple>
+                        @foreach($tags as $tag)
+                        <option value="{{ $tag->id }}" {{ $article->tags->contains('id', $tag->id) ? 'selected' : ''}}>{{ $tag->name}}</option>
+                        @endforeach
+                     </select>
+                     @error('tags')
+                     <small id="tagsHelp" class="form-text text-danger">{{ $message }}</small>
+                     @enderror
+                  </div>
                   <div class="form-check">
                      <input type="checkbox" class="form-check-input" name="is_published" id="publish" aria-describedby="publishHelp" {{ $article->is_published ?? 'checked'}}>
                      <label for="title" class="form-check-label">Publish?</label>

@@ -42,6 +42,7 @@ class EditArticleForm extends FormRequest
             'title' => 'required|string',
             'body' => 'required|min:3',
             'is_published' => 'required|boolean',
+            'tags' => 'nullable|array',
             'editor_id' => 'required|integer|exists:users,id',
         ];
     }

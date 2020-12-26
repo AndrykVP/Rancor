@@ -3,9 +3,11 @@
 namespace AndrykVP\Rancor\News\Http\Controllers;
 
 use AndrykVP\Rancor\News\Article;
+use AndrykVP\Rancor\News\Tag;
 use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
 use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
@@ -41,7 +43,9 @@ class ArticleController extends Controller
     {
         $this->authorize('create', Article::class);
 
-        return view('rancor::articles.create');
+        $tags = Tag::all();
+
+        return view('rancor::articles.create', compact('tags'));
     }
 
     /**
@@ -55,9 +59,13 @@ class ArticleController extends Controller
         $this->authorize('create', Article::class);
 
         $data = $request->validated();
-        $article = Article::create($data);
+        $article;
+        DB::transaction(function () use(&$article,$data) {
+            $article = Article::create($data);
+            $article->tags()->sync($data['tags']);
+        });
 
-        return redirect(route('articles.index'))->with('success','Article '.$article->title.' has been successfully created');
+        return redirect(route('articles.index'))->with('success','Article "'.$article->title.'" has been successfully created');
     }
 
     /**
@@ -84,7 +92,10 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        return view('rancor::articles.edit',compact('article'));
+        $tags = Tag::orderBy('name')->get();
+        $article->load('tags');
+
+        return view('rancor::articles.edit',compact('article', 'tags'));
     }
 
     /**
@@ -99,9 +110,12 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
 
         $data = $request->validated();
-        $article->update($data);
+        DB::transaction(function () use(&$article, $data) {
+            $article->update($data);
+            $article->tags()->sync($data['tags']);
+        });
 
-        return redirect(route('articles.index'))->with('success','Article '.$article->title.' has been successfully updated');
+        return redirect(route('articles.index'))->with('success','Article "'.$article->title.'" has been successfully updated');
     }
 
     /**
@@ -116,6 +130,6 @@ class ArticleController extends Controller
 
         $article->delete();
          
-        return redirect(route('articles.index'))->with('success','Article '.$article->title.' has been successfully deleted');
+        return redirect(route('articles.index'))->with('success','Article "'.$article->title.'" has been successfully deleted');
     }
 }

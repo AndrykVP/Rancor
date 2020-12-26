@@ -1,4 +1,4 @@
-@extends(config('rancor.forums.layout'))
+@extends('rancor::layouts.main')
 
 @php
 $board_count =  count($board->children);

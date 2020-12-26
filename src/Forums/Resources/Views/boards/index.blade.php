@@ -1,4 +1,4 @@
-@extends(config('rancor.forums.layout'))
+@extends('rancor::layouts.main')
 
 @section('content')
 <div class="container">
@@ -15,11 +15,6 @@
                <a class="btn btn-sm btn-success" href="{{ route('forums.boards.create') }}">New Board</a>
             </div>
          </div>
-         @if(session('success'))
-         <div class="alert alert-success" role="alert">
-            {{ session('success') }}
-         </div>
-         @endif
          <div class="card mb-4">
             <div class="card-header">
                {{ __('List of boards') }}

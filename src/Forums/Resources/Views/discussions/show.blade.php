@@ -1,4 +1,4 @@
-@extends(config('rancor.forums.layout'))
+@extends('rancor::layouts.main')
 
 @section('content')
 <div class="container">
@@ -13,11 +13,6 @@
    @include('rancor::forums.includes.discussionactions', ['links' => $replies->links() ])
     <div class="row justify-content-center">
       <form class="col">
-         @if(session('success'))
-         <div class="alert alert-success" role="alert">
-            {{ session('success') }}
-         </div>
-         @endif
          @foreach($replies as $index => $reply)
          <div class="card mb-4" id="{{ $index + 1 }}">
             <div class="card-header">

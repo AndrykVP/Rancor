@@ -1,19 +1,14 @@
-@extends(config('rancor.forums.layout'))
+@extends('rancor::layouts.main')
 
 @section('content')
 <div class="container">
    <div class="row justify-content-center">
       <div class="col-md-8">
-         @if(session('success'))
-         <div class="alert alert-success" role="alert">
-            {{ session('success') }}
-         </div>
-         @endif
-         <div class="row flex justify-between">
-            <div class="col">
-               {!! $articles->links() !!}
-            </div>
-            <div class="col">
+            <div class="row flex justify-between">
+               <div class="col">
+                  {!! $articles->links() !!}
+               </div>
+               <div class="col">
                <a href="{{ route('articles.create') }}" class="btn btn-primary">New Article</a>
             </div>
          </div>

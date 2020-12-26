@@ -19,6 +19,11 @@ class FrameworkServiceProvider extends ServiceProvider
             __DIR__.'/../../config/app.php', 'rancor'
         );
 
+        // Publishes config files
+        $this->publishes([
+            __DIR__.'/../../database/seeds' => database_path('seeds'),
+        ],'seeds');
+
         // Register all the Package's Service Providers
         $this->app->register(EventServiceProvider::class);  
         $this->app->register(AuditServiceProvider::class);  
@@ -49,6 +54,9 @@ class FrameworkServiceProvider extends ServiceProvider
             'categories' => 'AndrykVP\Rancor\Forums\Category',
             'boards' => 'AndrykVP\Rancor\Forums\Board',
         ]);
+
+        // Load migrations
+        $this->loadViewsFrom(__DIR__.'/../Packkage/Resources/Views','rancor');
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

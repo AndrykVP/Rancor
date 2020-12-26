@@ -24,13 +24,14 @@ class UserForm extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
-
         return [
-            'name' => ['required', 'string', Rule::unique('users')->ignore($id)],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($id)],
+            'name' => ['required', 'string', Rule::unique('users')->ignore($this->id)],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($this->id)],
+            'nickname' => 'nullable|string',
+            'quote' => 'nullable|string',
             'rank_id' => 'nullable|integer|exists:ranks,id',
-            'permissions' => 'nullable|array',
+            'avatar' => 'nullable|file|max:1000|mimetypes:image/png',
+            'signature' => 'nullable|file|max:1000|mimetypes:image/png',
             'roles' => 'nullable|array'
         ];
     }

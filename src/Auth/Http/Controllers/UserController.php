@@ -2,12 +2,15 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
 use App\User;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
+use AndrykVP\Rancor\Faction\Faction;
+use AndrykVP\Rancor\Faction\Department;
+use AndrykVP\Rancor\Faction\Rank;
+use AndrykVP\Rancor\Auth\Role;
 
 class UserController extends Controller
 {
@@ -18,7 +21,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'));
+        $this->middleware(config('rancor.middleware.web'));
     }
 
     /**
@@ -28,68 +31,89 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',User::class);
-        
-        $query = User::paginate(15);
+        $this->authorize('viewAny', User::class);
 
-        return UserResource::collection($query);
+        $users = User::paginate(config('rancor.pagination'));
+
+        return view('rancor::users.index', compact('users'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function show(User $user)
     {
-        $this->authorize('view',$user);
+        $this->authorize('view', $user);
 
-        return new UserResource($user);
+        $user->load('rank.department.faction','roles','changelog.creator');
+
+        return view('rancor::users.show', compact('user'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user);
+        
+        $user->load('rank.department.faction','roles','permissions');
+        $factions = Faction::all();
+        $departments = Department::all();
+        $ranks = Rank::all();
+        $roles = Role::all();
+
+        return view('rancor::users.edit', compact('user','factions','departments','ranks','roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(UserForm $request, User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
+
         $data = $request->validated();
+        
         $user->name = $data['name'];
+        $user->nickname = $data['nickname'];
         $user->email = $data['email'];
+        $user->quote = $data['quote'];
 
-        if($request->has('nickname'))
-        {
-            $user->nickname = $data['nickname'];
-        }
-
-        if($request->has('rank_id') && $request->user()->can('changeRank', $user))
+        if($request->user()->can('changeRank', $user))
         {
             $user->rank_id = $data['rank_id'];
         }
-
-        if($request->user()->can('changePrivs', $user))
+        if($request->user()->can('uploadArt', $user))
         {
-            if($request->has('permissions'))
+            if($request->has('avatar'))
             {
-                $user->permissions()->sync($request->permissions);
+                $avatarPath = $request->file('avatar')->storeAs('idgen/avatars', $user->id . '.png');
             }
-            if($request->has('roles'))
+            if($request->has('signature'))
             {
-                $user->roles()->sync($request->roles);
+                $signaturePath = $request->file('signature')->storeAs('idgen/signatures', $user->id . '.png');
             }
+        }
+        if($request->user()->can('changeRoles', $user))
+        {
+            $user->roles()->sync($data['roles']);
         }
 
         $user->save();
 
-        return response()->json([
-            'message' => 'User "'.$user->name.'" has been updated'
-        ], 200);
+        return redirect(route('users.index'))->with('alert', 'User "'.$user->name.'" has been successfully updated.');
+
     }
 
     /**
@@ -101,26 +125,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
-        
+
         $user->delete();
 
-        return response()->json([
-            'message' => 'User "'.$user->name.'" has been deleted'
-        ], 200);        
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(Request $request)
-    {
-        $this->authorize('viewAny',User::class);
-        
-        $query = User::where('name','like','%'.$request->input('search').'%')->paginate(15);
-
-        return UserResource::collection($query);
+        return redirect(route('users.index'))->with('alert', 'User "'.$user->name.'" has been successfully deleted.');
     }
 }

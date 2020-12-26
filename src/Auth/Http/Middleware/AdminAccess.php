@@ -15,7 +15,7 @@ class AdminAccess
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->hasAdminAccess)
+        if ($request->user()->hasPermission('view-admin-panel'))
         {
             return $next($request);
         }

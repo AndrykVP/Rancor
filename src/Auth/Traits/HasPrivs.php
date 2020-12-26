@@ -31,6 +31,8 @@ trait HasPrivs
      */
     public function hasPermission($param)
     {
+        if($this->is_admin) return true;
+
         if($this->roles()->exists())
         {
             $permissions = $this->roles()->with('permissions')->get()->pluck('permissions')->collapse();
@@ -42,18 +44,6 @@ trait HasPrivs
             return $this->permissions->contains('name', $param);
         }
         
-        return false;
-    }
-
-    /**
-     * Custom function to verify if User can access the admin panel
-     * 
-     * @return boolean
-     */
-    public function hasAdminAccess()
-    {
-        if($this->roles()->exists() || $this->is_admin) return true;
-
         return false;
     }
 }

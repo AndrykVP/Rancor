@@ -23,7 +23,7 @@
    </td>
    <td class="col-3">
       @if($board->replies_count > 0)
-      {{ $board->latest_reply->created_at->format(config('rancor.dateFormat')) }}<br/>
+      {{ $board->latest_reply->created_at->diffForHumans() }}<br/>
       <strong>In:</strong> <a href="/forums/{{ $category->slug }}/{{ $board->slug }}/{{ $board->latest_reply->discussion->id}}">{{ $board->latest_reply->discussion->title}}</a><br/>
       By: <a href="/profile/{{ $board->latest_reply->author->id }}">{{ $board->latest_reply->author->name }}</a>
       @else

@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Auth\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RoleForm extends FormRequest
+class PermissionForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class RoleForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('roles')->ignore($this->id)],
+            'name' => ['required', 'string', Rule::unique('permissions')->ignore($this->id)],
             'description' => 'required|min:3|max:3000',
-            'permissions' => 'nullable|array',
         ];
     }
 }

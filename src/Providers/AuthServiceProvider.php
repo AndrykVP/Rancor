@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Router;
 use AndrykVP\Rancor\Auth\Role;
 use AndrykVP\Rancor\Auth\Policies\RolePolicy;
+use AndrykVP\Rancor\Auth\Permission;
+use AndrykVP\Rancor\Auth\Policies\PermissionPolicy;
+use App\User;
+use AndrykVP\Rancor\Auth\Policies\UserPolicy;
 use AndrykVP\Rancor\Auth\Http\Middleware\AdminAccess;
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,6 +22,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Role::class => RolePolicy::class,
+        Permission::class => PermissionPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -48,6 +54,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Auth/Routes/web.php');
+
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/../Auth/Resources/Views','rancor');
 
         // Register policies
         $this->registerPolicies();

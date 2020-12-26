@@ -55,6 +55,14 @@ class PermissionSeeder extends Seeder
                 'name' => 'update-users-rank',
                 'description' => 'Can update a User\'s Rank'
             ],
+            [
+                'name' => 'update-users-roles',
+                'description' => 'Can update a User\'s Roles'
+            ],
+            [
+                'name' => 'view-admin-panel',
+                'description' => 'Can access admin panel'
+            ],
         ]);
     }
 }

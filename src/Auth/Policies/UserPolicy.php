@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace AndrykVP\Rancor\Auth\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\Response;
@@ -48,7 +48,7 @@ class UserPolicy
         return $user->id === $model->id
                 || $user->hasPermission('view-users')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view users.');
+                : Response::deny('You do not have permissions to view this user.');
     }
 
     /**
@@ -62,8 +62,10 @@ class UserPolicy
     {
         return $user->id === $model->id
                 || $user->hasPermission('update-users')
+                || $user->hasPermission('update-users-art')
+                || $user->hasPermission('update-users-rank')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit users.');
+                : Response::deny('You do not have permissions to edit this user.');
     }
 
     /**
@@ -77,7 +79,7 @@ class UserPolicy
     {
         return $user->hasPermission('update-users-art')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to upload IDs.');
+                : Response::deny('You do not have permissions to upload artwork to this user.');
     }
 
     /**
@@ -91,7 +93,21 @@ class UserPolicy
     {
         return $user->hasPermission('update-users-rank')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to change a user\'s faction info.');
+                : Response::deny('You do not have permissions to change this user\'s faction info.');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\User  $user
+     * @param  \App\User  $model
+     * @return mixed
+     */
+    public function changeRoles(User $user)
+    {
+        return $user->hasPermission('update-users-roles')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to change this user\'s roles.');
     }
 
     /**

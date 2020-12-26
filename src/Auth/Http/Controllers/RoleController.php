@@ -2,11 +2,11 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
+use AndrykVP\Rancor\Auth\Role;
+use AndrykVP\Rancor\Auth\Permission;
+use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Auth\Role;
-use AndrykVP\Rancor\Auth\Http\Resources\RoleResource;
-use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 
 class RoleController extends Controller
 {
@@ -17,9 +17,9 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'));
+        $this->middleware(config('rancor.middleware.web'));
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -27,77 +27,96 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Role::class);
+        $this->authorize('viewAny', Role::class);
 
-        $query = Role::paginate(15);
+        $roles = Role::paginate(config('rancor.pagination'));
 
-        return RoleResource::collection($query);
+        return view('rancor::roles.index', compact('roles'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $this->authorize('create', Role::class);
+
+        $permissions = Permission::all();
+        
+        return view('rancor::roles.create', compact('permissions'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(RoleForm $request)
     {
-        $this->authorize('create',Role::class);
-        
-        $data = $request->validated();
-        $role = Role::create($data);
+        $this->authorize('create', Role::class);
 
-        return response()->json([
-            'message' => 'Role "'.$role->name.'" has been created'
-        ], 200);
+        $data = $request->validated();
+        $role;
+
+        DB::transaction(function () use($role, $data) {
+            $role = Role::create($data);
+            $role->permissions()->sync($data['permissions']);
+        });
+        
+        return redirect(route('roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully created');
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Role $role
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function edit(Role $role)
     {
-        $this->authorize('view',Role::class);
+        $this->authorize('update', $role);
 
-        return new RoleResource($role);
+        $permissions = Permission::all();
+
+        return view('rancor::roles.edit', compact('role','permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \AndrykVP\Rancor\Auth\Role $role
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleForm  $request
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function update(RoleForm $request, Role $role)
     {
-        $this->authorize('update', Role::class);
-        
-        $data = $request->validated();
-        $role->update($data);
+        $this->authorize('update', $role);
 
-        return response()->json([
-            'message' => 'Role "'.$role->name.'" has been updated'
-        ], 200);
+        $data = $request->validated();
+
+        DB::transaction(function () use($role,$data) {
+            $role->update($data);
+            $role->permissions()->sync($data['permissions']);
+        });
+
+        return redirect(route('roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Role $role
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)
     {
-        $this->authorize('delete',$role);
+        $this->authorize('delete', $role);
         
         $role->delete();
 
-        return response()->json([
-            'message' => 'Role "'.$role->name.'" has been deleted'
-        ], 200);        
+        return redirect(route('roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully deleted');
     }
 }

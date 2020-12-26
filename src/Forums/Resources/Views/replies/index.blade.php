@@ -22,7 +22,7 @@
                      <tr>
                         <td>{{ $reply->body }}</td>
                         <td>
-                           {{ $reply->created_at->format(config('rancor.dateFormat')) }}<br/>
+                           {{ $reply->created_at->diffForHumans() }}<br/>
                            <strong>In:</strong> <a href="/forums/{{$reply->discussion->board->category->slug}}/{{$reply->discussion->board->slug}}/{{ $reply->discussion->id}}">{{ $reply->discussion->title}}</a>
                         </td>
                      </tr>

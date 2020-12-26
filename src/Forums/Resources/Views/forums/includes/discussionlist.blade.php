@@ -41,7 +41,7 @@
             </td>
             <td class="col-3">
                @if($discussion->replies_count > 0)
-               <a href="/forums/{{ $discussion->board->category->slug }}/{{ $discussion->board->slug }}/{{ $discussion->id }}#{{ $index }}">{{ $discussion->latest_reply->created_at->format(config('rancor.dateFormat')) }}</a><br/>
+               <a href="/forums/{{ $discussion->board->category->slug }}/{{ $discussion->board->slug }}/{{ $discussion->id }}#{{ $index }}">{{ $discussion->latest_reply->created_at->diffForHumans() }}</a><br/>
                By: <a href="profile/{{ $discussion->latest_reply->author->id }}">{{ $discussion->latest_reply->author->name }}</a>
                @else
                No Posts Yet

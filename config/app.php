@@ -4,6 +4,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Web Auth middleware
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the middleware to use for HTTP route authentication
+    | If you request users to verify email, use ['auth', 'verified']
+    | Otherwise, 'auth' is enough, unless you have a custom middleware
+    |
+    */
+
+    'middleware.web' => 'auth',
+
+    /*
+    |--------------------------------------------------------------------------
     | API Auth middleware
     |--------------------------------------------------------------------------
     |
@@ -14,7 +27,7 @@ return [
     |
     */
 
-    'middleware' => 'auth:api',
+    'middleware.api' => 'auth:api',
 
 
     /*
@@ -38,6 +51,7 @@ return [
     | Here you may specify the colors you want to use for the Rank Change
     | user logs. This is particularly useful with CSS Frameworks like
     | Bootstrap, Bulma and Tailwind that use color names in their syntax
+    | or simply use hexadecimal codes.
     |
     */
 

@@ -17,7 +17,7 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'))->except('public');
+        $this->middleware(config('rancor.middleware.api'))->except('public');
     }
 
     /**

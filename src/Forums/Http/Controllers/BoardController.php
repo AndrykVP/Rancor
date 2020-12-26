@@ -68,7 +68,7 @@ class BoardController extends Controller
 
         $board->groups()->sync($data['groups']);
 
-        return redirect()->route('forums.boards.index')->with('success', 'Board "'.$board->title.'" has been successfully created');
+        return redirect()->route('forums.boards.index')->with('alert', 'Board "'.$board->title.'" has been successfully created');
     }
 
     /**
@@ -131,7 +131,7 @@ class BoardController extends Controller
 
         $board->groups()->sync($data['groups']);
 
-        return redirect()->route('forums.boards.index')->with('success', 'Board "'.$board->title.'" has been successfully updated');
+        return redirect()->route('forums.boards.index')->with('alert', 'Board "'.$board->title.'" has been successfully updated');
     }
 
     /**
@@ -146,6 +146,6 @@ class BoardController extends Controller
         
         $board->delete();
 
-        return redirect()->route('forums.boards.index')->with('success', 'Board "'.$board->title.'" has been successfully deleted');
+        return redirect()->route('forums.boards.index')->with('alert', 'Board "'.$board->title.'" has been successfully deleted');
     }
 }

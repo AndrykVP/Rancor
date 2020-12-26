@@ -65,7 +65,7 @@ class ArticleController extends Controller
             $article->tags()->sync($data['tags']);
         });
 
-        return redirect(route('articles.index'))->with('success','Article "'.$article->title.'" has been successfully created');
+        return redirect(route('articles.index'))->with('alert','Article "'.$article->title.'" has been successfully created');
     }
 
     /**
@@ -115,7 +115,7 @@ class ArticleController extends Controller
             $article->tags()->sync($data['tags']);
         });
 
-        return redirect(route('articles.index'))->with('success','Article "'.$article->title.'" has been successfully updated');
+        return redirect(route('articles.index'))->with('alert','Article "'.$article->title.'" has been successfully updated');
     }
 
     /**
@@ -130,6 +130,6 @@ class ArticleController extends Controller
 
         $article->delete();
          
-        return redirect(route('articles.index'))->with('success','Article "'.$article->title.'" has been successfully deleted');
+        return redirect(route('articles.index'))->with('alert','Article "'.$article->title.'" has been successfully deleted');
     }
 }

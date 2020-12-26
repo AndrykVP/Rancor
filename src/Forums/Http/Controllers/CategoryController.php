@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category = Category::create($data);
 
-        return redirect()->route('forums.categories.index')->with('success', 'Category "'.$category->title.'" has been successfully created');
+        return redirect()->route('forums.categories.index')->with('alert', 'Category "'.$category->title.'" has been successfully created');
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category->update($data);
 
-        return redirect()->route('forums.categories.index')->with('success', 'Category "'.$category->title.'" has been successfully updated');
+        return redirect()->route('forums.categories.index')->with('alert', 'Category "'.$category->title.'" has been successfully updated');
     }
 
     /**
@@ -130,6 +130,6 @@ class CategoryController extends Controller
         
         $category->delete();
 
-        return redirect()->route('forums.categories.index')->with('success', 'Category "'.$category->title.'" has been successfully deleted');
+        return redirect()->route('forums.categories.index')->with('alert', 'Category "'.$category->title.'" has been successfully deleted');
     }
 }

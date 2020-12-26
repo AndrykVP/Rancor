@@ -65,7 +65,7 @@ class ReplyController extends Controller
         $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
         $page = $page > 0 ? ceil($page / config('rancor.forums.pagination')) : 1;
 
-        return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('success', 'Reply has been successfully posted');
+        return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('alert', 'Reply has been successfully posted');
     }
 
     /**
@@ -111,7 +111,7 @@ class ReplyController extends Controller
 
         $reply->groups()->sync($data['groups']);
 
-        return redirect()->route('forums.Replys.index')->with('success', 'Reply "'.$reply->title.'" has been successfully updated');
+        return redirect()->route('forums.Replys.index')->with('alert', 'Reply "'.$reply->title.'" has been successfully updated');
     }
 
     /**
@@ -126,6 +126,6 @@ class ReplyController extends Controller
         
         $reply->delete();
 
-        return redirect()->route('forums.Replys.index')->with('success', 'Reply "'.$reply->title.'" has been successfully deleted');
+        return redirect()->route('forums.Replys.index')->with('alert', 'Reply "'.$reply->title.'" has been successfully deleted');
     }
 }

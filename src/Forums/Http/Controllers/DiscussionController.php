@@ -68,7 +68,7 @@ class DiscussionController extends Controller
 
         $discussion->load('board.category');
 
-        return redirect()->route('forums.discussions.show',['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion])->with('success', 'Discussion "'.$discussion->title.'" has been successfully created');
+        return redirect()->route('forums.discussions.show',['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion])->with('alert', 'Discussion "'.$discussion->title.'" has been successfully created');
     }
 
     /**
@@ -126,7 +126,7 @@ class DiscussionController extends Controller
         $data = $request->validated();
         $discussion->update($data);
 
-        return redirect()->route('forums.discussions.show',['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion])->with('success', 'Discussion "'.$discussion->title.'" has been successfully updated');
+        return redirect()->route('forums.discussions.show',['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion])->with('alert', 'Discussion "'.$discussion->title.'" has been successfully updated');
     }
 
     /**
@@ -141,6 +141,6 @@ class DiscussionController extends Controller
         
         $discussion->delete();
 
-        return redirect()->route('forums.discussions.index')->with('success', 'discussion "'.$discussion->title.'" has been successfully deleted');
+        return redirect()->route('forums.discussions.index')->with('alert', 'discussion "'.$discussion->title.'" has been successfully deleted');
     }
 }

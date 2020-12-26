@@ -55,8 +55,8 @@ class FrameworkServiceProvider extends ServiceProvider
             'boards' => 'AndrykVP\Rancor\Forums\Board',
         ]);
 
-        // Load migrations
-        $this->loadViewsFrom(__DIR__.'/../Packkage/Resources/Views','rancor');
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

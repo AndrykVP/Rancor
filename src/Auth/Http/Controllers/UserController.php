@@ -15,6 +15,16 @@ use AndrykVP\Rancor\Auth\Role;
 class UserController extends Controller
 {
     /**
+     * Variable used in View rendering
+     * 
+     * @var array
+     */
+    protected $resource = [
+        'name' => 'User',
+        'route' => 'users'
+    ];
+
+    /**
      * Construct Controller
      * 
      * @return void
@@ -33,9 +43,10 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $users = User::paginate(config('rancor.pagination'));
+        $resource = $this->resource;
+        $models = User::paginate(config('rancor.pagination'));
 
-        return view('rancor::users.index', compact('users'));
+        return view('rancor::resources.index', compact('models','resource'));
     }
 
     /**
@@ -129,5 +140,49 @@ class UserController extends Controller
         $user->delete();
 
         return redirect(route('users.index'))->with('alert', 'User "'.$user->name.'" has been successfully deleted.');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Handle',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'nickname',
+                    'label' => 'Nickname',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'email',
+                    'label' => 'E-mail',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'quote',
+                    'label' => 'Quote',
+                    'type' => 'text',
+                ],
+            ],
+            'files' => [
+                [
+                    'name' => 'avatar',
+                    'label' => 'Avatar Image',
+                    'size' => '1MB',
+                    'dimensions' => '150x150',
+                ],
+            ],
+        ];
     }
 }

@@ -24,10 +24,9 @@ class FactionForm extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
-
         return [
-            'name' => ['required', 'string', Rule::unique('factions')->ignore($id)],
+            'name' => ['required', 'string', Rule::unique('factions')->ignore($this->id)],
+            'description' => 'nullable|string',
         ];
     }
 }

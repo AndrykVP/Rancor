@@ -15,7 +15,7 @@ class CreateDiscussionsTable extends Migration
     {
         Schema::create('forum_discussions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
             $table->boolean('is_sticky')->default(0);
             $table->boolean('is_locked')->default(0);
             $table->unsignedBigInteger('views')->default(0);

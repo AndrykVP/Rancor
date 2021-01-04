@@ -25,7 +25,8 @@ class UserLastLogin
      */
     public function handle(Login $event)
     {
-        $event->user->last_login = now();
-        $event->user->save();
+        DB::table('users')
+            ->where('id', $event->user->id)
+            ->update(['last_login' => now()]);
     }
 }

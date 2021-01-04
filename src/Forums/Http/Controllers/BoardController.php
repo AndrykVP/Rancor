@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Board;
 use AndrykVP\Rancor\Forums\Group;
@@ -12,14 +13,14 @@ use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
 class BoardController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    protected $resource = [
+        'name' => 'Board',
+        'route' => 'boards'
+    ];
     
     /**
      * Display a listing of the resource.
@@ -30,10 +31,11 @@ class BoardController extends Controller
     public function index(Request $request)
     {
         $this->authorize('viewAny',Board::class);
-
-        $boards = Board::with('category')->orderBy('category_id')->orderBy('order')->get();
         
-        return view('rancor::boards.index',compact('boards'));
+        $resource = $this->resource;
+        $models = Board::paginate(config('rancor.pagination'));
+        
+        return view('rancor::resources.index',compact('models','resource'));
     }
 
     /**
@@ -44,13 +46,12 @@ class BoardController extends Controller
     public function create(Request $request)
     {
         $this->authorize('create',Board::class);
-        $parentBoard = Board::find($request->board);
-        $selCategory = $parentBoard ? $parentBoard->category : Category::find($request->category);
-        $boards = Board::orderBy('title')->get();
-        $groups = Group::orderBy('name')->get();
-        $categories = Category::orderBy('title')->get();
 
-        return view('rancor::boards.create',compact('groups','boards','categories','selCategory','parentBoard'));
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'POST'], $this->form($request->category, $request->board));
+        $params = $request->all();
+
+        return view('rancor::resources.create',compact('resource','form','params'));
     }
 
     /**
@@ -62,13 +63,20 @@ class BoardController extends Controller
     public function store(BoardForm $request)
     {
         $this->authorize('create',Board::class);
-        
+
         $data = $request->validated();
-        $board = Board::create($data);
+        if($data['parent_id'] != null)
+        {
+            $parent = Board::find($data['parent_id']);
+            $data['category_id'] = $parent->category_id;
+        }
+        $board;
+        DB::transaction(function () use(&$board, $data) {
+            $board = Board::create($data);
+            $board->groups()->sync($data['groups']);
+        });
 
-        $board->groups()->sync($data['groups']);
-
-        return redirect()->route('forums.boards.index')->with('alert', 'Board "'.$board->title.'" has been successfully created');
+        return redirect()->route('admin.boards.index')->with('alert', 'Board "'.$board->name.'" has been successfully created');
     }
 
     /**
@@ -81,21 +89,9 @@ class BoardController extends Controller
     {
         $this->authorize('view',$board);
 
-        $board->load('category','moderators')->load(['children' => function($query) {
-            $query->withCount('discussions','replies','children')->with('latest_reply.discussion')->orderBy('order');
-         }]);
+        $board->load('category','moderators','children','parent')->loadCount('discussions');
    
-         $sticky = $board->discussions()
-                    ->sticky()
-                    ->withCount('replies')
-                    ->get();
-   
-         $normal = $board->discussions()
-                    ->sticky(false)
-                    ->withCount('replies')
-                    ->paginate(config('rancor.forums.pagination'));
-   
-         return view('rancor::boards.show',compact('category','board','sticky','normal'));
+         return view('rancor::show.board',compact('board'));
     }
 
     /**
@@ -107,12 +103,12 @@ class BoardController extends Controller
     public function edit(Board $board)
     {
         $this->authorize('update', $board);
-        $boards = Board::orderBy('title')->get();
-        $groups = Group::orderBy('name')->get();
-        $categories = Category::orderBy('title')->get();
-        $board->load('category','groups');
 
-        return view('rancor::boards.edit',compact('board', 'groups','boards','categories'));
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $model = $board->load('category');
+
+        return view('rancor::resources.edit',compact('model', 'form','resource'));
     }
 
     /**
@@ -127,11 +123,17 @@ class BoardController extends Controller
         $this->authorize('update',$board);
         
         $data = $request->validated();
-        $board->update($data);
+        if($request->has('parent_id'))
+        {
+            $parent = Board::find($data['parent_id']);
+            $data['category_id'] = $parent->category_id;
+        }
+        DB::transaction(function () use(&$board, $data) {
+            $board->update($data);
+            $board->groups()->sync($data['groups']);
+        });
 
-        $board->groups()->sync($data['groups']);
-
-        return redirect()->route('forums.boards.index')->with('alert', 'Board "'.$board->title.'" has been successfully updated');
+        return redirect()->route('admin.boards.index')->with('alert', 'Board "'.$board->name.'" has been successfully updated');
     }
 
     /**
@@ -146,6 +148,65 @@ class BoardController extends Controller
         
         $board->delete();
 
-        return redirect()->route('forums.boards.index')->with('alert', 'Board "'.$board->title.'" has been successfully deleted');
+        return redirect()->route('admin.boards.index')->with('alert', 'Board "'.$board->name.'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'slug',
+                    'label' => 'URL',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'order',
+                    'label' => 'Display Order',
+                    'type' => 'number',
+                    'attributes' => 'required'
+                ],
+            ],
+            'textareas' => [
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                    'attributes' => 'required'   
+                ]
+            ],
+            'selects' => [
+                [
+                    'name' => 'groups',
+                    'label' => 'Groups',
+                    'attributes' => 'multiple',
+                    'multiple' => true,
+                    'options' => Group::orderBy('name')->get(),
+                ],
+                [
+                    'name' => 'category_id',
+                    'label' => 'Category',
+                    'multiple' => false,
+                    'options' => Category::orderBy('name')->get(),
+                ],
+                [
+                    'name' => 'parent_id',
+                    'label' => 'Parent Board',
+                    'multiple' => false,
+                    'options' => Board::orderBy('name')->get(),
+                ]
+            ]
+        ];
     }
 }

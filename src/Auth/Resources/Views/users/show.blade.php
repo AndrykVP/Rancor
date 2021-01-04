@@ -7,7 +7,7 @@
          <div class="row mb-4 align-items-center">
             <div class="col"><h6>{{ __('User Profile') }}</h6></div>
             <div class="col text-right">
-               <a href="{{ route('users.edit', $user) }}" class="btn btn-primary">Update</a>
+               <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary">Update</a>
             </div>
          </div>
          <div class="row">
@@ -15,8 +15,9 @@
                <div class="card mb-4">
                   <div class="card-header">{{ __('Identity') }}</div>
                   <div class="card-body">
-                     <div class="row mb-2">
-                        <div class="col-12 text-center"><img src="{{ $user->avatar }}" /></div>
+                     <div class="row align-items-end mb-2">
+                        <div class="col-4 text-right">Avatar:</div>
+                        <div class="col-8"><img src="{{ $user->avatar }}" /></div>
                      </div>
                      <div class="row mb-2">
                         <div class="col-4 text-right">ID:</div>
@@ -64,6 +65,9 @@
                         <div class="col-4 text-right">Roles:</div>
                         <div class="col-8">
                            <ul class="list">
+                              @if($user->is_admin)
+                              <li>Super Admin</li>
+                              @endif
                               @foreach($user->roles as $role)
                               <li>{{ $role->name }}</li>
                               @endforeach

@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Board::class, function (Faker $faker) {
     return [
-        'title' => $faker->company,
+        'name' => $faker->company,
         'description' => $faker->sentence(12),
         'category_id' => rand(1,2),
         'slug' => $faker->unique()->word,

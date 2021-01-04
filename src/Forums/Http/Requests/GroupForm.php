@@ -24,14 +24,9 @@ class GroupForm extends FormRequest
      */
     public function rules()
     {
-        $id = last($this->segments());
-
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'color' => 'required|integer|size:6',
-            'users' => 'nullable|array',
-            'categories' => 'nullable|array'
         ];
     }
 }

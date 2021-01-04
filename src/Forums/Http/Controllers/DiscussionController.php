@@ -3,26 +3,24 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Discussion;
-use AndrykVP\Rancor\Forums\Category;
 use AndrykVP\Rancor\Forums\Board;
-use AndrykVP\Rancor\Forums\Reply;
-use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
 use AndrykVP\Rancor\Forums\Http\Requests\EditDiscussionForm;
 
 class DiscussionController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    protected $resource = [
+        'name' => 'Discussion',
+        'route' => 'discussions'
+    ];
     
     /**
      * Display a listing of the resource.
@@ -34,9 +32,25 @@ class DiscussionController extends Controller
     {
         $this->authorize('viewAny',Discussion::class);
 
-        $discussions = Discussion::with('category')->orderBy('category_id')->orderBy('order')->get();
+        $resource = $this->resource;
+        $models = Discussion::paginate(config('rancor.pagination'));
         
-        return view('rancor::discussions.index',['discussions' => $discussions]);
+        return view('rancor::resources.index', compact('resource','models'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Discussion $discussion)
+    {
+        $this->authorize('view',$discussion);
+
+        $discussion->load('board')->loadCount('replies');
+  
+        return view('rancor::show.discussion',compact('discussion'));
     }
 
     /**
@@ -46,10 +60,13 @@ class DiscussionController extends Controller
      */
     public function create(Request $request)
     {
-        $this->authorize('create',Discussion::class);
-        $board = Board::with('category')->find($request->board);
+        if(!$request->has('board_id')) abort (400, 'Board ID needed to create a Discussion');
 
-        return view('rancor::discussions.create',['board' => $board]);
+        $board = Board::findOrFail($request->board_id);
+
+        $this->authorize('post', $board);
+
+        return view('rancor::create.discussion',compact('board'));
     }
 
     /**
@@ -60,40 +77,23 @@ class DiscussionController extends Controller
      */
     public function store(NewDiscussionForm $request)
     {
-        $this->authorize('create',Discussion::class);
-        
+        $this->authorize('create', Discussion::class);
+
         $data = $request->validated();
-        $discussion = Discussion::create($data);
-        $discussion->replies()->create($data);
+        $discussion;
+        
+        DB::transaction(function () use(&$discussion, $data) {
+            $discussion = Discussion::create($data);
+            $discussion->replies()->create($data);
+        });
 
         $discussion->load('board.category');
 
-        return redirect()->route('forums.discussions.show',['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion])->with('alert', 'Discussion "'.$discussion->title.'" has been successfully created');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category, Board $board, Discussion $discussion)
-    {
-        $this->authorize('view',$discussion);
-
-        event(new VisitDiscussion($discussion));
-        if(!in_array($discussion->id, session()->get('visited_discussions',array())))
-        {
-            session()->push('visited_discussions',$discussion->id);
-        }
-
-        $board->load('moderators');
-  
-        $replies = $discussion->replies()->with(['author' => function($query) {
-           $query->with('rank.department')->withCount('replies');
-        }])->paginate(config('rancor.forums.pagination'));
-  
-        return view('rancor::discussions.show',compact('category','board','discussion','replies'));
+        return redirect()->route('forums.discussion', [
+            'category' => $discussion->board->category,
+            'board' => $discussion->board,
+            'discussion' => $discussion,
+        ],)->with('alert', 'Discussion "'.$discussion->name.'" has been successfully created');
     }
 
     /**
@@ -102,14 +102,15 @@ class DiscussionController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Discussion $discussion)
+    public function edit(Discussion $discussion)
     {
         $this->authorize('update', $discussion);
-        $topics = $request->user()->topics();
-        $boards = Board::whereIn('id',$topics)->orderBy('title')->get();
-        $discussion->load('board.category');
+        
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $model = $discussion;
 
-        return view('rancor::discussions.edit',compact('discussion', 'boards'));
+        return view('rancor::resources.edit',compact('resource','form','model'));
     }
 
     /**
@@ -126,7 +127,7 @@ class DiscussionController extends Controller
         $data = $request->validated();
         $discussion->update($data);
 
-        return redirect()->route('forums.discussions.show',['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion])->with('alert', 'Discussion "'.$discussion->title.'" has been successfully updated');
+        return redirect()->route('admin.discussions.index')->with('alert', 'Discussion "'.$discussion->name.'" has been successfully updated');
     }
 
     /**
@@ -141,6 +142,44 @@ class DiscussionController extends Controller
         
         $discussion->delete();
 
-        return redirect()->route('forums.discussions.index')->with('alert', 'discussion "'.$discussion->title.'" has been successfully deleted');
+        return redirect()->route('admin.discussions.index')->with('alert', 'Discussion "'.$discussion->name.'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form($board = null)
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+            ],
+            'checkboxes' => [
+                [
+                    'name' => 'is_sticky',
+                    'label' => 'Make Sticky'
+                ],
+                [
+                    'name' => 'is_locked',
+                    'label' => 'Lock'
+                ],
+            ],
+            'selects' => [
+                [
+                    'name' => 'board_id',
+                    'label' => 'Board',
+                    'multiple' => false,
+                    'attributes' => 'required',
+                    'options' => Board::orderBy('name')->get()
+                ]
+            ]
+        ];
     }
 }

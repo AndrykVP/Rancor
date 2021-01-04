@@ -39,7 +39,7 @@ class EditArticleForm extends FormRequest
         $id = $this->segment(3);
 
         return [
-            'title' => 'required|string',
+            'name' => 'required|string',
             'body' => 'required|min:3',
             'is_published' => 'required|boolean',
             'tags' => 'nullable|array',

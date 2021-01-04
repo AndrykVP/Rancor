@@ -1,14 +1,16 @@
-
-<div class="d-flex flex-row justify-content-between align-items-center mb-2">
-   <div class="btn-group">
-      <a type="button" class="btn btn-sm btn-success" href="{{ route('forums.replies.create',[ 'discussion' => $discussion ]) }}">Post Reply</a>
-      @can('update',$discussion)
-      <a type="button" class="btn btn-sm btn-primary" href="{{ route('forums.boards.edit', [ 'board' => $discussion->board ]) }}">Modify Topic</a>
-      @endcan
-      @can('delete',$discussion)
-      <a type="button" class="btn btn-sm btn-danger" href="#">Delete Topic</a>
-      <a type="button" class="btn btn-sm btn-danger" href="#">Delete Selected Replies</a>
-      @endcan
+<div class="row mb-4">
+   <div class="col">
+      <div class="btn-group" role="group" aria-label="Board Actions">
+         <a type="button" class="btn btn-sm btn-success" href="{{ route('forums.discussions.create', [ 'board_id' => $board->id ]) }}">New Topic</a>
+         @can('update',$board)
+         <a type="button" class="btn btn-sm btn-primary" href="{{ route('admin.boards.edit', [ 'board' => $board ]) }}">Modify Board</a>
+         @endcan
+         @can('create', \AndrykVP\Rancor\Forums\Board::class)
+         <a type="button" class="btn btn-sm btn-secondary" href="{{ route('admin.boards.create', [ 'parent_id' => $board->id ]) }}">New Child Board</a>
+         @endcan
+         @can('delete',$board)
+         <a type="button" class="btn btn-sm btn-danger" href="#">Delete Board</a>
+         @endcan
+      </div>
    </div>
-   {!! $links !!}
 </div>

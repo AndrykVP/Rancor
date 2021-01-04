@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class PermissionForm extends FormRequest
 {
@@ -15,6 +16,18 @@ class PermissionForm extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name' => Str::slug($this->name),
+        ]);
     }
 
     /**

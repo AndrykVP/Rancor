@@ -43,7 +43,11 @@ class FactionServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Faction/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Faction/Routes/web.php');
         
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/../Faction/Resources/Views','rancor');
+
         // Register policies
         $this->registerPolicies();       
     }

@@ -13,14 +13,14 @@ use App\Http\Controllers\Controller;
 class ArticleController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware('auth')->except('index');
-    }
+    protected $resource = [
+        'name' => 'Article',
+        'route' => 'articles'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -29,9 +29,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('author','editor')->paginate(config('rancor.pagination'));
+        $this->authorize('viewAny', Article::class);
 
-        return view('rancor::articles.index',compact('articles'));
+        $resource = $this->resource;
+        $models = Article::paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index',compact('models','resource'));
     }
     
     /**
@@ -43,15 +46,16 @@ class ArticleController extends Controller
     {
         $this->authorize('create', Article::class);
 
-        $tags = Tag::all();
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'POST']);
 
-        return view('rancor::articles.create', compact('tags'));
+        return view('rancor::resources.create', compact('form','resource'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\ArticleForm  $request
+     * @param  \AndrykVP\Rancor\News\Http\Requests\NewArticleForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewArticleForm $request)
@@ -65,7 +69,7 @@ class ArticleController extends Controller
             $article->tags()->sync($data['tags']);
         });
 
-        return redirect(route('articles.index'))->with('alert','Article "'.$article->title.'" has been successfully created');
+        return redirect(route('admin.articles.index'))->with('alert','Article "'.$article->name.'" has been successfully created');
     }
 
     /**
@@ -79,7 +83,7 @@ class ArticleController extends Controller
         $this->authorize('view', $article);
         $article->load('author','editor','tags');
 
-        return view('rancor::articles.show',compact('article'));
+        return view('rancor::show.article',compact('article'));
     }
 
     /**
@@ -92,10 +96,11 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        $tags = Tag::orderBy('name')->get();
-        $article->load('tags');
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'PATCH']);
+        $model = $article;
 
-        return view('rancor::articles.edit',compact('article', 'tags'));
+        return view('rancor::resources.edit',compact('resource', 'form','model'));
     }
 
     /**
@@ -115,7 +120,7 @@ class ArticleController extends Controller
             $article->tags()->sync($data['tags']);
         });
 
-        return redirect(route('articles.index'))->with('alert','Article "'.$article->title.'" has been successfully updated');
+        return redirect(route('admin.articles.index'))->with('alert','Article "'.$article->name.'" has been successfully updated');
     }
 
     /**
@@ -130,6 +135,48 @@ class ArticleController extends Controller
 
         $article->delete();
          
-        return redirect(route('articles.index'))->with('alert','Article "'.$article->title.'" has been successfully deleted');
+        return redirect(route('articles.index'))->with('alert','Article "'.$article->name.'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Title',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+            ],
+            'textareas' => [
+                [
+                    'name' => 'body',
+                    'label' => 'Content',
+                    'type' => 'text',
+                    'attributes' => 'row="5"'
+                ],
+            ],
+            'selects' => [
+                [
+                    'name' => 'tags',
+                    'label' => 'tags',
+                    'attributes' => 'multiple',
+                    'multiple' => true,
+                    'options' => Tag::orderBy('name')->get(),
+                ],
+            ],
+            'checkboxes' => [
+                [
+                    'name' => 'is_published',
+                    'label' => 'Publish?',
+                ]
+            ]
+        ];
     }
 }

@@ -12,14 +12,14 @@ use Auth;
 class CategoryController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    protected $resource = [
+        'name' => 'Category',
+        'route' => 'categories'
+    ];
     
     /**
      * Display a listing of the resource.
@@ -31,9 +31,10 @@ class CategoryController extends Controller
     {
         $this->authorize('viewAny',Category::class);
 
-        $categories = Category::orderBy('order')->get();
+        $resource = $this->resource;
+        $models = Category::paginate(config('rancor.pagination'));
         
-        return view('rancor::categories.index',['categories' => $categories]);
+        return view('rancor::resources.index',compact('models','resource'));
     }
 
     /**
@@ -45,7 +46,10 @@ class CategoryController extends Controller
     {
         $this->authorize('create',Category::class);
 
-        return view('rancor::categories.create');
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'POST'],$this->form());
+
+        return view('rancor::resources.create', compact('resource','form'));
     }
 
     /**
@@ -61,7 +65,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category = Category::create($data);
 
-        return redirect()->route('forums.categories.index')->with('alert', 'Category "'.$category->title.'" has been successfully created');
+        return redirect()->route('admin.categories.index')->with('alert', 'Category "'.$category->name.'" has been successfully created');
     }
 
     /**
@@ -76,15 +80,9 @@ class CategoryController extends Controller
 
         $boards = Auth::user()->topics();
   
-        $category->load(['boards' => function($query) use($boards) {
-           $query->whereIn('id',$boards)
-                ->topTier()
-                ->withCount('discussions','replies')
-                ->with('latest_reply.discussion','children')
-                ->orderBy('order');
-        }])->loadCount('boards');
+        $category->loadCount('boards','discussions')->load('groups');
   
-        return view('rancor::categories.show',['category' => $category]);
+        return view('rancor::show.category', compact('category'));
     }
 
     /**
@@ -96,9 +94,11 @@ class CategoryController extends Controller
     public function edit(Category $category, Request $request)
     {
         $this->authorize('update', $category);
-        $groups = Group::all();
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'POST'],$this->form());
+        $model = $category;
 
-        return view('rancor::categories.edit',compact('category','groups'));
+        return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category->update($data);
 
-        return redirect()->route('forums.categories.index')->with('alert', 'Category "'.$category->title.'" has been successfully updated');
+        return redirect()->route('admin.categories.index')->with('alert', 'Category "'.$category->name.'" has been successfully updated');
     }
 
     /**
@@ -130,6 +130,49 @@ class CategoryController extends Controller
         
         $category->delete();
 
-        return redirect()->route('forums.categories.index')->with('alert', 'Category "'.$category->title.'" has been successfully deleted');
+        return redirect()->route('admin.categories.index')->with('alert', 'Category "'.$category->name.'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'slug',
+                    'label' => 'URL',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'color',
+                    'label' => 'Color',
+                    'type' => 'color',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'order',
+                    'label' => 'Display Order',
+                    'type' => 'number',
+                    'attributes' => 'required'
+                ],
+            ],
+            'textareas' => [
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                ],
+            ],
+        ];
     }
 }

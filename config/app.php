@@ -4,43 +4,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Web Auth middleware
+    | Auth Middleware
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the middleware to use for HTTP route authentication
-    | If you request users to verify email, use ['auth', 'verified']
-    | Otherwise, 'auth' is enough, unless you have a custom middleware
+    | Here you may specify an array of middlewares to use for route authentication
+    | for both web and api routes. If you use custom middlewares, they can be added
+    | or replaced here.
     |
     */
 
-    'middleware.web' => 'auth',
+    'middleware' => [
 
-    /*
-    |--------------------------------------------------------------------------
-    | API Auth middleware
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the middleware to use for route authentication
-    | For User models that use an api_token column, use 'auth:api'
-    | For Laravel/Sanctum, use 'auth:sanctum'
-    | Or if you register a custom middleware, specify the guard here
-    |
-    */
+        // If you request users to verify email, use ['auth', 'verified']
+        // Otherwise, ['auth'] is enough, unless you have a custom middleware
 
-    'middleware.api' => 'auth:api',
+        'web' => ['auth'],
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Date Format
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the PHP datetime format to use when retrieving
-    | dates on resources.
-    |
-    */
+        // For User models that use an api_token column, use 'auth:api'
+        // For Laravel/Sanctum, use 'auth:sanctum'
 
-    'dateFormat' => 'M j, Y, G:i e',
+        'api' => ['auth:api'],
+    ],
 
 
     /*
@@ -59,5 +44,18 @@ return [
         'info' => 'blue',
         'warning' => 'yellow',
         'alert' => 'red',
-    ]
+    ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination
+    |--------------------------------------------------------------------------
+    |
+    | Specify how many resources to display per page in the index Views.
+    | This pagination is used in the Admin panel, as well as the forum Discussions
+    |
+    */
+
+    'pagination' => 10,
 ];

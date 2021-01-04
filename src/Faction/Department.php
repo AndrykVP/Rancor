@@ -20,7 +20,7 @@ class Department extends Model
      */
     public function ranks()
     {
-        return $this->hasMany('AndrykVP\Rancor\Faction\Rank');
+        return $this->hasMany('AndrykVP\Rancor\Faction\Rank')->orderBy('level','desc');
     }
 
     /**

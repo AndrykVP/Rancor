@@ -12,6 +12,19 @@ class DiscussionPolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\User  $user
@@ -35,6 +48,7 @@ class DiscussionPolicy
     {
         return $discussion->author_id == $user->id
                 || $user->topics()->contains($discussion->board->id)
+                || $user->hasPermission('view-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Discussion.');
     }
@@ -61,9 +75,9 @@ class DiscussionPolicy
      */
     public function update(User $user, Discussion $discussion)
     {
-        return ( $user->hasPermission('update-forum-discussions')
+        return $user->hasPermission('update-forum-discussions')
                 || $discussion->author_id == $user->id
-                || $discussion->board->moderators->contains($user) )
+                || $discussion->board->moderators->contains($user)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Update this Forum Discussion.');
     }
@@ -93,7 +107,8 @@ class DiscussionPolicy
     {
         return !$discussion->is_locked
                 || $discussion->author_id === $user->id
-                || $user->hasPermission('update-forum-discussions')
+                || $discussion->board->moderators->contains($user)
+                || $user->hasPermission('create-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Reply to this Forum Discussion.');
     }

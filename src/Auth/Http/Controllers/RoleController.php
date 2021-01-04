@@ -6,10 +6,21 @@ use AndrykVP\Rancor\Auth\Role;
 use AndrykVP\Rancor\Auth\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+    /**
+     * Variable used in View rendering
+     * 
+     * @var array
+     */
+    protected $resource = [
+        'name' => 'Role',
+        'route' => 'roles'
+    ];
+
     /**
      * Construct Controller
      * 
@@ -29,9 +40,25 @@ class RoleController extends Controller
     {
         $this->authorize('viewAny', Role::class);
 
-        $roles = Role::paginate(config('rancor.pagination'));
+        $resource = $this->resource;
+        $models = Role::paginate(config('rancor.pagination'));
 
-        return view('rancor::roles.index', compact('roles'));
+        return view('rancor::resources.index', compact('models','resource'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Auth\Role  $role
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Role $role)
+    {
+        $this->authorize('view', $role);
+
+        $role->load('permissions','users');
+
+        return view('rancor::show.role', compact('role'));
     }
 
     /**
@@ -43,9 +70,10 @@ class RoleController extends Controller
     {
         $this->authorize('create', Role::class);
 
-        $permissions = Permission::all();
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'POST']);
         
-        return view('rancor::roles.create', compact('permissions'));
+        return view('rancor::resources.create', compact('resource','form'));
     }
 
     /**
@@ -61,12 +89,12 @@ class RoleController extends Controller
         $data = $request->validated();
         $role;
 
-        DB::transaction(function () use($role, $data) {
+        DB::transaction(function () use(&$role, $data) {
             $role = Role::create($data);
             $role->permissions()->sync($data['permissions']);
         });
         
-        return redirect(route('roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully created');
+        return redirect(route('admin.roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully created');
     }
 
     /**
@@ -79,9 +107,11 @@ class RoleController extends Controller
     {
         $this->authorize('update', $role);
 
-        $permissions = Permission::all();
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'PATCH']);
+        $model = $role;
 
-        return view('rancor::roles.edit', compact('role','permissions'));
+        return view('rancor::resources.edit', compact('resource','model','form'));
     }
 
     /**
@@ -97,12 +127,12 @@ class RoleController extends Controller
 
         $data = $request->validated();
 
-        DB::transaction(function () use($role,$data) {
+        DB::transaction(function () use(&$role,$data) {
             $role->update($data);
             $role->permissions()->sync($data['permissions']);
         });
 
-        return redirect(route('roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully updated');
+        return redirect(route('admin.roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully updated');
     }
 
     /**
@@ -115,8 +145,43 @@ class RoleController extends Controller
     {
         $this->authorize('delete', $role);
         
+        $roles->permissions()->detach();
         $role->delete();
 
-        return redirect(route('roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully deleted');
+        return redirect(route('admin.roles.index'))->with('alert', 'Role "'.$role->name.' has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+            ],
+            'selects' => [
+                [
+                    'name' => 'permissions',
+                    'label' => 'Permissions',
+                    'attributes' => 'multiple',
+                    'multiple' => true,
+                    'options' => Permission::all(),
+                ]
+            ],
+        ];
     }
 }

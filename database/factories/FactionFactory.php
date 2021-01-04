@@ -8,5 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Faction::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
+        'description' => $faker->catchPhrase,
     ];
 });

@@ -11,7 +11,7 @@ class Discussion extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'title', 'is_sticky', 'is_locked', 'board_id', 'author_id' ];
+    protected $fillable = [ 'name', 'is_sticky', 'is_locked', 'board_id', 'author_id' ];
 
     /**
      * Defines the table name

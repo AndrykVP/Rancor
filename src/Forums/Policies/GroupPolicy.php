@@ -12,6 +12,19 @@ class GroupPolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\User  $user
@@ -33,7 +46,7 @@ class GroupPolicy
      */
     public function view(User $user, Group $group)
     {
-        return $group->users->contains($user)
+        return $user->hasPermission('view-forum-groups')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Group.');
     }

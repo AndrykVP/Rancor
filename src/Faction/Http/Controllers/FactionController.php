@@ -2,24 +2,23 @@
 
 namespace AndrykVP\Rancor\Faction\Http\Controllers;
 
+use AndrykVP\Rancor\Faction\Faction;
+use AndrykVP\Rancor\Faction\Http\Requests\FactionForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Faction\Faction;
-use AndrykVP\Rancor\Faction\Http\Resources\FactionResource;
-use AndrykVP\Rancor\Faction\Http\Requests\FactionForm;
 
 class FactionController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+    protected $resource = [
+        'name' => 'Faction',
+        'route' => 'factions'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +26,26 @@ class FactionController extends Controller
      */
     public function index()
     {
-        $query = Faction::all();
+        $this->authorize('viewAny', Faction::class);
 
-        return FactionResource::collection($query);
+        $resource = $this->resource;
+        $models = Faction::paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index', compact('models','resource'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $this->authorize('create', Faction::class);
+
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'POST',],$this->form());
+        return view('rancor::resources.create', compact('resource','form'));
     }
 
     /**
@@ -40,14 +56,12 @@ class FactionController extends Controller
      */
     public function store(FactionForm $request)
     {
-        $this->authorize('create',Faction::class);
-        
+        $this->authorize('create', Faction::class);
+
         $data = $request->validated();
         $faction = Faction::create($data);
 
-        return response()->json([
-            'message' => 'Faction "'.$faction->name.'" has been created'
-        ], 200);
+        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully created.');
     }
 
     /**
@@ -60,7 +74,25 @@ class FactionController extends Controller
     {
         $this->authorize('view', $faction);
 
-        return new FactionResource($faction->load('departments','ranks'));
+        $faction->load('departments','ranks');
+
+        return view('rancor::show.faction', compact('faction'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Faction $faction)
+    {
+        $this->authorize('update', $faction);
+
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'PATCH',],$this->form());
+        $model = $faction;
+        return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
     /**
@@ -73,15 +105,13 @@ class FactionController extends Controller
     public function update(FactionForm $request, Faction $faction)
     {
         $this->authorize('update', $faction);
-        
+
         $data = $request->validated();
         $faction->update($data);
 
-        return response()->json([
-            'message' => 'Faction "'.$faction->name.'" has been updated'
-        ], 200);
+        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully updated.');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -94,8 +124,31 @@ class FactionController extends Controller
         
         $faction->delete();
 
-        return response()->json([
-            'message' => 'Faction "'.$faction->name.'" has been deleted'
-        ], 200);        
+        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully deleted.');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+            ],
+        ];
     }
 }

@@ -12,6 +12,19 @@ class BoardPolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\User  $user
@@ -35,7 +48,7 @@ class BoardPolicy
     {
         return $board->moderators->contains($user)
                 || $user->topics()->contains($board->id)
-                || $user->hasPermission('view-forum-discussions')
+                || $user->hasPermission('view-forum-boards')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Board.');
     }
@@ -62,7 +75,8 @@ class BoardPolicy
      */
     public function update(User $user, Board $board)
     {
-        return $board->moderators->contains($user) || $user->hasPermission('update-forum-boards')
+        return $board->moderators->contains($user)
+                ||$user->hasPermission('update-forum-boards')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Update this Forum Board.');
     }
@@ -92,7 +106,7 @@ class BoardPolicy
     {
         return $board->moderators->contains($user)
                 || $user->topics()->contains($board->id)
-                || $user->hasPermission('update-forum-discussions')
+                || $user->hasPermission('create-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Create a Discussion in this Forum Board.');
     }

@@ -26,8 +26,8 @@ class EditDiscussionForm extends FormRequest
     {
         $this->merge([
             'editor_id' => $this->user()->id,
-            'is_sticky' => $this->is_sticky ?? null,
-            'is_locked' => $this->is_locked ?? null,
+            'is_sticky' => $this->is_sticky ? true : false,
+            'is_locked' => $this->is_locked ? true : false,
         ]);
     }
 
@@ -38,10 +38,8 @@ class EditDiscussionForm extends FormRequest
      */
     public function rules()
     {
-        $id = last($this->segments());
-
         return [
-            'title' => 'required|string',
+            'name' => 'required|string',
             'is_sticky' => 'required|boolean',
             'is_locked' => 'required|boolean',
             'board_id' => 'required|integer|exists:forum_boards,id',

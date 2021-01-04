@@ -10,15 +10,28 @@ use App\Http\Controllers\Controller;
 class TagController extends Controller
 {
     /**
+     * Variable used in View rendering
+     * 
+     * @var array
+     */
+    protected $resource = [
+        'name' => 'Tag',
+        'route' => 'tags'
+    ];
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $tags = Tag::paginate(config('rancor.pagination'));
+        $this->authorize('viewAny', Tag::class);
 
-        return view('rancor::tags.index',compact('tags'));
+        $resource = $this->resource;
+        $models = Tag::paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index',compact('models','resource'));
     }
 
     /**
@@ -30,7 +43,10 @@ class TagController extends Controller
     {
         $this->authorize('create', Tag::class);
 
-        return view('rancor::tags.create');
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'POST']);
+
+        return view('rancor::resources.create', compact('resource','form'));
     }
 
     /**
@@ -46,7 +62,7 @@ class TagController extends Controller
         $data = $request->validated();
         $tag = Tag::create($data);
         
-        return redirect(route('tags.index'))->with('alert','Tag "'. $tag->name .'" has been successfully created');
+        return redirect(route('admin.tags.index'))->with('alert','Tag "'. $tag->name .'" has been successfully created');
     }
 
     /**
@@ -60,7 +76,7 @@ class TagController extends Controller
         $this->authorize('view', $tag);
         $tag->loadCount('articles');
 
-        return view('rancor::tags.show',compact('tag'));
+        return view('rancor::show.tag',compact('tag'));
     }
 
     /**
@@ -72,8 +88,12 @@ class TagController extends Controller
     public function edit(Tag $tag)
     {
         $this->authorize('update', $tag);
+
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'PATCH']);
+        $model = $tag;
         
-        return view('rancor::tags.edit',compact('tag'));
+        return view('rancor::resources.edit',compact('resource','form','tag'));
     }
 
     /**
@@ -105,5 +125,29 @@ class TagController extends Controller
         $tag->delete();
 
         return redirect(route('tags.index'))->with('alert','Tag "'. $tag->name .'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'color',
+                    'label' => 'Color',
+                    'type' => 'color',
+                ],
+            ],
+        ];
     }
 }

@@ -38,7 +38,8 @@ class CategoryForm extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
             'color' => 'nullable|string|size:7',
             'slug' => ['required', 'string', Rule::unique('forum_categories')->ignore($this->id)],
             'order' => ['required', 'integer', Rule::unique('forum_categories')->ignore($this->id)],

@@ -3,23 +3,24 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\User;
+use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Reply;
 use AndrykVP\Rancor\Forums\Discussion;
-use AndrykVP\Rancor\Forums\Http\Requests\ReplyForm;
+use AndrykVP\Rancor\Forums\Http\Requests\NewReplyForm;
+use AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm;
 
 class ReplyController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    protected $resource = [
+        'name' => 'Reply',
+        'route' => 'replies'
+    ];
     
     /**
      * Display a listing of the resource.
@@ -29,10 +30,12 @@ class ReplyController extends Controller
      */
     public function index(User $user)
     {
-        $this->authorize('viewAny',Reply::class);
-        $replies = $user->replies()->with('discussion.board.category')->latest()->paginate(config('rancor.forums.pagination'));
+        $this->authorize('viewReplies', $user);
+
+        $resource = $this->resource;
+        $models = Group::paginate(config('rancor.pagination'));
         
-        return view('rancor::replies.index',compact('replies','user'));
+        return view('rancor::resources.index',compact('models', 'resource'));
     }
 
     /**
@@ -42,43 +45,40 @@ class ReplyController extends Controller
      */
     public function create(Request $request)
     {
-        $this->authorize('create',Reply::class);
-        $discussion = Discussion::with('board.category')->find($request->discussion);
-        $quote = Reply::with('author')->where('id',$request->quote)->first();
+        if(!$request->has('discussion_id')) abort (400, 'Discussion ID needed to create a Reply');
 
-        return view('rancor::replies.create',['discussion' => $discussion, 'quote' => $quote]);
+        $discussion = Discussion::findOrFail($request->discussion_id);
+
+        $this->authorize('post', $discussion);
+        $quote = Reply::with('author')->find($request->quote);
+
+        if($quote != null)
+        {
+            $quote = '<blockquote>'.clean($quote->body).'<footer>'.$quote->author->name.'</footer></blockquote>';
+        }
+
+        return view('rancor::create.reply', compact('discussion','quote'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\ReplyForm  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\NewReplyForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReplyForm $request)
+    public function store(NewReplyForm $request)
     {
-        $this->authorize('create',Reply::class);
+        $this->authorize('create', Reply::class);
         
         $data = $request->validated();
         $reply = Reply::create($data);
 
+        $reply->load('discussion.board.category');
+        
         $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
-        $page = $page > 0 ? ceil($page / config('rancor.forums.pagination')) : 1;
-
+        $page = $page > 0 ? ceil($page / config('rancor.pagination')) : 1;
+        
         return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('alert', 'Reply has been successfully posted');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reply $reply)
-    {
-        $this->authorize('view',$reply);
-
-        return view('rancor::replies.show',['reply' => $reply->load('category','groups')]);
     }
 
     /**
@@ -90,28 +90,29 @@ class ReplyController extends Controller
     public function edit(Reply $reply, Request $request)
     {
         $this->authorize('update', $reply);
-        $discussion = $reply->discussion()->with('board.category')->first();
 
-        return view('rancor::replies.edit',['discussion' => $discussion, 'reply' => $reply]);
+        return view('rancor::edit.reply', compact('reply'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\ReplyForm  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm  $request
      * @param  \AndrykVP\Rancor\Forums\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(ReplyForm $request, Reply $reply)
+    public function update(EditReplyForm $request, Reply $reply)
     {
         $this->authorize('update',$reply);
         
         $data = $request->validated();
         $reply->update($data);
-
-        $reply->groups()->sync($data['groups']);
-
-        return redirect()->route('forums.Replys.index')->with('alert', 'Reply "'.$reply->title.'" has been successfully updated');
+        $reply->load('discussion.board.category');
+        
+        $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
+        $page = $page > 0 ? ceil($page / config('rancor.pagination')) : 1;
+        
+        return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('alert', 'Reply has been successfully updated');
     }
 
     /**
@@ -127,5 +128,29 @@ class ReplyController extends Controller
         $reply->delete();
 
         return redirect()->route('forums.Replys.index')->with('alert', 'Reply "'.$reply->title.'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form($discussion)
+    {
+        return [
+            'textareas' => [
+                [
+                    'name' => 'body',
+                    'label' => 'Content',
+                    'attributes' => 'required'   
+                ]
+            ],
+            'hiddens' => [
+                [
+                    'name' => 'discussion_id',
+                    'value' => $discussion,
+                ],
+            ]
+        ];
     }
 }

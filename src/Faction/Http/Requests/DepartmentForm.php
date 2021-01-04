@@ -24,10 +24,8 @@ class DepartmentForm extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
-
         return [
-            'name' => ['required', 'string', Rule::unique('departments')->ignore($id)],
+            'name' => ['required', 'string', Rule::unique('departments')->ignore($this->id)],
             'faction_id' => 'required|integer|exists:factions,id',
             'description' => 'nullable|string',
         ];

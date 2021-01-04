@@ -2,24 +2,24 @@
 
 namespace AndrykVP\Rancor\Faction\Http\Controllers;
 
+use AndrykVP\Rancor\Faction\Department;
+use AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm;
+use AndrykVP\Rancor\Faction\Faction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Faction\Department;
-use AndrykVP\Rancor\Faction\Http\Resources\DepartmentResource;
-use AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm;
 
 class DepartmentController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+    protected $resource = [
+        'name' => 'Department',
+        'route' => 'departments'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +27,26 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $query = Department::with('faction')->get();
+        $this->authorize('viewAny', Department::class);
 
-        return DepartmentResource::collection($query);
+        $resource = $this->resource;
+        $models = Department::paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index', compact('models','resource'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $this->authorize('create', Department::class);
+
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'POST',],$this->form());
+        return view('rancor::resources.create', compact('resource','form'));
     }
 
     /**
@@ -40,14 +57,12 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentForm $request)
     {
-        $this->authorize('create',Department::class);
-        
+        $this->authorize('create', Department::class);
+
         $data = $request->validated();
         $department = Department::create($data);
 
-        return response()->json([
-            'message' => 'Department "'.$department->name.'" has been created'
-        ], 200);
+        return redirect(route('admin.departments.index'))->with('alert','Department "'.$department->name.'" has been successfully created.');
     }
 
     /**
@@ -60,7 +75,25 @@ class DepartmentController extends Controller
     {
         $this->authorize('view', $department);
 
-        return new DepartmentResource($department->load('faction','ranks'));
+        $department->load('faction','ranks','users');
+
+        return view('rancor::show.department', compact('department'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Department $department)
+    {
+        $this->authorize('update', $department);
+
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'PATCH',],$this->form());
+        $model = $department;
+        return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
     /**
@@ -73,15 +106,13 @@ class DepartmentController extends Controller
     public function update(DepartmentForm $request, Department $department)
     {
         $this->authorize('update', $department);
-        
+
         $data = $request->validated();
         $department->update($data);
 
-        return response()->json([
-            'message' => 'Department "'.$department->name.'" has been updated'
-        ], 200);
+        return redirect(route('admin.departments.index'))->with('alert','Department "'.$department->name.'" has been successfully updated.');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -94,8 +125,40 @@ class DepartmentController extends Controller
         
         $department->delete();
 
-        return response()->json([
-            'message' => 'Department "'.$department->name.'" has been deleted'
-        ], 200);        
+        return redirect(route('admin.departments.index'))->with('alert','Department "'.$department->name.'" has been successfully deleted.');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+            ],
+            'selects' => [
+                [
+                    'name' => 'faction_id',
+                    'label' => 'Faction',
+                    'attributes' => 'required',
+                    'multiple' => false,
+                    'options' => Faction::orderBy('name')->get(),
+                ],
+            ]
+        ];
     }
 }

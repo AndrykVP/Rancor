@@ -67,7 +67,6 @@ class FrameworkServiceProvider extends ServiceProvider
         // Publishes config files
         $this->publishes([
             __DIR__.'/../../config/app.php' => config_path('rancor.php'),
-            __DIR__.'/../../config/forums.php' => config_path('rancor.forums.php'),
         ],'config');
     }
 }

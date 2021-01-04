@@ -41,7 +41,9 @@ class PermissionSeeder extends Seeder
             {
                 DB::table('permissions')->insert([
                     'name' => $permission . '-' . $module,
-                    'description' => 'Can ' . $permission . ucwords(str_replace('-',' ',$module))
+                    'description' => 'Can ' . $permission . ucwords(str_replace('-',' ',$module)),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
         }
@@ -49,19 +51,27 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             [
                 'name' => 'update-users-art',
-                'description' => 'Can update a User\'s ID images'
+                'description' => 'Can update a User\'s ID images',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update-users-rank',
-                'description' => 'Can update a User\'s Rank'
+                'description' => 'Can update a User\'s Rank',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update-users-roles',
-                'description' => 'Can update a User\'s Roles'
+                'description' => 'Can update a User\'s Roles',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view-admin-panel',
-                'description' => 'Can access admin panel'
+                'description' => 'Can access admin panel',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

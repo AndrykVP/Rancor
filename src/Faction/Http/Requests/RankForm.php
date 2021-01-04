@@ -23,8 +23,6 @@ class RankForm extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
-
         return [
             'name' => 'required|string',
             'department_id' => 'required|integer|exists:departments,id',

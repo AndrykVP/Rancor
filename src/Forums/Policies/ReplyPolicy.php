@@ -12,6 +12,19 @@ class ReplyPolicy
     use HandlesAuthorization;
 
     /**
+     * Bypass policy for Admin users.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function before($user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\User  $user
@@ -61,9 +74,9 @@ class ReplyPolicy
      */
     public function update(User $user, Reply $reply)
     {
-        return ( $user->hasPermission('update-forum-replies')
+        return $user->hasPermission('update-forum-replies')
                 || $reply->author_id == $user->id
-                || $reply->discussion->board->moderators->contains($user) )
+                || $reply->discussion->board->moderators->contains($user)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Update this Forum Reply.');
     }

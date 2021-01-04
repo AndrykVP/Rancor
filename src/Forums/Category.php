@@ -18,7 +18,7 @@ class Category extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'title', 'color', 'slug', 'order' ];
+    protected $fillable = [ 'name', 'description', 'color', 'slug', 'order' ];
 
     /**
      * Relationship to Board model
@@ -28,6 +28,16 @@ class Category extends Model
     public function boards()
     {
         return $this->hasMany('AndrykVP\Rancor\Forums\Board')->orderBy('order');
+    }
+
+    /**
+     * Relationship to Board model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function discussions()
+    {
+        return $this->hasManyThrough('AndrykVP\Rancor\Forums\Discussion','AndrykVP\Rancor\Forums\Board');
     }
 
     /**

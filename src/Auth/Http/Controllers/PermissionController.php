@@ -10,6 +10,16 @@ use App\Http\Controllers\Controller;
 class PermissionController extends Controller
 {
     /**
+     * Variable used in View rendering
+     * 
+     * @var array
+     */
+    protected $resource = [
+        'name' => 'Permission',
+        'route' => 'permissions'
+    ];
+
+    /**
      * Construct Controller
      * 
      * @return void
@@ -27,10 +37,26 @@ class PermissionController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Permission::class);
+        
+        $resource = $this->resource;
+        $models = Permission::paginate(config('rancor.pagination'));
 
-        $permissions = Permission::paginate(config('rancor.pagination'));
+        return view('rancor::resources.index', compact('models','resource'));
+    }
 
-        return view('rancor::permissions.index', compact('permissions'));
+    /**
+     * Display the specified resource.
+     *
+     * @param  \AndrykVP\Rancor\Auth\Permission  $permission
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Permission $permission)
+    {
+        $this->authorize('view', $permission);
+
+        $permission->load('roles','users');
+
+        return view('rancor::show.permission', compact('permission'));
     }
 
     /**
@@ -42,9 +68,10 @@ class PermissionController extends Controller
     {
         $this->authorize('create', Permission::class);
 
-        $permissions = Permission::all();
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'POST']);
         
-        return view('rancor::permissions.create', compact('permissions'));
+        return view('rancor::resources.create', compact('form','resource'));
     }
 
     /**
@@ -58,14 +85,9 @@ class PermissionController extends Controller
         $this->authorize('create', Permission::class);
 
         $data = $request->validated();
-        $permission;
-
-        DB::transaction(function () use($permission, $data) {
-            $permission = Permission::create($data);
-            $permission->permissions()->sync($data['permissions']);
-        });
+        $permission = Permission::create($data);
         
-        return redirect(route('permissions.index'))->with('alert', 'Permission "'.$permission->name.' has been successfully created');
+        return redirect(route('admin.permissions.index'))->with('alert', 'Permission "'.$permission->name.' has been successfully created');
     }
 
     /**
@@ -78,7 +100,11 @@ class PermissionController extends Controller
     {
         $this->authorize('update', $permission);
 
-        return view('rancor::permissions.edit', compact('permission'));
+        $resource = $this->resource;
+        $form = array_merge($this->form(),['method' => 'PATCH']);
+        $model = $permission;
+
+        return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
     /**
@@ -93,13 +119,9 @@ class PermissionController extends Controller
         $this->authorize('update', $permission);
 
         $data = $request->validated();
+        $permission->update($data);
 
-        DB::transaction(function () use($permission,$data) {
-            $permission->update($data);
-            $permission->permissions()->sync($data['permissions']);
-        });
-
-        return redirect(route('permissions.index'))->with('alert', 'Permission "'.$permission->name.' has been successfully updated');
+        return redirect(route('admin.permissions.index'))->with('alert', 'Permission "'.$permission->name.' has been successfully updated');
     }
 
     /**
@@ -114,6 +136,31 @@ class PermissionController extends Controller
         
         $permission->delete();
 
-        return redirect(route('permissions.index'))->with('alert', 'Permission "'.$permission->name.' has been successfully deleted');
+        return redirect(route('admin.permissions.index'))->with('alert', 'Permission "'.$permission->name.' has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+            ],
+        ];
     }
 }

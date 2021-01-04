@@ -11,28 +11,28 @@ use AndrykVP\Rancor\Forums\Http\Requests\GroupForm;
 class GroupController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    protected $resource = [
+        'name' => 'Group',
+        'route' => 'groups'
+    ];
     
     /**
      * Display a listing of the resource.
      *
-     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $this->authorize('viewAny',Group::class);
 
-        $groups = Group::with('category')->orderBy('category_id')->orderBy('order')->get();
+        $resource = $this->resource;
+        $models = Group::paginate(config('rancor.pagination'));
         
-        return view('rancor::Groups.index',compact('Groups'));
+        return view('rancor::resources.index',compact('models', 'resource'));
     }
 
     /**
@@ -43,13 +43,11 @@ class GroupController extends Controller
     public function create(Request $request)
     {
         $this->authorize('create',Group::class);
-        $parentGroup = Group::find($request->Group);
-        $selCategory = $parentGroup ? $parentGroup->category : Category::find($request->category);
-        $groups = Group::orderBy('title')->get();
-        $groups = Group::orderBy('name')->get();
-        $categories = Category::orderBy('title')->get();
+        
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'POST'], $this->form());
 
-        return view('rancor::Groups.create',compact('groups','Groups','categories','selCategory','parentGroup'));
+        return view('rancor::resources.create',compact('resource','form'));
     }
 
     /**
@@ -60,14 +58,12 @@ class GroupController extends Controller
      */
     public function store(GroupForm $request)
     {
-        $this->authorize('create',Group::class);
+        $this->authorize('create', Group::class);
         
         $data = $request->validated();
         $group = Group::create($data);
 
-        $group->groups()->sync($data['groups']);
-
-        return redirect()->route('forums.groups.index')->with('alert', 'Group "'.$group->title.'" has been successfully created');
+        return redirect()->route('admin.groups.index')->with('alert', 'Group "'.$group->name.'" has been successfully created');
     }
 
     /**
@@ -76,25 +72,14 @@ class GroupController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category, Group $group)
+    public function show(Group $group)
     {
         $this->authorize('view',$group);
-
-        $group->load('category','moderators')->load(['children' => function($query) {
-            $query->withCount('discussions','replies','children')->with('latest_reply.discussion')->orderBy('order');
-         }]);
+        
+        $resource = $this->resource;
+        $group->load('users','categories','boards');
    
-         $sticky = $group->discussions()
-                    ->sticky()
-                    ->withCount('replies')
-                    ->get();
-   
-         $normal = $group->discussions()
-                    ->sticky(false)
-                    ->withCount('replies')
-                    ->paginate(config('rancor.forums.pagination'));
-   
-         return view('rancor::Groups.show',compact('category','Group','sticky','normal'));
+         return view('rancor::show.group',compact('resource','group'));
     }
 
     /**
@@ -106,12 +91,12 @@ class GroupController extends Controller
     public function edit(Group $group)
     {
         $this->authorize('update', $group);
-        $groups = Group::orderBy('title')->get();
-        $groups = Group::orderBy('name')->get();
-        $categories = Category::orderBy('title')->get();
-        $group->load('category','groups');
+        
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $model = $group;
 
-        return view('rancor::Groups.edit',compact('Group', 'groups','Groups','categories'));
+        return view('rancor::resources.edit',compact('resource','form','model'));
     }
 
     /**
@@ -128,9 +113,7 @@ class GroupController extends Controller
         $data = $request->validated();
         $group->update($data);
 
-        $group->groups()->sync($data['groups']);
-
-        return redirect()->route('forums.groups.index')->with('alert', 'Group "'.$group->title.'" has been successfully updated');
+        return redirect()->route('admin.groups.index')->with('alert', 'Group "'.$group->name.'" has been successfully updated');
     }
 
     /**
@@ -145,6 +128,32 @@ class GroupController extends Controller
         
         $group->delete();
 
-        return redirect()->route('forums.groups.index')->with('alert', 'Group "'.$group->title.'" has been successfully deleted');
+        return redirect()->route('admin.groups.index')->with('alert', 'Group "'.$group->name.'" has been successfully deleted');
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form($board = null)
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+            ],
+            'textareas' => [
+                [
+                    'name' => 'description',
+                    'label' => 'Description',
+                    'attributes' => 'required',
+                ]
+            ]
+        ];
     }
 }

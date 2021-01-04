@@ -45,7 +45,7 @@ trait ForumUser
      */
     public function replies()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Reply', 'author_id');
+        return $this->hasMany('AndrykVP\Rancor\Forums\Reply', 'author_id')->latest();
     }
 
     /**

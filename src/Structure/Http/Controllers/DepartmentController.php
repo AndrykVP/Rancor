@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Controllers;
+namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
-use AndrykVP\Rancor\Faction\Department;
-use AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm;
-use AndrykVP\Rancor\Faction\Faction;
+use AndrykVP\Rancor\Structure\Department;
+use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
+use AndrykVP\Rancor\Structure\Faction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -52,7 +52,7 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DepartmentForm $request)
@@ -68,7 +68,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function show(Department $department)
@@ -83,7 +83,7 @@ class DepartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function edit(Department $department)
@@ -99,8 +99,8 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm  $request
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function update(DepartmentForm $request, Department $department)
@@ -116,7 +116,7 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function destroy(Department $department)

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction;
+namespace AndrykVP\Rancor\Structure;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,7 @@ class Department extends Model
      */
     public function ranks()
     {
-        return $this->hasMany('AndrykVP\Rancor\Faction\Rank')->orderBy('level','desc');
+        return $this->hasMany('AndrykVP\Rancor\Structure\Rank')->orderBy('level','desc');
     }
 
     /**
@@ -30,7 +30,7 @@ class Department extends Model
      */
     public function users()
     {
-        return $this->hasManyThrough('App\User', 'AndrykVP\Rancor\Faction\Rank');
+        return $this->hasManyThrough('App\User', 'AndrykVP\Rancor\Structure\Rank');
     }
 
     /**
@@ -40,6 +40,6 @@ class Department extends Model
      */
     public function faction()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Faction\Faction');
+        return $this->belongsTo('AndrykVP\Rancor\Structure\Faction');
     }
 }

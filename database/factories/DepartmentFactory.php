@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use AndrykVP\Rancor\Faction\Department;
+use AndrykVP\Rancor\Structure\Department;
 use Faker\Generator as Faker;
 
 $factory->define(Department::class, function (Faker $faker) {

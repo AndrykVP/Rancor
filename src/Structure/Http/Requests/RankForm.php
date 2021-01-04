@@ -1,11 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Requests;
+namespace AndrykVP\Rancor\Structure\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class FactionForm extends FormRequest
+class RankForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +24,9 @@ class FactionForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('factions')->ignore($this->id)],
+            'name' => 'required|string',
+            'department_id' => 'required|integer|exists:departments,id',
+            'level' => 'required|integer|min:0|max:255',
             'description' => 'nullable|string',
         ];
     }

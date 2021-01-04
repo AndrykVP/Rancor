@@ -28,7 +28,7 @@ class FrameworkServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);  
         $this->app->register(AuditServiceProvider::class);  
         $this->app->register(AuthServiceProvider::class);  
-        $this->app->register(FactionServiceProvider::class); 
+        $this->app->register(StructureServiceProvider::class); 
         $this->app->register(ForumsServiceProvider::class); 
         $this->app->register(NewsServiceProvider::class); 
         

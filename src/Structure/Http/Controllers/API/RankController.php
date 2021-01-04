@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Controllers\API;
+namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Faction\Rank;
-use AndrykVP\Rancor\Faction\Http\Resources\RankResource;
-use AndrykVP\Rancor\Faction\Http\Requests\RankForm;
+use AndrykVP\Rancor\Structure\Rank;
+use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
+use AndrykVP\Rancor\Structure\Http\Requests\RankForm;
 
 class RankController extends Controller
 {
@@ -35,7 +35,7 @@ class RankController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\RankForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(RankForm $request)
@@ -66,7 +66,7 @@ class RankController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\RankForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankForm  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

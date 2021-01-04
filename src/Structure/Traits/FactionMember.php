@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Traits;
+namespace AndrykVP\Rancor\Structure\Traits;
 
 trait FactionMember
 {
@@ -11,6 +11,6 @@ trait FactionMember
      */
     public function rank()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Faction\Rank');
+        return $this->belongsTo('AndrykVP\Rancor\Structure\Rank');
     }
 }

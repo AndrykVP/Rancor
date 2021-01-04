@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Policies;
+namespace AndrykVP\Rancor\Structure\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class FactionPolicy
+class RankPolicy
 {
     use HandlesAuthorization;
 
@@ -24,16 +24,16 @@ class FactionPolicy
     }
 
     /**
-     * Determine whether the user can view all records of model.
+     * Determine whether the user can view all records model.
      *
      * @param  \App\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-factions')
+        return $user->hasPermission('view-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view factions.');
+                : Response::deny('You do not have permissions to view ranks.');
     }
     
     /**
@@ -42,11 +42,11 @@ class FactionPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function view(User $user, Faction $faction)
+    public function view(User $user)
     {
-        return $user->hasPermission('view-factions')
+        return $user->hasPermission('view-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view factions.');
+                : Response::deny('You do not have permissions to view ranks.');
     }
 
     /**
@@ -57,9 +57,9 @@ class FactionPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-factions')
+        return $user->hasPermission('create-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create factions.');
+                : Response::deny('You do not have permissions to create ranks.');
     }
 
     /**
@@ -70,9 +70,9 @@ class FactionPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('update-factions')
+        return $user->hasPermission('update-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit this faction.');
+                : Response::deny('You do not have permissions to edit ranks.');
     }
 
     /**
@@ -83,8 +83,8 @@ class FactionPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPermission('delete-factions')
+        return $user->hasPermission('delete-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete this faction.');
+                : Response::deny('You do not have permissions to delete ranks.');
     }
 }

@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
-use AndrykVP\Rancor\Faction\Faction;
-use AndrykVP\Rancor\Faction\Department;
-use AndrykVP\Rancor\Faction\Rank;
+use AndrykVP\Rancor\Structure\Faction;
+use AndrykVP\Rancor\Structure\Department;
+use AndrykVP\Rancor\Structure\Rank;
 use AndrykVP\Rancor\Auth\Role;
 
 class UserController extends Controller

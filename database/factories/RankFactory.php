@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use AndrykVP\Rancor\Faction\Rank;
+use AndrykVP\Rancor\Structure\Rank;
 use Faker\Generator as Faker;
 
 $factory->define(Rank::class, function (Faker $faker) {

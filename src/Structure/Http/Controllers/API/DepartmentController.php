@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Controllers\API;
+namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Faction\Department;
-use AndrykVP\Rancor\Faction\Http\Resources\DepartmentResource;
-use AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm;
+use AndrykVP\Rancor\Structure\Department;
+use AndrykVP\Rancor\Structure\Http\Resources\DepartmentResource;
+use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
 
 class DepartmentController extends Controller
 {
@@ -35,7 +35,7 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DepartmentForm $request)
@@ -53,7 +53,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function show(Department $department)
@@ -66,8 +66,8 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\DepartmentForm  $request
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function update(DepartmentForm $request, Department $department)
@@ -85,7 +85,7 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function destroy(Department $department)

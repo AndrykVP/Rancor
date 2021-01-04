@@ -4,14 +4,14 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Faction\Faction;
-use AndrykVP\Rancor\Faction\Department;
-use AndrykVP\Rancor\Faction\Rank;
-use AndrykVP\Rancor\Faction\Policies\FactionPolicy;
-use AndrykVP\Rancor\Faction\Policies\DepartmentPolicy;
-use AndrykVP\Rancor\Faction\Policies\RankPolicy;
+use AndrykVP\Rancor\Structure\Faction;
+use AndrykVP\Rancor\Structure\Department;
+use AndrykVP\Rancor\Structure\Rank;
+use AndrykVP\Rancor\Structure\Policies\FactionPolicy;
+use AndrykVP\Rancor\Structure\Policies\DepartmentPolicy;
+use AndrykVP\Rancor\Structure\Policies\RankPolicy;
 
-class FactionServiceProvider extends ServiceProvider
+class StructureServiceProvider extends ServiceProvider
 {
     /**
      * Custom Package policies
@@ -42,11 +42,11 @@ class FactionServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load routes
-        $this->loadRoutesFrom(__DIR__.'/../Faction/Routes/api.php');
-        $this->loadRoutesFrom(__DIR__.'/../Faction/Routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../Structure/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Structure/Routes/web.php');
         
         // Load views
-        $this->loadViewsFrom(__DIR__.'/../Faction/Resources/Views','rancor');
+        $this->loadViewsFrom(__DIR__.'/../Structure/Resources/Views','rancor');
 
         // Register policies
         $this->registerPolicies();       

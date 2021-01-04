@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Controllers\API;
+namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Faction\Faction;
-use AndrykVP\Rancor\Faction\Http\Resources\FactionResource;
-use AndrykVP\Rancor\Faction\Http\Requests\FactionForm;
+use AndrykVP\Rancor\Structure\Faction;
+use AndrykVP\Rancor\Structure\Http\Resources\FactionResource;
+use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
 
 class FactionController extends Controller
 {
@@ -35,7 +35,7 @@ class FactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\FactionForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(FactionForm $request)
@@ -53,7 +53,7 @@ class FactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function show(Faction $faction)
@@ -66,8 +66,8 @@ class FactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\FactionForm  $request
-     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function update(FactionForm $request, Faction $faction)
@@ -85,7 +85,7 @@ class FactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function destroy(Faction $faction)

@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Policies;
+namespace AndrykVP\Rancor\Structure\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RankPolicy
+class DepartmentPolicy
 {
     use HandlesAuthorization;
 
@@ -24,16 +24,16 @@ class RankPolicy
     }
 
     /**
-     * Determine whether the user can view all records model.
+     * Determine whether the user can view all records of model.
      *
      * @param  \App\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-ranks')
+        return $user->hasPermission('view-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view ranks.');
+                : Response::deny('You do not have permissions to view departments.');
     }
     
     /**
@@ -44,9 +44,9 @@ class RankPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPermission('view-ranks')
+        return $user->hasPermission('view-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view ranks.');
+                : Response::deny('You do not have permissions to view departments.');
     }
 
     /**
@@ -57,9 +57,9 @@ class RankPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-ranks')
+        return $user->hasPermission('create-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create ranks.');
+                : Response::deny('You do not have permissions to create departments.');
     }
 
     /**
@@ -70,9 +70,9 @@ class RankPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('update-ranks')
+        return $user->hasPermission('update-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit ranks.');
+                : Response::deny('You do not have permissions to edit departments.');
     }
 
     /**
@@ -83,8 +83,8 @@ class RankPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPermission('delete-ranks')
+        return $user->hasPermission('delete-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete ranks.');
+                : Response::deny('You do not have permissions to delete departments.');
     }
 }

@@ -1,14 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Controllers;
+namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
-use AndrykVP\Rancor\Faction\Rank;
-use AndrykVP\Rancor\Faction\Http\Requests\RankForm;
-use AndrykVP\Rancor\Faction\Department;
+use AndrykVP\Rancor\Structure\Faction;
+use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RankController extends Controller
+class FactionController extends Controller
 {
     /**
      * Variable used in View rendering
@@ -16,8 +15,8 @@ class RankController extends Controller
      * @var array
      */
     protected $resource = [
-        'name' => 'Rank',
-        'route' => 'ranks'
+        'name' => 'Faction',
+        'route' => 'factions'
     ];
 
     /**
@@ -27,10 +26,10 @@ class RankController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Rank::class);
+        $this->authorize('viewAny', Faction::class);
 
         $resource = $this->resource;
-        $models = Rank::paginate(config('rancor.pagination'));
+        $models = Faction::paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }
@@ -42,7 +41,7 @@ class RankController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Rank::class);
+        $this->authorize('create', Faction::class);
 
         $resource = $this->resource;
         $form = array_merge(['method' => 'POST',],$this->form());
@@ -52,80 +51,80 @@ class RankController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\RankForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RankForm $request)
+    public function store(FactionForm $request)
     {
-        $this->authorize('create', Rank::class);
+        $this->authorize('create', Faction::class);
 
         $data = $request->validated();
-        $rank = Rank::create($data);
+        $faction = Faction::create($data);
 
-        return redirect(route('admin.ranks.index'))->with('alert','Rank "'.$rank->name.'" has been successfully created.');
+        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully created.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Faction\Rank  $rank
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function show(Rank $rank)
+    public function show(Faction $faction)
     {
-        $this->authorize('view', $rank);
+        $this->authorize('view', $faction);
 
-        $rank->load('department','users');
+        $faction->load('departments','ranks');
 
-        return view('rancor::show.rank', compact('rank'));
+        return view('rancor::show.faction', compact('faction'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Faction\Rank  $rank
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rank $rank)
+    public function edit(Faction $faction)
     {
-        $this->authorize('update', $rank);
+        $this->authorize('update', $faction);
 
         $resource = $this->resource;
         $form = array_merge(['method' => 'PATCH',],$this->form());
-        $model = $rank;
+        $model = $faction;
         return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Http\Requests\RankForm  $request
-     * @param  \AndrykVP\Rancor\Faction\Rank  $rank
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function update(RankForm $request, Rank $rank)
+    public function update(FactionForm $request, Faction $faction)
     {
-        $this->authorize('update', $rank);
+        $this->authorize('update', $faction);
 
         $data = $request->validated();
-        $rank->update($data);
+        $faction->update($data);
 
-        return redirect(route('admin.ranks.index'))->with('alert','Rank "'.$rank->name.'" has been successfully updated.');
+        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully updated.');
     }
     
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Faction\Rank  $rank
+     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rank $rank)
+    public function destroy(Faction $faction)
     {
-        $this->authorize('delete', $rank);
+        $this->authorize('delete', $faction);
         
-        $rank->delete();
+        $faction->delete();
 
-        return redirect(route('admin.ranks.index'))->with('alert','Rank "'.$rank->name.'" has been successfully deleted.');
+        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully deleted.');
     }
 
     /**
@@ -150,15 +149,6 @@ class RankController extends Controller
                     'attributes' => 'required'
                 ],
             ],
-            'selects' => [
-                [
-                    'name' => 'department_id',
-                    'label' => 'Department',
-                    'attributes' => 'required',
-                    'multiple' => false,
-                    'options' => Department::orderBy('name')->get(),
-                ],
-            ]
         ];
     }
 }

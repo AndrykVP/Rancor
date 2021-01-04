@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Policies;
+namespace AndrykVP\Rancor\Structure\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DepartmentPolicy
+class FactionPolicy
 {
     use HandlesAuthorization;
 
@@ -31,9 +31,9 @@ class DepartmentPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-departments')
+        return $user->hasPermission('view-factions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view departments.');
+                : Response::deny('You do not have permissions to view factions.');
     }
     
     /**
@@ -42,11 +42,11 @@ class DepartmentPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function view(User $user)
+    public function view(User $user, Faction $faction)
     {
-        return $user->hasPermission('view-departments')
+        return $user->hasPermission('view-factions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view departments.');
+                : Response::deny('You do not have permissions to view factions.');
     }
 
     /**
@@ -57,9 +57,9 @@ class DepartmentPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-departments')
+        return $user->hasPermission('create-factions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create departments.');
+                : Response::deny('You do not have permissions to create factions.');
     }
 
     /**
@@ -70,9 +70,9 @@ class DepartmentPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('update-departments')
+        return $user->hasPermission('update-factions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit departments.');
+                : Response::deny('You do not have permissions to edit this faction.');
     }
 
     /**
@@ -83,8 +83,8 @@ class DepartmentPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPermission('delete-departments')
+        return $user->hasPermission('delete-factions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete departments.');
+                : Response::deny('You do not have permissions to delete this faction.');
     }
 }

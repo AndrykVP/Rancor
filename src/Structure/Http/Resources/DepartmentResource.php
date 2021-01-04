@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Faction\Http\Resources;
+namespace AndrykVP\Rancor\Structure\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RankResource extends JsonResource
+class DepartmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,8 @@ class RankResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'level' => $this->level,
-            'department' => new DepartmentResource($this->whenLoaded('department')),
+            'faction' => new FactionResource($this->whenLoaded('faction')),
+            'ranks' => RankResource::collection($this->whenLoaded('ranks')),
             'created_at' => $this->created_at->format('M j, Y, G:i e'),
         ];
     }

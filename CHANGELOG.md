@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2021-01-04
+### Added
+- `Package\Traits\RancorUser` trait to simply usage of modular traits.
+- `Views` on every module for front-end usage and admin panel.
+
+### Changed
+- `Rancor\Faction` namespace to `Rancor\Structure` for better clarity.
+
 ## [1.3.0] - 2020-11-14
 ### Added
 - Column `color` on `user_logs` table for UI display.

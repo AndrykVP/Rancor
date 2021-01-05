@@ -22,7 +22,6 @@ Route::group(['namespace' => 'AndrykVP\Rancor\Forums\Http\Controllers', 'middlew
       Route::get('{category:slug}/{board:slug}','ForumController@board')->name('board');
       Route::get('{category:slug}/{board:slug}/{discussion}','ForumController@discussion')->name('discussion');
    });
-
-   Route::get('/profile/{user}/replies','ReplyController@index')->name('forums.replies.index');
+   Route::get('profile/{user}/replies','ReplyController@index')->name('forums.replies.index');
 });
 

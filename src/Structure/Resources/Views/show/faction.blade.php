@@ -1,4 +1,4 @@
-@extends('rancor::layouts.main')
+@extends('rancor::layouts.admin')
 
 @section('content')
 <div class="container">

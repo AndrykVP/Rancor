@@ -57,6 +57,9 @@ class FrameworkServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
+        
+        // Load routes
+        $this->loadRoutesFrom(__DIR__.'/../Package/Routes/web.php');
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');

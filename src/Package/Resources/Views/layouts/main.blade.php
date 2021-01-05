@@ -51,40 +51,13 @@
                         @endif
                      @endguest
                      @auth
-                        <li class="nav-item dropdown">
-                           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                              {{ __('News') }} <span class="caret"></span>
-                           </a>
-
-                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="{{ route('articles.index') }}">
-                                 {{ __('Articles') }}
-                              </a>
-                              <a class="dropdown-item" href="{{ route('tags.index') }}">
-                                 {{ __('Tags') }}
-                              </a>
-                           </div>
+                        <li class="nav-item">
+                           @if(Request::is('admin/*'))
+                           <a class="nav-link" href="/">{{ __('Index') }}</a>
+                           @else
+                           <a class="nav-link" href="{{ route('admin.index') }}">{{ __('Admin Panel') }}</a>
+                           @endif
                         </li>
-                        {{-- <li class="nav-item dropdown">
-                           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                              {{ __('Forums') }} <span class="caret"></span>
-                           </a>
-
-                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="{{ route('forums.index') }}">
-                                 {{ __('Index') }}
-                              </a>
-                              <a class="dropdown-item" href="{{ route('forums.unread') }}">
-                                 {{ __('Unread Posts') }}
-                              </a>
-                              <a class="dropdown-item" href="{{ route('forums.categories.index') }}">
-                                 {{ __('Categories') }}
-                              </a>
-                              <a class="dropdown-item" href="{{ route('forums.boards.index') }}">
-                                 {{ __('Boards') }}
-                              </a>
-                           </div>
-                        </li> --}}
                         <li class="nav-item dropdown">
                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                               {{ Auth::user()->name }} <span class="caret"></span>
@@ -102,9 +75,9 @@
                               </form>
                            </div>
                         </li>
-                        @endauth
-                    </ul>
-                </div>
+                     @endauth
+                  </ul>
+               </div>
             </div>
         </nav>
 
@@ -117,6 +90,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
+   </div>
 </body>
 </html>

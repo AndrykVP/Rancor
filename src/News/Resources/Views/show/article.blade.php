@@ -27,10 +27,6 @@
                   <div class="col-8 {{ $article->is_published ? 'text-success' : 'text-danger' }}">{{ $article->is_published ? 'Published' : 'Drafted' }}</div>
                </div>
                <div class="row mb-2">
-                  <div class="col-4 text-right">Views:</div>
-                  <div class="col-8">{{ number_format($article->views) }}</div>
-               </div>
-               <div class="row mb-2">
                   <div class="col-4 text-right">Author:</div>
                   <div class="col-8">{{ $article->author->name }}</div>
                </div>

@@ -18,7 +18,7 @@ class Article extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'body', 'is_published', 'author_id', 'editor_id' ];
+    protected $fillable = [ 'name', 'body', 'is_published', 'author_id', 'editor_id', 'published_at' ];
 
     /**
      * Attributes casted to native types
@@ -27,6 +27,7 @@ class Article extends Model
      */
     protected $casts = [
         'is_published' => 'boolean',
+        'published_at' => 'datetime',
     ];
 
     /**
@@ -64,5 +65,17 @@ class Article extends Model
     public function tags()
     {
         return $this->belongsToMany('AndrykVP\Rancor\News\Tag','news_article_tag')->withTimestamps();
+    }
+
+
+    /**
+     * Scope a query to include discussions by their is_published status.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublished($query, $value = true)
+    {
+        return $query->where('is_published', $value);
     }
 }

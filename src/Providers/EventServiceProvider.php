@@ -16,8 +16,6 @@ use AndrykVP\Rancor\Forums\Events\CreateReply;
 use AndrykVP\Rancor\Forums\Listeners\IncrementDiscussionViews;
 use AndrykVP\Rancor\Forums\Listeners\MarkDiscussionRead;
 use AndrykVP\Rancor\Forums\Listeners\LinkUserDiscussion;
-use AndrykVP\Rancor\News\Events\VisitArticle;
-use AndrykVP\Rancor\News\Listeners\IncrementArticleViews;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -37,9 +35,6 @@ class EventServiceProvider extends ServiceProvider
         VisitDiscussion::class => [
             IncrementDiscussionViews::class,
             MarkDiscussionRead::class,
-        ],
-        VisitArticle::class => [
-            IncrementArticleViews::class,
         ],
         CreateReply::class => [
             LinkUserDiscussion::class,

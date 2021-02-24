@@ -179,9 +179,9 @@
                </div>
                @endif
 
-               <main class="py-4">
+               <div class="py-4">
                   @yield('content')
-               </main>
+               </div>
             </div>
          </div>
          <!-- /#page-content-wrapper -->     

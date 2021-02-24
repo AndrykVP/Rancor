@@ -18,9 +18,9 @@ class CreateArticlesTable extends Migration
             $table->string('name');
             $table->longText('body');
             $table->boolean('is_published')->default(0);
-            $table->unsignedBigInteger('views')->default(0);
             $table->unsignedBigInteger('author_id')->nullable()->default(null);
             $table->unsignedBigInteger('editor_id')->nullable()->default(null);
+            $table->timestamp('published_at')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');

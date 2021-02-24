@@ -26,6 +26,7 @@ class EditArticleForm extends FormRequest
         $this->merge([
             'editor_id' => $this->user()->id,
             'is_published' => $this->is_published ? true : false,
+            'published_at' => $this->is_published ? now() : null
         ]);
     }
 
@@ -44,6 +45,7 @@ class EditArticleForm extends FormRequest
             'is_published' => 'required|boolean',
             'tags' => 'nullable|array',
             'editor_id' => 'required|integer|exists:users,id',
+            'published_at' => 'nullable|date'
         ];
     }
 }

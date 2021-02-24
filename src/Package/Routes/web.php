@@ -16,35 +16,43 @@ Route::group(['middleware' => array_merge(['web'], config('rancor.middleware.web
       $cards = [
          [
             'title' => 'Users',
-            'value' => User::count()
+            'value' => User::count(),
+            'icon' => 'user-group'
          ],
          [
             'title' => 'Articles',
-            'value' => Article::count()
+            'value' => Article::count(),
+            'icon' => 'newspaper'
          ],
          [
             'title' => 'Tags',
-            'value' => Tag::count()
+            'value' => Tag::count(),
+            'icon' => 'tag'
          ],
          [
             'title' => 'Groups',
-            'value' => Group::count()
+            'value' => Group::count(),
+            'icon' => 'key'
          ],
          [
             'title' => 'Categories',
-            'value' => Category::count()
+            'value' => Category::count(),
+            'icon' => 'collection'
          ],
          [
             'title' => 'Boards',
-            'value' => Board::count()
+            'value' => Board::count(),
+            'icon' => 'table'
          ],
          [
             'title' => 'Discussions',
-            'value' => Discussion::count()
+            'value' => Discussion::count(),
+            'icon' => 'chat-alt-2'
          ],
          [
             'title' => 'Replies',
-            'value' => Reply::count()
+            'value' => Reply::count(),
+            'icon' => 'chat'
          ],
       ];
 

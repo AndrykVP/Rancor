@@ -1,6 +1,6 @@
 <?php 
 
-Route::group(['namespace' => 'AndrykVP\Rancor\News\Http\Controllers\API', 'prefix' => 'api', 'middleware' => ['api']], function(){
+Route::group(['namespace' => 'AndrykVP\Rancor\News\Http\Controllers\API', 'prefix' => 'api', 'as' => 'api.', 'middleware' => ['api']], function(){
 	Route::apiResources([
 		'articles' => 'ArticleController',
 		'tags' => 'TagController',

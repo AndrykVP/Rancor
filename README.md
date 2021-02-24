@@ -1,11 +1,14 @@
 # Rancor
 ![version](https://img.shields.io/github/v/release/andrykvp/rancor?color=orange) ![repo size](https://img.shields.io/github/repo-size/AndrykVP/Rancor) ![license](https://img.shields.io/github/license/AndrykVP/Rancor) ![activity](https://img.shields.io/github/last-commit/AndrykVP/Rancor) ![downloads](https://img.shields.io/packagist/dt/andrykvp/rancor)
 
-Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffolding a project related to the MMORPG [Star Wars Combine](http://www.swcombine.com), and make use of common functionality required by factions and/or groups of this game. Such as:
+Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffolding a project related to the MMORPG [Star Wars Combine](http://www.swcombine.com), and make use of common functionality required by factions and/or independent groups of this game. Such as:
 
 - Generating server-side avatars and signatures using a given template
-- Recording scan logs and browsing them in an expressive GUI
+- Recording scan logs and browsing them in an expressive interface
 - Consume web services provided by the game
+- Forum boards that integrate with user information relevant to the game
+- News articles released by the faction or group
+- Managing faction data such as ranks, departments and sub-factions
 - Kickstarting a dashboard/admin panel
 
 ## Getting Started

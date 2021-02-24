@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.1] - 2021-01-04
 ### Added
-- `Package\Traits\RancorUser` trait to simply usage of modular traits.
-- `Views` on every module for front-end usage and admin panel.
+- `Package\Traits\RancorUser` trait to simplify usage of modular traits.
+- `Views` on every module for front-end usage.
+- `News\Tag` models, controllers, migrations, views, etc; for advanced functionality of the News module
+- Admin Panel with middleware for admin access.
 
 ### Changed
 - `Rancor\Faction` namespace to `Rancor\Structure` for better clarity.

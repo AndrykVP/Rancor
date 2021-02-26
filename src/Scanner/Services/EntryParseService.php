@@ -2,9 +2,9 @@
 
 namespace AndrykVP\Rancor\Scanner\Services;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use AndrykVP\Rancor\Scanner\Entry;
+use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 use Carbon\Carbon;
 
 class EntryParseService {
@@ -20,10 +20,11 @@ class EntryParseService {
     * 
     * @return void
     */
-   public function __construct(Request $request)
+   public function __construct(UploadScan $request)
    {
       $this->contributor = $request->user();
-      $this->files = $request->file('files');
+      $validated = $request->validated();
+      $this->files = $validated['files'];
    }
 
    /**
@@ -34,16 +35,9 @@ class EntryParseService {
     */
    public function start()
    {
-      if(is_array($this->files))
+      foreach($this->files as $file)
       {
-         foreach($this->files as $file)
-         {
-            $scan = $this->fileParse($file);
-         }
-      }
-      else
-      {
-         $scan = $this->fileParse($this->files);     
+         $scan = $this->fileParse($file);
       }
    }
 

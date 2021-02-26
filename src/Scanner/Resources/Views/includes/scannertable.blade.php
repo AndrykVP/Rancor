@@ -28,7 +28,7 @@
             @endif
          </td>
          <td>
-            On {{ $entry->last_seen->format(config('rancor.dateFormat')) }}<br />
+            {{ $entry->last_seen->diffForHumans() }}<br />
             By {{ $entry->contributor->name }}
          </td>
       </tr>

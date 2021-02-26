@@ -33,49 +33,6 @@ class EntryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create',Entry::class);
-
-        return view('rancor::scanner.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->authorize('create',Entry::class);
-
-        abort_if(!$request->hasFile('files'), 400, 'At least 1 XML file must be uploaded.');
-
-        $scanner = new EntryParseService($request);
-        $scanner->start();
-        $response = 'Scanner entries have been successfully processed with';
-        if($scanner->new > 0)
-        {
-            $response = $response." {$scanner->new} new entries.";
-        }
-        if($scanner->updated > 0)
-        {
-            $response = $response." {$scanner->updated} updated entries.";
-        }
-        if($scanner->unchanged > 0)
-        {
-            $response = $response." {$scanner->unchanged} unchanged entries.";
-        }
-
-        return redirect(route('scanner.create'))->with('alert', $response);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \AndrykVP\Rancor\Scanner\Entry  $entry

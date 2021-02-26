@@ -61,15 +61,21 @@
             </div>
          </form>
       </div>
+      <div class="col-md-2">
+         <div class="row">
+            <a class="btn btn-primary" href="{{ route('scanner.index')}}">All Entries</a>
+            <a class="btn btn-success" href="{{ route('scanner.upload')}}">Upload</a>
+         </div>
+      </div>
    </div>
    <div class="row justify-content-center">
-      @if(isset($query))
+      @if(isset($entries))
       <div class="col">
-         {!! $query->links() !!}
+         {!! $entries->links() !!}
          
          <div class="card">
             <div class="card-header">{{ __('Search Results') }}</div>
-            @include('rancor::includes.scannertable', ['entries' => $query] )
+            @include('rancor::includes.scannertable', ['entries' => $entries] )
          </div>
       </div>
       @endif

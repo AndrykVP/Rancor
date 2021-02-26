@@ -31,6 +31,7 @@ class FrameworkServiceProvider extends ServiceProvider
         $this->app->register(StructureServiceProvider::class); 
         $this->app->register(ForumsServiceProvider::class); 
         $this->app->register(NewsServiceProvider::class); 
+        $this->app->register(ScannerServiceProvider::class);  
         
         // Add log channel to stack
         $this->app->make('config')->set('logging.channels.rancor', [

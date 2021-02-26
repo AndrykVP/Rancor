@@ -16,6 +16,8 @@ use AndrykVP\Rancor\Forums\Events\CreateReply;
 use AndrykVP\Rancor\Forums\Listeners\IncrementDiscussionViews;
 use AndrykVP\Rancor\Forums\Listeners\MarkDiscussionRead;
 use AndrykVP\Rancor\Forums\Listeners\LinkUserDiscussion;
+use AndrykVP\Rancor\Scanner\Events\EditScan;
+use AndrykVP\Rancor\Scanner\Listeners\CreateScanLog;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,9 @@ class EventServiceProvider extends ServiceProvider
         CreateReply::class => [
             LinkUserDiscussion::class,
         ],
+        EditScan::class => [
+            CreateScanLog::class,
+        ]
     ];
 
     /**

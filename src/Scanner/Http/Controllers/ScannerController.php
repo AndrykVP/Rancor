@@ -33,6 +33,20 @@ class ScannerController extends Controller
 
         return view('rancor::scanner.search', compact('entries'));
     }
+
+    /**
+     * Show the form for searching a scanner entry.
+     *
+     * @param \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Entry $entry)
+    {
+        $this->authorize('view', $entry);
+        $entry->load('contributor', 'changelog.contributor');
+
+        return view('rancor::scanner.show', compact('entry'));
+    }
     
     /**
      * Display the results of the search.

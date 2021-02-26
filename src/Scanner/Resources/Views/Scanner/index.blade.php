@@ -1,4 +1,4 @@
-@extends(config('rancor.layout'))
+@extends('rancor::layouts.main')
 
 @section('content')
 <div class="container">

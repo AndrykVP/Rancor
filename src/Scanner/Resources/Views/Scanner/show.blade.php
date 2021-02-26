@@ -1,11 +1,19 @@
-@extends(config('rancor.layout'))
+@extends('rancor::layouts.main')
 
 @section('content')
 <div class="container">
    <div class="row justify-between mb-4">
       <div class="col-6">
          <a class="btn btn-primary" href="{{ route('scanner.index')}}">Search</a>
-         <a class="btn btn-success" href="{{ route('entries.create')}}">Upload</a>
+         <a class="btn btn-success" href="{{ route('scanner.upload')}}">Upload</a>
+      </div>
+      <div class="col-6 text-right">
+         @can('update', $entry)
+         <a class="btn btn-primary" href="{{ route('admin.entries.edit', ['entry' => $entry])}}">Edit</a>
+         @endcan
+         @can('delete', $entry)
+         <a class="btn btn-danger" href="#">Delete</a>
+         @endcan
       </div>
    </div>
    <div class="card">

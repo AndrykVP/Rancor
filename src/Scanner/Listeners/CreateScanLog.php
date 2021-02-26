@@ -4,19 +4,20 @@ namespace AndrykVP\Rancor\Scanner\Listeners;
 
 use AndrykVP\Rancor\Scanner\Events\EditScan;
 use AndrykVP\Rancor\Scanner\Log;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Http\Request;
 
 class CreateScanLog
 {
+    public $contributor;
+
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        //
+        $this->contributor = $request->user()->id;
     }
 
     /**
@@ -31,7 +32,7 @@ public function handle(EditScan $event)
     {
         $log = new Log;
         $log->entry_id = $event->entry->id;
-        $log->user_id = $event->entry->updated_by;
+        $log->user_id = $this->contributor;
         if($event->entry->isDirty('type'))
         {
             $log->new_type = $event->entry->type;

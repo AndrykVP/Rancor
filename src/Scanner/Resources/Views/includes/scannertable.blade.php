@@ -15,7 +15,13 @@
             <strong>Type:</strong> {{ $entry->type }}<br />
             <strong>Name:</strong> {{ $entry->name }}<br />
             <strong>Owner:</strong> {{ $entry->owner }}<br />
-            <a class="btn btn-success btn-sm" href="{{ route('entries.show', ['entry' => $entry]) }}">View Changelog</a>
+            <a class="btn btn-success btn-sm" href="{{ route('scanner.show', ['entry' => $entry]) }}">Changelog</a>
+            @can('update', $entry)
+            <a class="btn btn-primary btn-sm" href="{{ route('admin.entries.edit', ['entry' => $entry]) }}">Edit</a>
+            @endcan
+            @can('delete', $entry)
+            <a class="btn btn-danger btn-sm" href="#">Delete</a>
+            @endcan
          </td>
          <td>
             <strong>System:</strong> ({{ $entry->position['galaxy']['x'] }}, {{ $entry->position['galaxy']['y'] }})<br />

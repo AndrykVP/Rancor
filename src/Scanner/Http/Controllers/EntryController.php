@@ -4,19 +4,20 @@ namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Entry;
+use AndrykVP\Rancor\Scanner\Http\Requests\EditEntry;
 use Illuminate\Http\Request;
 
 class EntryController extends Controller
 {
     /**
-     * Construct Controller
+     * Variable used in View rendering
      * 
-     * @return void
+     * @var array
      */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.web'));
-    }
+    protected $resource = [
+        'name' => 'Entry',
+        'route' => 'entries'
+    ];
 
     /**
      * Display a listing of the resource.
@@ -27,9 +28,10 @@ class EntryController extends Controller
     {
         $this->authorize('viewAny',Entry::class);
 
-        $entries = Entry::paginate(config('rancor.pagination'));
+        $resource = $this->resource;
+        $models = Entry::paginate(config('rancor.pagination'));
 
-        return view('rancor::scanner.index',compact('entries'));
+        return view('rancor::resources.index',compact('models','resource'));
     }
 
     /**
@@ -42,8 +44,8 @@ class EntryController extends Controller
     {
         $this->authorize('view', $entry);
 
-        $entry->load('contributor','changelog.contributor');
-        return view('rancor::scanner.show', compact('entry'));
+        $entry->load('contributor','changelog.contributor')->loadCount('changelog');
+        return view('rancor::show.entry', compact('entry'));
     }
 
     /**
@@ -56,7 +58,11 @@ class EntryController extends Controller
     {
         $this->authorize('update', $entry);
 
-        return view('rancor::scanner.edit', compact($entry));
+        $resource = $this->resource;
+        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $model = $entry;
+
+        return view('rancor::resources.edit',compact('model', 'form','resource'));
     }
 
     /**
@@ -88,5 +94,42 @@ class EntryController extends Controller
         $entry->delete();
 
         return redirect(route('scanner.index'))->with('alert', "All records of the {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) have been successfully deleted.");
+    }
+
+    /**
+     * Variable for Form fields used in Create and Edit Views
+     * 
+     * @var array
+     */
+    protected function form()
+    {
+        return [
+            'inputs' => [
+                [
+                    'name' => 'name',
+                    'label' => 'Name',
+                    'type' => 'text',
+                    'attributes' => 'autofocus required'
+                ],
+                [
+                    'name' => 'entity_id',
+                    'label' => 'Entity ID',
+                    'type' => 'number',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'type',
+                    'label' => 'Type',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+                [
+                    'name' => 'owner',
+                    'label' => 'Owner',
+                    'type' => 'text',
+                    'attributes' => 'required'
+                ],
+            ],
+        ];
     }
 }

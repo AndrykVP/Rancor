@@ -108,6 +108,19 @@
                   </div>
                </div>
                @endif
+               @if( Auth::user()->can('viewAny', \AndrykVP\Rancor\Scanner\Entry::class))
+               <button class="list-group-item list-group-item-action {{ Request::segment(2) == 'entries' ? 'active' : '' }}" data-toggle="collapse" data-target="#scanner" aria-expanded="false" aria-controls="scanner">
+                  <svg class="mr-4" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                  {{ __('Scanner') }}
+               </button>
+               <div id="scanner" class="collapse" data-parent="#sidebar-wrapper">
+                  <div class="list-group list-group-flush">
+                     @can('viewAny', \AndrykVP\Rancor\Scanner\Entry::class)
+                     <a href="{{ route('admin.entries.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'entries' ? 'active' : '' }}">{{ __('Entries') }}</a>
+                     @endcan
+                  </div>
+               </div>
+               @endif
             </div>
          </div>
          <!-- /#sidebar-wrapper -->

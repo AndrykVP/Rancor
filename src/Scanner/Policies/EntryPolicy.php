@@ -75,7 +75,7 @@ class EntryPolicy
      */
     public function update(User $user, Entry $entry)
     {
-        return $user->hasPermission('edit-scanner-entries')
+        return $user->hasPermission('update-scanner-entries')
                 || $entry->updated_by === $user->id
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this scanner entry.');

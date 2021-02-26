@@ -3,7 +3,6 @@
 namespace AndrykVP\Rancor\Scanner\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class EditEntry extends FormRequest
 {
@@ -38,12 +37,10 @@ class EditEntry extends FormRequest
     {
         return [
             'entity_id' => 'required|integer',
-            'type' => 'requred|string',
-            'name' => 'requred|string',
-            'owner' => 'requred|string',
-            'position' => 'requred|array',
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'owner' => 'required|string',
             'updated_by' => 'required|exists:users,id',
-            'last_seen' => 'required|date'
         ];
     }
 }

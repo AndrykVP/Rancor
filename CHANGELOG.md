@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2021-02-26
+### Added
+- `Scanner` module. This includes migrations, controllers, views, etc. for `Entry` and `Log` models.
+- Events and Listeners to audit changes to `Scanner\Entry` models.
+
 ## [1.3.1] - 2021-01-04
 ### Added
 - `Package\Traits\RancorUser` trait to simplify usage of modular traits.

@@ -27,8 +27,10 @@ class ScannerController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Entry::class);
+        // return "Hello World";
+        $entries = Entry::with('contributor')->paginate(config('rancor.pagination'));
 
-        return view('rancor::scanner.search');
+        return view('rancor::scanner.index', compact('entries'));
     }
     
     /**
@@ -44,6 +46,6 @@ class ScannerController extends Controller
         $param = $request->validated();
         $query = Entry::where($param['attribute'],'like', $param['value'].'%')->paginate(15);
 
-        return view('rancor::scanner.search',compact('query'));
+        return view('rancor::scanner.index',compact('query'));
     }
 }

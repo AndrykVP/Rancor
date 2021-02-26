@@ -15,7 +15,7 @@ class EntryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(config('rancor.middleware.web'));
     }
 
     /**
@@ -27,7 +27,7 @@ class EntryController extends Controller
     {
         $this->authorize('viewAny',Entry::class);
 
-        $entries = Entry::with('contributor')->paginate(config('rancor.pagination'));
+        $entries = Entry::paginate(config('rancor.pagination'));
 
         return view('rancor::scanner.index',compact('entries'));
     }
@@ -52,7 +52,27 @@ class EntryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create',Entry::class);
+
+        abort_if(!$request->hasFile('files'), 400, 'At least 1 XML file must be uploaded.');
+
+        $scanner = new EntryParseService($request);
+        $scanner->start();
+        $response = 'Scanner entries have been successfully processed with';
+        if($scanner->new > 0)
+        {
+            $response = $response." {$scanner->new} new entries.";
+        }
+        if($scanner->updated > 0)
+        {
+            $response = $response." {$scanner->updated} updated entries.";
+        }
+        if($scanner->unchanged > 0)
+        {
+            $response = $response." {$scanner->unchanged} unchanged entries.";
+        }
+
+        return redirect(route('scanner.create'))->with('alert', $response);
     }
 
     /**
@@ -78,18 +98,25 @@ class EntryController extends Controller
     public function edit(Entry $entry)
     {
         $this->authorize('update', $entry);
+
+        return view('rancor::scanner.edit', compact($entry));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EditEntry  $request
      * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Entry $entry)
+    public function update(EditEntry $request, Entry $entry)
     {
         $this->authorize('update', $entry);
+
+        $data = $request->validated();
+        $entry->update($data);
+
+        return redirect(route('scanner.index'))->with('alert', "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been updated.");
     }
 
     /**
@@ -101,5 +128,8 @@ class EntryController extends Controller
     public function destroy(Entry $entry)
     {
         $this->authorize('delete', $entry);
+        $entry->delete();
+
+        return redirect(route('scanner.index'))->with('alert', "All records of the {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) have been successfully deleted.");
     }
 }

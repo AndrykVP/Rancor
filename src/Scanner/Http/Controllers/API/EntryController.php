@@ -18,7 +18,7 @@ class EntryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(config('rancor.middleware'));
+        $this->middleware(config('rancor.middleware.api'));
     }
 
     /**
@@ -29,7 +29,6 @@ class EntryController extends Controller
     public function index()
     {
         $this->authorize('viewAny',Entry::class);
-
         $records = Entry::paginate(15);
 
         return EntryResource::collection($records);
@@ -44,7 +43,6 @@ class EntryController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create',Entry::class);
-
         abort_if(!$request->hasFile('files'), 400, 'At least 1 XML file must be uploaded.');
 
         $scans = new EntryParseService($request);
@@ -66,7 +64,6 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         $this->authorize('view', $entry);
-
         $entry->load('contributor','changelog');
 
         return new EntryResource($entry);
@@ -85,12 +82,11 @@ class EntryController extends Controller
 
         $contributor = $request->user();
         $new_data = $request->all();
-     
         $entry->updated_by = $contributor->id;
         $entry->update($new_data);
         
         return response()->json([
-            'message' => 'Record for '.$entry->type.' "'.$entry->name.'" (#'.$entry->entity_id.') has been updated.',
+            'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been updated.",
         ],200);
     }
 
@@ -103,11 +99,10 @@ class EntryController extends Controller
     public function destroy(Entry $entry)
     {
         $this->authorize('delete', $entry);
-
         $entry->delete();
 
         return response()->json([
-            'message' => 'All records of the '.$entry->type.' "'.$entry->name.'" (#'.$entry->entity_id.') have been successfully deleted.'
+            'message' => "All records of the {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) have been successfully deleted."
         ],200);
     }
 
@@ -120,9 +115,7 @@ class EntryController extends Controller
     public function search(SearchEntry $request)
     {
         $this->authorize('viewAny', Entry::class);
-
         $param = $request->validated();
-
         $query = Entry::where($param['attribute'],'like','%'.$param['value'].'%')->paginate(15);
         
         return EntryResource::collection($query);

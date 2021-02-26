@@ -12,7 +12,7 @@ class EntryParseService {
    public $updated = 0;
    public $new = 0;
    public $unchanged = 0;
-   public $contributor;
+   private $contributor;
    private $files;
 
    /**

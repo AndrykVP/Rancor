@@ -31,12 +31,10 @@
                         <div class="col-4 text-right">Nickname:</div>
                         <div class="col-8">{{ $user->nickname }}</div>
                      </div>
-                     @if($user->show_email)
                      <div class="row mb-2">
                         <div class="col-4 text-right">Email:</div>
                         <div class="col-8">{{ $user->email }}</div>
                      </div>
-                     @endif
                      <div class="row mb-2">
                         <div class="col-4 text-right">Quote:</div>
                         <div class="col-8"><i>"{{ $user->quote }}"</i></div>

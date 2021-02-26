@@ -7,7 +7,11 @@ Route::group(['namespace' => 'AndrykVP\Rancor\Auth\Http\Controllers', 'middlewar
 		Route::resource('permissions', 'PermissionController');
 	});
 
-	Route::get('profile/{user}', 'ProfileController@index')->name('profile.index');
-	// Route::get('profile/edit', 'UserController@edit')->name('profile.edit');
-	// Route::patch('profile/edit', 'UserController@update')->name('profile.update');
+	Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => config('rancor.middleware.web')], function() {
+		Route::get('/', 'ProfileController@index')->name('index');
+		Route::get('edit', 'ProfileController@edit')->name('edit');
+		Route::patch('edit', 'ProfileController@update')->name('update');
+		Route::get('{user}', 'ProfileController@show')->name('show');
+	});
+
 });

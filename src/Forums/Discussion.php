@@ -81,6 +81,16 @@ class Discussion extends Model
     }
 
     /**
+     * Returns the number of pages in Reply relationship
+     * 
+     * @return int
+     */
+    public function getPagesAttribute()
+    {
+        return ceil($this->replies->count() / config('rancor.pagination'));
+    }
+
+    /**
      * Scope a query to include discussions by their is_sticky status.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query

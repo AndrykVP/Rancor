@@ -20,7 +20,8 @@
                      'category' => $reply->discussion->board->category,
                      'board' => $reply->discussion->board,
                      'discussion' => $reply->discussion,
-                  ]) }}">{{ $reply->discussion->name }}</a></p>
+                     'page' => $reply->page->number
+                  ]) }}#{{ $reply->page->index }}">{{ $reply->discussion->name }}</a></p>
                   {!! clean($reply->body) !!}
                </li>
                @endforeach

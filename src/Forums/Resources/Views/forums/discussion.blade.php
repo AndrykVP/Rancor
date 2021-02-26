@@ -17,7 +17,7 @@
          <div class="card mb-4" id="{{ $index + 1 }}">
             <div class="card-header">
                <div class="row justify-content-between px-4">
-                  <span><a href="{{ route('users.show', $reply->author) }}" class="h5">{{ $reply->author->name }}</a></span>
+                  <span><a href="{{ route('profile.show', $reply->author) }}" class="h5">{{ $reply->author->name }}</a></span>
                   @if(Auth::user()->hasPermission('delete-forum-replies'))
                   <span><a href="#{{ $index + 1 }}" >#{{ $index + 1 }}</a> <input type="checkbox" name="delete[]" value="{{ $reply->id }}"/></span>
                   @endif
@@ -28,8 +28,8 @@
                   <img src="{{ $reply->author->avatar}}" width="150" height="150"/>
                   <div class="align-self-stretch">
                      @if($reply->author->rank != null)
-                     {{ $reply->author->rank->name }}<br>
-                     {{ $reply->author->rank->department->name }}<br>
+                     <span style="color: {{ $reply->author->rank->color }}">{{ $reply->author->rank->name }}</span><br>
+                     <span>{{ $reply->author->rank->department->name }}</span><br>
                      @else
                      Guest
                      @endif
@@ -48,7 +48,7 @@
                </div>
             </div>
             <div class="card-footer">
-               <div class="row">
+               <div class="row align-items-center">
                   <div class="col small">Posted {{ $reply->created_at->diffForHumans() }}@if($reply->editor != null). Last Edited by: {{ $reply->editor->name . ' '. $reply->updated_at->diffForHumans() }}@endif</div>
                   <div class="col text-right">
                      <a type="button" class="btn btn-sm btn-secondary" href="{{ route('forums.replies.create',[ 'discussion_id' => $discussion->id, 'quote' => $reply->id ]) }}">Quote</a>

@@ -32,7 +32,9 @@ class ReplyController extends Controller
     {
         $this->authorize('viewReplies', $user);
 
-        $replies = $user->replies()->with('discussion.board.category')->paginate(config('rancor.pagination'));
+        $replies = $user->replies()
+                    ->with('discussion.board.category')
+                    ->paginate(config('rancor.pagination'));
 
         return view('rancor::forums.replies', compact('replies'));
     }

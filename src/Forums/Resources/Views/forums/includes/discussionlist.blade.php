@@ -42,7 +42,7 @@
             </td>
             <td class="col-3">
                @if($discussion->replies_count > 0)
-               <a href="{{ route('forums.discussion', ['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion]) . '#' . $index }}">{{ $discussion->latest_reply->created_at->diffForHumans() }}</a><br/>
+               <a href="{{ route('forums.discussion', ['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion, 'page' => $pages]) . '#' . $index }}">{{ $discussion->latest_reply->created_at->diffForHumans() }}</a><br/>
                By: <a href="{{ route('profile.index', ['user' => $discussion->latest_reply->author]) }}">{{ $discussion->latest_reply->author->name }}</a>
                @else
                No Posts Yet

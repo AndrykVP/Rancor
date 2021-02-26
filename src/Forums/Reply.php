@@ -75,4 +75,24 @@ class Reply extends Model
     {
         return $this->belongsTo('AndrykVP\Rancor\Forums\Discussion');
     }
+
+    /**
+     * Function to calculate the page within the Discussion view
+     * 
+     * @return int
+     */
+    public function getPageAttribute()
+    {
+        $replies = $this->discussion->replies->pluck('id');
+        $index = $replies->search($this->id) + 1;
+
+        $page = ceil($index / config('rancor.pagination'));
+        $self = $index % config('rancor.pagination');
+        if($self == 0)
+        {
+           $self = config('rancor.pagination');
+        }
+        
+        return (object)['number' => intval($page), 'index' => intval($self)];
+    }
 }

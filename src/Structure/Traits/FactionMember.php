@@ -13,4 +13,14 @@ trait FactionMember
     {
         return $this->belongsTo('AndrykVP\Rancor\Structure\Rank');
     }
+
+    /**
+     * Relationship to Award model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function awards()
+    {
+        return $this->belongsToMany('AndrykVP\Rancor\Structure\Award', 'structure_awards')->withTimestamps()->orderBy('priority','desc');
+    }
 }

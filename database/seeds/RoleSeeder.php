@@ -11,7 +11,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
+        DB::table('rancor_roles')->insert([
             [
                 'name' => 'Admin',
                 'description' => 'Has all permissions available',
@@ -68,11 +68,11 @@ class RoleSeeder extends Seeder
             ],
         ]);
 
-        $permissions = DB::table('permissions')->count();
+        $permissions = DB::table('rancor_permissions')->count();
 
         for($i = 1; $i <= $permissions; $i++)
         {
-            DB::table('permissibles')->insert([
+            DB::table('rancor_permissibles')->insert([
                 [
                     'permission_id' => $i,
                     'permissible_id' => 1,
@@ -99,7 +99,7 @@ class RoleSeeder extends Seeder
             foreach($privs as $priv)
             {
 
-                DB::table('permissibles')->insert([
+                DB::table('rancor_permissibles')->insert([
                     [
                         'permission_id' => $priv,
                         'permissible_id' => $role,

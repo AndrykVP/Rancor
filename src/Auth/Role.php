@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $table = 'rancor_roles';
+
+    /**
      * Attributes available for mass assignment
      * 
      * @var array

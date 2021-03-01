@@ -41,6 +41,7 @@ class AlterUsersTable extends Migration
             $table->dropColumn('quote');
             $table->dropColumn('rank_id');
             $table->dropColumn('is_admin');
+            $table->dropColumn('show_email');
             $table->dropColumn('last_login');
         });
     }

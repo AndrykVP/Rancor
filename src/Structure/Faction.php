@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Faction extends Model
 {
     /**
+     * Defines the table name
+     * 
+     * @var string
+     */
+    protected $table = 'structure_factions';
+
+    /**
      * Attributes available for mass assignment
      * 
      * @var array

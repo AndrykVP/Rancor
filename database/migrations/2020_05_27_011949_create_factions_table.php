@@ -13,7 +13,7 @@ class CreateFactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('factions', function (Blueprint $table) {
+        Schema::create('structure_factions', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('description')->nullable()->default(null);
@@ -28,6 +28,6 @@ class CreateFactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('factions');
+        Schema::dropIfExists('structure_factions');
     }
 }

@@ -4,13 +4,15 @@
 
 use AndrykVP\Rancor\News\Article;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 
 $factory->define(Article::class, function (Faker $faker) {
+    $users = DB::table('users')->count();
     return [
         'name' => $faker->company,
         'body' => $faker->paragraph(10),
         'is_published' => $faker->boolean,
-        'author_id' => $faker->numberBetween(1,20),
-        'editor_id' => $faker->numberBetween(1,20),
+        'author_id' => $faker->numberBetween(1,$users),
+        'editor_id' => $faker->numberBetween(1,$users),
     ];
 });

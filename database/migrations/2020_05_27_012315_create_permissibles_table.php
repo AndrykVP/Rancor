@@ -13,7 +13,7 @@ class CreatePermissiblesTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissibles', function (Blueprint $table) {
+        Schema::create('rancor_permissibles', function (Blueprint $table) {
             $table->unsignedBigInteger('permission_id');
             $table->unsignedBigInteger('permissible_id');
             $table->string('permissible_type');
@@ -30,6 +30,6 @@ class CreatePermissiblesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissibles');
+        Schema::dropIfExists('rancor_permissibles');
     }
 }

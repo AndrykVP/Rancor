@@ -39,7 +39,7 @@ class PermissionSeeder extends Seeder
         {
             foreach($permissions as $permission)
             {
-                DB::table('permissions')->insert([
+                DB::table('rancor_permissions')->insert([
                     'name' => $permission . '-' . $module,
                     'description' => 'Can ' . $permission . ucwords(str_replace('-',' ',$module)),
                     'created_at' => now(),
@@ -48,7 +48,7 @@ class PermissionSeeder extends Seeder
             }
         }
 
-        DB::table('permissions')->insert([
+        DB::table('rancor_permissions')->insert([
             [
                 'name' => 'update-users-art',
                 'description' => 'Can update a User\'s ID images',

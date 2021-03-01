@@ -13,7 +13,7 @@ class CreateRanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('ranks', function (Blueprint $table) {
+        Schema::create('structure_ranks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable()->default(null);
@@ -22,7 +22,7 @@ class CreateRanksTable extends Migration
             $table->unsignedTinyInteger('level')->default(0);
             $table->timestamps();
 
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('structure_departments')->onDelete('cascade');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateRanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ranks');
+        Schema::dropIfExists('structure_ranks');
     }
 }

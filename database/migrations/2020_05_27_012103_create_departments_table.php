@@ -13,14 +13,15 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('structure_departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable()->default(null);
+            $table->string('color')->nullable()->default(null);
             $table->unsignedBigInteger('faction_id');
             $table->timestamps();
 
-            $table->foreign('faction_id')->references('id')->on('factions')->onDelete('cascade');
+            $table->foreign('faction_id')->references('id')->on('structure_factions')->onDelete('cascade');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('structure_departments');
     }
 }

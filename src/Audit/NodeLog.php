@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Audit;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HolocronLog extends Model
+class NodeLog extends Model
 {
     /**
      * Attributes available for mass assignment

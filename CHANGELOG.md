@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.3.3] - 2021-02-26
+### Added
+- `Structure\Award` and `Structure\Type` models, along with their respective migrations and factories
+- `Audit\NodeLog` and `Auit\AwardLog` to keep track of changes to these models
+- `Holocron\Node` and `Holocron\Collection` models, along with their respective migrations and factories
+
+### Changed
+- Database table names for `Auth\Permission` and `Auth\Roles` are now prefixed `rancor_` for consistency
+- Database table names for `Structure\Faction`, `Structure\Department` and `Structure\Rank` are now prefixed `structure_` for consistency
+- `Structure\Department` now has a `color` column for optional front-end visualization
+- `Structure\Traits\FactionMember` adds relationship between `User` and the new `Award` model
 
 ## [1.3.2] - 2021-02-26
 ### Added

@@ -31,7 +31,7 @@ class DepartmentPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-departments')
+        return $user->hasPermission('view-structure-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view departments.');
     }
@@ -44,9 +44,9 @@ class DepartmentPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPermission('view-departments')
+        return $user->hasPermission('view-structure-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view departments.');
+                : Response::deny('You do not have permissions to view this department.');
     }
 
     /**
@@ -57,7 +57,7 @@ class DepartmentPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-departments')
+        return $user->hasPermission('create-structure-departments')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create departments.');
     }
@@ -70,9 +70,9 @@ class DepartmentPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('update-departments')
+        return $user->hasPermission('update-structure-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit departments.');
+                : Response::deny('You do not have permissions to edit this department.');
     }
 
     /**
@@ -83,8 +83,8 @@ class DepartmentPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPermission('delete-departments')
+        return $user->hasPermission('delete-structure-departments')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete departments.');
+                : Response::deny('You do not have permissions to delete this department.');
     }
 }

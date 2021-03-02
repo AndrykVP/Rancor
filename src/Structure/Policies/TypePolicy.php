@@ -1,13 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Policies;
+namespace AndrykVP\Rancor\Structure\Policies;
 
 use App\User;
-use AndrykVP\Rancor\Holocron\Collection;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CollectionPolicy
+class TypePolicy
 {
     use HandlesAuthorization;
 
@@ -32,36 +31,34 @@ class CollectionPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-holocron-collections')
+        return $user->hasPermission('create-structure-award-types')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create holocron collections.');
+                : Response::deny('You do not have permissions to create award types.');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param \AndrykVP\Rncor\News\Collection  $Collection
      * @return mixed
      */
-    public function update(User $user, Collection $Collection)
+    public function update(User $user)
     {
-        return $user->hasPermission('update-holocron-collections')
+        return $user->hasPermission('update-structure-award-types')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit this holocron collection.');
+                : Response::deny('You do not have permissions to edit this award type.');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param \AndrykVP\Rncor\News\Collection  $Collection
      * @return mixed
      */
-    public function delete(User $user, Collection $Collection)
+    public function delete(User $user)
     {
-        return $user->hasPermission('delete-holocron-collections')
+        return $user->hasPermission('delete-structure-award-types')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete this holocron collection.');
+                : Response::deny('You do not have permissions to delete this award type.');
     }
 }

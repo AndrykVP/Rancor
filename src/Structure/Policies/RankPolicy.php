@@ -31,7 +31,7 @@ class RankPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-ranks')
+        return $user->hasPermission('view-structure-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view ranks.');
     }
@@ -44,9 +44,9 @@ class RankPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPermission('view-ranks')
+        return $user->hasPermission('view-structure-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view ranks.');
+                : Response::deny('You do not have permissions to view this rank.');
     }
 
     /**
@@ -57,7 +57,7 @@ class RankPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-ranks')
+        return $user->hasPermission('create-structure-ranks')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create ranks.');
     }
@@ -70,9 +70,9 @@ class RankPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('update-ranks')
+        return $user->hasPermission('update-structure-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit ranks.');
+                : Response::deny('You do not have permissions to edit this rank.');
     }
 
     /**
@@ -83,8 +83,8 @@ class RankPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPermission('delete-ranks')
+        return $user->hasPermission('delete-structure-ranks')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete ranks.');
+                : Response::deny('You do not have permissions to delete this rank.');
     }
 }

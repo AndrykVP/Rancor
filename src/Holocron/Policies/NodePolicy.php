@@ -34,7 +34,7 @@ class NodePolicy
     {
         return $user->hasPermission('view-holocron-nodes')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view Nodes.');
+                : Response::deny('You do not have permissions to view holocron nodes.');
     }
 
     /**
@@ -51,7 +51,7 @@ class NodePolicy
                 ||$user->id === $node->editor_id
                 ||$user->hasPermission('view-holocron-nodes')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view this Node.');
+                : Response::deny('You do not have permissions to view this holocron node.');
     }
 
     /**
@@ -64,7 +64,7 @@ class NodePolicy
     {    
         return $user->hasPermission('create-holocron-nodes')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create Nodes.');
+                : Response::deny('You do not have permissions to create holocron nodes.');
     }
 
     /**
@@ -79,7 +79,7 @@ class NodePolicy
         return $user->id === $node->author_id
                 ||$user->hasPermission('update-holocron-nodes')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit this Node.');
+                : Response::deny('You do not have permissions to edit this holocron node.');
     }
 
     /**
@@ -94,6 +94,6 @@ class NodePolicy
         return $user->id === $node->author_id
                 || $user->hasPermission('delete-holocron-nodes')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete this Node.');
+                : Response::deny('You do not have permissions to delete this holocron node.');
     }
 }

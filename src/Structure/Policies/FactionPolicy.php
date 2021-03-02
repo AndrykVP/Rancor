@@ -31,7 +31,7 @@ class FactionPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-factions')
+        return $user->hasPermission('view-structure-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view factions.');
     }
@@ -44,9 +44,9 @@ class FactionPolicy
      */
     public function view(User $user, Faction $faction)
     {
-        return $user->hasPermission('view-factions')
+        return $user->hasPermission('view-structure-factions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view factions.');
+                : Response::deny('You do not have permissions to view this faction.');
     }
 
     /**
@@ -57,7 +57,7 @@ class FactionPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-factions')
+        return $user->hasPermission('create-structure-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create factions.');
     }
@@ -70,7 +70,7 @@ class FactionPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission('update-factions')
+        return $user->hasPermission('update-structure-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this faction.');
     }
@@ -83,7 +83,7 @@ class FactionPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasPermission('delete-factions')
+        return $user->hasPermission('delete-structure-factions')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete this faction.');
     }

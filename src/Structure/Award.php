@@ -27,7 +27,7 @@ class Award extends Model
     */
    public function users()
    {
-      return $this->belongsToMany('App\User')->withTimestamps();
+      return $this->belongsToMany('App\User')->withPivot('level')->withTimestamps();
    }
 
    /**

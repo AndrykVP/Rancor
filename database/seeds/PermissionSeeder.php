@@ -15,17 +15,21 @@ class PermissionSeeder extends Seeder
             'users',
             'roles',
             'permissions',
-            'factions',
-            'departments',
-            'ranks',
-            'articles',
-            'tags',
+            'structure-factions',
+            'structure-departments',
+            'structure-ranks',
+            'news-articles',
+            'news-tags',
             'scanner-entries',
             'forum-groups',
             'forum-categories',
             'forum-boards',
             'forum-discussions',
             'forum-replies',
+            'structure-awards',
+            'structure-award-types',
+            'holocron-nodes',
+            'holocron-collections'
         ];
 
         $permissions = [
@@ -35,20 +39,13 @@ class PermissionSeeder extends Seeder
             'delete',
         ];
 
-        foreach($modules as $module)
-        {
-            foreach($permissions as $permission)
-            {
-                DB::table('rancor_permissions')->insert([
-                    'name' => $permission . '-' . $module,
-                    'description' => 'Can ' . $permission . ucwords(str_replace('-',' ',$module)),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        }
-
         DB::table('rancor_permissions')->insert([
+            [
+                'name' => 'view-admin-panel',
+                'description' => 'Can access admin panel',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
             [
                 'name' => 'update-users-art',
                 'description' => 'Can update a User\'s ID images',
@@ -67,9 +64,31 @@ class PermissionSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+        ]);
+
+        foreach($modules as $module)
+        {
+            foreach($permissions as $permission)
+            {
+                DB::table('rancor_permissions')->insert([
+                    'name' => $permission . '-' . $module,
+                    'description' => 'Can ' . $permission . ' ' .ucwords(str_replace('-',' ',$module)),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+
+        DB::table('rancor_permissions')->insert([
             [
-                'name' => 'view-admin-panel',
-                'description' => 'Can access admin panel',
+                'name' => 'grant-structure-awards',
+                'description' => 'Can give an award to a User',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'remove-structure-awards',
+                'description' => 'Can take an award away from a User',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

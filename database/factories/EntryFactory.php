@@ -6,8 +6,9 @@ use AndrykVP\Rancor\Scanner\Entry;
 use Faker\Generator as Faker;
 
 $factory->define(Entry::class, function (Faker $faker) {
+    $users = DB::table('users')->count();
     return [
-        'id' => $faker->unique->randomNumber(9),
+        'entity_id' => $faker->unique->randomNumber(9),
         'type' => $faker->company,
         'name' => $faker->name,
         'owner' => $faker->name,
@@ -30,6 +31,6 @@ $factory->define(Entry::class, function (Faker $faker) {
             ],
         ],
         'last_seen' => now(),
-        'updated_by' => rand(1,20)
+        'updated_by' => $faker->numberBetween(1,$users)
     ];
 });

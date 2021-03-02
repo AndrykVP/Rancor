@@ -20,49 +20,55 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name' => 'User Manager',
-                'description' => 'Can create, edit or delete users',
+                'description' => 'Can edit and delete users',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Faction Manager',
-                'description' => 'Can create, edit or delete factions, departments and ranks',
+                'description' => 'Can create and edit factions, departments and ranks',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Role Manager',
-                'description' => 'Can create, edit or delete roles',
+                'description' => 'Can create and edit roles and permissions',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'CO / XO',
-                'description' => 'Can change a user\'s rank, department and/or faction',
+                'description' => 'Can change a User\'s rank, department and/or faction',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Art Team',
-                'description' => 'Can upload avatar and signature artwork',
+                'description' => 'Can upload a User\'s avatar and signature artwork',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'News Team',
-                'description' => 'Can create, edit and delete news articles',
+                'description' => 'Can create and edit news articles',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Scout Team',
-                'description' => 'Can view and upload to the Reconnaisance Center',
+                'description' => 'Can view and upload scanner entries',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Forum Manager',
-                'description' => 'Can create, edit and delete forum categories, boards and usergroups',
+                'description' => 'Can create and edit forum categories, boards and usergroups',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Holocron Recorder',
+                'description' => 'Can create and edit holocron nodes and collections',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -84,14 +90,15 @@ class RoleSeeder extends Seeder
         }
 
         $roles = [
-            2 => [1,2,3,4,5],
-            3 => [10,11,12,13,14,15,16,17,18,19,20,21],
-            4 => [6,7,8,9],
-            5 => [1,4],
-            6 => [1,3],
-            7 => [22,23,24,25],
-            8 => [26,27,28,29],
-            9 => [30,31,32,33,34,35,36,37,38,39,40,41,42,43,45,46,47,48,49],
+            2 => [1,2,3,4,5,6,7,8],
+            3 => [1,17,18,19,21,22,23,25,26,27],
+            4 => [1,9,11,13,14],
+            5 => [1,3],
+            6 => [1,2],
+            7 => [1,29,30,31,33,34,35],
+            8 => [1,33,37,38],
+            9 => [1,41,42,43,45,46,47,49,50,51,53,54,55,57,58,59],
+            10 => [1,69,70,71,73,74,75]
         ];
 
         foreach($roles as $role => $privs)

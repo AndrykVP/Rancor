@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRanksTable extends Migration
+class CreateAwardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,10 +20,10 @@ class CreateRanksTable extends Migration
             $table->string('code')->unique();
             $table->unsignedInteger('levels')->default(1);
             $table->unsignedInteger('priority')->default(1);
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('type_id');
             $table->timestamps();
 
-            $table->foreign('class_id')->references('id')->on('structure_classes')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('structure_award_types')->onDelete('cascade');
         });
     }
 

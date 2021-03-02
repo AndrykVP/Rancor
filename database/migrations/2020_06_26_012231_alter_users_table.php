@@ -23,7 +23,7 @@ class AlterUsersTable extends Migration
             $table->boolean('show_email')->default(1)->after('is_admin');
             $table->timestamp('last_login')->nullable()->default(null);
 
-            $table->foreign('rank_id')->references('id')->on('ranks')->onDelete('set null');
+            $table->foreign('rank_id')->references('id')->on('structure_ranks')->onDelete('set null');
         });
     }
 

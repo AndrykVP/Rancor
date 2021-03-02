@@ -19,7 +19,7 @@ class CreatePermissiblesTable extends Migration
             $table->string('permissible_type');
             $table->timestamps();
 
-            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
+            $table->foreign('permission_id')->references('id')->on('rancor_permissions')->onDelete('cascade');
         });
     }
 

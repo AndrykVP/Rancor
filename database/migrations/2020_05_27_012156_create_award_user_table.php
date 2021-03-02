@@ -13,7 +13,7 @@ class CreateAwardUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('structure_awards', function (Blueprint $table) {
+        Schema::create('structure_award_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('award_id');
             $table->unsignedBigInteger('user_id');
@@ -32,6 +32,6 @@ class CreateAwardUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('structure_awards');
+        Schema::dropIfExists('structure_award_user');
     }
 }

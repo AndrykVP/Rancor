@@ -15,7 +15,7 @@ class CreateAwardTypesTable extends Migration
     {
         Schema::create('structure_award_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('description');
             $table->timestamps();
         });

@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Structure\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class DepartmentForm extends FormRequest
+class AwardForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,12 @@ class DepartmentForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('structure_departments')->ignore($this->id)],
-            'faction_id' => 'required|integer|exists:structure_factions,id',
-            'description' => 'nullable|string',
+            'name' => ['required', 'string', Rule::unique('structure_awards')->ignore($this->id)],
+            'description' => 'required|string',
+            'code' => ['required', 'string', Rule::unique('structure_awards')->ignore($this->id)],
+            'levels' => 'nullable|integer|min:1|max:255',
+            'priority' => 'nullable|integer|min:1|max:255',
+            'type_id' => 'required|integer|exists:structure_types,id'
         ];
     }
 }

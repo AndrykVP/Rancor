@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('body');
+            $table->text('description');
             $table->boolean('is_published')->default(0);
             $table->unsignedBigInteger('author_id')->nullable()->default(null);
             $table->unsignedBigInteger('editor_id')->nullable()->default(null);

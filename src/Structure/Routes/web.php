@@ -6,5 +6,7 @@ Route::group(['namespace' => 'AndrykVP\Rancor\Structure\Http\Controllers', 'pref
 		'factions' => 'FactionController',
 		'departments' => 'DepartmentController',
 		'ranks' => 'RankController',
+		'awards' => 'AwardController',
+		'types' => 'TypeController'
 	]);
 });

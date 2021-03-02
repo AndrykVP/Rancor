@@ -14,5 +14,6 @@ Route::group(['namespace' => 'AndrykVP\Rancor\News\Http\Controllers' ], function
 		Route::get('/', 'NewsController@index')->name('index');
 		Route::get('/drafts', 'NewsController@drafts')->name('drafts');
 		Route::get('/tagged/{tag}','NewsController@tagged')->name('tagged');
+		Route::get('/{article}','NewsController@show')->name('show');
 	});
 });

@@ -11,7 +11,7 @@
                   <div class="col"><img src="https://s2.svgbox.net/hero-solid.svg?ic={{ $card['icon'] }}&color=ffffff" width="64" height="64"></div>
                   <div class="col">
                      <h2 class="lead">{{ $card['title'] }}</h2>
-                     <h3>{{ $card['value'] }}</h3>
+                     <h3>{{ number_format($card['value']) }}</h3>
                   </div>
                </div>
             </div>

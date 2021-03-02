@@ -44,7 +44,7 @@ class ArticlePolicy
      * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */
-    public function view(User $user, Article $article)
+    public function view(?User $user, Article $article)
     {
         return $article->is_published
                 ||$user->id === $article->author_id

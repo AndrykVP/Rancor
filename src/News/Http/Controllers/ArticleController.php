@@ -159,7 +159,13 @@ class ArticleController extends Controller
                     'name' => 'body',
                     'label' => 'Content',
                     'type' => 'text',
-                    'attributes' => 'row="5"'
+                    'attributes' => 'row="7"'
+                ],
+                [
+                    'name' => 'description',
+                    'label' => 'Short Description',
+                    'type' => 'text',
+                    'attributes' => 'row="4"'
                 ],
             ],
             'selects' => [

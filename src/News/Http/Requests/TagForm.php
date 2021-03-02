@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\News\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TagForm extends FormRequest
 {
@@ -24,7 +25,7 @@ class TagForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => ['required', 'string', Rule::unique('news_tags')->ignore($this->id)],
             'color' => 'required|size:7',
         ];
     }

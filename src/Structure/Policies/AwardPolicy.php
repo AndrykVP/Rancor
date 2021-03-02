@@ -24,6 +24,32 @@ class AwardPolicy
     }
 
     /**
+     * Determine whether the user can view all records of model.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->hasPermission('view-structure-awards')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view awards.');
+    }
+    
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function view(User $user)
+    {
+        return $user->hasPermission('view-structure-awards')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view this award.');
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\User  $user

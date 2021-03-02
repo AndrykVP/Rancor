@@ -27,7 +27,7 @@ class Permission extends Model
      */
     public function users()
     {
-        return $this->morphedByMany('App\User','permissible');
+        return $this->morphedByMany('App\User','permissible', 'rancor_permissibles');
     }
 
     /**
@@ -37,6 +37,6 @@ class Permission extends Model
      */
     public function roles()
     {
-        return $this->morphedByMany('AndrykVP\Rancor\Auth\Role','permissible');
+        return $this->morphedByMany('AndrykVP\Rancor\Auth\Role','permissible', 'rancor_permissibles');
     }
 }

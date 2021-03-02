@@ -51,8 +51,8 @@
                   </div>
                </div>
                @endif
-               @if( Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Faction::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Department::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Rank::class))
-               <button class="list-group-item list-group-item-action {{ in_array(Request::segment(2), ['factions', 'departments', 'ranks']) ? 'active' : '' }}" data-toggle="collapse" data-target="#structure" aria-expanded="false" aria-controls="structure">
+               @if( Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Faction::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Department::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Rank::class ) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Award::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Structure\Type::class))
+               <button class="list-group-item list-group-item-action {{ in_array(Request::segment(2), ['factions', 'departments', 'ranks', 'awards', 'types']) ? 'active' : '' }}" data-toggle="collapse" data-target="#structure" aria-expanded="false" aria-controls="structure">
                   <svg class="mr-4" width="20" height="20" stroke="none" fill="currentColor" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet" data-attributes-set=",xmlns:xlink,xmlns,viewBox,preserveAspectRatio"><path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg>
                   {{ __('Structure') }}
                </button>
@@ -66,6 +66,12 @@
                     @endcan
                     @can('viewAny', \AndrykVP\Rancor\Structure\Rank::class)
                     <a href="{{ route('admin.ranks.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'ranks' ? 'active' : '' }}">{{ __('Ranks') }}</a>
+                    @endcan
+                    @can('viewAny', \AndrykVP\Rancor\Structure\Award::class)
+                    <a href="{{ route('admin.awards.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'awards' ? 'active' : '' }}">{{ __('Awards') }}</a>
+                    @endcan
+                    @can('viewAny', \AndrykVP\Rancor\Structure\Type::class)
+                    <a href="{{ route('admin.types.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'types' ? 'active' : '' }}">{{ __('Award Types') }}</a>
                     @endcan
                   </div>
                </div>
@@ -201,6 +207,7 @@
       </div> 
    </div>
    <!-- Menu Toggle Script -->
+   @yield('scripts')
    <script>
       function toggleSidebar() {
          var element = document.getElementById("wrapper");

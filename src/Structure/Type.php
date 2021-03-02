@@ -21,12 +21,12 @@ class Type extends Model
    protected $fillable = [ 'name', 'description' ];
 
    /**
-    * Relationship to Rank model
+    * Relationship to Award model
     * 
     * @return \Illuminate\Database\Eloquent\Relations\HasMany
     */
    public function awards()
    {
-      return $this->hasMany('AndrykVP\Rancor\Structure\Type');
+      return $this->hasMany('AndrykVP\Rancor\Structure\Award');
    }
 }

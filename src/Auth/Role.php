@@ -27,7 +27,7 @@ class Role extends Model
      */
     public function permissions()
     {
-        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible')->withTimestamps();
+        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible', 'rancor_permissibles')->withTimestamps();
     }
 
     /**
@@ -37,6 +37,6 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User')->withTimestamps();
+        return $this->belongsToMany('App\User', 'rancor_role_user')->withTimestamps();
     }
 }

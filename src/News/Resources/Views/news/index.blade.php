@@ -17,24 +17,26 @@
             @foreach ($articles as $article)
             <div class="card mb-4">
                <div class="card-header" id="heading{{ $article->id }}">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $article->id }}" aria-expanded="false" aria-controls="collapse{{ $article->id }}">
+                  <a class="btn btn-link" href="{{ route('news.show', $article) }}">
                      {{ $article->name }}
-                  </button>
+                  </a>
+                  @can('update', $article)
                   <a href="{{ route('admin.articles.edit',$article) }}" class="btn btn-success btn-sm" title="{{ __('Edit') }}">
                      <svg width="18" height="18" stroke="none" fill="currentColor" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet" data-attributes-set=",xmlns:xlink,xmlns,viewBox,preserveAspectRatio">
                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zm-2.207 2.207L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                      </svg>
                   </a>
+                  @endcan
                </div>
 
-               <div id="collapse{{ $article->id }}" class="collapse" aria-labelledby="heading{{ $article->id }}" data-parent="#accordion">
+               <div id="{{ $article->id }}" aria-labelledby="heading{{ $article->id }}">
                   <div class="card-body">
-                     {!! $article->body !!}
+                     {!! $article->description !!}
                      <hr>
                      <div class="row">
                         <div class="col">
                            @foreach($article->tags as $tag)
-                           <a href="{{ route('news.tagged', ['tag' => $tag]) }}"><span class="badge badge-primary" style="background-color: {{ $tag->color }};">#{{ $tag->name }}</span></a>
+                           <a href="{{ route('news.tagged', $tag) }}"><span class="badge badge-primary" style="background-color: {{ $tag->color }};">#{{ $tag->name }}</span></a>
                            @endforeach
                         </div>
                         <div class="col text-right">

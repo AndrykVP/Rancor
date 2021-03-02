@@ -18,7 +18,7 @@ class Award extends Model
     * 
     * @var array
     */
-   protected $fillable = [ 'class', 'name', 'description', 'code', 'levels', 'priority' ];
+   protected $fillable = [ 'class', 'name', 'description', 'type_id', 'code', 'levels', 'priority' ];
 
    /**
     * Relationship to Rank model
@@ -27,7 +27,7 @@ class Award extends Model
     */
    public function users()
    {
-      return $this->belongsToMany('App\User')->withPivot('level')->withTimestamps();
+      return $this->belongsToMany('App\User', 'structure_award_user')->withPivot('level')->withTimestamps();
    }
 
    /**

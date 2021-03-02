@@ -69,4 +69,20 @@ class NewsController extends Controller
 
       return view('rancor::news.index', compact('articles','tags'));
    }
+
+   /**
+    * Displays all published articles
+    *
+    * @param \AndrykVP\Rancor\News\Article  $article
+    * @return \Illuminate\Http\Response
+    */
+   public function show(Article $article)
+   {
+      $this->authorize('view', $article);
+
+      $article->load('author','editor','tags');
+      $tags = Tag::orderBy('name')->get();
+
+      return view('rancor::news.show', compact('article','tags'));
+   }
 }

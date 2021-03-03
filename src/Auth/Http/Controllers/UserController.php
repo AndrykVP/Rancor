@@ -141,48 +141,4 @@ class UserController extends Controller
 
         return redirect(route('admin.users.index'))->with('alert', 'User "'.$user->name.'" has been successfully deleted.');
     }
-
-    /**
-     * Variable for Form fields used in Create and Edit Views
-     * 
-     * @var array
-     */
-    protected function form()
-    {
-        return [
-            'inputs' => [
-                [
-                    'name' => 'name',
-                    'label' => 'Handle',
-                    'type' => 'text',
-                    'attributes' => 'autofocus required'
-                ],
-                [
-                    'name' => 'nickname',
-                    'label' => 'Nickname',
-                    'type' => 'text',
-                    'attributes' => 'required'
-                ],
-                [
-                    'name' => 'email',
-                    'label' => 'E-mail',
-                    'type' => 'text',
-                    'attributes' => 'required'
-                ],
-                [
-                    'name' => 'quote',
-                    'label' => 'Quote',
-                    'type' => 'text',
-                ],
-            ],
-            'files' => [
-                [
-                    'name' => 'avatar',
-                    'label' => 'Avatar Image',
-                    'size' => '1MB',
-                    'dimensions' => '150x150',
-                ],
-            ],
-        ];
-    }
 }

@@ -21,6 +21,6 @@ trait FactionMember
      */
     public function awards()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Structure\Award', 'structure_awards')->withPivot('level')->withTimestamps()->orderBy('priority','desc');
+        return $this->belongsToMany('AndrykVP\Rancor\Structure\Award', 'structure_award_user')->withPivot('level')->withTimestamps()->orderBy('priority','desc');
     }
 }

@@ -45,8 +45,9 @@
                      <div class="form-group">
                         <label for="faction">Faction</label>
                         <select class="form-control @error('faction')border border-danger @enderror" id="faction" aria-describedby="factionHelp">
+                           <option value="" {{ $user->rank_id ? '' : 'selected'}}> - </option>
                            @foreach($factions as $faction)
-                           <option value="{{ $faction->id }}" {{ $user->rank->department->faction->id == $faction->id ? 'selected' : ''}}>{{ $faction->name}}</option>
+                           <option value="{{ $faction->id }}" {{ $user->rank_id ? ($user->rank->department->faction->id == $faction->id ? 'selected' : '') : ''}}>{{ $faction->name}}</option>
                            @endforeach
                         </select>
                         @error('faction')
@@ -56,8 +57,9 @@
                      <div class="form-group">
                         <label for="department">Department</label>
                         <select class="form-control @error('department')border border-danger @enderror" id="department" aria-describedby="departmentHelp">
+                           <option value="" {{ $user->rank_id ? '' : 'selected'}}> - </option>
                            @foreach($departments as $department)
-                           <option value="{{ $department->id }}" {{ $user->rank->department->id == $department->id ? 'selected' : ''}}>{{ $department->name}}</option>
+                           <option value="{{ $department->id }}" {{ $user->rank_id ? ($user->rank->department->id == $department->id ? 'selected' : '') : ''}}>{{ $department->name}}</option>
                            @endforeach
                         </select>
                         @error('department')
@@ -67,8 +69,9 @@
                      <div class="form-group">
                         <label for="rank">Rank</label>
                         <select class="form-control @error('rank')border border-danger @enderror" name="rank_id" id="rank" aria-describedby="rankHelp">
+                           <option value="" {{ $user->rank_id ? '' : 'selected'}}> - </option>
                            @foreach($ranks as $rank)
-                           <option value="{{ $rank->id }}" {{ $user->rank->id == $rank->id ? 'selected' : ''}}>{{ $rank->name}}</option>
+                           <option value="{{ $rank->id }}" {{ $user->rank_id ? ($user->rank->id == $rank->id ? 'selected' : '') : ''}}>{{ $rank->name}}</option>
                            @endforeach
                         </select>
                         @error('rank')

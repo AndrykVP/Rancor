@@ -27,6 +27,7 @@
                   <div class="col-4 text-right">Email:</div>
                   <div class="col-8">{{ $user->email }}</div>
                </div>
+               @if($user->rank_id != null)
                <div class="row mb-2">
                   <div class="col-4 text-right">Faction:</div>
                   <div class="col-8">{{ $user->rank->department->faction->name }}</div>
@@ -39,6 +40,7 @@
                   <div class="col-4 text-right">Rank:</div>
                   <div class="col-8">{{ $user->rank->name }}</div>
                </div>
+               @endif
                @if($user->roles->isNotEmpty())
                <div class="row mb-2">
                   <div class="col-4 text-right">Roles:</div>
@@ -49,6 +51,30 @@
                         @endif
                         @foreach($user->roles as $role)
                         <li>{{ $role->name }}</li>
+                        @endforeach
+                     </ul>
+                  </div>
+               </div>
+               @endif
+               @if($user->permissions->isNotEmpty())
+               <div class="row mb-2">
+                  <div class="col-4 text-right">Special Permissions:</div>
+                  <div class="col-8">
+                     <ul class="list">
+                        @foreach($user->permissions as $permission)
+                        <li>{{ $permission->name }}</li>
+                        @endforeach
+                     </ul>
+                  </div>
+               </div>
+               @endif
+               @if($user->awards->isNotEmpty())
+               <div class="row mb-2">
+                  <div class="col-4 text-right">Awards:</div>
+                  <div class="col-8">
+                     <ul class="list">
+                        @foreach($user->awards as $award)
+                        <li>{{ $award->name }}</li>
                         @endforeach
                      </ul>
                   </div>

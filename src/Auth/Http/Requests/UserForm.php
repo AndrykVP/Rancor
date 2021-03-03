@@ -18,6 +18,18 @@ class UserForm extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'roles' => $this->roles ?: null,
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

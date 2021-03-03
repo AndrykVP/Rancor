@@ -44,9 +44,9 @@ class NodePolicy
      * @param \AndrykVP\Rncor\News\Node  $node
      * @return mixed
      */
-    public function view(User $user, Node $node)
+    public function view(?User $user, Node $node)
     {
-        return $node->is_published && !$node->is_private
+        return $node->is_public
                 ||$user->id === $node->author_id
                 ||$user->id === $node->editor_id
                 ||$user->hasPermission('view-holocron-nodes')

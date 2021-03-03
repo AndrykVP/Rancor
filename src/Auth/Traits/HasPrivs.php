@@ -11,7 +11,7 @@ trait HasPrivs
      */
     public function permissions()
     {
-        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible', 'rancor_permissible')->withTimestamps();
+        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible', 'rancor_permissibles')->withTimestamps();
     }
 
     /**

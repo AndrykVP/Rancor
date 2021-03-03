@@ -9,7 +9,7 @@
                {{ __('Edit User') }}
             </div>
             <div class="card-body">
-               <form action="{{ route('users.update', $user)}}" method="POST" enctype="multipart/form-data">
+               <form action="{{ route('admin.users.update', $user)}}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <input type="hidden" name="id" value="{{ $user->id }}">
                   @method('PATCH')

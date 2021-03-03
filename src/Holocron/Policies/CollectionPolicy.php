@@ -25,6 +25,33 @@ class CollectionPolicy
     }
 
     /**
+     * Determine whether the user can view all records of model.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return $user->hasPermission('view-holocron-collections')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view holocron collections.');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\User  $user
+     * @param \AndrykVP\Rncor\Holocron\Collection  $collection
+     * @return mixed
+     */
+    public function view(User $user, Collection $collection)
+    {
+        return $user->hasPermission('view-holocron-collections')
+                ? Response::allow()
+                : Response::deny('You do not have permissions to view this holocron collection.');
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\User  $user
@@ -41,7 +68,7 @@ class CollectionPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param \AndrykVP\Rncor\News\Collection  $Collection
+     * @param \AndrykVP\Rncor\Holocron\Collection  $Collection
      * @return mixed
      */
     public function update(User $user, Collection $Collection)
@@ -55,7 +82,7 @@ class CollectionPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param \AndrykVP\Rncor\News\Collection  $Collection
+     * @param \AndrykVP\Rncor\Holocron\Collection  $Collection
      * @return mixed
      */
     public function delete(User $user, Collection $Collection)

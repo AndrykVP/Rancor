@@ -19,9 +19,7 @@ class CreateNodesTable extends Migration
             $table->longText('body');
             $table->unsignedBigInteger('author_id')->nullable()->default(null);
             $table->unsignedBigInteger('editor_id')->nullable()->default(null);
-            $table->boolean('is_published');
-            $table->boolean('is_private');
-            $table->timestamp('published_at')->nullable();
+            $table->boolean('is_public');
             $table->timestamps();
             
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');

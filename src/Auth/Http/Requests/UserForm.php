@@ -29,7 +29,7 @@ class UserForm extends FormRequest
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->id)],
             'nickname' => 'nullable|string',
             'quote' => 'nullable|string',
-            'rank_id' => 'nullable|integer|exists:ranks,id',
+            'rank_id' => 'nullable|integer|exists:structure_ranks,id',
             'avatar' => 'nullable|file|max:1000|mimetypes:image/png',
             'signature' => 'nullable|file|max:1000|mimetypes:image/png',
             'roles' => 'nullable|array'

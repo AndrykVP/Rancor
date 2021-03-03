@@ -80,7 +80,7 @@ class NodeController extends Controller
     {
         $this->authorize('view', $node);
 
-        $node->load('collection')->loadCount('author');
+        $node->load('collections')->loadCount('author', 'editor');
 
         return view('rancor::show.node', compact('node'));
     }
@@ -165,17 +165,13 @@ class NodeController extends Controller
                     'name' => 'collections',
                     'label' => 'Collections',
                     'multiple' => true,
-                    'options' => Type::orderBy('name')->get(),
+                    'options' => Collection::orderBy('name')->get(),
                 ],
             ],
             'checkboxes' => [
                 [
-                    'name' => 'is_published',
-                    'label' => 'Publish',
-                ],
-                [
-                    'name' => 'is_private',
-                    'label' => 'Make Private',
+                    'name' => 'is_public',
+                    'label' => 'Make Public',
                 ],
             ]
         ];

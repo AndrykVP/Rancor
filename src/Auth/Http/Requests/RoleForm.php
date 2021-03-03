@@ -25,7 +25,7 @@ class RoleForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('roles')->ignore($this->id)],
+            'name' => ['required', 'string', Rule::unique('rancor_roles')->ignore($this->id)],
             'description' => 'required|min:3|max:3000',
             'permissions' => 'nullable|array',
         ];

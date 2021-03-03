@@ -13,9 +13,7 @@ $factory->define(Node::class, function (Faker $faker) {
         'body' => $faker->paragraph(true),
         'author_id' => $faker->numberBetween(1, $users),
         'editor_id' => $faker->numberBetween(1, $users),
-        'is_published' => $faker->boolean,
-        'is_private' => $faker->boolean,
-        'published_at' => $faker->boolean ? now() : null,
+        'is_public' => $faker->boolean,
         'created_at' => now(),
         'updated_at' => now(),
     ];

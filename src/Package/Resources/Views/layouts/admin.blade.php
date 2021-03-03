@@ -114,6 +114,22 @@
                   </div>
                </div>
                @endif
+               @if( Auth::user()->can('viewAny', \AndrykVP\Rancor\Holocron\Node::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Holocron\Collection::class))
+               <button class="list-group-item list-group-item-action {{ in_array(Request::segment(2), ['nodes', 'collections']) ? 'active' : '' }}" data-toggle="collapse" data-target="#holocron" aria-expanded="false" aria-controls="holocron">
+                  <svg class="mr-4" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path></svg>
+                  {{ __('Holocron') }}
+               </button>
+               <div id="holocron" class="collapse" data-parent="#sidebar-wrapper">
+                  <div class="list-group list-group-flush">
+                     @can('viewAny', \AndrykVP\Rancor\Holocron\Node::class)
+                     <a href="{{ route('admin.nodes.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'nodes' ? 'active' : '' }}">{{ __('Nodes') }}</a>
+                     @endcan
+                     @can('viewAny', \AndrykVP\Rancor\Holocron\Collection::class)
+                     <a href="{{ route('admin.collections.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'collections' ? 'active' : '' }}">{{ __('Collections') }}</a>
+                     @endcan
+                  </div>
+               </div>
+               @endif
                @if( Auth::user()->can('viewAny', \AndrykVP\Rancor\Scanner\Entry::class))
                <button class="list-group-item list-group-item-action {{ Request::segment(2) == 'entries' ? 'active' : '' }}" data-toggle="collapse" data-target="#scanner" aria-expanded="false" aria-controls="scanner">
                   <svg class="mr-4" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
@@ -141,54 +157,7 @@
                      <span class="navbar-toggler-icon"></span>
                   </button>
 
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav mr-auto">
-
-                        </ul>
-
-                        <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ml-auto">
-                           <!-- Authentication Links -->
-                           @guest
-                              <li class="nav-item">
-                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                              </li>
-                              @if (Route::has('register'))
-                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                 </li>
-                              @endif
-                           @endguest
-                           @auth
-                              <li class="nav-item">
-                                 @if(Request::is('admin') || Request::is('admin/*'))
-                                 <a class="nav-link" href="/">{{ __('Index') }}</a>
-                                 @else
-                                 <a class="nav-link" href="{{ route('admin.index') }}">{{ __('Admin Panel') }}</a>
-                                 @endif
-                              </li>
-                              <li class="nav-item dropdown">
-                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                 </a>
-
-                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                       {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                          @csrf
-                                    </form>
-                                 </div>
-                              </li>
-                           @endauth
-                        </ul>
-                     </div>
-                  </div>
+                  @include('rancor::components.navigation')
             </nav>
 
             <div class="container-fluid">

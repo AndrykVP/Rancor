@@ -38,7 +38,7 @@ class PermissionForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('permissions')->ignore($this->id)],
+            'name' => ['required', 'string', Rule::unique('rancor_permissions')->ignore($this->id)],
             'description' => 'required|min:3|max:3000',
         ];
     }

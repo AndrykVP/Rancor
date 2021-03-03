@@ -74,7 +74,7 @@ class CollectionController extends Controller
     {
         $this->authorize('view', $collection);
 
-        $collection->load('awards');
+        $collection->loadCount('nodes');
 
         return view('rancor::show.collection', compact('collection'));
     }

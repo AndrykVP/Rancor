@@ -3,6 +3,8 @@
 namespace AndrykVP\Rancor\Holocron;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Auth;
 
 class Node extends Model
 {
@@ -18,7 +20,7 @@ class Node extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'body', 'is_published', 'is_private', 'author_id', 'editor_id', 'published_at' ];
+    protected $fillable = [ 'name', 'body', 'is_public', 'author_id', 'editor_id' ];
 
     /**
      * Attributes casted to native types
@@ -37,6 +39,25 @@ class Node extends Model
      * @var string
      */
     protected $hidden = ['pivot'];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope('access', function (Builder $builder) {
+            if(Auth::check() && Auth::user()->can('viewAny', Node::class))
+            {
+                $builder;
+            }
+            else
+            {
+                $builder->where('is_public', true);
+            }
+        });
+    }
 
     /**
      * Relationship to User model
@@ -65,30 +86,6 @@ class Node extends Model
      */
     public function collections()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Holocron\Collections','holocron_collection_node')->withTimestamps();
-    }
-
-
-    /**
-     * Scope a query to include discussions by their is_published status.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopePublished($query, $value = true)
-    {
-        return $query->where('is_published', $value);
-    }
-
-
-    /**
-     * Scope a query to include discussions by their is_private status.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopePrivate($query, $value = true)
-    {
-        return $query->where('is_private', $value);
+        return $this->belongsToMany('AndrykVP\Rancor\Holocron\Collection','holocron_collection_node')->withTimestamps();
     }
 }

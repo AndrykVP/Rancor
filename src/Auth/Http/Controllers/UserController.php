@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $user->load('rank.department.faction','roles','changelog.creator');
 
-        return view('rancor::users.show', compact('user'));
+        return view('rancor::show.user', compact('user'));
     }
 
     /**
@@ -123,7 +123,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect(route('users.index'))->with('alert', 'User "'.$user->name.'" has been successfully updated.');
+        return redirect(route('admin.users.index'))->with('alert', 'User "'.$user->name.'" has been successfully updated.');
 
     }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect(route('users.index'))->with('alert', 'User "'.$user->name.'" has been successfully deleted.');
+        return redirect(route('admin.users.index'))->with('alert', 'User "'.$user->name.'" has been successfully deleted.');
     }
 
     /**

@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserLog extends Model
 {
     /**
-     * Attributes available for mass assignment
-     * 
-     * @var array
-     */
-    protected $fillable = [ 'user_id', 'action', 'color' ];
-
-    /**
      * Defines the table name
      * 
      * @var string

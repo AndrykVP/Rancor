@@ -2,32 +2,30 @@
 
 namespace AndrykVP\Rancor\Audit\Events;
 
-use AndrykVP\Rancor\Structure\Award;
+use AndrykVP\Rancor\Holocron\Node;
 use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AwardChange
+class NodeUpdate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Class Variables
+     * Class Variable User
      * 
-     * @var \AndrykVP\Rancor\Structure\Award
-     * @var int  $change
+     * @var \AndrykVP\Rancor\Holocron\Node
      */
-    public $award;
-    public $change;
+    public $node;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Award $award)
+    public function __construct(Node $node)
     {
-        $this->award = $award;
+        $this->node = $node;
     }
 }

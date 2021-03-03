@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class NodeLog extends Model
 {
     /**
-     * Attributes available for mass assignment
-     * 
-     * @var array
-     */
-    protected $fillable = [ 'node_id' ];
-
-    /**
      * Defines the table name
      * 
      * @var string
@@ -25,7 +18,7 @@ class NodeLog extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function creator()
     {
         return $this->belongsTo('App\User', 'updated_by');
     }

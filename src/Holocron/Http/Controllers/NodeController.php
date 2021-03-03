@@ -7,6 +7,7 @@ use AndrykVP\Rancor\Holocron\Http\Requests\NewNodeForm;
 use AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm;
 use AndrykVP\Rancor\Holocron\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class NodeController extends Controller

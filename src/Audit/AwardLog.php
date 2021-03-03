@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class AwardLog extends Model
 {
     /**
-     * Attributes available for mass assignment
-     * 
-     * @var array
-     */
-    protected $fillable = [ 'award_id', 'action'];
-
-    /**
      * Defines the table name
      * 
      * @var string
@@ -27,7 +20,7 @@ class AwardLog extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'updated_by');
+        return $this->belongsTo('App\User');
     }
 
     /**
@@ -38,5 +31,15 @@ class AwardLog extends Model
     public function award()
     {
         return $this->belongsTo('AndrykVP\Rancor\Structure\Award');
+    }
+
+    /**
+     * Relationship to User model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator()
+    {
+        return $this->belongsTo('App\User', 'updated_by');
     }
 }

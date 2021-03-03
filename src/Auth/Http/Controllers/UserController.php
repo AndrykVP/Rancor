@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        $user->load('rank.department.faction','roles','permissions','changelog.creator', 'awards');
+        $user->load('rank.department.faction','roles','permissions','user_changelog.creator', 'awards');
 
         return view('rancor::show.user', compact('user'));
     }

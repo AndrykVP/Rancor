@@ -2,18 +2,18 @@
 
 namespace AndrykVP\Rancor\Audit\Listeners;
 
-use AndrykVP\Rancor\Audit\Events\HolocronUpdate;
+use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class NodeUpdate
+class SetNodeEditor
 {
     /**
      * Class variables
      * 
-     * @var Request $request
+     * @var App\User  $user
      */
-    protected $request;
+    protected $user;
 
     /**
      * Create the event listener.
@@ -23,22 +23,20 @@ class NodeUpdate
      */
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        $this->user = $request->user();
     }
 
     /**
      * Handle the event.
      *
-     * @param  Registered  $event
+     * @param  NodeUpdate  $event
      * @return void
      */
-    public function handle(HolocronUpdate $event)
+    public function handle(NodeUpdate $event)
     {
-        $user_id = $request->user()->id;
-
         DB::table('changelog_nodes')->insert([
             'node_id' => $event->node->id,
-            'updated_by' => $user_id,
+            'updated_by' => $this->user->id,
             'created_at' => now(),
         ]);
     }

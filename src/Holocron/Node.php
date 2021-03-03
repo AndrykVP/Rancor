@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Holocron;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use Auth;
 
 class Node extends Model
@@ -39,6 +40,15 @@ class Node extends Model
      * @var string
      */
     protected $hidden = ['pivot'];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updating' => NodeUpdate::class,
+    ];
 
     /**
      * The "booted" method of the model.

@@ -2,18 +2,18 @@
 
 namespace AndrykVP\Rancor\Audit\Listeners;
 
-use AndrykVP\Rancor\Audit\Events\AwardChange;
+use AndrykVP\Rancor\Audit\Events\UserAward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class NodeUpdate
+class UpdateUserAward
 {
     /**
      * Class variables
      * 
-     * @var Request $request
+     * @var App\User  $user
      */
-    protected $request;
+    protected $user;
 
     /**
      * Create the event listener.
@@ -23,24 +23,23 @@ class NodeUpdate
      */
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        $this->user = $request->user();
     }
 
     /**
      * Handle the event.
      *
-     * @param  Registered  $event
+     * @param  UserAward  $event
      * @return void
      */
-    public function handle(AwardChange $event)
+    public function handle(UserAward $event)
     {
-        $user_id = $request->user()->id;
-
         DB::table('changelog_nodes')->insert([
             'award_id' => $event->node->id,
-            'action' => $event->node->action,
-            'updated_by' => $user_id,
+            'action' => $event->action,
+            'updated_by' => $this->user->id,
             'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

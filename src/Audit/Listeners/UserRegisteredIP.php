@@ -44,6 +44,7 @@ class UserRegisteredIP
             'user_agent' => $ua,
             'type' => 'registration',
             'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('changelog_users')->insert([
@@ -51,6 +52,7 @@ class UserRegisteredIP
             'action' => 'Registered a new account',
             'color' => 'yellow',
             'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

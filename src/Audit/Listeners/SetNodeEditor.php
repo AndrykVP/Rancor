@@ -38,6 +38,7 @@ class SetNodeEditor
             'node_id' => $event->node->id,
             'updated_by' => $this->user->id,
             'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

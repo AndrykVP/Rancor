@@ -115,7 +115,8 @@ class UserRank
             'updated_by' => $this->editor,
             'action' => $action,
             'color' => $color,
-            'created_at' => now()
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

@@ -19,7 +19,7 @@ class CreateIPLogsTable extends Migration
             $table->string('ip_address');
             $table->longText('user_agent');
             $table->string('type');
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

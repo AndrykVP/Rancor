@@ -42,13 +42,12 @@ class UserLoginIP
                     ['user_id','=',$user_id],
                     ['ip_address','=',$ip],
                     ['type','=','login']
-                ]);
+                ])->first();
 
-        if($log->count() > 0)
+        if($log != null)
         {
             $log->update([
                 'user_agent' => $ua,
-                'created_at' => now(),
             ]);
         }
         else
@@ -59,6 +58,7 @@ class UserLoginIP
                 'user_agent' => $ua,
                 'type' => 'login',
                 'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }

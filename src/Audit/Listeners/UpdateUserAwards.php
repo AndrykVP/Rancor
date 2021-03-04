@@ -6,7 +6,7 @@ use AndrykVP\Rancor\Audit\Events\UserAward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class UpdateUserAward
+class UpdateUserAwards
 {
     /**
      * Class variables

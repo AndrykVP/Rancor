@@ -26,39 +26,11 @@ class Log extends Model
     ];
 
     /**
-     * The attributes that should be cast to dates.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at',
-    ];
-
-    /**
-     * Deactivating timestamp tables.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'scanner_logs';
-
-    /**
-     * Enable only 'created_at' column
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->created_at = $model->freshTimestamp();
-        });
-    }
 
     /**
      * Relationship to User model

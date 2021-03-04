@@ -19,11 +19,11 @@ class GroupResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'color' => $this->color,
             'users' => UserResource::collection($this->whenLoaded('users')),
             'boards' => BoardResource::collection($this->whenLoaded('boards')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

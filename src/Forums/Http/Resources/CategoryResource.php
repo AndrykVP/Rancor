@@ -20,8 +20,8 @@ class CategoryResource extends JsonResource
             'color' => $this->color,
             'uri' => $this->slug,
             'boards' => BoardResource::collection($this->whenLoaded('boards')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

@@ -24,8 +24,8 @@ class DiscussionResource extends JsonResource
             'author' => new UserResource($this->whenLoaded('author')),
             'replies' => ReplyResource::collection($this->whenLoaded('replies')),
             'latest_reply' => new ReplyResource($this->whenLoaded('latest_reply')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

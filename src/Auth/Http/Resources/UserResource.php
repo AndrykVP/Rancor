@@ -33,6 +33,8 @@ class UserResource extends JsonResource
                     return $this->last_login->format('M j, Y, G:i e');
                 }),
             ]),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Resources;
+namespace AndrykVP\Rancor\Holocron\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 
-class ArticleResource extends JsonResource
+class CollectionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,14 +17,12 @@ class ArticleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'content' => clean($this->content),
-            'is_published' => $this->is_published,
-            'author' => new UserResource($this->whenLoaded('author')),
-            'editor' => new UserResource($this->whenLoaded('editor')),
-            'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'nodes' => NodeResource::collection($this->whenLoaded('nodes')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

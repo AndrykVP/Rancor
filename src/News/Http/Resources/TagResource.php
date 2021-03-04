@@ -19,8 +19,8 @@ class TagResource extends JsonResource
             'name' => $this->name,
             'color' => $this->color,
             'articles' => ArticleResource::collection($this->whenLoaded('articles')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

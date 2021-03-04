@@ -44,7 +44,8 @@ class LogResource extends JsonResource
             ],
             'contributor' => new UserResource($this->whenLoaded('contributor')),
             'entry' => new EntryResource($this->whenLoaded('entry')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

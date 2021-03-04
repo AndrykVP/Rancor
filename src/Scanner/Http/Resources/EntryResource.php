@@ -23,10 +23,12 @@ class EntryResource extends JsonResource
                 'name' => $this->name,
                 'owner' => $this->owner,
             ],
-            'location' => $this->position,
+            'position' => $this->position,
             'contributor' => new UserResource($this->whenLoaded('contributor')),
             'changelog' => LogResource::collection($this->whenLoaded('changelog')),
-            'last_scanned' => $this->last_seen->format(config('rancor.dateFormat'))
+            'last_scanned' => $this->last_seen->diffForHumans(),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

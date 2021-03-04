@@ -17,14 +17,14 @@ class ArticleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'content' => clean($this->content),
+            'name' => $this->name,
+            'body' => clean($this->body),
             'is_published' => $this->is_published,
             'author' => new UserResource($this->whenLoaded('author')),
             'editor' => new UserResource($this->whenLoaded('editor')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

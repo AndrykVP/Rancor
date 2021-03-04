@@ -21,8 +21,8 @@ class ReplyResource extends JsonResource
             'author' => new UserResource($this->whenLoaded('author')),
             'editor' => new UserResource($this->whenLoaded('editor')),
             'discussion' => new DiscussionResource($this->whenLoaded('discussion')),
-            'created_at' => $this->created_at->format(config('rancor.dateFormat')),
-            'updated_at' => $this->updated_at->format(config('rancor.dateFormat')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

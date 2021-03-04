@@ -86,12 +86,13 @@
                </div>
             </div>
          </div>
+         @if($user->user_changelog->isNotEmpty())
          <div class="card mb-4">
             <div class="card-header">
                {{ __('History') }}
             </div>
             <div class="card-body">
-               @foreach($user->changelog as $log)
+               @foreach($user->user_changelog as $log)
                <div class="text-sm border-bottom pb-2 mb-2">
                   <span class="text-{{ $log->color }}" style="color:{{ $log->color }}">
                      {{ $log->action }}
@@ -106,6 +107,7 @@
                @endforeach
             </div>
          </div>
+         @endif
       </div>
    </div>
 </div>

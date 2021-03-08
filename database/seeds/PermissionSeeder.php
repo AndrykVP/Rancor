@@ -87,7 +87,7 @@ class PermissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'remove-structure-awards',
+                'name' => 'revoke-structure-awards',
                 'description' => 'Can take an award away from a User',
                 'created_at' => now(),
                 'updated_at' => now(),

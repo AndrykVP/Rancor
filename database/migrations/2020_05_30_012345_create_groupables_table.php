@@ -15,8 +15,7 @@ class CreateGroupablesTable extends Migration
     {
         Schema::create('forum_groupables', function (Blueprint $table) {
             $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('groupable_id');
-            $table->string('groupable_type');
+            $table->morphs('groupable');
             $table->timestamps();
 
             $table->foreign('group_id')->references('id')->on('forum_groups')->onDelete('cascade');

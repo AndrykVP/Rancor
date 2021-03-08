@@ -16,7 +16,7 @@ class CreateFactionsTable extends Migration
         Schema::create('structure_factions', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
             $table->timestamps();
         });
     }

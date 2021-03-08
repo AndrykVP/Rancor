@@ -16,7 +16,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('structure_departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
             $table->unsignedBigInteger('faction_id');
             $table->timestamps();

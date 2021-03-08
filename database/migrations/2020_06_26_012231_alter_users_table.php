@@ -16,8 +16,8 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('avatar')->nullable()->default(null)->after('name');
             $table->text('signature')->nullable()->default(null)->after('avatar');
-            $table->mediumtext('nickname')->nullable()->default(null)->after('email');
-            $table->mediumtext('quote')->nullable()->default(null)->after('nickname');
+            $table->string('nickname')->nullable()->default(null)->after('email');
+            $table->text('quote')->nullable()->default(null)->after('nickname');
             $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('quote');
             $table->boolean('is_admin')->default(0)->after('rank_id');
             $table->boolean('show_email')->default(1)->after('is_admin');

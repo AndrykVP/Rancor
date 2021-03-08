@@ -18,7 +18,7 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('discussion_id');
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('editor_id')->nullable()->default(null);
-            $table->longText('body');
+            $table->mediumText('body');
             $table->timestamps();
 
             $table->foreign('discussion_id')->references('id')->on('forum_discussions')->onDelete('cascade');

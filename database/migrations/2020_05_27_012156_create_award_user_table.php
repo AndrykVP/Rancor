@@ -14,7 +14,6 @@ class CreateAwardUserTable extends Migration
     public function up()
     {
         Schema::create('structure_award_user', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('award_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('level');

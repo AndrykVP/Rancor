@@ -16,10 +16,10 @@ class CreateRanksTable extends Migration
         Schema::create('structure_ranks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
             $table->unsignedBigInteger('department_id');
-            $table->unsignedTinyInteger('level')->default(0);
+            $table->unsignedTinyInteger('level')->default(1);
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('structure_departments')->onDelete('cascade');

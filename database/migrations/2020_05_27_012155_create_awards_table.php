@@ -16,7 +16,7 @@ class CreateAwardsTable extends Migration
         Schema::create('structure_awards', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
             $table->string('code')->unique();
             $table->unsignedBigInteger('type_id');
             $table->unsignedInteger('levels')->default(1);

@@ -1,10 +1,12 @@
 <?php 
 
-Route::group(['namespace' => 'AndrykVP\Rancor\News\Http\Controllers\API', 'prefix' => 'api', 'as' => 'api.', 'middleware' => ['api']], function(){
+use Illuminate\Support\Facades\Route;
+use AndrykVP\Rancor\News\Http\Controllers\API\ArticleController;
+use AndrykVP\Rancor\News\Http\Controllers\API\TagController;
+
+Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['api']], function(){
 	Route::apiResources([
-		'articles' => 'ArticleController',
-		'tags' => 'TagController',
+		'articles' => ArticleController::class,
+		'tags' => TagController::class,
 	]);
-	Route::get('articles/public', 'ArticleController@public');
-	Route::get('articles/drafts', 'ArticleController@drafts');
 });

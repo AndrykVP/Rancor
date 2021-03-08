@@ -1,11 +1,18 @@
 <?php 
 
-Route::group(['namespace' => 'AndrykVP\Rancor\Forums\Http\Controllers\API', 'prefix' => 'api', 'as' => 'api.', 'middleware' => ['api']], function(){
+use Illuminate\Support\Facades\Route;
+use AndrykVP\Rancor\Forums\Http\Controllers\API\BoardController;
+use AndrykVP\Rancor\Forums\Http\Controllers\API\CategoryController;
+use AndrykVP\Rancor\Forums\Http\Controllers\API\DiscussionController;
+use AndrykVP\Rancor\Forums\Http\Controllers\API\GroupController;
+use AndrykVP\Rancor\Forums\Http\Controllers\API\ReplyController;
+
+Route::group(['prefix' => 'api\forums', 'as' => 'api.forums.', 'middleware' => ['api']], function(){
    Route::apiResources([
-      'boards' => 'BoardController',
-      'categories' => 'CategoryController',
-      'discussions' => 'DiscussionController',
-      'groups' => 'GroupController',
-      'replies' => 'ReplyController',
+      'boards' => BoardController::class,
+      'categories' => CategoryController::class,
+      'discussions' => DiscussionController::class,
+      'groups' => GroupController::class,
+      'replies' => ReplyController::class,
    ]);
 });

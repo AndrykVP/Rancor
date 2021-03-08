@@ -1,5 +1,6 @@
 <?php 
 
+use Illuminate\Support\Facades\Route;
 use App\User;
 use AndrykVP\Rancor\News\Article;
 use AndrykVP\Rancor\News\Tag;

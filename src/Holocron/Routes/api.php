@@ -1,10 +1,15 @@
 <?php 
+
+use Illuminate\Support\Facades\Route;
+use AndrykVP\Rancor\Holocron\Http\Controllers\API\NodeController;
+use AndrykVP\Rancor\Holocron\Http\Controllers\API\CollectionController;
+
 $middleware = array_merge(['api'],config('rancor.middleware.api'));
 
-Route::group(['namespace' => 'AndrykVP\Rancor\Holocron\Http\Controllers\API', 'prefix' => 'api\holocron', 'as' => 'api.holocron.', 'middleware' => $middleware], function(){
+Route::group(['prefix' => 'api\holocron', 'as' => 'api.holocron.', 'middleware' => $middleware], function(){
 	
 	Route::apiResources([
-		'nodes' => 'NodeController',
-		'collections' => 'CollectionController',
+		'nodes' => NodeController::class,
+		'collections' => CollectionController::class,
 	]);
 });

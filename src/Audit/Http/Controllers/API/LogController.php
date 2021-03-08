@@ -1,24 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Http\Controllers;
+namespace AndrykVP\Rancor\Audit\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use AndrykVP\Rancor\Audit\Http\Resources\LogResource;
 
-class LogController extends Controller
+class UserLogController extends Controller
 {
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-
     /**
      * Display a listing of user changelogs.
      *

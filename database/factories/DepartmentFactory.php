@@ -1,17 +1,44 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace AndrykVP\Database\Factories;
 
-use AndrykVP\Rancor\Structure\Department;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use AndrykVP\Rancor\Structure\Department;
 
-$factory->define(Department::class, function (Faker $faker) {
-    $factions = DB::table('structure_factions')->count();
-    return [
-        'name' => $faker->company,
-        'description' => $faker->catchPhrase,
-        'color' => $faker->hexcolor,
-        'faction_id' => $faker->numberBetween(1,$factions),
-    ];
-});
+class DepartmentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Department::class;
+    protected $factions;
+
+    /**
+     * Class constructor
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->factions = DB::table('structure_factions')->count();
+    }
+
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'description' => $this->faker->catchPhrase,
+            'color' => $this->faker->hexcolor,
+            'faction_id' => $this->faker->numberBetween(1,$this->factions),
+        ];
+    }
+}

@@ -1,18 +1,45 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace AndrykVP\Database\Factories;
 
-use AndrykVP\Rancor\Forums\Board;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use AndrykVP\Rancor\Forums\Board;
 
-$factory->define(Board::class, function (Faker $faker) {
-    $categories = DB::table('forum_categories')->count();
-    return [
-        'name' => $faker->company,
-        'description' => $faker->sentence(12),
-        'category_id' => $faker->numberBetween(1,$categories),
-        'slug' => $faker->unique()->word,
-        'order' => rand(1,20),
-    ];
-});
+class BoardFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Board::class;
+    protected $categories;
+
+    /**
+     * Class constructor
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->categories = DB::table('forum_categories')->count();
+    }
+
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'description' => $this->faker->sentence(12),
+            'category_id' => $this->faker->numberBetween(1,$this->categories),
+            'slug' => $this->faker->unique()->word,
+            'order' => $this->faker->numberBetween(1,20),
+        ];
+    }
+}

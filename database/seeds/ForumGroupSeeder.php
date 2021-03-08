@@ -1,5 +1,7 @@
 <?php
 
+namespace AndrykVP\Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class ForumGroupSeeder extends Seeder

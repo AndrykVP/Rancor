@@ -1,19 +1,46 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace AndrykVP\Database\Factories;
 
-use AndrykVP\Rancor\Structure\Award;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use AndrykVP\Rancor\Structure\Award;
 
-$factory->define(Award::class, function (Faker $faker) {
-    $types = DB::table('structure_award_types')->count();
-    return [
-        'name' => $faker->unique()->company,
-        'code' => strtoupper($faker->unique()->word),
-        'description' => $faker->text(150),
-        'type_id' => $faker->numberBetween(1,$types),
-        'levels' => $faker->numberBetween(1,12),
-        'priority' => $faker->numberBetween(1,20),
-    ];
-});
+class AwardFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Award::class;
+    protected $types;
+
+    /**
+     * Class constructor
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->types = DB::table('structure_award_types')->count();
+    }
+
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->unique()->company,
+            'code' => strtoupper($this->faker->unique()->word),
+            'description' => $this->faker->text(150),
+            'type_id' => $this->faker->numberBetween(1,$this->types),
+            'levels' => $this->faker->numberBetween(1,12),
+            'priority' => $this->faker->numberBetween(1,20),
+        ];
+    }
+}

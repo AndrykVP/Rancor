@@ -1,16 +1,33 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace AndrykVP\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Forums\Category;
-use Faker\Generator as Faker;
 
-$factory->define(Category::class, function (Faker $faker) {
-    return [
-        'name' => $faker->company,
-        'description' => $faker->sentence(12),
-        'color' => $faker->hexcolor,
-        'slug' => $faker->unique()->word,
-        'order' => $faker->unique()->numberBetween(1,20),
-    ];
-});
+class CategoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Category::class;
+
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'description' => $this->faker->sentence(12),
+            'color' => $this->faker->hexcolor,
+            'slug' => $this->faker->unique()->word,
+            'order' => $this->faker->unique()->numberBetween(1,20),
+        ];
+    }
+}

@@ -1,19 +1,46 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace AndrykVP\Database\Factories;
 
-use AndrykVP\Rancor\Forums\Discussion;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use AndrykVP\Rancor\Forums\Discussion;
 
-$factory->define(Discussion::class, function (Faker $faker) {
-    $boards = DB::table('forum_boards')->count();
-    $users = DB::table('users')->count();
-    return [
-        'name' => $faker->sentence(4),
-        'is_sticky' => $faker->boolean,
-        'is_locked' => $faker->boolean,
-        'board_id' => $faker->numberBetween(1,$boards),
-        'author_id' => $faker->numberBetween(1,$users),
-    ];
-});
+class DiscussionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Discussion::class;
+    protected $boards, $users;
+
+    /**
+     * Class constructor
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->boards = DB::table('forum_boards')->count();
+        $this->users = DB::table('users')->count();
+    }
+
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->sentence(4),
+            'is_sticky' => $this->faker->boolean,
+            'is_locked' => $this->faker->boolean,
+            'board_id' => $this->faker->numberBetween(1,$this->boards),
+            'author_id' => $this->faker->numberBetween(1,$this->users),
+        ];
+    }
+}

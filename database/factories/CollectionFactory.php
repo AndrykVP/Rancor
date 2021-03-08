@@ -1,18 +1,31 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace AndrykVP\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Holocron\Collection;
-use Faker\Generator as Faker;
-use Illuminate\Support\Facades\DB;
 
-$factory->define(Collection::class, function (Faker $faker) {
-    $users = DB::table('users')->count();
-    return [
-        'name' => $faker->unique()->company,
-        'slug' => $faker->unique()->word,
-        'description' => $faker->text(150),
-        'created_at' => now(),
-        'updated_at' => now(),
-    ];
-});
+class CollectionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Collection::class;
+
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->unique()->company,
+            'slug' => $this->faker->unique()->word,
+            'description' => $this->faker->text(150),
+        ];
+    }
+}

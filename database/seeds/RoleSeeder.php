@@ -1,5 +1,7 @@
 <?php
 
+namespace AndrykVP\Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder

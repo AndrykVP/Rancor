@@ -33,7 +33,10 @@
          "database/seeds"
       ],
       "psr-4": {
-         "AndrykVP\\Rancor\\": "src/"
+         "AndrykVP\\Rancor\\": "src/",
+         "AndrykVP\\Database\\Factories\\": "database/factories/",
+         "AndrykVP\\Database\\Seeders\\": "database/seeders/"
+ 
       }
    },
    "extra": {

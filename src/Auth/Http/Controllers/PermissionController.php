@@ -2,7 +2,7 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
-use AndrykVP\Rancor\Auth\Permission;
+use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

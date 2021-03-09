@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Holocron\Http\Controllers;
 
-use AndrykVP\Rancor\Holocron\Collection;
-use AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Holocron\Models\Collection;
+use AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm;
 
 class CollectionController extends Controller
 {

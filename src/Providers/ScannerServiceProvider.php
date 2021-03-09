@@ -4,9 +4,9 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Scanner\Entry;
+use AndrykVP\Rancor\Scanner\Models\Entry;
+use AndrykVP\Rancor\Scanner\Models\Log;
 use AndrykVP\Rancor\Scanner\Policies\EntryPolicy;
-use AndrykVP\Rancor\Scanner\Log;
 use AndrykVP\Rancor\Scanner\Policies\LogPolicy;
 
 class ScannerServiceProvider extends ServiceProvider

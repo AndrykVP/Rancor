@@ -11,7 +11,7 @@ class UpdateUserAwards
     /**
      * Class variables
      * 
-     * @var App\User  $user
+     * @var App\Models\User  $user
      */
     protected $user;
 

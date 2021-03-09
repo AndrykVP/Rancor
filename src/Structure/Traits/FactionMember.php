@@ -2,6 +2,9 @@
 
 namespace AndrykVP\Rancor\Structure\Traits;
 
+use AndrykVP\Rancor\Structure\Models\Rank;
+use AndrykVP\Rancor\Structure\Models\Award;
+
 trait FactionMember
 {
     /**
@@ -11,7 +14,7 @@ trait FactionMember
      */
     public function rank()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Structure\Rank');
+        return $this->belongsTo(Rank::class);
     }
 
     /**
@@ -21,6 +24,9 @@ trait FactionMember
      */
     public function awards()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Structure\Award', 'structure_award_user')->withPivot('level')->withTimestamps()->orderBy('priority','desc');
+        return $this->belongsToMany(Award::class, 'structure_award_user')
+                    ->withPivot('level')
+                    ->withTimestamps()
+                    ->orderBy('priority','desc');
     }
 }

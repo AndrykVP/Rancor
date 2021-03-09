@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Faction;
+use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Structure\Http\Resources\FactionResource;
 use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
 

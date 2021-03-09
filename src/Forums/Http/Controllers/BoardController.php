@@ -5,9 +5,9 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Board;
-use AndrykVP\Rancor\Forums\Group;
-use AndrykVP\Rancor\Forums\Category;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Group;
+use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
 
 class BoardController extends Controller

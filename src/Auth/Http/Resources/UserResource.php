@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Auth\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Auth;
-use App\User;
+use App\Models\User;
 use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
 
 class UserResource extends JsonResource

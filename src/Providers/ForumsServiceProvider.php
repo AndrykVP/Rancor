@@ -4,11 +4,11 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Forum\Board;
-use AndrykVP\Rancor\Forum\Category;
-use AndrykVP\Rancor\Forum\Discussion;
-use AndrykVP\Rancor\Forum\Group;
-use AndrykVP\Rancor\Forum\Reply;
+use AndrykVP\Rancor\Forum\Models\Board;
+use AndrykVP\Rancor\Forum\Models\Category;
+use AndrykVP\Rancor\Forum\Models\Discussion;
+use AndrykVP\Rancor\Forum\Models\Group;
+use AndrykVP\Rancor\Forum\Models\Reply;
 use AndrykVP\Rancor\Forum\Policies\BoardPolicy;
 use AndrykVP\Rancor\Forum\Policies\CategoryPolicy;
 use AndrykVP\Rancor\Forum\Policies\DiscussionPolicy;

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Released]
+## [1.4.0] - 2021-03-09
+### Changed
+- Refactored all Models to folder and namespace `Models` under their respective modules, to follow Laravel 8 directory structure.
+- `App\User` to `App\Models\User` change as per Laravel 8 directory structure
+- Namespacing of database Seeders and Factories
+- Views now use Tailwind CSS instead of Bootstrap, as per Laravel 8 Startkits (Laravel Breeze specifically)
+- Renamed `FrameworkServiceProvider` to `PackageServiceProvider` for consistency of naming convention.
+
+### Deleted
+- Gate `manage-faction` became irrelevant after the addition of the `view-admin-panel` permission.
+
 ## [1.3.3] - 2021-03-04
 ### Added
 - `Structure\Award` and `Structure\Type` models, along with their respective migrations and factories
@@ -78,7 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.2] - 2020-07-09
 ### Added
 - Controller, Request Validation, Resource and Routes for `Auth\Role`
-- Policies for `Auth\Role`, `App\User`, `Faction\Faction`, `Faction\Department`, `Faction\Rank` and , `News\Article`.
+- Policies for `Auth\Role`, `App\Models\User`, `Faction\Faction`, `Faction\Department`, `Faction\Rank` and , `News\Article`.
 - Configuration file for defining what authentication middleware to use in API Controllers.
 
 ### Changed
@@ -91,10 +102,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New feature `Rancor\News` with [mews/purifier](https://github.com/mewebstudio/Purifier) dependency.
 - Routes, API Controllers, Resources and Requests for `Faction\Faction`, `Faction\Department`, `Faction\Rank`, `Auth\User` and `News\Article` models.
-- `Role` model to the Auth feature, and its relationship to `App\User` via trait.
+- `Role` model to the Auth feature, and its relationship to `App\Models\User` via trait.
 
 ### Changed
-- `Auth\Permission` to be have a Many to Many polymorphic relation with `Auth\Role` and Laravel's `App\User` model.
+- `Auth\Permission` to be have a Many to Many polymorphic relation with `Auth\Role` and Laravel's `App\Models\User` model.
 - `hasPermission()`method in Auth trait, to account for change in `Permission` model.
 
 ### Removed

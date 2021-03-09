@@ -2,11 +2,11 @@
 
 namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
-use AndrykVP\Rancor\Structure\Award;
-use AndrykVP\Rancor\Structure\Http\Requests\AwardForm;
-use AndrykVP\Rancor\Structure\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Structure\Models\Award;
+use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Http\Requests\AwardForm;
 
 class AwardController extends Controller
 {

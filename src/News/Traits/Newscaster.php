@@ -2,6 +2,8 @@
 
 namespace AndrykVP\Rancor\News\Traits;
 
+use AndrykVP\Rancor\News\Models\Article;
+
 trait Newscaster
 {
     /**
@@ -11,7 +13,7 @@ trait Newscaster
      */
     public function createdArticles()
     {
-        return $this->hasMany('AndrykVP\Rancor\News\Article','id','author_id');
+        return $this->hasMany(Article::class,'id','author_id');
     }
 
     /**
@@ -21,6 +23,6 @@ trait Newscaster
      */
     public function editedArticles()
     {
-        return $this->hasMany('AndrykVP\Rancor\News\Article','id','editor_id');
+        return $this->hasMany(Article::class,'id','editor_id');
     }
 }

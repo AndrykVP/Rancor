@@ -1,8 +1,11 @@
 <?php
 
 namespace AndrykVP\Rancor\Forums\Traits;
-use AndrykVP\Rancor\Forums\Board;
-use AndrykVP\Rancor\Forums\Category;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Group;
+use AndrykVP\Rancor\Forums\Models\Reply;
 
 trait ForumUser
 {
@@ -13,7 +16,7 @@ trait ForumUser
      */
     public function groups()
     {
-        return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
+        return $this->morphToMany(Group::class,'groupable','forum_groupables')->withTimestamps();
     }
 
     /**
@@ -23,7 +26,7 @@ trait ForumUser
      */
     public function boards()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Board', 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany(Board::class, 'forum_board_user')->withTimestamps();
     }
 
     /**
@@ -33,7 +36,7 @@ trait ForumUser
      */
     public function unreadDiscussions()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Forums\Discussion', 'forum_discussion_user')->whereHas('board', function($query) {
+        return $this->belongsToMany(Discussion::class, 'forum_discussion_user')->whereHas('board', function($query) {
             $query->whereIn('id', $this->topics());
       })->withTimestamps()->orderByDesc('updated_at');
     }
@@ -45,7 +48,7 @@ trait ForumUser
      */
     public function replies()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Reply', 'author_id')->latest();
+        return $this->hasMany(Reply::class, 'author_id')->latest();
     }
 
     /**
@@ -57,7 +60,7 @@ trait ForumUser
     {
         if($this->hasPermission('view-forum-boards'))
         {
-            return Board::all()->pluck('id');
+            return Board::select('id')->get();
         }
 
         return $this->groups->pluck('boards')->flatten()->merge($this->boards)->pluck('id')->unique();

@@ -3,10 +3,10 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Reply;
-use AndrykVP\Rancor\Forums\Discussion;
+use AndrykVP\Rancor\Forums\Models\Reply;
+use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Http\Requests\NewReplyForm;
 use AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm;
 
@@ -25,7 +25,7 @@ class ReplyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \App\User  $user
+     * @param \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function index(User $user)

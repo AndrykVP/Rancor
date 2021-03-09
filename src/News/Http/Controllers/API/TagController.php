@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\News\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Tag;
+use AndrykVP\Rancor\News\Models\Tag;
 use AndrykVP\Rancor\News\Http\Resources\TagResource;
 use AndrykVP\Rancor\News\Http\Requests\TagForm;
 

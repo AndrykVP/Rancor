@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\News\Http\Controllers;
 
-use AndrykVP\Rancor\News\Tag;
-use AndrykVP\Rancor\News\Http\Requests\TagForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\News\Models\Tag;
+use AndrykVP\Rancor\News\Http\Requests\TagForm;
 
 class TagController extends Controller
 {

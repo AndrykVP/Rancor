@@ -1,8 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums;
+namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\CategoryFactory;
 
 class Category extends Model
 {
@@ -48,5 +49,15 @@ class Category extends Model
     public function groups()
     {
         return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return CategoryFactory::new();
     }
 }

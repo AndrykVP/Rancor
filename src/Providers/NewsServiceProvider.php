@@ -4,9 +4,9 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\News\Article;
+use AndrykVP\Rancor\News\Models\Article;
+use AndrykVP\Rancor\News\Models\Tag;
 use AndrykVP\Rancor\News\Policies\ArticlePolicy;
-use AndrykVP\Rancor\News\Tag;
 use AndrykVP\Rancor\News\Policies\TagPolicy;
 
 class NewsServiceProvider extends ServiceProvider

@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Department;
+use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Http\Resources\DepartmentResource;
 use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
 

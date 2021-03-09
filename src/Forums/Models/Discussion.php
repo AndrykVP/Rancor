@@ -1,11 +1,22 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums;
+namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\DiscussionFactory;
 
 class Discussion extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return DiscussionFactory::new();
+    }
+    
     /**
      * Attributes available for mass assignment
      * 
@@ -37,7 +48,7 @@ class Discussion extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
@@ -47,7 +58,7 @@ class Discussion extends Model
      */
     public function visitors()
     {
-        return $this->belongsToMany('App\User', 'forum_discussion_user')->withTimestamps();
+        return $this->belongsToMany('App\Models\User', 'forum_discussion_user')->withTimestamps();
     }
 
     /**

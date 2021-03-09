@@ -1,11 +1,25 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure;
+namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use AndrykVP\Database\Factories\DepartmentFactory;
+use AndrykVP\Rancor\Structure\Models\Rank;
+use AndrykVP\Rancor\Structure\Models\Faction;
 
 class Department extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return DepartmentFactory::new();
+    }
+    
     /**
      * Defines the table name
      * 
@@ -27,7 +41,7 @@ class Department extends Model
      */
     public function ranks()
     {
-        return $this->hasMany('AndrykVP\Rancor\Structure\Rank')->orderBy('level','desc');
+        return $this->hasMany(Rank::class)->orderBy('level','desc');
     }
 
     /**
@@ -37,7 +51,7 @@ class Department extends Model
      */
     public function users()
     {
-        return $this->hasManyThrough('App\User', 'AndrykVP\Rancor\Structure\Rank');
+        return $this->hasManyThrough(User::class, Rank::class);
     }
 
     /**
@@ -47,6 +61,6 @@ class Department extends Model
      */
     public function faction()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Structure\Faction');
+        return $this->belongsTo(Faction::class);
     }
 }

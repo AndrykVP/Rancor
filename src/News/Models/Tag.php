@@ -1,11 +1,22 @@
 <?php
 
-namespace AndrykVP\Rancor\News;
+namespace AndrykVP\Rancor\News\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\TagFactory;
 
 class Tag extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return TagFactory::new();
+    }
+    
     /**
      * Defines the table name
      * 

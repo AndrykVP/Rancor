@@ -2,12 +2,12 @@
 
 namespace AndrykVP\Rancor\Scanner\Http\Controllers\API;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Scanner\Entry;
+use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
 use AndrykVP\Rancor\Scanner\Services\EntryParseService;
 use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
-use Illuminate\Http\Request;
 
 class EntryController extends Controller
 {

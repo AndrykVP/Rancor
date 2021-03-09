@@ -3,6 +3,7 @@
 namespace AndrykVP\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ForumGroupSeeder extends Seeder
 {

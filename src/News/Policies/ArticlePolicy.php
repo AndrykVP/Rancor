@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\News\Policies;
 
-use App\User;
-use AndrykVP\Rancor\News\Article;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\User;
+use AndrykVP\Rancor\News\Models\Article;
 
 class ArticlePolicy
 {
@@ -14,7 +14,7 @@ class ArticlePolicy
     /**
      * Bypass policy for Admin users.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function before($user, $ability)
@@ -27,7 +27,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can view all records of model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -40,7 +40,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */
@@ -57,7 +57,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -70,7 +70,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */
@@ -85,7 +85,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param \AndrykVP\Rncor\News\Article  $article
      * @return mixed
      */

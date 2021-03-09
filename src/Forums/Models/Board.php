@@ -1,8 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums;
+namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\BoardFactory;
 
 class Board extends Model
 {
@@ -84,7 +85,7 @@ class Board extends Model
      */
     public function moderators()
     {
-        return $this->belongsToMany('App\User', 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany('App\Models\User', 'forum_board_user')->withTimestamps();
     }
 
     /**
@@ -116,5 +117,15 @@ class Board extends Model
     public function scopeTopTier($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return BoardFactory::new();
     }
 }

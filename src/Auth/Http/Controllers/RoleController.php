@@ -2,8 +2,8 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
-use AndrykVP\Rancor\Auth\Role;
-use AndrykVP\Rancor\Auth\Permission;
+use AndrykVP\Rancor\Auth\Models\Role;
+use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

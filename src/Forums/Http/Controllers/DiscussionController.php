@@ -5,8 +5,8 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Discussion;
-use AndrykVP\Rancor\Forums\Board;
+use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
 use AndrykVP\Rancor\Forums\Http\Requests\EditDiscussionForm;
 

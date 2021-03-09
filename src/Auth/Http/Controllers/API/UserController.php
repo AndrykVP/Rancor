@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 
@@ -39,7 +39,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, User $user)
@@ -53,7 +53,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(UserForm $request, User $user)
@@ -95,7 +95,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Reply;
+use AndrykVP\Rancor\Forums\Models\Reply;
 use AndrykVP\Rancor\Forums\Http\Resources\ReplyResource;
 use AndrykVP\Rancor\Forums\Http\Requests\ReplyForm;
 

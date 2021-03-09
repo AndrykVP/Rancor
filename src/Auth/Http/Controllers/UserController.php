@@ -2,15 +2,15 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
-use AndrykVP\Rancor\Structure\Faction;
-use AndrykVP\Rancor\Structure\Department;
-use AndrykVP\Rancor\Structure\Rank;
-use AndrykVP\Rancor\Auth\Role;
+use AndrykVP\Rancor\Auth\Models\Role;
+use AndrykVP\Rancor\Structure\Models\Faction;
+use AndrykVP\Rancor\Structure\Models\Department;
+use AndrykVP\Rancor\Structure\Models\Rank;
 
 class UserController extends Controller
 {
@@ -52,7 +52,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -67,7 +67,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -87,7 +87,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(UserForm $request, User $user)
@@ -130,7 +130,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

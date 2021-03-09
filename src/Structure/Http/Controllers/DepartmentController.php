@@ -2,11 +2,11 @@
 
 namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
-use AndrykVP\Rancor\Structure\Department;
-use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
-use AndrykVP\Rancor\Structure\Faction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Structure\Models\Department;
+use AndrykVP\Rancor\Structure\Models\Faction;
+use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
 
 class DepartmentController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Scanner\Entry;
-use AndrykVP\Rancor\Scanner\Http\Requests\EditEntry;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Scanner\Models\Entry;
+use AndrykVP\Rancor\Scanner\Http\Requests\EditEntry;
 
 class EntryController extends Controller
 {

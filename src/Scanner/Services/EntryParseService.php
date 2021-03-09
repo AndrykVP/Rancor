@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Services;
 
 use Illuminate\Support\Facades\File;
-use AndrykVP\Rancor\Scanner\Entry;
+use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 use Carbon\Carbon;
 

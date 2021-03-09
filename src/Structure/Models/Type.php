@@ -3,9 +3,21 @@
 namespace AndrykVP\Rancor\Structure;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\TypeFactory;
+use AndrykVP\Rancor\Structure\Models\Award;
 
 class Type extends Model
 {
+   /**
+    * Create a new factory instance for the model.
+    *
+    * @return \Illuminate\Database\Eloquent\Factories\Factory
+    */
+   protected static function newFactory()
+   {
+       return TypeFactory::new();
+   }
+   
    /**
     * Defines the table name
     * 
@@ -27,6 +39,6 @@ class Type extends Model
     */
    public function awards()
    {
-      return $this->hasMany('AndrykVP\Rancor\Structure\Award');
+      return $this->hasMany(Award::class);
    }
 }

@@ -1,7 +1,7 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use App\User;
+use App\Models\User;
 use AndrykVP\Rancor\News\Article;
 use AndrykVP\Rancor\News\Tag;
 use AndrykVP\Rancor\Forums\Group;

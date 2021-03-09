@@ -5,11 +5,11 @@ namespace AndrykVP\Rancor\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Router;
-use AndrykVP\Rancor\Auth\Role;
-use AndrykVP\Rancor\Auth\Policies\RolePolicy;
-use AndrykVP\Rancor\Auth\Permission;
+use App\Models\User;
+use AndrykVP\Rancor\Auth\Models\Permission;
+use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Policies\PermissionPolicy;
-use App\User;
+use AndrykVP\Rancor\Auth\Policies\RolePolicy;
 use AndrykVP\Rancor\Auth\Policies\UserPolicy;
 use AndrykVP\Rancor\Auth\Http\Middleware\AdminAccess;
 

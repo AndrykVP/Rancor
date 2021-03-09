@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use AndrykVP\Rancor\Audit\Events\RankChange;
-use AndrykVP\Rancor\Structure\Rank;
+use AndrykVP\Rancor\Structure\Models\Rank;
 
 class UserRank
 {

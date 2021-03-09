@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit;
+namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +20,7 @@ class AwardLog extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
@@ -40,6 +40,6 @@ class AwardLog extends Model
      */
     public function creator()
     {
-        return $this->belongsTo('App\User', 'updated_by');
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }

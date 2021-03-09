@@ -1,11 +1,22 @@
 <?php
 
-namespace AndrykVP\Rancor\News;
+namespace AndrykVP\Rancor\News\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\ArticleFactory;
 
 class Article extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return ArticleFactory::new();
+    }
+    
     /**
      * Defines the table name
      * 
@@ -44,7 +55,7 @@ class Article extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User','author_id');
+        return $this->belongsTo('App\Models\User','author_id');
     }
 
     /**
@@ -54,7 +65,7 @@ class Article extends Model
      */
     public function editor()
     {
-        return $this->belongsTo('App\User','editor_id');
+        return $this->belongsTo('App\Models\User','editor_id');
     }
 
     /**

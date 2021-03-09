@@ -2,13 +2,13 @@
 
 namespace AndrykVP\Rancor\Holocron\Http\Controllers;
 
-use AndrykVP\Rancor\Holocron\Node;
-use AndrykVP\Rancor\Holocron\Http\Requests\NewNodeForm;
-use AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm;
-use AndrykVP\Rancor\Holocron\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Holocron\Models\Node;
+use AndrykVP\Rancor\Holocron\Models\Collection;
+use AndrykVP\Rancor\Holocron\Http\Requests\NewNodeForm;
+use AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm;
 
 class NodeController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
-use AndrykVP\Rancor\Structure\Faction;
-use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Structure\Models\Faction;
+use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
 
 class FactionController extends Controller
 {

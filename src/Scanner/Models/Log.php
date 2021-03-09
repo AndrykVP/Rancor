@@ -1,8 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner;
+namespace AndrykVP\Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class Log extends Model
 {
@@ -39,7 +41,7 @@ class Log extends Model
      */
     public function contributor()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     /**
@@ -49,6 +51,6 @@ class Log extends Model
      */
     public function entry()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Scanner\Entry');
+        return $this->belongsTo(Entry::class);
     }
 }

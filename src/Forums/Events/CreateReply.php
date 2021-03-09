@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use AndrykVP\Rancor\Forums\Reply;
+use AndrykVP\Rancor\Forums\Models\Reply;
 
 class CreateReply
 {

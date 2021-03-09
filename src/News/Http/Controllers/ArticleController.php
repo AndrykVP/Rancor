@@ -2,13 +2,13 @@
 
 namespace AndrykVP\Rancor\News\Http\Controllers;
 
-use AndrykVP\Rancor\News\Article;
-use AndrykVP\Rancor\News\Tag;
-use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
-use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\News\Models\Article;
+use AndrykVP\Rancor\News\Models\Tag;
+use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
+use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
 
 class ArticleController extends Controller
 {

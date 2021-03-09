@@ -1,11 +1,22 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron;
+namespace AndrykVP\Rancor\Holocron\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\CollectionFactory;
 
 class Collection extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return CollectionFactory::new();
+    }
+    
     /**
      * Defines the table name
      * 

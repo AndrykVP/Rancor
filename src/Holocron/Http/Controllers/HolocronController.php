@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Holocron\Http\Controllers;
 
-use AndrykVP\Rancor\Holocron\Node;
-use AndrykVP\Rancor\Holocron\Collection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Holocron\Models\Node;
+use AndrykVP\Rancor\Holocron\Models\Collection;
 
 class HolocronController extends Controller
 {

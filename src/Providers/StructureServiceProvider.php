@@ -4,12 +4,16 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Structure\Faction;
-use AndrykVP\Rancor\Structure\Department;
-use AndrykVP\Rancor\Structure\Rank;
+use AndrykVP\Rancor\Structure\Models\Award;
+use AndrykVP\Rancor\Structure\Models\Faction;
+use AndrykVP\Rancor\Structure\Models\Department;
+use AndrykVP\Rancor\Structure\Models\Rank;
+use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Policies\AwardPolicy;
 use AndrykVP\Rancor\Structure\Policies\FactionPolicy;
 use AndrykVP\Rancor\Structure\Policies\DepartmentPolicy;
 use AndrykVP\Rancor\Structure\Policies\RankPolicy;
+use AndrykVP\Rancor\Structure\Policies\TypePolicy;
 
 class StructureServiceProvider extends ServiceProvider
 {
@@ -19,9 +23,11 @@ class StructureServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        Award::class => AwardPolicy::class,
         Faction::class => FactionPolicy::class,
         Department::class => DepartmentPolicy::class,
         Rank::class => RankPolicy::class,
+        Type::class => TypePolicy::class,
     ];
 
     /**
@@ -62,9 +68,5 @@ class StructureServiceProvider extends ServiceProvider
         foreach ($this->policies as $key => $value) {
             Gate::policy($key, $value);
         }
-
-        Gate::define('manage-faction', function ($user) {
-            return $user->hasPermission('manage-faction');
-        });
     }
 }

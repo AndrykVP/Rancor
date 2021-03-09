@@ -2,6 +2,9 @@
 
 namespace AndrykVP\Rancor\Auth\Traits;
 
+use AndrykVP\Rancor\Auth\Models\Permission;
+use AndrykVP\Rancor\Auth\Models\Role;
+
 trait HasPrivs
 {
     /**
@@ -11,7 +14,7 @@ trait HasPrivs
      */
     public function permissions()
     {
-        return $this->morphToMany('AndrykVP\Rancor\Auth\Permission', 'permissible', 'rancor_permissibles')->withTimestamps();
+        return $this->morphToMany(Permission::class, 'permissible', 'rancor_permissibles')->withTimestamps();
     }
 
     /**
@@ -21,7 +24,7 @@ trait HasPrivs
      */
     public function roles()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Auth\Role', 'rancor_role_user')->withTimestamps();
+        return $this->belongsToMany(Role::class, 'rancor_role_user')->withTimestamps();
     }
 
     /**

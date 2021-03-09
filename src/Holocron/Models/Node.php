@@ -1,14 +1,25 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron;
+namespace AndrykVP\Rancor\Holocron\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use Auth;
+use AndrykVP\Database\Factories\NodeFactory;
 
 class Node extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return NodeFactory::new();
+    }
+    
     /**
      * Defines the table name
      * 
@@ -76,7 +87,7 @@ class Node extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User','author_id');
+        return $this->belongsTo('App\Models\User','author_id');
     }
 
     /**
@@ -86,7 +97,7 @@ class Node extends Model
      */
     public function editor()
     {
-        return $this->belongsTo('App\User','editor_id');
+        return $this->belongsTo('App\Models\User','editor_id');
     }
 
     /**

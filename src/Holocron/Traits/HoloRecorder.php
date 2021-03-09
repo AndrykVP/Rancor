@@ -2,6 +2,8 @@
 
 namespace AndrykVP\Rancor\Holocron\Traits;
 
+use AndrykVP\Rancor\Holocron\Models\Node;
+
 trait HoloRecorder
 {
     /**
@@ -11,7 +13,7 @@ trait HoloRecorder
      */
     public function createdNodes()
     {
-        return $this->hasMany('AndrykVP\Rancor\Holocron\Node','id','author_id');
+        return $this->hasMany(Node::class,'id','author_id');
     }
 
     /**
@@ -21,6 +23,6 @@ trait HoloRecorder
      */
     public function editedNodes()
     {
-        return $this->hasMany('AndrykVP\Rancor\Holocron\Node','id','editor_id');
+        return $this->hasMany(Node::class,'id','editor_id');
     }
 }

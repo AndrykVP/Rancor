@@ -1,12 +1,23 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums;
+namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
+use AndrykVP\Database\Factories\ReplyFactory;
 
 class Reply extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return ReplyFactory::new();
+    }
+    
     /**
      * Attributes available for mass assignment
      * 
@@ -53,7 +64,7 @@ class Reply extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
@@ -63,7 +74,7 @@ class Reply extends Model
      */
     public function editor()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**

@@ -4,10 +4,10 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Holocron\Node;
-use AndrykVP\Rancor\Holocron\Collection;
-use AndrykVP\Rancor\Holocron\Policies\NodePolicy;
+use AndrykVP\Rancor\Holocron\Models\Collection;
+use AndrykVP\Rancor\Holocron\Models\Node;
 use AndrykVP\Rancor\Holocron\Policies\CollectionPolicy;
+use AndrykVP\Rancor\Holocron\Policies\NodePolicy;
 
 class HolocronServiceProvider extends ServiceProvider
 {

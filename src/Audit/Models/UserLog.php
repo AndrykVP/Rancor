@@ -1,35 +1,35 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit;
+namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NodeLog extends Model
+class UserLog extends Model
 {
     /**
      * Defines the table name
      * 
      * @var string
      */
-    protected $table = 'changelog_nodes';
+    protected $table = 'changelog_users';
 
     /**
      * Relationship to User model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creator()
+    public function user()
     {
-        return $this->belongsTo('App\User', 'updated_by');
+        return $this->belongsTo('App\Models\User');
     }
 
     /**
-     * Relationship to Award model
+     * Relationship to Role model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function node()
+    public function creator()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Holocron\Node');
+        return $this->belongsTo('App\Models\User','updated_by');
     }
 }

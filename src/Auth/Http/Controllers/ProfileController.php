@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf;
-use App\User;
+use App\Models\User;
 use Auth;
 
 class ProfileController extends Controller
@@ -24,7 +24,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -73,7 +73,7 @@ class ProfileController extends Controller
     /**
      * Show the replies posted by the specified user.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function replies(User $user)

@@ -2,7 +2,7 @@
 
 namespace AndrykVP\Rancor\Auth\Policies;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,7 +13,7 @@ class UserPolicy
     /**
      * Bypass policy for Admin users.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function before($user, $ability)
@@ -26,7 +26,7 @@ class UserPolicy
     /**
      * Determine whether the user can view all records of model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -39,8 +39,8 @@ class UserPolicy
     /**
      * Determine whether the user can view the model's replies.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function viewReplies(User $user, User $model)
@@ -54,8 +54,8 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function view(User $user, User $model)
@@ -69,8 +69,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function update(User $user, User $model)
@@ -86,8 +86,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function uploadArt(User $user)
@@ -100,8 +100,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function changeRank(User $user)
@@ -114,8 +114,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function changeRoles(User $user)
@@ -128,8 +128,8 @@ class UserPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\User  $user
-     * @param  \App\User  $model
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function delete(User $user)

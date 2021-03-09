@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\News\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Article;
+use AndrykVP\Rancor\News\Models\Article;
 use AndrykVP\Rancor\News\Http\Resources\ArticleResource;
 use AndrykVP\Rancor\News\Http\Requests\ArticleForm;
 

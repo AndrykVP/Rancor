@@ -1,11 +1,25 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner;
+namespace AndrykVP\Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Database\Factories\EntryFactory;
+use AndrykVP\Rancor\Scanner\Events\EditScan;
+use AndrykVP\Rancor\Scanner\Models\Log;
+use App\Models\User;
 
 class Entry extends Model
 {
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return EntryFactory::new();
+    }
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -55,7 +69,7 @@ class Entry extends Model
      * @var array
      */
     protected $dispatchesEvents = [
-        'updating' => \AndrykVP\Rancor\Scanner\Events\EditScan::class,
+        'updating' => EditScan::class,
     ];
 
     /**
@@ -65,7 +79,7 @@ class Entry extends Model
      */
     public function changelog()
     {
-        return $this->hasMany('AndrykVP\Rancor\Scanner\Log')->latest();
+        return $this->hasMany(Log::class)->latest();
     }
 
     /**
@@ -75,6 +89,6 @@ class Entry extends Model
      */
     public function contributor()
     {
-        return $this->belongsTo('App\User', 'updated_by');
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

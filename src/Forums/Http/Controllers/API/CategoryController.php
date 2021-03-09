@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Category;
+use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Resources\CategoryResource;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
 

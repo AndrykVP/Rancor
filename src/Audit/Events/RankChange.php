@@ -2,12 +2,12 @@
 
 namespace AndrykVP\Rancor\Audit\Events;
 
-use App\User;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
+use Auth;
 
 class RankChange
 {
@@ -16,7 +16,7 @@ class RankChange
     /**
      * Class Variable User
      * 
-     * @var App\User
+     * @var App\Models\User
      */
     public $user;
 

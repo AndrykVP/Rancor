@@ -4,8 +4,10 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Blade;
+use AndrykVP\Rancor\Package\View\Components\RancorLayout;
 
-class FrameworkServiceProvider extends ServiceProvider
+class PackageServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -51,7 +53,7 @@ class FrameworkServiceProvider extends ServiceProvider
     {
         // Register Morph Map
         Relation::morphMap([
-            'users' => 'App\User',
+            'users' => 'App\Models\User',
             'roles' => 'AndrykVP\Rancor\Auth\Role',
             'categories' => 'AndrykVP\Rancor\Forums\Category',
             'boards' => 'AndrykVP\Rancor\Forums\Board',
@@ -59,6 +61,7 @@ class FrameworkServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
+        Blade::component('rancor-layout', RancorLayout::class);
         
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Package/Routes/web.php');

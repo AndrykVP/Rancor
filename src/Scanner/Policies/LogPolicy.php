@@ -2,7 +2,7 @@
 
 namespace AndrykVP\Rancor\Scanner\Policies;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,7 +13,7 @@ class LogPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function view(User $user)
@@ -26,7 +26,7 @@ class LogPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function delete(User $user)

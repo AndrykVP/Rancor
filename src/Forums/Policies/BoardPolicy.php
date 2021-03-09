@@ -2,8 +2,8 @@
 
 namespace AndrykVP\Rancor\Forums\Policies;
 
-use App\User;
-use AndrykVP\Rancor\Forums\Board;
+use App\Models\User;
+use AndrykVP\Rancor\Forums\Models\Board;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -14,7 +14,7 @@ class BoardPolicy
     /**
      * Bypass policy for Admin users.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function before($user, $ability)
@@ -27,7 +27,7 @@ class BoardPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -40,7 +40,7 @@ class BoardPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param  \AndrykVP\Rancor\Forums\Board  $board
      * @return mixed
      */
@@ -56,7 +56,7 @@ class BoardPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -69,7 +69,7 @@ class BoardPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param  \AndrykVP\Rancor\Forums\Board  $board
      * @return mixed
      */
@@ -84,7 +84,7 @@ class BoardPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param  \AndrykVP\Rancor\Forums\Board  $board
      * @return mixed
      */
@@ -98,7 +98,7 @@ class BoardPolicy
     /**
      * Determine whether the user can post to the model.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @param  \AndrykVP\Rancor\Forums\Board  $board
      * @return mixed
      */

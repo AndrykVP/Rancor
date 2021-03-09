@@ -32,14 +32,14 @@
                   <svg class="mr-4" width="20" height="20" stroke="none" fill="currentColor" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet" data-attributes-set=",xmlns:xlink,xmlns,viewBox,preserveAspectRatio"><path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg>
                   {{ __('Dashboard') }}
                </a>
-               @if( Auth::user()->can('viewAny', \App\User::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Auth\Permission::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Auth\Role::class))
+               @if( Auth::user()->can('viewAny', \App\Models\User::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Auth\Permission::class) || Auth::user()->can('viewAny', \AndrykVP\Rancor\Auth\Role::class))
                <button class="list-group-item list-group-item-action {{ in_array(Request::segment(2), ['users', 'roles', 'permissions']) ? 'active' : '' }}" data-toggle="collapse" data-target="#auth" aria-expanded="false" aria-controls="auth">
                   <svg class="mr-4" width="20" height="20" stroke="none" fill="currentColor" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet" data-attributes-set=",xmlns:xlink,xmlns,viewBox,preserveAspectRatio"><path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                   {{ __('Authentication') }}
                </button>
                <div id="auth" class="collapse" data-parent="#sidebar-wrapper">
                   <div class="list-group list-group-flush">
-                     @can('viewAny', \App\User::class)
+                     @can('viewAny', \App\Models\User::class)
                     <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-secondary small text-uppercase list-group-item-action {{ Request::segment(2) == 'users' ? 'active' : '' }}">{{ __('Users') }}</a>
                     @endcan
                     @can('viewAny', \AndrykVP\Rancor\Auth\Role::class)

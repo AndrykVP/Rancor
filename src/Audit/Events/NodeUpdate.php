@@ -2,11 +2,11 @@
 
 namespace AndrykVP\Rancor\Audit\Events;
 
-use AndrykVP\Rancor\Holocron\Node;
 use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use AndrykVP\Rancor\Holocron\Models\Node;
 
 class NodeUpdate
 {

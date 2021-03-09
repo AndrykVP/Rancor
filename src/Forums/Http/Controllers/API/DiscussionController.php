@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Discussion;
+use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Http\Resources\DiscussionResource;
 use AndrykVP\Rancor\Forums\Http\Requests\DiscussionForm;
 

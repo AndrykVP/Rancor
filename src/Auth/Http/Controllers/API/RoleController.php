@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Auth\Role;
+use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Http\Resources\RoleResource;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 

@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
-use AndrykVP\Rancor\Structure\Type;
-use AndrykVP\Rancor\Structure\Http\Requests\TypeForm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Http\Requests\TypeForm;
 
 class TypeController extends Controller
 {

@@ -1,8 +1,11 @@
 <?php
 
 namespace AndrykVP\Rancor\Audit\Traits;
-use App\User;
-use AndrykVP\Rancor\Audit\UserLog;
+
+use App\Models\User;
+use AndrykVP\Rancor\Audit\Models\AwardLog;
+use AndrykVP\Rancor\Audit\Models\NodeLog;
+use AndrykVP\Rancor\Audit\Models\UserLog;
 
 trait Auditable
 {
@@ -11,9 +14,9 @@ trait Auditable
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function award_changelog()
+    public function awardLog()
     {
-        return $this->hasMany('AndrykVP\Rancor\Audit\AwardLog')->latest();
+        return $this->hasMany(AwardLog::class)->latest();
     }
     
     /**
@@ -21,9 +24,9 @@ trait Auditable
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function node_changelog()
+    public function nodeLog()
     {
-        return $this->hasMany('AndrykVP\Rancor\Audit\NodeLog')->latest();
+        return $this->hasMany(NodeLog::class)->latest();
     }
     
     /**
@@ -31,8 +34,8 @@ trait Auditable
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user_changelog()
+    public function userLog()
     {
-        return $this->hasMany('AndrykVP\Rancor\Audit\UserLog')->latest();
+        return $this->hasMany(UserLog::class)->latest();
     }
 }

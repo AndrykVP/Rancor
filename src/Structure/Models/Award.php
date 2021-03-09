@@ -1,11 +1,24 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure;
+namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use AndrykVP\Database\Factories\AwardFactory;
+use AndrykVP\Rancor\Structure\Models\Type;
 
 class Award extends Model
 {
+   /**
+    * Create a new factory instance for the model.
+    *
+    * @return \Illuminate\Database\Eloquent\Factories\Factory
+    */
+   protected static function newFactory()
+   {
+       return AwardFactory::new();
+   }
+   
    /**
     * Defines the table name
     * 
@@ -27,7 +40,7 @@ class Award extends Model
     */
    public function users()
    {
-      return $this->belongsToMany('App\User', 'structure_award_user')->withPivot('level')->withTimestamps();
+      return $this->belongsToMany(User::class, 'structure_award_user')->withPivot('level')->withTimestamps();
    }
 
    /**
@@ -37,6 +50,6 @@ class Award extends Model
     */
     public function type()
     {
-       return $this->belongsTo('AndrykVP\Rancor\Structure\Type');
+       return $this->belongsTo(Type::class);
     }
 }

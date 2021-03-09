@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Listeners;
 
 use AndrykVP\Rancor\Scanner\Events\EditScan;
-use AndrykVP\Rancor\Scanner\Log;
+use AndrykVP\Rancor\Scanner\Models\Log;
 use Illuminate\Http\Request;
 
 class CreateScanLog

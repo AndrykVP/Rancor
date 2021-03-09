@@ -17,14 +17,13 @@ Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffold
 Before installing the Rancor package. Make sure that you meet the following requirements:
 
 - PHP 7^
-- Laravel 7^
+- Laravel 8^
 
 ### Dependencies
 
 The following packages will be installed by Composer if they have not yet been installed:
 
 - [HTMLPurifier](https://github.com/mewebstudio/Purifier)
-- [Doctrine DBAL](https://github.com/doctrine/dbal)
 
 ### Installing
 
@@ -39,7 +38,7 @@ Because of the development in Laravel 7, the package is auto-discovered and you 
 Backwards compatibility to previous versions of Laravel has not been tested and it is not recommended to use with previous versions of Laravel 7. However, if you wish to test it yourself, you may add the following lines of code at the end of your `config/app.php` file:
 
 ```php
-AndrykVP\Rancor\Providers\FrameworkServiceProvider::class,
+AndrykVP\Rancor\Providers\PackageServiceProvider::class,
 Mews\Purifier\PurifierServiceProvider::class,
 ```
 

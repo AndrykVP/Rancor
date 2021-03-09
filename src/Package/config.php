@@ -22,7 +22,8 @@ return [
 
 
         // For User models that use an api_token column, use 'auth:api'
-        // For Laravel/Sanctum, use 'auth:sanctum'
+        // For Laravel/Sanctum, use 'auth:sanctum'. Otherwise if you use
+        // a custom middleware, use its alias here
 
         'api' => ['auth:api'],
     ],
@@ -53,7 +54,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify how many resources to display per page in the index Views.
-    | This pagination is used in the Admin panel, as well as the forum Discussions
+    | This pagination is used in all views that require pagination, for example
+    | the Admin panel, as well as the forum Discussions
     |
     */
 

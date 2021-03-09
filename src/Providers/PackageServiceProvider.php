@@ -18,13 +18,8 @@ class PackageServiceProvider extends ServiceProvider
     {
         // Merge Configuration for access in Package Helpers
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/app.php', 'rancor'
+            __DIR__.'/../Package/config.php', 'rancor'
         );
-
-        // Publishes config files
-        $this->publishes([
-            __DIR__.'/../../database/seeds' => database_path('seeds'),
-        ],'seeds');
 
         // Register all the Package's Service Providers
         $this->app->register(EventServiceProvider::class);  
@@ -68,9 +63,6 @@ class PackageServiceProvider extends ServiceProvider
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-        // Load factories
-        $this->loadFactoriesFrom(__DIR__.'/../../database/factories');
 
         // Publishes config files
         $this->publishes([

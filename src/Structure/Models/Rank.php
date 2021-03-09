@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Database\Factories\RankFactory;
+use AndrykVP\Rancor\Database\Factories\RankFactory;
 use AndrykVP\Rancor\Structure\Models\Department;
 
 class Rank extends Model

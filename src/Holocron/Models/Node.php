@@ -4,9 +4,9 @@ namespace AndrykVP\Rancor\Holocron\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use Auth;
-use AndrykVP\Database\Factories\NodeFactory;
+use AndrykVP\Rancor\Audit\Events\NodeUpdate;
+use AndrykVP\Rancor\Database\Factories\NodeFactory;
 
 class Node extends Model
 {

@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Structure;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\FactionFactory;
+use AndrykVP\Rancor\Database\Factories\FactionFactory;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Structure\Models\Department;
 

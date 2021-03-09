@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\News\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\ArticleFactory;
+use AndrykVP\Rancor\Database\Factories\ArticleFactory;
 
 class Article extends Model
 {

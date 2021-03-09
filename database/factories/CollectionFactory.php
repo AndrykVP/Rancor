@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Database\Factories;
+namespace AndrykVP\Rancor\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Holocron\Collection;

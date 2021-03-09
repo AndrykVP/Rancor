@@ -3,7 +3,8 @@
 namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\GroupFactory;
+use AndrykVP\Rancor\Database\Factories\GroupFactory;
+
 class Group extends Model
 {
     /**

@@ -27,15 +27,9 @@
       "wiki": "https://github.com/AndrykVP/Rancor/wiki"
    },
    "autoload": {
-      "classmap": [
-         "database/migrations",
-         "database/seeds"
-      ],
       "psr-4": {
          "AndrykVP\\Rancor\\": "src/",
-         "AndrykVP\\Database\\Factories\\": "database/factories/",
-         "AndrykVP\\Database\\Seeders\\": "database/seeders/"
- 
+         "AndrykVP\\Rancor\\Database\\": "database/" 
       }
    },
    "extra": {

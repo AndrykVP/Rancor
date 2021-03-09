@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\BoardFactory;
+use AndrykVP\Rancor\Database\Factories\BoardFactory;
 
 class Board extends Model
 {

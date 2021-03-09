@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\EntryFactory;
+use AndrykVP\Rancor\Database\Factories\EntryFactory;
 use AndrykVP\Rancor\Scanner\Events\EditScan;
 use AndrykVP\Rancor\Scanner\Models\Log;
 use App\Models\User;

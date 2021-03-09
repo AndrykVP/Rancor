@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
-use AndrykVP\Database\Factories\ReplyFactory;
+use AndrykVP\Rancor\Database\Factories\ReplyFactory;
 
 class Reply extends Model
 {

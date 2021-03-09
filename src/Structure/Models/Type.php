@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Structure;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\TypeFactory;
+use AndrykVP\Rancor\Database\Factories\TypeFactory;
 use AndrykVP\Rancor\Structure\Models\Award;
 
 class Type extends Model

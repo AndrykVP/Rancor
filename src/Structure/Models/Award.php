@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Database\Factories\AwardFactory;
+use AndrykVP\Rancor\Database\Factories\AwardFactory;
 use AndrykVP\Rancor\Structure\Models\Type;
 
 class Award extends Model

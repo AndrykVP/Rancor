@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\CategoryFactory;
+use AndrykVP\Rancor\Database\Factories\CategoryFactory;
 
 class Category extends Model
 {

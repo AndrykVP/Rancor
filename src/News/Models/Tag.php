@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\News\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Database\Factories\TagFactory;
+use AndrykVP\Rancor\Database\Factories\TagFactory;
 
 class Tag extends Model
 {

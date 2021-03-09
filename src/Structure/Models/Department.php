@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Database\Factories\DepartmentFactory;
+use AndrykVP\Rancor\Database\Factories\DepartmentFactory;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Structure\Models\Faction;
 

@@ -2,9 +2,8 @@
 
 namespace AndrykVP\Rancor\Database\Factories;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Forums\Group;
+use AndrykVP\Rancor\Forums\Models\Group;
 
 class GroupFactory extends Factory
 {

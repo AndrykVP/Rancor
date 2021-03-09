@@ -2,9 +2,8 @@
 
 namespace AndrykVP\Rancor\Database\Factories;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Scanner\Entry;
+use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class EntryFactory extends Factory
 {
@@ -14,19 +13,6 @@ class EntryFactory extends Factory
      * @var string
      */
     protected $model = Entry::class;
-    protected $users;
-
-    /**
-     * Class constructor
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->users = DB::table('users')->count();
-    }
-
-
     /**
      * Define the model's default state.
      *
@@ -58,7 +44,6 @@ class EntryFactory extends Factory
                 ],
             ],
             'last_seen' => now(),
-            'updated_by' => $this->faker->numberBetween(1,$this->users)
         ];
     }
 }

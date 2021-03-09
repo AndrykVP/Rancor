@@ -2,9 +2,8 @@
 
 namespace AndrykVP\Rancor\Database\Factories;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Structure\Type;
+use AndrykVP\Rancor\Structure\Models\Type;
 
 class TypeFactory extends Factory
 {

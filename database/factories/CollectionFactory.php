@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Holocron\Collection;
+use AndrykVP\Rancor\Holocron\Models\Collection;
 
 class CollectionFactory extends Factory
 {

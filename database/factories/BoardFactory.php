@@ -2,9 +2,8 @@
 
 namespace AndrykVP\Rancor\Database\Factories;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Forums\Board;
+use AndrykVP\Rancor\Forums\Models\Board;
 
 class BoardFactory extends Factory
 {
@@ -14,18 +13,6 @@ class BoardFactory extends Factory
      * @var string
      */
     protected $model = Board::class;
-    protected $categories;
-
-    /**
-     * Class constructor
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->categories = DB::table('forum_categories')->count();
-    }
-
 
     /**
      * Define the model's default state.
@@ -37,7 +24,6 @@ class BoardFactory extends Factory
         return [
             'name' => $this->faker->company,
             'description' => $this->faker->sentence(12),
-            'category_id' => $this->faker->numberBetween(1,$this->categories),
             'slug' => $this->faker->unique()->word,
             'order' => $this->faker->numberBetween(1,20),
         ];

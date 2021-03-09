@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Database\Factories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\News\Tag;
+use AndrykVP\Rancor\News\Models\Tag;
 
 class TagFactory extends Factory
 {

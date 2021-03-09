@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure;
+namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use AndrykVP\Rancor\Database\Factories\TypeFactory;

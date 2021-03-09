@@ -29,7 +29,8 @@
    "autoload": {
       "psr-4": {
          "AndrykVP\\Rancor\\": "src/",
-         "AndrykVP\\Rancor\\Database\\": "database/" 
+         "AndrykVP\\Rancor\\Database\\Seeders\\": "database/seeders/" ,
+         "AndrykVP\\Rancor\\Database\\Factories\\": "database/factories/" 
       }
    },
    "extra": {

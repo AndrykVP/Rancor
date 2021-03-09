@@ -23,6 +23,9 @@
       "laravel/framework": "^8.0",
       "mews/purifier": "^3.2"
    },
+   "require-dev": {
+      "orchestra/testbench": "^6.0"
+   },
    "support": {
       "wiki": "https://github.com/AndrykVP/Rancor/wiki"
    },
@@ -33,14 +36,17 @@
          "AndrykVP\\Rancor\\Database\\Factories\\": "database/factories/" 
       }
    },
+   "autoload-dev": {
+      "psr-4": {
+         "AndrykVP\\Rancor\\Tests\\": "tests/"
+      }
+   },
+   "prefer-stable": true,
    "extra": {
       "laravel": {
          "providers": [
             "AndrykVP\\Rancor\\Providers\\PackageServiceProvider"
          ]
       }
-   },
-   "require-dev": {
-      "orchestra/testbench": "^6.0"
    }
 }

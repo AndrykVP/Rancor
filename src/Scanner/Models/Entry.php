@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\EntryFactory;
 use AndrykVP\Rancor\Scanner\Events\EditScan;
 use AndrykVP\Rancor\Scanner\Models\Log;
@@ -10,6 +11,8 @@ use App\Models\User;
 
 class Entry extends Model
 {
+    use HasFactory;
+    
     /**
      * Create a new factory instance for the model.
      *

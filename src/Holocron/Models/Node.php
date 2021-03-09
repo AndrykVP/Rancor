@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Holocron\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Auth;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
@@ -10,6 +11,8 @@ use AndrykVP\Rancor\Database\Factories\NodeFactory;
 
 class Node extends Model
 {
+    use HasFactory;
+    
     /**
      * Create a new factory instance for the model.
      *

@@ -3,10 +3,13 @@
 namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\GroupFactory;
 
 class Group extends Model
 {
+    use HasFactory;
+    
     /**
      * Create a new factory instance for the model.
      *

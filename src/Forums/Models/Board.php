@@ -3,10 +3,13 @@
 namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\BoardFactory;
 
 class Board extends Model
 {
+    use HasFactory;
+    
     /**
      * Attributes available for mass assignment
      * 

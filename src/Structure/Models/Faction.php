@@ -3,12 +3,14 @@
 namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Rancor\Database\Factories\FactionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Structure\Models\Department;
 
 class Faction extends Model
 {
+    use HasFactory;
+
     /**
      * Create a new factory instance for the model.
      *

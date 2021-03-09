@@ -3,11 +3,14 @@
 namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\TypeFactory;
 use AndrykVP\Rancor\Structure\Models\Award;
 
 class Type extends Model
 {
+   use HasFactory;
+   
    /**
     * Create a new factory instance for the model.
     *

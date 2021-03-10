@@ -3,6 +3,8 @@
 namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use AndrykVP\Rancor\Holocron\Models\Node;
 
 class NodeLog extends Model
 {
@@ -20,7 +22,7 @@ class NodeLog extends Model
      */
     public function creator()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by');
+        return $this->belongsTo(User::class, 'updated_by');
     }
 
     /**
@@ -30,6 +32,6 @@ class NodeLog extends Model
      */
     public function node()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Holocron\Node');
+        return $this->belongsTo(Node::class);
     }
 }

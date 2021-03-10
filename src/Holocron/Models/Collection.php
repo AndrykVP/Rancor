@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Holocron\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\CollectionFactory;
+use AndrykVP\Rancor\Holocron\Models\Node;
 
 class Collection extends Model
 {
@@ -48,6 +49,6 @@ class Collection extends Model
      */
     public function nodes()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Holocron\Node','holocron_collection_node')->withTimestamps();
+        return $this->belongsToMany(Node::class, 'holocron_collection_node')->withTimestamps();
     }
 }

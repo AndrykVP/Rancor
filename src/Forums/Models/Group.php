@@ -4,7 +4,10 @@ namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use AndrykVP\Rancor\Database\Factories\GroupFactory;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Category;
 
 class Group extends Model
 {
@@ -48,7 +51,7 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->morphedByMany('App\Models\User','groupable','forum_groupables')->withTimestamps();
+        return $this->morphedByMany(User::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
 
     /**
@@ -58,7 +61,7 @@ class Group extends Model
      */
     public function boards()
     {
-        return $this->morphedByMany('AndrykVP\Rancor\Forums\Board','groupable','forum_groupables')->withTimestamps();
+        return $this->morphedByMany(Board::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
 
     /**
@@ -68,6 +71,6 @@ class Group extends Model
      */
     public function categories()
     {
-        return $this->morphedByMany('AndrykVP\Rancor\Forums\Category','groupable','forum_groupables')->withTimestamps();
+        return $this->morphedByMany(Category::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
 }

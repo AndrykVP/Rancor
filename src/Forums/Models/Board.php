@@ -4,7 +4,13 @@ namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use AndrykVP\Rancor\Database\Factories\BoardFactory;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Group;
+use AndrykVP\Rancor\Forums\Models\Reply;
 
 class Board extends Model
 {
@@ -38,7 +44,7 @@ class Board extends Model
      */
     public function groups()
     {
-        return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
+        return $this->morphToMany(Group::class,'groupable','forum_groupables')->withTimestamps();
     }
 
     /**
@@ -48,7 +54,7 @@ class Board extends Model
      */
     public function category()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Forums\Category');
+        return $this->belongsTo(Category::class);
     }
 
     /**
@@ -58,7 +64,7 @@ class Board extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Forums\Board');
+        return $this->belongsTo(Board::class);
     }
 
     /**
@@ -68,7 +74,7 @@ class Board extends Model
      */
     public function children()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Board','parent_id');
+        return $this->hasMany(Board::class,'parent_id');
     }
 
     /**
@@ -78,7 +84,7 @@ class Board extends Model
      */
     public function discussions()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Discussion');
+        return $this->hasMany(Discussion::class);
     }
 
     /**
@@ -88,7 +94,7 @@ class Board extends Model
      */
     public function moderators()
     {
-        return $this->belongsToMany('App\Models\User', 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany(User::class, 'forum_board_user')->withTimestamps();
     }
 
     /**
@@ -98,7 +104,7 @@ class Board extends Model
      */
     public function replies()
     {
-        return $this->hasManyThrough('AndrykVP\Rancor\Forums\Reply','AndrykVP\Rancor\Forums\Discussion');
+        return $this->hasManyThrough(Reply::class,'AndrykVP\Rancor\Forums\Discussion');
     }
 
     /**
@@ -108,7 +114,7 @@ class Board extends Model
      */
     public function latest_reply()
     {
-        return $this->hasOneThrough('AndrykVP\Rancor\Forums\Reply','AndrykVP\Rancor\Forums\Discussion')->with(['author','discussion'])->latest();
+        return $this->hasOneThrough(Reply::class,'AndrykVP\Rancor\Forums\Discussion')->with(['author','discussion'])->latest();
     }
 
     /**

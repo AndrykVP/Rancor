@@ -3,6 +3,8 @@
 namespace AndrykVP\Rancor\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use AndrykVP\Rancor\Auth\Models\Role;
 
 class Permission extends Model
 {
@@ -27,7 +29,7 @@ class Permission extends Model
      */
     public function users()
     {
-        return $this->morphedByMany('App\Models\User','permissible', 'rancor_permissibles');
+        return $this->morphedByMany(User::class,'permissible', 'rancor_permissibles');
     }
 
     /**
@@ -37,6 +39,6 @@ class Permission extends Model
      */
     public function roles()
     {
-        return $this->morphedByMany('AndrykVP\Rancor\Auth\Role','permissible', 'rancor_permissibles');
+        return $this->morphedByMany(Role::class,'permissible', 'rancor_permissibles');
     }
 }

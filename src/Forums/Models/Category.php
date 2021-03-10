@@ -5,6 +5,9 @@ namespace AndrykVP\Rancor\Forums\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\CategoryFactory;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Group;
 
 class Category extends Model
 {
@@ -31,7 +34,7 @@ class Category extends Model
      */
     public function boards()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Board')->orderBy('order');
+        return $this->hasMany(Board::class)->orderBy('order');
     }
 
     /**
@@ -41,7 +44,7 @@ class Category extends Model
      */
     public function discussions()
     {
-        return $this->hasManyThrough('AndrykVP\Rancor\Forums\Discussion','AndrykVP\Rancor\Forums\Board');
+        return $this->hasManyThrough(Discussion::class, Board::class);
     }
 
     /**
@@ -51,7 +54,7 @@ class Category extends Model
      */
     public function groups()
     {
-        return $this->morphToMany('AndrykVP\Rancor\Forums\Group','groupable','forum_groupables')->withTimestamps();
+        return $this->morphToMany(Group::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
 
     /**

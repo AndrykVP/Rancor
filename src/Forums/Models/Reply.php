@@ -4,8 +4,10 @@ namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
 use AndrykVP\Rancor\Database\Factories\ReplyFactory;
+use AndrykVP\Rancor\Forums\Models\Discussion;
 
 class Reply extends Model
 {
@@ -67,7 +69,7 @@ class Reply extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -77,7 +79,7 @@ class Reply extends Model
      */
     public function editor()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -87,7 +89,7 @@ class Reply extends Model
      */
     public function discussion()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Forums\Discussion');
+        return $this->belongsTo(Discussion::class);
     }
 
     /**

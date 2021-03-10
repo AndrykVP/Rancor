@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\News\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\TagFactory;
+use AndrykVP\Rancor\News\Models\Article;
 
 class Tag extends Model
 {
@@ -48,6 +49,6 @@ class Tag extends Model
      */
     public function articles()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\News\Article','news_article_tag')->withTimestamps();
+        return $this->belongsToMany(Article::class, 'news_article_tag')->withTimestamps();
     }
 }

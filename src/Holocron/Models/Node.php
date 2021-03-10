@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Auth;
+use App\Models\User;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use AndrykVP\Rancor\Database\Factories\NodeFactory;
+use AndrykVP\Rancor\Holocron\Models\Collection;
 
 class Node extends Model
 {
@@ -90,7 +92,7 @@ class Node extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\Models\User','author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**
@@ -100,7 +102,7 @@ class Node extends Model
      */
     public function editor()
     {
-        return $this->belongsTo('App\Models\User','editor_id');
+        return $this->belongsTo(User::class, 'editor_id');
     }
 
     /**
@@ -110,6 +112,6 @@ class Node extends Model
      */
     public function collections()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\Holocron\Collection','holocron_collection_node')->withTimestamps();
+        return $this->belongsToMany(Collection::class, 'holocron_collection_node')->withTimestamps();
     }
 }

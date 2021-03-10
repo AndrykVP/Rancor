@@ -4,7 +4,9 @@ namespace AndrykVP\Rancor\News\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use AndrykVP\Rancor\Database\Factories\ArticleFactory;
+use AndrykVP\Rancor\News\Models\Tag;
 
 class Article extends Model
 {
@@ -58,7 +60,7 @@ class Article extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\Models\User','author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**
@@ -68,7 +70,7 @@ class Article extends Model
      */
     public function editor()
     {
-        return $this->belongsTo('App\Models\User','editor_id');
+        return $this->belongsTo(User::class, 'editor_id');
     }
 
     /**
@@ -78,7 +80,7 @@ class Article extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('AndrykVP\Rancor\News\Tag','news_article_tag')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'news_article_tag')->withTimestamps();
     }
 
 

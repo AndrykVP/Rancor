@@ -4,7 +4,10 @@ namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use AndrykVP\Rancor\Database\Factories\DiscussionFactory;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Reply;
 
 class Discussion extends Model
 {
@@ -51,7 +54,7 @@ class Discussion extends Model
      */
     public function author()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -61,7 +64,7 @@ class Discussion extends Model
      */
     public function visitors()
     {
-        return $this->belongsToMany('App\Models\User', 'forum_discussion_user')->withTimestamps();
+        return $this->belongsToMany(User::class, 'forum_discussion_user')->withTimestamps();
     }
 
     /**
@@ -71,7 +74,7 @@ class Discussion extends Model
      */
     public function board()
     {
-        return $this->belongsTo('AndrykVP\Rancor\Forums\Board');
+        return $this->belongsTo(Board::class);
     }
 
     /**
@@ -81,7 +84,7 @@ class Discussion extends Model
      */
     public function replies()
     {
-        return $this->hasMany('AndrykVP\Rancor\Forums\Reply');
+        return $this->hasMany(Reply::class);
     }
 
     /**
@@ -91,7 +94,7 @@ class Discussion extends Model
      */
     public function latest_reply()
     {
-        return $this->hasOne('AndrykVP\Rancor\Forums\Reply')->with('author')->latest();
+        return $this->hasOne(Reply::class)->with('author')->latest();
     }
 
     /**

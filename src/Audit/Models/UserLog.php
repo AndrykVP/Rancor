@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Users;
 
 class UserLog extends Model
 {
@@ -20,7 +21,7 @@ class UserLog extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -30,6 +31,6 @@ class UserLog extends Model
      */
     public function creator()
     {
-        return $this->belongsTo('App\Models\User','updated_by');
+        return $this->belongsTo(User::class,'updated_by');
     }
 }

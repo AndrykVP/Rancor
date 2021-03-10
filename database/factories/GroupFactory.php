@@ -23,8 +23,8 @@ class GroupFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $faker->jobTitle,
-            'description' => $faker->catchPhrase,
+            'name' => $this->faker->jobTitle,
+            'description' => $this->faker->catchPhrase,
         ];
     }
 }

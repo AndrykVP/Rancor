@@ -26,24 +26,56 @@ class EntryFactory extends Factory
             'name' => $this->faker->name,
             'owner' => $this->faker->name,
             'position' => [
-                'galaxy' => [
-                    'x' => rand(0,400),
-                    'y' => rand(0,400)
-                ],
-                'system' => [
-                    'x' => rand(0,20),
-                    'y' => rand(0,20)
-                ],
-                'surface' => [
-                    'x' => rand(0,20),
-                    'y' => rand(0,20)
-                ],
-                'ground' => [
-                    'x' => rand(0,20),
-                    'y' => rand(0,20)
-                ],
+                'galaxy' => $this->coordinates(),
+                'system' => $this->coordinates()
             ],
             'last_seen' => now(),
         ];
     }
+
+    /**
+     * Indicate that the Entry is in atmosphere
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function atmosphere()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'position' => [
+                    'atmosphere' => $this->coordinates()
+                ],
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the Entry is on the surface
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function ground()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'position' => [
+                    'ground' => $this->coordinates()
+                ],
+            ];
+        });
+    }
+
+    /**
+     * Returns random X and Y coordinates
+     * 
+     * @return array
+     */
+    private function coordinates()
+    {
+        return [
+            'x' => rand(0,20),
+            'y' => rand(0,20)
+        ];
+    }
+
 }

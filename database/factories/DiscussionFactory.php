@@ -27,4 +27,32 @@ class DiscussionFactory extends Factory
             'is_locked' => $this->faker->boolean,
         ];
     }
+
+    /**
+     * Indicate that the Discussion is sticky
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function sticky($value = true)
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_sticky' => $value,
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the Discussion is locked
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function locked($value = true)
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_locked' => $value,
+            ];
+        });
+    }
 }

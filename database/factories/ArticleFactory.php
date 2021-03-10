@@ -28,4 +28,19 @@ class ArticleFactory extends Factory
             'is_published' => $this->faker->boolean,
         ];
     }
+
+    /**
+     * Indicate that the Article is published
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function published()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_published' => true,
+                'published_at' => now()
+            ];
+        });
+    }
 }

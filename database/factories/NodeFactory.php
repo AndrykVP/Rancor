@@ -29,4 +29,18 @@ class NodeFactory extends Factory
             'updated_at' => now(),
         ];
     }
+
+    /**
+     * Indicate that the Node is not public
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function privte()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_public' => false
+            ];
+        });
+    }
 }

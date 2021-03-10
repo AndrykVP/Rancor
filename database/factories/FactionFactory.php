@@ -23,8 +23,8 @@ class FactionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $faker->company,
-            'description' => $faker->catchPhrase,
+            'name' => $this->faker->company,
+            'description' => $this->faker->catchPhrase,
         ];
     }
 }

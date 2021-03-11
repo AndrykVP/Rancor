@@ -60,7 +60,7 @@ trait ForumUser
     {
         if($this->hasPermission('view-forum-boards'))
         {
-            return Board::select('id')->get();
+            return Board::all()->pluck('id');
         }
 
         return $this->groups->pluck('boards')->flatten()->merge($this->boards)->pluck('id')->unique();

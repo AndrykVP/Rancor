@@ -90,7 +90,7 @@ class Board extends Model
     /**
      * Relationship to User model
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function moderators()
     {
@@ -104,7 +104,7 @@ class Board extends Model
      */
     public function replies()
     {
-        return $this->hasManyThrough(Reply::class,'AndrykVP\Rancor\Forums\Discussion');
+        return $this->hasManyThrough(Reply::class, Discussion::class);
     }
 
     /**
@@ -114,7 +114,7 @@ class Board extends Model
      */
     public function latest_reply()
     {
-        return $this->hasOneThrough(Reply::class,'AndrykVP\Rancor\Forums\Discussion')->with(['author','discussion'])->latest();
+        return $this->hasOneThrough(Reply::class, Discussion::class)->with(['author','discussion'])->latest();
     }
 
     /**

@@ -4,16 +4,16 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Forum\Models\Board;
-use AndrykVP\Rancor\Forum\Models\Category;
-use AndrykVP\Rancor\Forum\Models\Discussion;
-use AndrykVP\Rancor\Forum\Models\Group;
-use AndrykVP\Rancor\Forum\Models\Reply;
-use AndrykVP\Rancor\Forum\Policies\BoardPolicy;
-use AndrykVP\Rancor\Forum\Policies\CategoryPolicy;
-use AndrykVP\Rancor\Forum\Policies\DiscussionPolicy;
-use AndrykVP\Rancor\Forum\Policies\GroupPolicy;
-use AndrykVP\Rancor\Forum\Policies\ReplyPolicy;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Group;
+use AndrykVP\Rancor\Forums\Models\Reply;
+use AndrykVP\Rancor\Forums\Policies\BoardPolicy;
+use AndrykVP\Rancor\Forums\Policies\CategoryPolicy;
+use AndrykVP\Rancor\Forums\Policies\DiscussionPolicy;
+use AndrykVP\Rancor\Forums\Policies\GroupPolicy;
+use AndrykVP\Rancor\Forums\Policies\ReplyPolicy;
 
 class ForumsServiceProvider extends ServiceProvider
 {

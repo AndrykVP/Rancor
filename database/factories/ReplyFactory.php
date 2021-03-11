@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Forum\Models\Reply;
+use AndrykVP\Rancor\Forums\Models\Reply;
 
 class ReplyFactory extends Factory
 {

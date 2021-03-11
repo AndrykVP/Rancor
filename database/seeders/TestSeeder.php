@@ -32,20 +32,15 @@ class TestSeeder extends Seeder
       /** 
        * Structure Seeding
        */
-      $factions = Faction::factory()->count(4)->has(
-         Department::factory()
-                     ->count(3)
-                     ->has(Rank::factory()->count(12))
-                     )->create();
+      $factions = Faction::factory()->count(4)->create();
+      $departments = Department::factory()->count(10)->for($factions->random())->create();
+      $ranks = Rank::factory()->count(36)->for($departments->random())->create();
 
       $types = Type::factory()
                      ->count(4)
                      ->has(Award::factory()->count(8))
                      ->create();
 
-      /**
-       * User Seeding
-       */
       $users = User::factory()->count(20)->for($ranks->random())->create();
 
       /**
@@ -77,7 +72,6 @@ class TestSeeder extends Seeder
                            ->count(6)
                            ->has(Board::factory()
                                  ->count(40)
-                                 ->has($users->random(), 'moderator')
                                  ->has(Discussion::factory()
                                        ->count(250)
                                        ->for($users->random(), 'author')

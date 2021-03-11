@@ -67,13 +67,13 @@ class TestSeeder extends Seeder
        * Forum Seeding
        */
       $groups = Group::factory()
-                     ->count(15)
+                     ->count(5)
                      ->has(Category::factory()
-                           ->count(6)
+                           ->count(2)
                            ->has(Board::factory()
-                                 ->count(10)
+                                 ->count(3)
                                  ->has(Discussion::factory()
-                                       ->count(20)
+                                       ->count(6)
                                        ->for($users->random(), 'author')
                                        ->has(Reply::factory()
                                              ->count(50)

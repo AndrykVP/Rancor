@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
 
-class RancorLayout extends Component
+class MainLayout extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class RancorLayout extends Component
      */
     public function render()
     {
-        return view('rancor::layouts.rancor');
+        return view('rancor::layouts.main');
     }
 }

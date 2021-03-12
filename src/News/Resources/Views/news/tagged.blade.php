@@ -8,16 +8,20 @@
             </svg>
          </li>
          <li class="inline-flex items-center text-gray-500">
-            {{ $article->name }}
+            #{{ $tag->name }}
          </li>
        </ul>
    </x-slot>
+   <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
+      {{ $articles->links() }}
+   </div>
  
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="flex flex-wrap md:flex-nowrap justify-between">
             <div class="border bg-white w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
-               <div class="px-6 py-4">
+               @foreach ($articles as $article)
+               <div class="border-b px-6 py-4">
                   <div class="py-2">
                      <div class="flex justify-between">
                         <a href="{{ route('news.show', $article) }}" class="font-bold text-xl hover:text-indigo-900 transition ease-in-out duration-200">{{ $article->name }}</a>
@@ -38,17 +42,21 @@
                         @endif
                      </div>
                      <p class="text-gray-700 text-base mb-2">
-                        {!! $article->body !!}
+                        {{ $article->description }}
                      </p>
+                  </div>
+                  <div class="py-2 mb-4">
+                     <a href="{{ route('news.show', $article) }}" class="bg-indigo-600 px-4 py-2 text-white rounded">Read More</a>
                   </div>
                   <div class="py-2">
                      @foreach($article->tags as $tag)
-                        <a href="{{ route('news.tagged', $tag) }}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-900 mr-2 mb-2">
+                        <a href="{{ route('news.tagged', $tag) }}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
                            #{{ $tag->name }}
                         </a>
                      @endforeach
                   </div>
                </div>
+               @endforeach
             </div>
              <div class="h-auto border bg-white w-full md:w-1/4 m:rounded overflow-hidden md:shadow-lg md:ml-4">
                <div class="font-bold text-xl px-4 py-4 mb-2">

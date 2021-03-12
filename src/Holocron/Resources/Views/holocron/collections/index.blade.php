@@ -15,7 +15,7 @@
  
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         <div class="border w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+         <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
             <div class="grid grid-cols-6 md:grid-cols-4 lg:grid-cols-3 gap-4 p-4">
                @foreach ($collections as $collection)
                <div class="mb-3">

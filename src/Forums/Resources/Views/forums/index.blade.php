@@ -1,18 +1,17 @@
-@extends('rancor::layouts.main')
-
-@section('content')
-<div class="container">
-   <div class="row justify-content-center">
-      <div class="col">
-         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="/forums/" id="index-breadcrumb">{{ __('Index') }}</a></li>
-            </ol>
-         </nav>
-         @foreach($categories as $category)
-         @include('rancor::forums.includes.categorycard', ['category' => $category])
+<x-rancor::main-layout>
+   <x-slot name="header">
+      <ul class="flex text-sm lg:text-base">
+         <li class="inline-flex items-center">
+            Forums
+         </li>
+       </ul>
+   </x-slot>
+ 
+   <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+         @foreach ($categories as $category)
+            <x-rancor::category-card :category="$category"/>
          @endforeach
       </div>
    </div>
-</div>
-@endsection
+</x-rancor::main-layout>

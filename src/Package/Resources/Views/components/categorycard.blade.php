@@ -1,5 +1,10 @@
-<div class="card mb-4">
-   <div class="card-header text-white" style="background-color: {{ __($category->color) }}"><a href="/forums/{{ __($category->slug)}}" class="text-white">{{ __($category->name)}}</a></div>
+<div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+   <div class="border-b p-4 text-white" style="background-color: {{ $category->color }}">
+      <a href="{{ route('forums.category', $category) }}">
+         {{ $category->name }}
+      </a>
+   </div>
+
    @if($category->boards_count > 0)
    <table class="table table-bordered">
       <thead>
@@ -9,9 +14,9 @@
          </tr>
       </thead>
       <tbody>
-         @foreach($category->boards as $board)
+         {{-- @foreach($category->boards as $board)
          @include('rancor::forums.includes.boardrow',['board' => $board])
-         @endforeach
+         @endforeach --}}
       </tbody>
    </table>
    @else

@@ -50,7 +50,7 @@ class NewsController extends Controller
                   ->paginate(config('rancor.pagination'));
       $tags = Tag::orderBy('name')->withCount('articles')->get();
 
-      return view('rancor::news.index', compact('articles','tags'));
+      return view('rancor::news.drafts', compact('articles','tags'));
    }
 
    /**
@@ -67,7 +67,7 @@ class NewsController extends Controller
                   ->paginate(config('rancor.pagination'));
       $tags = Tag::orderBy('name')->withCount('articles')->get();
 
-      return view('rancor::news.index', compact('articles','tags'));
+      return view('rancor::news.tagged', compact('articles','tags','tag'));
    }
 
    /**

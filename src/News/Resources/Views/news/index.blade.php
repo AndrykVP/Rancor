@@ -1,12 +1,19 @@
 <x-rancor::main-layout>
    <x-slot name="header">
-      {{ $articles->links() }}
+      <ul class="flex text-sm lg:text-base">
+         <li class="inline-flex items-center">
+            Press
+         </li>
+      </ul>
    </x-slot>
+   <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
+      {{ $articles->links() }}
+   </div>
  
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="flex flex-wrap md:flex-nowrap justify-between">
-            <div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="border bg-white w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
                @foreach ($articles as $article)
                <div class="border-b px-6 py-4">
                   <div class="py-2">
@@ -45,7 +52,7 @@
                </div>
                @endforeach
             </div>
-             <div class="h-auto border w-full md:w-1/4 m:rounded overflow-hidden md:shadow-lg md:ml-4">
+             <div class="h-auto border bg-white w-full md:w-1/4 m:rounded overflow-hidden md:shadow-lg md:ml-4">
                <div class="font-bold text-xl px-4 py-4 mb-2">
                   Tags
                </div>

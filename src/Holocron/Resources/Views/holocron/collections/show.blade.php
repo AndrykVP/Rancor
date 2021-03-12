@@ -21,7 +21,7 @@
  
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         <div class="border w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+         <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
             <div class="p-4 bg-gray-100 border-b">
                <h1 class="font-bold text-xl text-gray-700">{{ $collection->name }}</h1>
                <p>{{ $collection->description }}</p>

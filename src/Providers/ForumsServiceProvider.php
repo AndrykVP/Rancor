@@ -54,7 +54,6 @@ class ForumsServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Forums/Resources/Views', 'rancor');
-        Blade::componentNamespace('AndrykVP\\Rancor\\Forums\\View\\Components', 'rancor');
         
         // Register policies
         $this->registerPolicies();

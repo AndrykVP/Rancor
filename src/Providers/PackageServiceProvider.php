@@ -55,7 +55,7 @@ class PackageServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
-        Blade::componentNamespace('Rancor\\Package\\View\\Components', 'rancor');
+        Blade::componentNamespace('AndrykVP\\Rancor\\Package\\View\\Components', 'rancor');
         
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Package/Routes/web.php');

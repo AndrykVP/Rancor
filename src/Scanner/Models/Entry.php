@@ -4,9 +4,9 @@ namespace AndrykVP\Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AndrykVP\Rancor\Audit\Events\EntryUpdate;
+use AndrykVP\Rancor\Audit\Models\Log;
 use AndrykVP\Rancor\Database\Factories\EntryFactory;
-use AndrykVP\Rancor\Scanner\Events\EditScan;
-use AndrykVP\Rancor\Scanner\Models\Log;
 use App\Models\User;
 
 class Entry extends Model
@@ -72,7 +72,7 @@ class Entry extends Model
      * @var array
      */
     protected $dispatchesEvents = [
-        'updating' => EditScan::class,
+        'updating' => EntryUpdate::class,
     ];
 
     /**

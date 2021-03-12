@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Audit\Listeners;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use AndrykVP\Rancor\Audit\Models\IPLog as Log;
 
 class UserLoginIP
 {
@@ -38,10 +39,10 @@ class UserLoginIP
         $ip = $this->request->ip();
         $ua = $this->request->header('User-Agent');
 
-        $log = DB::table('changelog_ips')->where([
-                    ['user_id','=',$user_id],
-                    ['ip_address','=',$ip],
-                    ['type','=','login']
+        $log = Log::where([
+                    ['user_id', $user_id],
+                    ['ip_address', $ip],
+                    ['type', 'login']
                 ])->first();
 
         if($log != null)
@@ -52,13 +53,11 @@ class UserLoginIP
         }
         else
         {
-            DB::table('changelog_ips')->insert([
+            Log::create([
                 'user_id' => $user_id,
                 'ip_address' => $ip,
                 'user_agent' => $ua,
                 'type' => 'login',
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
     }

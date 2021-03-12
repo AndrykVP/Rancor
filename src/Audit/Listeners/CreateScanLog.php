@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Listeners;
+namespace AndrykVP\Rancor\Audit\Listeners;
 
-use AndrykVP\Rancor\Scanner\Events\EditScan;
-use AndrykVP\Rancor\Scanner\Models\Log;
+use AndrykVP\Rancor\Audit\Events\EntryUpdate;
+use AndrykVP\Rancor\Scanner\Models\EntryLog;
 use Illuminate\Http\Request;
 
 class CreateScanLog
@@ -23,14 +23,14 @@ class CreateScanLog
     /**
      * Handle the event.
      *
-     * @param  EditScan  $event
+     * @param  EntryUpdate  $event
      * @return void
      */
-public function handle(EditScan $event)
+public function handle(EntryUpdate $event)
 {
     if($event->entry->isDirty('type') || $event->entry->isDirty('name') || $event->entry->isDirty('owner') || $event->entry->isDirty('position'))
     {
-        $log = new Log;
+        $log = new EntryLog;
         $log->entry_id = $event->entry->id;
         $log->user_id = $this->contributor;
         if($event->entry->isDirty('type'))

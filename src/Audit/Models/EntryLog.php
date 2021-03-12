@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Models;
+namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 
-class Log extends Model
+class EntryLog extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -32,7 +32,7 @@ class Log extends Model
      *
      * @var string
      */
-    protected $table = 'scanner_logs';
+    protected $table = 'changelog_entries';
 
     /**
      * Relationship to User model

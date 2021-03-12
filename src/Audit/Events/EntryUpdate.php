@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Events;
+namespace AndrykVP\Rancor\Audit\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 
-class EditScan
+class EntryUpdate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

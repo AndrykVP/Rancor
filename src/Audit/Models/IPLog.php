@@ -5,14 +5,14 @@ namespace AndrykVP\Rancor\Audit\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Users;
 
-class UserLog extends Model
+class IPLog extends Model
 {
     /**
      * Defines the table name
      * 
      * @var string
      */
-    protected $table = 'changelog_users';
+    protected $table = 'changelog_ips';
 
     
     /**
@@ -20,7 +20,7 @@ class UserLog extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'user_id', 'updated_by', 'action', 'color' ];
+    protected $fillable = [ 'user_id', 'ip_address', 'type', 'user_agent' ];
 
     /**
      * Relationship to User model

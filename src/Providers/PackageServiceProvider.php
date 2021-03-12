@@ -5,7 +5,6 @@ namespace AndrykVP\Rancor\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
-use AndrykVP\Rancor\Package\View\Components\RancorLayout;
 
 class PackageServiceProvider extends ServiceProvider
 {
@@ -56,7 +55,7 @@ class PackageServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
-        Blade::component('rancor-layout', RancorLayout::class);
+        Blade::componentNamespace('Rancor\\Package\\View\\Components', 'rancor');
         
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Package/Routes/web.php');

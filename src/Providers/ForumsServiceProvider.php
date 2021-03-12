@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Models\Discussion;
@@ -53,6 +54,7 @@ class ForumsServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Forums/Resources/Views', 'rancor');
+        Blade::componentNamespace('Rancor\\Forums\\View\\Components', 'rancor');
         
         // Register policies
         $this->registerPolicies();

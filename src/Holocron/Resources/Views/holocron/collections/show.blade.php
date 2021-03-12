@@ -1,39 +1,46 @@
-@extends('rancor::layouts.main')
-
-@section('content')
-<div class="container">
-   <div class="row justify-content-center">
-      <div class="col-12">
-         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="{{ route('holocron.index') }}" id="index-breadcrumb">{{ __('Index') }}</a></li>
-               <li class="breadcrumb-item"><a href="{{ route('holocron.collection.index') }}" id="collection-index-breadcrumb">{{ __('Collections') }}</a></li>
-               <li class="breadcrumb-item active">{{ __('Nodes') }}</li>
-            </ol>
-         </nav>
-      </div>
-      <div class="col-12">
-         <div class="card">
-            <div class="card-header">
-               {{ $collection->name }}
-            </div>
-            <div class="card-body">
-               {{ $collection->description }}
-               <hr>
-               <p class="lead">Nodes in this Collection:</p>
-               <div class="row">
-                  @foreach($nodes as $letter => $nodes)
-                  <div class="col-sm-6 col-md-4 col-lg-3 mb-lg-4 mb-3">
-                     <h5>{{ $letter }}</h5>
+<x-rancor::main-layout>
+   <x-slot name="header">
+      <ul class="flex text-sm lg:text-base">
+         <li class="inline-flex items-center text-indigo-800">
+            <a href="{{ route('holocron.index') }}">Holocron</a>
+            <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+         </li>
+         <li class="inline-flex items-center text-indigo-800">
+            <a href="{{ route('holocron.collection.index') }}">Collections</a>
+            <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+         </li>
+         <li class="inline-flex items-center text-gray-500">
+            {{ $collection->name }}
+         </li>
+       </ul>
+   </x-slot>
+ 
+   <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+         <div class="border w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="p-4 bg-gray-100 border-b">
+               <h1 class="font-bold text-xl text-gray-700">{{ $collection->name }}</h1>
+               <p>{{ $collection->description }}</p>
+            </div> 
+            <div class="grid grid-cols-6 md:grid-cols-4 lg:grid-cols-3 gap-4 p-4">
+               @if($collection->nodes->isNotEmpty())
+                  @foreach ($nodes as $letter => $nodes)
+                  <div class="mb-3">
+                     <h5 class="font-bold text-xl text-gray-700">{{ $letter }}</h5>
                         @foreach ($nodes as $node)
-                           » <a href="{{ route('holocron.node.show', $node['id']) }}">{{ $node['name'] }}</a><br />
+                           » <a href="{{ route('holocron.node.show', $node['id']) }}" class="text-indigo-700 hover:text-indigo-600">{{ $node['name'] }}</a><br />
                         @endforeach
                   </div>
                   @endforeach
-               </div>
+               @else
+                  No nodes found in this collection
+               @endif
             </div>
          </div>
       </div>
    </div>
-</div>
-@endsection
+</x-rancor::main-layout>

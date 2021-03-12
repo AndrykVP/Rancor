@@ -1,36 +1,36 @@
-@extends('rancor::layouts.main')
-
-@section('content')
-<div class="container">
-   <div class="row justify-content-center">
-      <div class="col-12">
-         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="{{ route('holocron.index') }}" id="index-breadcrumb">{{ __('Index') }}</a></li>
-               <li class="breadcrumb-item active">{{ __('Collections') }}</a></li>
-            </ol>
-         </nav>
-      </div>
-      <div class="col-12">
-         <div class="card">
-            <div class="card-body">
-               <div class="row">
-                  @foreach($collections as $collection)
-                  <div class="col-sm-6 col-md-4 col-lg-3 mb-lg-5 mb-3">
-                     <h5><a href="{{ route('holocron.collection.show', $collection) }}">{{ $collection->name }}</a></h5>
-                     @if($collection->nodes->isNotEmpty())
-                        @foreach ($collection->nodes as $node)
-                           » <a href="{{ route('holocron.node.show', $node) }}">{{ $node->name }}</a><br />
-                        @endforeach
-                     @else
-                        No nodes found in this collection
-                     @endif
-                  </div>
-                  @endforeach
+<x-rancor::main-layout>
+   <x-slot name="header">
+      <ul class="flex text-sm lg:text-base">
+         <li class="inline-flex items-center text-indigo-800">
+            <a href="{{ route('holocron.index') }}">Holocron</a>
+            <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+         </li>
+         <li class="inline-flex items-center text-gray-500">
+            Collections
+         </li>
+       </ul>
+   </x-slot>
+ 
+   <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+         <div class="border w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="grid grid-cols-6 md:grid-cols-4 lg:grid-cols-3 gap-4 p-4">
+               @foreach ($collections as $collection)
+               <div class="mb-3">
+                  <h5><a href="{{ route('holocron.collection.show', $collection) }}" class="font-bold text-xl text-gray-700">{{ $collection->name }}</a></h5>
+                  @if($collection->nodes->isNotEmpty())
+                     @foreach ($collection->nodes as $node)
+                        » <a href="{{ route('holocron.node.show', $node['id']) }}" class="text-indigo-700 hover:text-indigo-600">{{ $node['name'] }}</a><br />
+                     @endforeach
+                  @else
+                     No nodes found in this collection
+                  @endif
                </div>
+               @endforeach
             </div>
          </div>
       </div>
    </div>
-</div>
-@endsection
+</x-rancor::main-layout>

@@ -30,7 +30,7 @@ class NewsController extends Controller
                   ->with('author','editor','tags')
                   ->latest()
                   ->paginate(config('rancor.pagination'));
-      $tags = Tag::orderBy('name')->get();
+      $tags = Tag::orderBy('name')->withCount('articles')->get();
 
       return view('rancor::news.index', compact('articles','tags'));
    }
@@ -48,7 +48,7 @@ class NewsController extends Controller
                   ->with('author','editor','tags')
                   ->latest()
                   ->paginate(config('rancor.pagination'));
-      $tags = Tag::orderBy('name')->get();
+      $tags = Tag::orderBy('name')->withCount('articles')->get();
 
       return view('rancor::news.index', compact('articles','tags'));
    }
@@ -65,7 +65,7 @@ class NewsController extends Controller
                   ->with('author','editor','tags')
                   ->latest()
                   ->paginate(config('rancor.pagination'));
-      $tags = Tag::orderBy('name')->get();
+      $tags = Tag::orderBy('name')->withCount('articles')->get();
 
       return view('rancor::news.index', compact('articles','tags'));
    }
@@ -81,7 +81,7 @@ class NewsController extends Controller
       $this->authorize('view', $article);
 
       $article->load('author','editor','tags');
-      $tags = Tag::orderBy('name')->get();
+      $tags = Tag::orderBy('name')->withCount('articles')->get();
 
       return view('rancor::news.show', compact('article','tags'));
    }

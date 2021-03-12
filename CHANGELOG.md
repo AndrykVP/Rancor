@@ -13,9 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Namespacing of database Seeders and Factories
 - Views now use Tailwind CSS instead of Bootstrap, as per Laravel 8 Startkits (Laravel Breeze specifically)
 - Renamed `FrameworkServiceProvider` to `PackageServiceProvider` for consistency of naming convention.
+- Scanner log moved to Audit module:
+  - `Scanner\Log` => `Audit\Models\EntryLog`
+  - `Scanner\Events\EditScan` => `Audit\Events\EntryUpdate`
+  - `Scanner\Listeners\CreateScanLog` => `Audit\Listeners\CreateScanLog`
 
 ### Deleted
-- Gate `manage-faction` became irrelevant after the addition of the `view-admin-panel` permission.
+- Gate `manage-faction` became irrelevant after the addition of the permission `view-admin-panel` used for admin middleware.
 
 ## [1.3.3] - 2021-03-04
 ### Added

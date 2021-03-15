@@ -118,6 +118,16 @@ class Board extends Model
     }
 
     /**
+     * Retrieve the last page of the associated Replies
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function last_page()
+    {
+        return ceil($this->replies->count()/config('rancor.pagination'));
+    }
+
+    /**
      * Scope a query to only include boards that do not have parents.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query

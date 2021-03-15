@@ -1,70 +1,98 @@
-@extends('rancor::layouts.main')
-
-@section('content')
-<div class="container">
-   <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="{{ route('forums.index') }}" id="index-breadcrumb">{{ __('Index') }}</a></li>
-         <li class="breadcrumb-item"><a href="{{ route('forums.category', ['category' => $category ]) }}" id="category-breadcrumb">{{$category->name}}</a></li>
-         <li class="breadcrumb-item"><a href="{{ route('forums.board', ['category' => $category, 'board' => $board ]) }}" id="board-breadcrumb">{{$board->name}}</a></li>
-         <li class="breadcrumb-item active">{{$discussion->name}}</li>
-      </ol>
-   </nav>
-   @include('rancor::forums.includes.discussionactions', ['links' => $replies->links(), 'category' => $category, 'board' => $board, 'discussion' => $discussion, ])
-    <div class="row justify-content-center">
-      <form class="col">
+<x-rancor::main-layout>
+   <x-slot name="header">
+      <div class="flex flex-col md:flex-row justify-between">
+         <ul class="flex text-sm lg:text-base">
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.index') }}">{{ __('Forums') }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $discussion->board->category) }}">{{ $discussion->board->category->name }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $discussion->board->category, 'board' => $discussion->board]) }}">{{ $discussion->board->name }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
+            <li class="inline-flex items-center text-gray-500">
+               {{ $discussion->name }}
+            </li>
+         </ul>
+         <div class="inline-flex mt-4 md:mt-0">
+            @can('update',$discussion)
+            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2" href="{{ route('admin.discussions.edit', $discussion) }}">{{ __('Edit Discussion') }}</a>
+            @endcan
+            @can('post', $discussion)
+            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('forums.replies.create', ['discussion' => $discussion]) }}">{{ __('New Reply') }}</a>
+            @endcan
+            @can('delete',$board)
+            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-red-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="#">{{ __('Delete Discussion') }}</a>
+            @endcan
+         </div>
+      </div>
+   </x-slot>
+   <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
+      {{ $replies->links() }}
+   </div>
+   
+   <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          @foreach($replies as $index => $reply)
-         <div class="card mb-4" id="{{ $index + 1 }}">
-            <div class="card-header">
-               <div class="row justify-content-between px-4">
-                  <span><a href="{{ route('profile.show', $reply->author) }}" class="h5">{{ $reply->author->name }}</a></span>
-                  @if(Auth::user()->hasPermission('delete-forum-replies'))
-                  <span><a href="#{{ $index + 1 }}" >#{{ $index + 1 }}</a> <input type="checkbox" name="delete[]" value="{{ $reply->id }}"/></span>
-                  @endif
-               </div> 
+         <div class="border bg-white w-full md:rounded overflow-hidden mb-5" id="{{ $index + 1 }}">
+            <div class="border-b bg-gray-200 text-xs">
+               <div class="flex justify-between items-center px-4 py-2">
+                  <div class="col small">Posted {{ $reply->created_at->diffForHumans() }}@if($reply->editor != null). Last Edited by: {{ $reply->editor->name . ' '. $reply->updated_at->diffForHumans() }}@endif</div>
+                  <div class="col text-right">
+                     <a type="button" class="text-white bg-blue-600 px-2 py-1 rounded" href="{{ route('forums.replies.create',[ 'discussion' => $discussion, 'quote' => $reply ]) }}">Quote</a>
+                     @can('update',$reply)
+                     <a type="button" class="text-white bg-green-600 px-2 py-1 rounded" href="{{ route('forums.replies.edit',[ 'reply' => $reply ]) }}">Edit</a>
+                     @endcan
+                     @can('delete',$reply)
+                     <button type="button" class="text-white bg-red-600 px-2 py-1 rounded" href="#">Delete</button>
+                     @endcan
+                  </div>
+               </div>
             </div>
-            <div class="row">
-               <div class="d-flex flex-column col-5 col-md-3 py-3 px-4 justify-content-start align-items-center">
+            <div class="grid grid-cols-4">
+               <div class="flex flex-col col-span-1 justify-start items-center border-r px-2 py-4">
                   <img src="{{ $reply->author->avatar}}" width="150" height="150"/>
-                  <div class="align-self-stretch">
+                  <div class="my-2">
                      @if($reply->author->rank != null)
-                     <span style="color: {{ $reply->author->rank->color }}">{{ $reply->author->rank->name }}</span><br>
-                     <span>{{ $reply->author->rank->department->name }}</span><br>
+                     <span><a href="{{ route('profile.show', $reply->author) }}" class="font-bold md:text-lg text-indigo-900 hover:text-indigo-700">{{ $reply->author->name }}</a></span><br/>
+                     <span class="text-sm md:text-base" style="color: {{ $reply->author->rank->color }}">{{ $reply->author->rank->name }}</span><br>
+                     <span class="text-sm md:text-base" style="color: {{ $reply->author->rank->department->color }}">{{ $reply->author->rank->department->name }}</span><br>
                      @else
                      Guest
                      @endif
 
                      @if($board->moderators->contains(Auth::user()))
-                     Moderator<br>
+                     Moderator<br/>
                      @endif
                      
-                     Posts: {{ $reply->author->replies_count }}<br>
+                     <span class="text-xs">Posts: {{ number_format($reply->author->replies_count) }}</span><br/>
                   </div>
                </div>
-               <div class="col col-7 col-md-9 border-left py-3 px-4">
-                  {!!($reply->body) !!}
-                  <hr>
-                  {!! $reply->author->signature !!}
-               </div>
-            </div>
-            <div class="card-footer">
-               <div class="row align-items-center">
-                  <div class="col small">Posted {{ $reply->created_at->diffForHumans() }}@if($reply->editor != null). Last Edited by: {{ $reply->editor->name . ' '. $reply->updated_at->diffForHumans() }}@endif</div>
-                  <div class="col text-right">
-                     <a type="button" class="btn btn-sm btn-secondary" href="{{ route('forums.replies.create',[ 'discussion_id' => $discussion->id, 'quote' => $reply->id ]) }}">Quote</a>
-                     @can('update',$reply)
-                     <a type="button" class="btn btn-sm btn-secondary" href="{{ route('forums.replies.edit',[ 'reply' => $reply ]) }}">Edit</a>
-                     @endcan
-                     @can('delete',$reply)
-                     <button type="button" class="btn btn-sm btn-secondary" href="#">Delete</button>
-                     @endcan
+               <div class="flex flex-col col-span-3">
+                  <div class="border-b h-3/4 px-4 py-2">
+                     {!!($reply->body) !!}
+                  </div>
+                  <div class="h-auto row-span-1 px-4 py-2">
+                     {!! $reply->author->signature !!}
                   </div>
                </div>
             </div>
          </div>
          @endforeach
-      </form>
+      </div>
+
+      <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
+         {{ $replies->links() }}
+      </div>
    </div>
-   @include('rancor::forums.includes.discussionactions', ['links' => $replies->links() ])
-</div>
-@endsection
+</x-rancor::main-layout>

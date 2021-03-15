@@ -3,25 +3,25 @@
 namespace AndrykVP\Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
-use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\Forums\Models\Board;
 
-class CategoryCard extends Component
+class BoardRow extends Component
 {
    /**
     * The Categoy to render
     *
-    * @var  \AndrykVP\Rancor\Forums\Models\Category
+    * @var  \AndrykVP\Rancor\Forums\Models\Board
     */
-   public $category;
+   public $board;
 
    /**
     * Create a new component instance.
     *
     * @return void
     */
-   public function __construct(Category $category)
+   public function __construct(Board $board)
    {
-      $this->category = $category;
+      $this->board = $board;
    }
 
    /**
@@ -31,6 +31,6 @@ class CategoryCard extends Component
     */
    public function render()
    {
-      return view('rancor::components.categorycard');
+      return view('rancor::components.boardrow');
    }
 }

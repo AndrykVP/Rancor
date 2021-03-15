@@ -1,31 +1,34 @@
-<tr class="d-flex">
-   <td class="col-9">
-      <div class="row justify-content-between px-3">
-         <a class="h5" href="/forums/{{ $category->slug }}/{{ $board->slug }}">{{ __($board->name) }}</a>
-         <div>
-            <span class="badge badge-pill badge-primary">{{ __($board->discussions_count)}} Topics</span>
-            <span class="badge badge-pill badge-primary">{{ __($board->replies_count)}} Replies</span>
-         </div>
+<tr>
+   <td class="px-6 py-4 whitespace-nowrap">
+      <div class="flex items-center">
+         <a class="font-bold text-xl text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $board->category, 'board' => $board]) }}">
+            {{ $board->name }}
+         </a><span class="text-xs text-gray-700 ml-4">({{ number_format($board->discussions_count) }} {{ __('Topics') }}. {{ number_format($board->replies_count) }} {{ __('Replies') }})</span>
       </div>
-      <span class="text-muted">{{ __($board->description) }}</span>
+      <div>
+         <span class="text-gray-600">{{ $board->description }}</span>
+      </div>
       @if(count($board->children) > 0)
-      <br/><strong>Child Boards:</strong>
-      @foreach ($board->children as $child)
-      » <a href="/forums/{{ $category->slug }}/{{ $child->slug }}">{{ $child->name}}</a>
-      @endforeach
+      <div>
+         <span class="text-xs text-gray-500 uppercase tracking-wider">Child Boards:</span>
+         @foreach ($board->children as $child)
+         » <a href="{{ route('forums.board', ['category' => $category, 'board' => $child]) }}">{{ $child->name}}</a>
+         @endforeach
+      </div>
       @endif
       @if(count($board->moderators) > 0)
-      <br/><strong>Moderators:</strong>
-      @foreach ($board->moderators as $moderator)
-      » <a href="/profile/{{ $moderator->id }}">{{ $moderator->name}}</a>
-      @endforeach
+      <div>
+         <span class="text-xs text-gray-500 uppercase tracking-wider">Moderators:</span>
+         @foreach ($board->moderators as $moderator)
+         » <a href="{{ route('profile.show', $moderator->id) }}">{{ $moderator->name}}</a>
+         @endforeach
+      </div>
       @endif
    </td>
-   <td class="col-3">
+   <td class="col-span-3 text-sm">
       @if($board->replies_count > 0)
-      {{ $board->latest_reply->created_at->diffForHumans() }}<br/>
-      <strong>In:</strong> <a href="{{ route('forums.discussion', ['category' => $board->category, 'board' => $board, 'discussion' => $board->latest_reply->discussion]) }}">{{ $board->latest_reply->discussion->name}}</a><br/>
-      By: <a href="{{ route('profile.index', ['user' => $board->latest_reply->author]) }}">{{ $board->latest_reply->author->name }}</a>
+      <strong>In:</strong> <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.discussion', ['category' => $board->category, 'board' => $board, 'discussion' => $board->latest_reply->discussion, 'page' => $board->latest_reply->page->number]).'#'.$board->latest_reply->page->index }}">{{ $board->latest_reply->discussion->name}}</a><br/>
+      {{ $board->latest_reply->created_at->diffForHumans() }} by <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('profile.show', $board->latest_reply->author) }}">{{ $board->latest_reply->author->name }}</a>
       @else
       No Posts Yet
       @endif

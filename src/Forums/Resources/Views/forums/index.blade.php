@@ -1,17 +1,28 @@
 <x-rancor::main-layout>
    <x-slot name="header">
-      <ul class="flex text-sm lg:text-base">
-         <li class="inline-flex items-center">
-            Forums
-         </li>
-       </ul>
+      <div class="flex justify-between">
+         <ul class="flex text-sm lg:text-base">
+            <li class="inline-flex items-center">
+               {{ __('Forums') }}
+            </li>
+          </ul>
+          <div class="inline-flex">
+             <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-green-600 px-3 py-2" href="{{ route('admin.categories.create') }}">{{ __('New Category') }}</a>
+          </div>
+      </div>
    </x-slot>
  
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         @foreach ($categories as $category)
-            <x-rancor::category-card :category="$category"/>
-         @endforeach
+         @if($categories->isNotEmpty())
+            @foreach ($categories as $category)
+               <x-rancor::category-card :category="$category"/>
+            @endforeach
+         @else
+         <div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            No Categories Found
+         </div>
+         @endif
       </div>
    </div>
 </x-rancor::main-layout>

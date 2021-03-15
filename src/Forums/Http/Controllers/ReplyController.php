@@ -36,7 +36,7 @@ class ReplyController extends Controller
                     ->with('discussion.board.category')
                     ->paginate(config('rancor.pagination'));
 
-        return view('rancor::forums.replies', compact('replies'));
+        return view('rancor::forums.replies', compact('replies', 'user'));
     }
 
     /**
@@ -46,9 +46,9 @@ class ReplyController extends Controller
      */
     public function create(Request $request)
     {
-        if(!$request->has('discussion_id')) abort (400, 'Discussion ID needed to create a Reply');
+        if(!$request->has('discussion')) abort (400, 'Discussion ID needed to create a Reply');
 
-        $discussion = Discussion::findOrFail($request->discussion_id);
+        $discussion = Discussion::with('board.category')->findOrFail($request->discussion);
 
         $this->authorize('post', $discussion);
         $quote = Reply::with('author')->find($request->quote);
@@ -88,9 +88,10 @@ class ReplyController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reply $reply, Request $request)
+    public function edit(Reply $reply)
     {
         $this->authorize('update', $reply);
+        $reply->load('discussion.board.category');
 
         return view('rancor::edit.reply', compact('reply'));
     }

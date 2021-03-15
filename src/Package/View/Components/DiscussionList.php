@@ -3,25 +3,32 @@
 namespace AndrykVP\Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
-use AndrykVP\Rancor\Forums\Models\Category;
 
-class CategoryCard extends Component
+class DiscussionList extends Component
 {
    /**
     * The Categoy to render
     *
-    * @var  \AndrykVP\Rancor\Forums\Models\Category
+    * @var array|mixed
     */
-   public $category;
+   public $discussions;
+
+   /**
+    * Header for the rendered Card
+    *
+    * @var string
+    */
+   public $title;
 
    /**
     * Create a new component instance.
     *
     * @return void
     */
-   public function __construct(Category $category)
+   public function __construct($discussions, $title)
    {
-      $this->category = $category;
+      $this->discussions = $discussions;
+      $this->title = $title;
    }
 
    /**
@@ -31,6 +38,6 @@ class CategoryCard extends Component
     */
    public function render()
    {
-      return view('rancor::components.categorycard');
+      return view('rancor::components.discussionlist');
    }
 }

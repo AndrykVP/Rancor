@@ -60,9 +60,9 @@ class DiscussionController extends Controller
      */
     public function create(Request $request)
     {
-        if(!$request->has('board_id')) abort (400, 'Board ID needed to create a Discussion');
+        if(!$request->has('board')) abort (400, 'Board ID needed to create a Discussion');
 
-        $board = Board::findOrFail($request->board_id);
+        $board = Board::with('category')->findOrFail($request->board);
 
         $this->authorize('post', $board);
 

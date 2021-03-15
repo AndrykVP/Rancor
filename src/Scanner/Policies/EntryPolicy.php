@@ -29,7 +29,7 @@ class EntryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return mixed
      */
     public function viewAny(User $user)
@@ -43,7 +43,7 @@ class EntryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return mixed
      */
     public function view(User $user, Entry $entry)

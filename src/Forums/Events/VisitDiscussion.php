@@ -15,7 +15,7 @@ class VisitDiscussion
     /**
      * Class Variable Discussion
      * 
-     * @var AndrykVP\Rancor\Forums\Discussion
+     * @var AndrykVP\Rancor\Forums\Models\Discussion
      */
     public $discussion;
 

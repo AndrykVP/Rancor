@@ -37,7 +37,7 @@ class EntryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function show(Entry $entry)
@@ -51,7 +51,7 @@ class EntryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function edit(Entry $entry)
@@ -69,7 +69,7 @@ class EntryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EditEntry  $request
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function update(EditEntry $request, Entry $entry)
@@ -85,7 +85,7 @@ class EntryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function destroy(Entry $entry)

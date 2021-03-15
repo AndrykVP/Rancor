@@ -49,7 +49,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Role  $role
+     * @param  \AndrykVP\Rancor\Auth\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)

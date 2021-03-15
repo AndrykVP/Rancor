@@ -82,7 +82,7 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Board  $board
+     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category, Board $board)
@@ -97,7 +97,7 @@ class BoardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Board  $board
+     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function edit(Board $board)
@@ -115,7 +115,7 @@ class BoardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Board  $board
+     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function update(BoardForm $request, Board $board)
@@ -139,7 +139,7 @@ class BoardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Board  $board
+     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function destroy(Board $board)

@@ -51,7 +51,7 @@ class HolocronController extends Controller
    /**
     * Displays all published Nodes under a specific Collection
     *
-    * @param \AndrykVP\Rancor\Holocron\Collection  $collection;
+    * @param \AndrykVP\Rancor\Holocron\Models\Collection  $collection;
     * @return \Illuminate\Http\Response
     */
    public function collection_show(Collection $collection)
@@ -69,7 +69,7 @@ class HolocronController extends Controller
    /**
     * Displays all published Nodes
     *
-    * @param \AndrykVP\Rancor\Holocron\Node  $node
+    * @param \AndrykVP\Rancor\Holocron\Models\Node  $node
     * @return \Illuminate\Http\Response
     */
    public function node_show(Node $node)

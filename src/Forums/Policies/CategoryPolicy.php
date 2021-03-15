@@ -41,7 +41,7 @@ class CategoryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return mixed
      */
     public function view(User $user, Category $category)
@@ -69,7 +69,7 @@ class CategoryPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return mixed
      */
     public function update(User $user, Category $category)
@@ -83,7 +83,7 @@ class CategoryPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return mixed
      */
     public function delete(User $user, Category $category)

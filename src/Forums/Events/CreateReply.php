@@ -15,7 +15,7 @@ class CreateReply
     /**
      * Class Variable Reply
      * 
-     * @var AndrykVP\Rancor\Forums\Reply
+     * @var AndrykVP\Rancor\Forums\Models\Reply
      */
     public $reply;
 

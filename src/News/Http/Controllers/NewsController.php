@@ -73,7 +73,7 @@ class NewsController extends Controller
    /**
     * Displays all published articles
     *
-    * @param \AndrykVP\Rancor\News\Article  $article
+    * @param \AndrykVP\Rancor\News\Models\Article  $article
     * @return \Illuminate\Http\Response
     */
    public function show(Article $article)

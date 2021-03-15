@@ -41,7 +41,7 @@ class ReplyPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return mixed
      */
     public function view(User $user, Reply $reply)
@@ -69,7 +69,7 @@ class ReplyPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return mixed
      */
     public function update(User $user, Reply $reply)
@@ -85,7 +85,7 @@ class ReplyPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return mixed
      */
     public function delete(User $user, Reply $reply)

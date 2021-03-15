@@ -74,7 +74,7 @@ class NodeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Node  $node
+     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function show(Node $node)
@@ -89,7 +89,7 @@ class NodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Node  $node
+     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function edit(Node $node)
@@ -106,7 +106,7 @@ class NodeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm  $request
-     * @param  \AndrykVP\Rancor\Holocron\Node  $node
+     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function update(EditNodeForm $request, Node $node)
@@ -125,7 +125,7 @@ class NodeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Node  $node
+     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function destroy(Node $node)

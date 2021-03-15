@@ -41,7 +41,7 @@ class DiscussionPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return mixed
      */
     public function view(User $user, Discussion $discussion)
@@ -70,7 +70,7 @@ class DiscussionPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return mixed
      */
     public function update(User $user, Discussion $discussion)
@@ -86,7 +86,7 @@ class DiscussionPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return mixed
      */
     public function delete(User $user, Discussion $discussion)
@@ -100,7 +100,7 @@ class DiscussionPolicy
      * Determine whether the user can post to the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return mixed
      */
     public function post(User $user, Discussion $discussion)

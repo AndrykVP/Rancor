@@ -58,7 +58,7 @@ class EntryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function show(Entry $entry)
@@ -73,7 +73,7 @@ class EntryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Entry $entry)
@@ -93,7 +93,7 @@ class EntryController extends Controller
     /**
      * Remove the specified Usergroup resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function destroy(Entry $entry)

@@ -48,9 +48,9 @@ class PackageServiceProvider extends ServiceProvider
         // Register Morph Map
         Relation::morphMap([
             'users' => 'App\Models\User',
-            'roles' => 'AndrykVP\Rancor\Auth\Role',
-            'categories' => 'AndrykVP\Rancor\Forums\Category',
-            'boards' => 'AndrykVP\Rancor\Forums\Board',
+            'roles' => 'AndrykVP\Rancor\Auth\Models\Role',
+            'categories' => 'AndrykVP\Rancor\Forums\Models\Category',
+            'boards' => 'AndrykVP\Rancor\Forums\Models\Board',
         ]);
 
         // Load views

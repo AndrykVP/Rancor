@@ -47,7 +47,7 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Permission  $permission
+     * @param  \AndrykVP\Rancor\Auth\Models\Permission  $permission
      * @return \Illuminate\Http\Response
      */
     public function show(Permission $permission)

@@ -69,7 +69,7 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function show(Group $group)
@@ -85,7 +85,7 @@ class GroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function edit(Group $group)
@@ -103,7 +103,7 @@ class GroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\GroupForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function update(GroupForm $request, Group $group)
@@ -119,7 +119,7 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function destroy(Group $group)

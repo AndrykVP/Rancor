@@ -67,7 +67,7 @@ class FactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function show(Faction $faction)
@@ -82,7 +82,7 @@ class FactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function edit(Faction $faction)
@@ -99,7 +99,7 @@ class FactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function update(FactionForm $request, Faction $faction)
@@ -115,7 +115,7 @@ class FactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Faction  $faction
+     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function destroy(Faction $faction)

@@ -15,7 +15,7 @@ class UserAward
     /**
      * Class Variables
      * 
-     * @var \AndrykVP\Rancor\Structure\Award
+     * @var \AndrykVP\Rancor\Structure\Models\Award
      * @var int  $change
      */
     public $award;

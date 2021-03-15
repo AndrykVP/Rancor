@@ -57,7 +57,7 @@ class ReplyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function show(Reply $reply)
@@ -71,7 +71,7 @@ class ReplyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\ReplyForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function update(ReplyForm $request, Reply $reply)
@@ -93,7 +93,7 @@ class ReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reply $reply)

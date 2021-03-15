@@ -67,7 +67,7 @@ class CollectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Collection  $collection
+     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function show(Collection $collection)
@@ -82,7 +82,7 @@ class CollectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Collection  $collection
+     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function edit(Collection $collection)
@@ -99,7 +99,7 @@ class CollectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm  $request
-     * @param  \AndrykVP\Rancor\Holocron\Collection  $collection
+     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function update(CollectionForm $request, Collection $collection)
@@ -115,7 +115,7 @@ class CollectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Collection  $collection
+     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function destroy(Collection $collection)

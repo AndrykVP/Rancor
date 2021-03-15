@@ -55,7 +55,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Role $role
+     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
@@ -69,7 +69,7 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \AndrykVP\Rancor\Auth\Role $role
+     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function update(RoleForm $request, Role $role)
@@ -87,7 +87,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Role $role
+     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)

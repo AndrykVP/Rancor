@@ -85,7 +85,7 @@ class ReplyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function edit(Reply $reply)
@@ -100,7 +100,7 @@ class ReplyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function update(EditReplyForm $request, Reply $reply)
@@ -120,7 +120,7 @@ class ReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Reply  $reply
+     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reply $reply)

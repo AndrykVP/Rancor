@@ -68,7 +68,7 @@ class AwardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Award  $award
+     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function show(Award $award)
@@ -83,7 +83,7 @@ class AwardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Award  $award
+     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function edit(Award $award)
@@ -100,7 +100,7 @@ class AwardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Award  $award
+     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function update(AwardForm $request, Award $award)
@@ -116,7 +116,7 @@ class AwardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Award  $award
+     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function destroy(Award $award)

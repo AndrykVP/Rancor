@@ -37,7 +37,7 @@ class ScannerController extends Controller
     /**
      * Show the form for searching a scanner entry.
      *
-     * @param \AndrykVP\Rancor\Scanner\Entry  $entry
+     * @param \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function show(Entry $entry)

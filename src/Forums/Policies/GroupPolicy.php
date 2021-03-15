@@ -41,7 +41,7 @@ class GroupPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return mixed
      */
     public function view(User $user, Group $group)
@@ -68,7 +68,7 @@ class GroupPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return mixed
      */
     public function update(User $user)
@@ -82,7 +82,7 @@ class GroupPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Group  $group
+     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
      * @return mixed
      */
     public function delete(User $user)

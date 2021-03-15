@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-use AndrykVP\Rancor\News\Article;
-use AndrykVP\Rancor\News\Tag;
-use AndrykVP\Rancor\Forums\Group;
-use AndrykVP\Rancor\Forums\Category;
-use AndrykVP\Rancor\Forums\Board;
-use AndrykVP\Rancor\Forums\Discussion;
-use AndrykVP\Rancor\Forums\Reply;
+use AndrykVP\Rancor\News\Models\Article;
+use AndrykVP\Rancor\News\Models\Tag;
+use AndrykVP\Rancor\Forums\Models\Group;
+use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Reply;
 
 Route::group(['middleware' => array_merge(['web'], config('rancor.middleware.web'), ['admin'])], function(){
 

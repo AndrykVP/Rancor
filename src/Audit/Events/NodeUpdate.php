@@ -15,7 +15,7 @@ class NodeUpdate
     /**
      * Class Variable User
      * 
-     * @var \AndrykVP\Rancor\Holocron\Node
+     * @var \AndrykVP\Rancor\Holocron\Models\Node
      */
     public $node;
 

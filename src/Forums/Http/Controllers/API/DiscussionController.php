@@ -53,7 +53,7 @@ class DiscussionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
     public function show(Discussion $discussion)
@@ -67,7 +67,7 @@ class DiscussionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
     public function update(EditDiscussionForm $request, Discussion $discussion)
@@ -85,7 +85,7 @@ class DiscussionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
     public function destroy(Discussion $discussion)

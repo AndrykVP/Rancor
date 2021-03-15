@@ -71,7 +71,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -88,7 +88,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category, Request $request)
@@ -105,7 +105,7 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategoryForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryForm $request, Category $category)
@@ -121,7 +121,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Category  $category
+     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)

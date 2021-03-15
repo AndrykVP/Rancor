@@ -68,7 +68,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function show(Department $department)
@@ -83,7 +83,7 @@ class DepartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function edit(Department $department)
@@ -100,7 +100,7 @@ class DepartmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function update(DepartmentForm $request, Department $department)
@@ -116,7 +116,7 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Department  $department
+     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function destroy(Department $department)

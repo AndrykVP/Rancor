@@ -67,7 +67,7 @@ class ForumController extends Controller
     * Display the specified Category.
     *
     * @param \Illuminate\Http\Request  $request
-    * @param \AndrykVP\Rancor\Forums\Category  $category;
+    * @param \AndrykVP\Rancor\Forums\Models\Category  $category;
     * @return \Illuminate\Http\Response
     */
    public function category(Request $request, Category $category)
@@ -90,8 +90,8 @@ class ForumController extends Controller
    /**
     * Display the specified Board.
     *
-    * @param \AndrykVP\Rancor\Forums\Category  $category;
-    * @param \AndrykVP\Rancor\Forums\Board  $board;
+    * @param \AndrykVP\Rancor\Forums\Models\Category  $category;
+    * @param \AndrykVP\Rancor\Forums\Models\Board  $board;
     * @return \Illuminate\Http\Response
     */
    public function board(Category $category, Board $board)
@@ -118,9 +118,9 @@ class ForumController extends Controller
    /**
     * Display the specified Discussion.
     *
-    * @param \AndrykVP\Rancor\Forums\Category  $category;
-    * @param \AndrykVP\Rancor\Forums\Board  $board;
-    * @param  \AndrykVP\Rancor\Forums\Discussion  $discussion
+    * @param \AndrykVP\Rancor\Forums\Models\Category  $category;
+    * @param \AndrykVP\Rancor\Forums\Models\Board  $board;
+    * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
     * @return \Illuminate\Http\Response
     */
    public function discussion(Category $category, Board $board, Discussion $discussion)

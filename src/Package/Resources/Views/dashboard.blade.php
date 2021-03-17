@@ -1,7 +1,14 @@
-@extends('rancor::layouts.admin')
+<x-rancor::admin-layout>
+   <x-slot name="header">
+      <div class="flex flex-col md:flex-row justify-between">
+         <ul class="flex text-sm lg:text-base">
+            <li class="inline-flex items-center text-gray-500">
+               {{ __('Dashboard') }}
+            </li>
+         </ul>
+      </div>
+   </x-slot>
 
-@section('content')
-<div class="container">
    <div class="row">
       @foreach($cards as $card)
       <div class="col-6 col-md-4">
@@ -19,5 +26,4 @@
       </div>
       @endforeach
    </div>
-</div>
-@endsection
+</x-rancor::admin-layout>

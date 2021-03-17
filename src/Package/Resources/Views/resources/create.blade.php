@@ -2,8 +2,20 @@
    <x-slot name="header">
       <div class="flex flex-col md:flex-row justify-between">
          <ul class="flex text-sm lg:text-base">
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('admin.index') }}">{{ __('Dashboard') }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('admin.'.$resource['route'].'.index') }}">{{ Str::plural($resource['name']) }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
             <li class="inline-flex items-center text-gray-500">
-               {{ __('Create '.$resource['name']) }}
+               {{ __('Create') }}
             </li>
          </ul>
       </div>
@@ -112,7 +124,7 @@
                @endforeach
             </div>
             @endif
-            <x-button type="submit">Create</x-button>
+            <x-button type="submit">{{ __('Create '.$resource['name']) }}</x-button>
          </form>
       </div>
    </div>

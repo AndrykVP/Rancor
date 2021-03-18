@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use AndrykVP\Rancor\Structure\Models\Award;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Faction;
@@ -32,16 +33,33 @@ class TestSeeder extends Seeder
       /** 
        * Structure Seeding
        */
-      $factions = Faction::factory()->count(4)->create();
-      $departments = Department::factory()->count(10)->for($factions->random())->create();
-      $ranks = Rank::factory()->count(36)->for($departments->random())->create();
+      $factions = Faction::factory()
+                  ->count(4)
+                  ->create();
+      $departments = Department::factory()
+                     ->count(10)
+                     ->state(new Sequence(
+                        fn () => ['faction_id' => $factions->random()],
+                     ))->create();
+      $ranks = Rank::factory()
+                  ->count(36)
+                  ->state(new Sequence(
+                     fn () => ['department_id' => $departments->random()],
+                  ))->create();
 
       $types = Type::factory()
                      ->count(4)
                      ->has(Award::factory()->count(8))
                      ->create();
 
-      $users = User::factory()->count(20)->for($ranks->random())->create();
+      $users = User::factory()
+                  ->count(20)
+                  ->state(new Sequence(
+                     fn () => ['rank_id' => $ranks->random()],
+                  ))->state(new Sequence(
+                     ['is_admin' => true],
+                     ['is_admin' => false],
+                  ))->create();
 
       /**
        * News Seeding
@@ -50,7 +68,13 @@ class TestSeeder extends Seeder
                ->count(12)
                ->has(Article::factory()
                      ->count(35)
-                     ->for($users->random(), 'author')
+                     ->state(new Sequence(
+                        fn () => ['author_id' => $users->random()],
+                     ))
+                     ->state(new Sequence(
+                        ['is_published' => true, 'published_at' => now()],
+                        ['is_published' => false],
+                     ))
                )->create();
 
       /**
@@ -60,7 +84,13 @@ class TestSeeder extends Seeder
                      ->count(12)
                      ->has(Node::factory()
                            ->count(15)
-                           ->for($users->random(), 'author')
+                           ->state(new Sequence(
+                              fn () => ['author_id' => $users->random()],
+                           ))
+                           ->state(new Sequence(
+                              ['is_public' => true],
+                              ['is_public' => false],
+                           ))
                      )->create();
 
       /**
@@ -77,7 +107,9 @@ class TestSeeder extends Seeder
                                        ->for($users->random(), 'author')
                                        ->has(Reply::factory()
                                              ->count(50)
-                                             ->for($users->random(), 'author')
+                                             ->state(new Sequence(
+                                                fn () => ['author_id' => $users->random()],
+                                             ))
                                        )
                                  )
                            )
@@ -87,7 +119,11 @@ class TestSeeder extends Seeder
       /**
        * Scanner Seeding
        */
-      $entries = Entry::factory()->count(2000)->for($users->random(), 'contributor')->create();
+      $entries = Entry::factory()
+                      ->count(2000)
+                      ->state(new Sequence(
+                         fn () => ['updated_by' => $departments->random()],
+                      ))->create();
       
    }
 }

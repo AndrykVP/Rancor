@@ -24,7 +24,6 @@ class TagFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'color' => $this->faker->hexColor,
         ];
     }
 }

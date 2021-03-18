@@ -25,7 +25,7 @@ class ArticleFactory extends Factory
             'name' => $this->faker->company,
             'body' => $this->faker->paragraph(10),
             'description' => $this->faker->text(150),
-            'is_published' => $this->faker->boolean,
+            'is_published' => false,
         ];
     }
 

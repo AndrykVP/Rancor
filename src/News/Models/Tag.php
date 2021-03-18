@@ -33,7 +33,7 @@ class Tag extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'color' ];
+    protected $fillable = [ 'name' ];
 
     /**
      * Defines the table name

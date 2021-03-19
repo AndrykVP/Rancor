@@ -1,49 +1,63 @@
-@extends('rancor::layouts.admin')
+<x-rancor::admin-layout>
+   <x-slot name="header">
+      <div class="flex flex-col md:flex-row justify-between">
+         <ul class="flex text-sm lg:text-base">
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('admin.index') }}">{{ __('Dashboard') }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
+            <li class="inline-flex items-center">
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('admin.discussions.index') }}">{{ __('Discussions') }}</a>
+               <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+               </svg>
+            </li>
+            <li class="inline-flex items-center text-gray-500">
+               {{ $discussion->name }}
+            </li>
+         </ul>
+         <div class="inline-flex mt-4 md:mt-0">
+            @if(Route::has('admin.discussions.create'))
+            <a href="{{ route('admin.discussions.create') }}" class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2">{{ __('New Discussion')}}</a>
+            @endif
+            @if(Route::has('admin.discussions.edit'))
+            <a href="{{ route('admin.discussions.edit', $discussion) }}" class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2 ml-2">{{ __('Edit Discussion')}}</a>
+            @endif
+         </div>
+      </div>
+   </x-slot>
 
-@section('content')
-<div class="container">
-   <div class="row justify-content-center">
-      <div class="col-md-8">
-         <div class="row mb-4">
-            <div class="col text-right">
-               <a href="{{ route('admin.discussions.edit', $discussion) }}" class="btn btn-primary">Update</a>
+   <div class="flex justify-center">
+      <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">ID:</div>
+            <div class="col-span-3">{{ $discussion->id }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Name:</div>
+            <div class="col-span-3">{{ $discussion->name }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Board:</div>
+            <div class="col-span-3">{{ $discussion->board->name }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Status:</div>
+            <div class="col-span-3">
+               <span class="rounded bg-{{ $discussion->is_locked ? 'red' : 'green' }}-600 px-2 py-1 text-xs text-white font-bold">{{ $discussion->is_locked ? 'Locked' : 'Open' }}</span>
+               <span class="rounded bg-{{ $discussion->is_sticky ? 'red' : 'green' }}-600 px-2 py-1 text-xs text-white font-bold">{{ $discussion->is_sticky ? 'Sticky' : 'Regular' }}</span>
             </div>
          </div>
-         <div class="card mb-4">
-            <div class="card-header">
-               {{ $discussion->name }}
-            </div>
-            <div class="card-body">
-               <div class="row mb-2">
-                  <div class="col-4 text-right">ID:</div>
-                  <div class="col-8">{{ $discussion->id }}</div>
-               </div>
-               <div class="row mb-2">
-                  <div class="col-4 text-right">Name:</div>
-                  <div class="col-8">{{ $discussion->name }}</div>
-               </div>
-               <div class="row mb-2">
-                  <div class="col-4 text-right">Board:</div>
-                  <div class="col-8">{{ $discussion->board->name }}</div>
-               </div>
-               <div class="row mb-2">
-                  <div class="col-4 text-right">Status:</div>
-                  <div class="col-8">
-                     <span class="badge badge-{{ $discussion->is_locked ? 'danger' : 'primary' }}">{{ $discussion->is_locked ? 'Locked' : 'Open' }}</span>
-                     <span class="badge badge-{{ $discussion->is_sticky ? 'danger' : 'primary' }}">{{ $discussion->is_sticky ? 'Sticky' : 'Regular' }}</span>
-                  </div>
-               </div>
-               <div class="row mb-2">
-                  <div class="col-4 text-right">Total Replies:</div>
-                  <div class="col-8">{{ number_format($discussion->replies_count) }}</div>
-               </div>
-               <div class="row mb-2">
-                  <div class="col-4 text-right">Total Views:</div>
-                  <div class="col-8">{{ number_format($discussion->views) }}</div>
-               </div>
-            </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Total Replies:</div>
+            <div class="col-span-3">{{ number_format($discussion->replies_count) }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Total Views:</div>
+            <div class="col-span-3">{{ number_format($discussion->views) }}</div>
          </div>
       </div>
    </div>
-</div>
-@endsection
+</x-rancor::admin-layout>

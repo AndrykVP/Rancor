@@ -22,10 +22,12 @@
                      <x-nav-link :href="route('forums.index')" :active="request()->routeIs('forums.*')">
                         {{ __('Forums') }}
                      </x-nav-link>
+                     @if(Auth::user()->hasPermission('view-admin-panel'))
                      <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')">
                         {{ __('Admin Panel') }}
                      </x-nav-link>
-                     @endauth
+                     @endif
+                  @endauth
                   </div>
                </div>
                

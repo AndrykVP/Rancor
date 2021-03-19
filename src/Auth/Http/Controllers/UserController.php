@@ -123,10 +123,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect(route('admin.users.index'))->with('alert', [
-            'color' => 'green',
-            'message' => 'User "'.$user->name.'" has been successfully updated.'
-        ]);
+        return redirect(route('admin.users.index'))->with('alert', ['model' => $resource->name, 'name' => $user->name,'action' => 'updated']);
 
     }
 
@@ -142,6 +139,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect(route('admin.users.index'))->with('alert', 'User "'.$user->name.'" has been successfully deleted.');
+        return redirect(route('admin.users.index'))->with('alert', ['model' => $resource->name, 'name' => $user->name,'action' => 'deleted']);
     }
 }

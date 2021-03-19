@@ -61,7 +61,7 @@ class FactionController extends Controller
         $data = $request->validated();
         $faction = Faction::create($data);
 
-        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully created.');
+        return redirect(route('admin.factions.index'))->with('alert', ['model' => $resource->name, 'name' => $faction->name, 'action' => 'created']);
     }
 
     /**
@@ -109,7 +109,7 @@ class FactionController extends Controller
         $data = $request->validated();
         $faction->update($data);
 
-        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully updated.');
+        return redirect(route('admin.factions.index'))->with('alert', ['model' => $resource->name, 'name' => $faction->name, 'action' => 'updated']);
     }
     
     /**
@@ -124,7 +124,7 @@ class FactionController extends Controller
         
         $faction->delete();
 
-        return redirect(route('admin.factions.index'))->with('alert','Faction "'.$faction->name.'" has been successfully deleted.');
+        return redirect(route('admin.factions.index'))->with('alert', ['model' => $resource->name, 'name' => $faction->name, 'action' => 'deleted']);
     }
 
     /**

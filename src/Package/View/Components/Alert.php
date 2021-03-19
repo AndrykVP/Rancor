@@ -25,10 +25,10 @@ class Alert extends Component
      *
      * @return void
      */
-    public function __construct(Array $alert)
+    public function __construct(Array $alert, String $color = 'green')
     {
-        $this->message = $alert['message'];
-        $this->color = $alert['color'];
+        $this->message = $this->buildMessage((object) $alert);
+        $this->color = $color;
     }
 
     /**
@@ -39,5 +39,20 @@ class Alert extends Component
     public function render()
     {
         return view('rancor::components.alert');
+    }
+
+    /**
+     * Builds the rendered Message from Model
+     * 
+     * @return string
+     */
+    private function buildMessage(Object $alert)
+    {
+        if(property_exists($alert, 'id'))
+        {
+            return `{$alert->model} "{$alert->name}" (#{$alert->id}) has been successfully {$alert->action}`;
+        }
+        
+        return `{$alert->model} "{$alert->name}" has been successfully {$alert->action}`;
     }
 }

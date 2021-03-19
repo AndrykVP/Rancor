@@ -62,7 +62,7 @@ class TagController extends Controller
         $data = $request->validated();
         $tag = Tag::create($data);
         
-        return redirect(route('admin.tags.index'))->with('alert','Tag "'. $tag->name .'" has been successfully created');
+        return redirect(route('admin.tags.index'))->with('alert', ['model' => $resource->name, 'name' => $tag->name,'action' => 'created']);
     }
 
     /**
@@ -110,7 +110,7 @@ class TagController extends Controller
         $data = $request->validated();
         $tag->update($data);
         
-        return redirect(route('tags.index'))->with('alert','Tag "'. $tag->name .'" has been successfully updated');
+        return redirect(route('tags.index'))->with('alert', ['model' => $resource->name, 'name' => $tag->name,'action' => 'updated']);
     }
 
     /**
@@ -124,7 +124,7 @@ class TagController extends Controller
         $this->authorize('delete', $tag);
         $tag->delete();
 
-        return redirect(route('tags.index'))->with('alert','Tag "'. $tag->name .'" has been successfully deleted');
+        return redirect(route('tags.index'))->with('alert', ['model' => $resource->name, 'name' => $tag->name,'action' => 'deleted']);
     }
 
     /**

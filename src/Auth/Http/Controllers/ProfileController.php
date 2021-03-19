@@ -67,7 +67,7 @@ class ProfileController extends Controller
         $user->update($data);
 
 
-        return redirect(route('profile.index'))->with('alert', 'User "'.$user->name.'" has been successfully updated.');
+        return redirect(route('profile.index'))->with('alert', ['model' => 'User', 'name' => $user->name,'action' => 'created']);
     }
 
     /**

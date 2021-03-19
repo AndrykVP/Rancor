@@ -61,7 +61,7 @@ class CollectionController extends Controller
         $data = $request->validated();
         $collection = Collection::create($data);
 
-        return redirect(route('admin.collections.index'))->with('alert','Collection "'.$collection->name.'" has been successfully created.');
+        return redirect(route('admin.collections.index'))->with('alert', ['model' => $resource->name, 'name' => $collection->name,'action' => 'created']);
     }
 
     /**
@@ -109,7 +109,7 @@ class CollectionController extends Controller
         $data = $request->validated();
         $collection->update($data);
 
-        return redirect(route('admin.collections.index'))->with('alert','Collection "'.$collection->name.'" has been successfully updated.');
+        return redirect(route('admin.collections.index'))->with('alert',['model' => $resource->name, 'name' => $collection->name,'action' => 'updated']);
     }
     
     /**
@@ -124,7 +124,7 @@ class CollectionController extends Controller
         
         $collection->delete();
 
-        return redirect(route('admin.collections.index'))->with('alert','Collection "'.$collection->name.'" has been successfully deleted.');
+        return redirect(route('admin.collections.index'))->with('alert',['model' => $resource->name, 'name' => $collection->name,'action' => 'deleted']);
     }
 
     /**

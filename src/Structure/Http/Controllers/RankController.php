@@ -62,7 +62,7 @@ class RankController extends Controller
         $data = $request->validated();
         $rank = Rank::create($data);
 
-        return redirect(route('admin.ranks.index'))->with('alert','Rank "'.$rank->name.'" has been successfully created.');
+        return redirect(route('admin.ranks.index'))->with('alert', ['model' => $resource->name, 'name' => $rank->name, 'action' => 'created']);
     }
 
     /**
@@ -110,7 +110,7 @@ class RankController extends Controller
         $data = $request->validated();
         $rank->update($data);
 
-        return redirect(route('admin.ranks.index'))->with('alert','Rank "'.$rank->name.'" has been successfully updated.');
+        return redirect(route('admin.ranks.index'))->with('alert', ['model' => $resource->name, 'name' => $rank->name, 'action' => 'updated']);
     }
     
     /**
@@ -125,7 +125,7 @@ class RankController extends Controller
         
         $rank->delete();
 
-        return redirect(route('admin.ranks.index'))->with('alert','Rank "'.$rank->name.'" has been successfully deleted.');
+        return redirect(route('admin.ranks.index'))->with('alert', ['model' => $resource->name, 'name' => $rank->name, 'action' => 'deleted']);
     }
 
     /**

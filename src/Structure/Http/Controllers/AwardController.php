@@ -62,7 +62,7 @@ class AwardController extends Controller
         $data = $request->validated();
         $award = Award::create($data);
 
-        return redirect(route('admin.awards.index'))->with('alert','Award "'.$award->name.'" has been successfully created.');
+        return redirect(route('admin.awards.index'))->with('alert', ['model' => $resource->name, 'name' => $award->name, 'action' => 'created']);
     }
 
     /**
@@ -110,7 +110,7 @@ class AwardController extends Controller
         $data = $request->validated();
         $award->update($data);
 
-        return redirect(route('admin.awards.index'))->with('alert','Award "'.$award->name.'" has been successfully updated.');
+        return redirect(route('admin.awards.index'))->with('alert', ['model' => $resource->name, 'name' => $award->name, 'action' => 'updated']);
     }
     
     /**
@@ -125,7 +125,7 @@ class AwardController extends Controller
         
         $award->delete();
 
-        return redirect(route('admin.awards.index'))->with('alert','Award "'.$award->name.'" has been successfully deleted.');
+        return redirect(route('admin.awards.index'))->with('alert', ['model' => $resource->name, 'name' => $award->name, 'action' => 'deleted']);
     }
 
     /**

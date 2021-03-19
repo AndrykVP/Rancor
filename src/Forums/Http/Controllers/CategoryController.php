@@ -65,7 +65,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category = Category::create($data);
 
-        return redirect()->route('admin.categories.index')->with('alert', 'Category "'.$category->name.'" has been successfully created');
+        return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name, 'action' => 'created']);
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category->update($data);
 
-        return redirect()->route('admin.categories.index')->with('alert', 'Category "'.$category->name.'" has been successfully updated');
+        return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name, 'action' => 'updated']);
     }
 
     /**
@@ -130,7 +130,7 @@ class CategoryController extends Controller
         
         $category->delete();
 
-        return redirect()->route('admin.categories.index')->with('alert', 'Category "'.$category->name.'" has been successfully deleted');
+        return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name,'action' => 'deleted']);
     }
 
     /**

@@ -68,7 +68,7 @@ class NodeController extends Controller
             $node->collections()->sync($data['collections']);
         });
 
-        return redirect(route('admin.nodes.index'))->with('alert','Node "'.$node->name.'" has been successfully created.');
+        return redirect(route('admin.nodes.index'))->with('alert',['model' => $resource->name, 'name' => $node->name,'action' => 'created']);
     }
 
     /**
@@ -119,7 +119,7 @@ class NodeController extends Controller
             $node->collections()->sync($data['collections']);
         });
 
-        return redirect(route('admin.nodes.index'))->with('alert','Node "'.$node->name.'" has been successfully updated.');
+        return redirect(route('admin.nodes.index'))->with('alert',['model' => $resource->name, 'name' => $node->name,'action' => 'updated']);
     }
     
     /**
@@ -134,7 +134,7 @@ class NodeController extends Controller
         
         $node->delete();
 
-        return redirect(route('admin.nodes.index'))->with('alert','Node "'.$node->name.'" has been successfully deleted.');
+        return redirect(route('admin.nodes.index'))->with('alert',['model' => $resource->name, 'name' => $node->name,'action' => 'deleted']);
     }
 
     /**

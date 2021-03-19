@@ -79,7 +79,12 @@ class ReplyController extends Controller
         $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
         $page = $page > 0 ? ceil($page / config('rancor.pagination')) : 1;
         
-        return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('alert', 'Reply has been successfully posted');
+        return redirect()->route('forums.discussion',[
+            'category' => $reply->discussion->board->category->slug,
+            'board' => $reply->discussion->board->slug,
+            'discussion' => $reply->discussion->id,
+            'page' => $page
+        ])->with('alert', ['model' => $resource->name, 'name' => $reply->name,'action' => 'created']);
     }
 
     /**
@@ -114,7 +119,12 @@ class ReplyController extends Controller
         $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
         $page = $page > 0 ? ceil($page / config('rancor.pagination')) : 1;
         
-        return redirect()->route('forums.discussion',['category' => $reply->discussion->board->category->slug,'board' => $reply->discussion->board->slug,'discussion' => $reply->discussion->id,'page' => $page ])->with('alert', 'Reply has been successfully updated');
+        return redirect()->route('forums.discussion',[
+            'category' => $reply->discussion->board->category->slug,
+            'board' => $reply->discussion->board->slug,
+            'discussion' => $reply->discussion->id,
+            'page' => $page
+        ])->with('alert', ['model' => $resource->name, 'name' => $reply->name,'action' => 'updated']);
     }
 
     /**
@@ -129,7 +139,7 @@ class ReplyController extends Controller
         
         $reply->delete();
 
-        return redirect()->route('forums.Replys.index')->with('alert', 'Reply "'.$reply->title.'" has been successfully deleted');
+        return redirect()->route('forums.Replys.index')->with('alert', ['model' => $resource->name, 'name' => $reply->name,'action' => 'deleted']);
     }
 
     /**

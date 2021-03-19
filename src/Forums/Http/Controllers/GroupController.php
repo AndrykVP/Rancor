@@ -63,7 +63,7 @@ class GroupController extends Controller
         $data = $request->validated();
         $group = Group::create($data);
 
-        return redirect()->route('admin.groups.index')->with('alert', 'Group "'.$group->name.'" has been successfully created');
+        return redirect()->route('admin.groups.index')->with('alert', ['model' => $resource->name, 'name' => $group->name,'action' => 'created']);
     }
 
     /**
@@ -113,7 +113,7 @@ class GroupController extends Controller
         $data = $request->validated();
         $group->update($data);
 
-        return redirect()->route('admin.groups.index')->with('alert', 'Group "'.$group->name.'" has been successfully updated');
+        return redirect()->route('admin.groups.index')->with('alert', ['model' => $resource->name, 'name' => $group->name,'action' => 'updated']);
     }
 
     /**
@@ -128,7 +128,7 @@ class GroupController extends Controller
         
         $group->delete();
 
-        return redirect()->route('admin.groups.index')->with('alert', 'Group "'.$group->name.'" has been successfully deleted');
+        return redirect()->route('admin.groups.index')->with('alert', ['model' => $resource->name, 'name' => $group->name,'action' => 'deleted']);
     }
 
     /**

@@ -16,9 +16,9 @@ Route::group(['middleware' => array_merge(['web'],config('rancor.middleware.web'
 
 	Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
 		Route::get('/', [ProfileController::class, 'index'])->name('index');
-		Route::get('edit', [ProfileController::class, 'edit'])->name('edit');
-		Route::patch('edit', [ProfileController::class, 'update'])->name('update');
 		Route::get('{user}', [ProfileController::class, 'show'])->name('show');
+		Route::get('{user}/edit', [ProfileController::class, 'edit'])->name('edit');
+		Route::patch('{user}/edit', [ProfileController::class, 'update'])->name('update');
 	});
 
 });

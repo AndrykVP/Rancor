@@ -33,12 +33,12 @@
                      </div>
                      <div class="font-bold text-gray-800 mb-2">
                         @if($article->is_published)
-                        <small>Published {{ $article->published_at->diffForHumans() }} by <a class="text-indigo-800 hover:text-indigo-700" href="{{ route('admin.users.show', ['user' => $article->author]) }}">{{ $article->author->name }}</a></small><br />
+                        <small>Published {{ $article->published_at->diffForHumans() }} by <a class="text-indigo-800 hover:text-indigo-700" href="{{ route('profile.show', $article->author) }}">{{ $article->author->name }}</a></small><br />
                         @else
-                        <small>Created {{ $article->created_at->diffForHumans() }} by <a class="text-indigo-800 hover:text-indigo-700" href="{{ route('admin.users.show', ['user' => $article->author]) }}">{{ $article->author->name }}</a></small><br />
+                        <small>Created {{ $article->created_at->diffForHumans() }} by <a class="text-indigo-800 hover:text-indigo-700" href="{{ route('profile.show', $article->author) }}">{{ $article->author->name }}</a></small><br />
                         @endif
                         @if($article->editor != null)
-                        <small>Last edited {{ $article->updated_at->diffForHumans() }} by <a class="text-indigo-800 hover:text-indigo-700" href="{{ route('admin.users.show', ['user' => $article->editor]) }}">{{ $article->editor->name }}</a></small><br />
+                        <small>Last edited {{ $article->updated_at->diffForHumans() }} by <a class="text-indigo-800 hover:text-indigo-700" href="{{ route('profile.show', $article->editor) }}">{{ $article->editor->name }}</a></small><br />
                         @endif
                      </div>
                      <p class="text-gray-700 text-base mb-2">

@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Structure\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use AndrykVP\Rancor\Structure\Models\Type;
 
 class TypePolicy
 {
@@ -40,9 +41,10 @@ class TypePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
+     * @param \AndrykVP\Rancor\Structure\Models\Type  $type
      * @return mixed
      */
-    public function view(User $user)
+    public function view(User $user, Tpye $type)
     {
         return $user->hasPermission('view-structure-awards')
                 ? Response::allow()
@@ -66,9 +68,10 @@ class TypePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
+     * @param \AndrykVP\Rancor\Structure\Models\Rank  $rank
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Type $type)
     {
         return $user->hasPermission('update-structure-award-types')
                 ? Response::allow()
@@ -79,9 +82,10 @@ class TypePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
+     * @param \AndrykVP\Rancor\Structure\Models\Rank  $rank
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Type $type)
     {
         return $user->hasPermission('delete-structure-award-types')
                 ? Response::allow()

@@ -8,6 +8,8 @@ use AndrykVP\Rancor\News\Http\Controllers\NewsController;
 $middleware = array_merge(['web'],config('rancor.middleware.web'), ['admin']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => $middleware] , function(){
+	Route::post('articles/search', [ArticleController::class, 'search'])->name('articles.search');
+	Route::post('tags/search', [TagController::class, 'search'])->name('tags.search');
 	Route::resources([
 		'articles' => ArticleController::class,
 		'tags' => TagController::class,

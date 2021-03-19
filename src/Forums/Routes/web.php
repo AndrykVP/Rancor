@@ -13,6 +13,10 @@ Route::group(['middleware' => ['web']], function(){
    $middleware = array_merge(config('rancor.middleware.web'), ['admin']);
 
    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => $middleware ], function() {
+      Route::post('groups/search', [GroupController::class, 'search'])->name('groups.search');
+      Route::post('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+      Route::post('boards/search', [BoardController::class, 'search'])->name('boards.search');
+      Route::post('discussions/search', [DiscussionController::class, 'search'])->name('discussions.search');
       Route::resource('groups', GroupController::class);
       Route::resource('categories', CategoryController::class);
       Route::resource('boards', BoardController::class);

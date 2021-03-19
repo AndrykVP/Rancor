@@ -8,6 +8,8 @@ use AndrykVP\Rancor\Holocron\Http\Controllers\HolocronController;
 $middleware = array_merge(['web'],config('rancor.middleware.web'), ['admin']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => $middleware] , function(){
+	Route::post('nodes/search', [NodeController::class, 'search'])->name('nodes.search');
+	Route::post('collections/search', [CollectionController::class, 'search'])->name('collections.search');
 	Route::resources([
 		'nodes' => NodeController::class,
 		'collections' => CollectionController::class,

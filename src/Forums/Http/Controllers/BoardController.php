@@ -91,7 +91,23 @@ class BoardController extends Controller
 
         $board->load('category','moderators','children','parent')->loadCount('discussions');
    
-         return view('rancor::show.board',compact('board'));
+        return view('rancor::show.board',compact('board'));
+    }
+
+    /**
+     * Display the resources that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny', Board::class);
+        
+        $resource = $this->resource;
+        $models = Board::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index', compact('models','resource'));
     }
 
     /**

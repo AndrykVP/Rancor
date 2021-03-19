@@ -87,6 +87,22 @@ class ArticleController extends Controller
     }
 
     /**
+     * Display the resources that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny', Article::class);
+        
+        $resource = $this->resource;
+        $models = Article::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index', compact('models','resource'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Article  $article

@@ -60,6 +60,22 @@ class PermissionController extends Controller
     }
 
     /**
+     * Display the resources that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny', Permission::class);
+        
+        $resource = $this->resource;
+        $models = Permission::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index', compact('models','resource'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

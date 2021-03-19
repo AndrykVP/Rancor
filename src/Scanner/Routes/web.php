@@ -17,6 +17,7 @@ Route::group(['middleware' => ['web']], function(){
 	$middleware = array_merge(config('rancor.middleware.web'), ['admin']);
 	
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => $middleware], function(){
+		Route::post('entries/search', [EntryController::class, 'search'])->name('entries.search');
 		Route::resource('entries', EntryController::class)->except('store','create');
 	});
 });

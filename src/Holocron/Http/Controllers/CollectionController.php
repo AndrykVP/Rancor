@@ -80,6 +80,22 @@ class CollectionController extends Controller
     }
 
     /**
+     * Display the resources that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny', Collection::class);
+        
+        $resource = $this->resource;
+        $models = Collection::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return view('rancor::resources.index', compact('models','resource'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection

@@ -23,7 +23,6 @@
             @foreach($links as $menu => $module)
             @if($module->isNotEmpty())
             <div x-data='{open: false}' class="text-white nav-item">
-               {{-- {{ dd($module) }} --}}
                <button @click="open = !open" class="flex justify-between w-full text-left py-4 px-3 focus:outline-none" :class="{'bg-indigo-800': open}">
                   <span>{{ $menu }}</span>
                   <svg :class="{'transform rotate-180': open}" class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -53,7 +52,7 @@
          </header>
   
          <!-- Mobile Header & Nav -->
-         <x-rancor::admin-navigation />
+         <x-rancor::admin-navigation :links="$links"/>
 
          @if(session('alert'))
          <x-rancor::alert :alert="session('alert')" />

@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use Auth;
 
-class RankChange
+class UserUpdate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

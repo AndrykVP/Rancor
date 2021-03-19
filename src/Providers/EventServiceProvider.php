@@ -5,12 +5,12 @@ namespace AndrykVP\Rancor\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Login;
-use AndrykVP\Rancor\Audit\Events\UserAward;
+use AndrykVP\Rancor\Audit\Events\EntryUpdate;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
-use AndrykVP\Rancor\Audit\Events\RankChange;
+use AndrykVP\Rancor\Audit\Events\UserAward;
+use AndrykVP\Rancor\Audit\Events\UserUpdate;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
 use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
-use AndrykVP\Rancor\Scanner\Events\EditScan;
 use AndrykVP\Rancor\Audit\Listeners\SetNodeEditor;
 use AndrykVP\Rancor\Audit\Listeners\UpdateUserAwards;
 use AndrykVP\Rancor\Audit\Listeners\UserLoginIP;
@@ -35,7 +35,7 @@ class EventServiceProvider extends ServiceProvider
             UserLoginIP::class,
             UserLastLogin::class,
         ],
-        RankChange::class => [
+        UserUpdate::class => [
             UserRank::class,
         ],
         VisitDiscussion::class => [
@@ -45,7 +45,7 @@ class EventServiceProvider extends ServiceProvider
         CreateReply::class => [
             LinkUserDiscussion::class,
         ],
-        EditScan::class => [
+        EntryUpdate::class => [
             CreateScanLog::class,
         ],
         NodeUpdate::class => [

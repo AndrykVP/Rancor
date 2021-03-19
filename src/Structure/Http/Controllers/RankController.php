@@ -75,7 +75,7 @@ class RankController extends Controller
     {
         $this->authorize('view', $rank);
 
-        $rank->load('department','users');
+        $rank->load('department.faction','users');
 
         return view('rancor::show.rank', compact('rank'));
     }

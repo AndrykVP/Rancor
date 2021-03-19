@@ -25,6 +25,7 @@ class UserForm extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
+            'rank_id' => $this->rank_id ?: null,
             'roles' => $this->roles ?: null,
         ]);
     }

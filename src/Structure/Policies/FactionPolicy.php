@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Structure\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use AndrykVP\Rancor\Structure\Models\Faction;
 
 class FactionPolicy
 {
@@ -68,7 +69,7 @@ class FactionPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Faction $faction)
     {
         return $user->hasPermission('update-structure-factions')
                 ? Response::allow()
@@ -81,7 +82,7 @@ class FactionPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Faction $faction)
     {
         return $user->hasPermission('delete-structure-factions')
                 ? Response::allow()

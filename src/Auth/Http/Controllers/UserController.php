@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        $user->load('rank.department.faction','roles','permissions','user_changelog.creator', 'awards');
+        $user->load('rank.department.faction','roles','permissions','userLog.creator', 'awards');
 
         return view('rancor::show.user', compact('user'));
     }
@@ -107,11 +107,11 @@ class UserController extends Controller
         }
         if($request->user()->can('uploadArt', $user))
         {
-            if($request->has('avatar'))
+            if($request->has('avatar') && $data['avatar'] != null)
             {
                 $avatarPath = $request->file('avatar')->storeAs('idgen/avatars', $user->id . '.png');
             }
-            if($request->has('signature'))
+            if($request->has('signature') && $data['signature'] != null)
             {
                 $signaturePath = $request->file('signature')->storeAs('idgen/signatures', $user->id . '.png');
             }
@@ -123,7 +123,10 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect(route('admin.users.index'))->with('alert', 'User "'.$user->name.'" has been successfully updated.');
+        return redirect(route('admin.users.index'))->with('alert', [
+            'color' => 'green',
+            'message' => 'User "'.$user->name.'" has been successfully updated.'
+        ]);
 
     }
 

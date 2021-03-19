@@ -53,6 +53,6 @@ class Faction extends Model
      */
     public function ranks()
     {
-        return $this->hasManyThrough(Rank::class, Department::class);
+        return $this->hasManyThrough(Rank::class, Department::class)->orderBy('level', 'desc');
     }
 }

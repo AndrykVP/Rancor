@@ -27,6 +27,10 @@
                 </div>
             </header>
 
+            @if(session('alert'))
+            <x-rancor::alert :alert="session('alert')" />
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}

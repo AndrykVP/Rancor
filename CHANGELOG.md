@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.0] - 2021-03-09
 ### Added
 - View Components: `AdminLayout`, `MainLayout`, `Alert`, `AdminNavigation`, `Main Navigation`
+- `Search` routes to all resource routes, to filter results in the Resource Index at the Admin Panel
 
 ### Changed
 - Refactored all Models to folder and namespace `Models` under their respective modules, to follow Laravel 8 directory structure.

@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Scanner\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Audit\Events\EntryUpdate;
-use AndrykVP\Rancor\Audit\Models\Log;
+use AndrykVP\Rancor\Audit\Models\EntryLog;
 use AndrykVP\Rancor\Database\Factories\EntryFactory;
 use App\Models\User;
 
@@ -82,7 +82,7 @@ class Entry extends Model
      */
     public function changelog()
     {
-        return $this->hasMany(Log::class)->latest();
+        return $this->hasMany(EntryLog::class)->latest();
     }
 
     /**

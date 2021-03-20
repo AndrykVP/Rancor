@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Audit\Listeners;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Audit\Events\RankChange;
+use AndrykVP\Rancor\Audit\Events\UserUpdate;
 use AndrykVP\Rancor\Structure\Models\Rank;
 
 class UserRank
@@ -42,10 +42,10 @@ class UserRank
     /**
      * Handle the event.
      *
-     * @param  RankChange  $event
+     * @param  UserUpdate  $event
      * @return void
      */
-    public function handle(RankChange $event)
+    public function handle(UserUpdate $event)
     {
         if($event->user->isDirty('rank_id'))
         {
@@ -105,7 +105,7 @@ class UserRank
     /**
      * Create database entry.
      *
-     * @param  RankChange  $event
+     * @param  UserUpdate  $event
      * @return void
      */
     private function createEntry($id, $action, $color)

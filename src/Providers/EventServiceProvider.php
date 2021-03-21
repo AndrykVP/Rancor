@@ -17,11 +17,11 @@ use AndrykVP\Rancor\Audit\Listeners\UserLoginIP;
 use AndrykVP\Rancor\Audit\Listeners\UserRank;
 use AndrykVP\Rancor\Audit\Listeners\UserRegisteredIP;
 use AndrykVP\Rancor\Auth\Listeners\UserLastLogin;
+use AndrykVP\Rancor\Audit\Listeners\CreateScanLog;
 use AndrykVP\Rancor\Forums\Listeners\DefaultGroupUser;
 use AndrykVP\Rancor\Forums\Listeners\IncrementDiscussionViews;
 use AndrykVP\Rancor\Forums\Listeners\LinkUserDiscussion;
 use AndrykVP\Rancor\Forums\Listeners\MarkDiscussionRead;
-use AndrykVP\Rancor\Scanner\Listeners\CreateScanLog;
 
 class EventServiceProvider extends ServiceProvider
 {

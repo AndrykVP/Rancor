@@ -21,8 +21,8 @@ class CreateEntriesTable extends Migration
             $table->string('owner')->nullable()->default(null);
             $table->json('position')->nullable()->default(null);
             $table->unsignedBigInteger('updated_by')->nullable()->default(null);
-            $table->timestamps();
             $table->timestamp('last_seen')->nullable()->default(null);
+            $table->timestamps();
 
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });

@@ -25,7 +25,7 @@ class CreateEntryLogsTable extends Migration
             $table->string('new_owner')->nullable();
             $table->json('old_position')->nullable();
             $table->json('new_position')->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('entry_id')->references('id')->on('scanner_entries')->onDelete('cascade');

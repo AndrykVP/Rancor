@@ -1,7 +1,7 @@
 {
    "name": "andrykvp/rancor",
    "description": "A Laravel Package to make use of common features required by factions or groups of Star Wars Combine",
-   "version": "1.4.0",
+   "version": "2.0.0",
    "type": "library",
    "keywords": [
       "laravel",

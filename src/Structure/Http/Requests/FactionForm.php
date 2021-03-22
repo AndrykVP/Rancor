@@ -26,7 +26,7 @@ class FactionForm extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('structure_factions')->ignore($this->id)],
-            'description' => 'nullable|string',
+            'description' => 'required|string',
         ];
     }
 }

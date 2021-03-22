@@ -59,7 +59,7 @@ class ScannerController extends Controller
         $this->authorize('viewAny', Entry::class);
 
         $param = $request->validated();
-        $entries = Entry::where($param['attribute'],'like', $param['value'].'%')->paginate(15);
+        $entries = Entry::where($param['attribute'],'like', $param['value'].'%')->paginate(config('rancor.pagination'));
 
         return view('rancor::scanner.search',compact('entries'));
     }

@@ -26,7 +26,6 @@ class TagForm extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('news_tags')->ignore($this->id)],
-            'color' => 'required|size:7',
         ];
     }
 }

@@ -26,6 +26,7 @@ class DepartmentForm extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('structure_departments')->ignore($this->id)],
+            'color' => 'nullable|string|max:7|starts_with:#',
             'faction_id' => 'required|integer|exists:structure_factions,id',
             'description' => 'nullable|string',
         ];

@@ -3,23 +3,14 @@
 namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Http\Resources\RoleResource;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 
 class RoleController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +36,11 @@ class RoleController extends Controller
         $this->authorize('create',Role::class);
         
         $data = $request->validated();
-        $role = Role::create($data);
+        $role;
+        DB::transaction(function () use(&$role, $data) {
+            $role = Role::create($data);
+            $role->permissions()->sync($data['permissions']);
+        });
 
         return response()->json([
             'message' => 'Role "'.$role->name.'" has been created'
@@ -61,6 +56,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $this->authorize('view',Role::class);
+        $role->load('users','permissions');
 
         return new RoleResource($role);
     }
@@ -77,7 +73,10 @@ class RoleController extends Controller
         $this->authorize('update', Role::class);
         
         $data = $request->validated();
-        $role->update($data);
+        DB::transaction(function () use(&$role, $data) {
+            $role->update($data);
+            $role->permissions()->sync($data['permissions']);
+        });
 
         return response()->json([
             'message' => 'Role "'.$role->name.'" has been updated'
@@ -94,10 +93,28 @@ class RoleController extends Controller
     {
         $this->authorize('delete',$role);
         
-        $role->delete();
+        DB::transaction(function () use($role) {
+            $role->permissions()->detach();
+            $role->delete();
+        });
 
         return response()->json([
             'message' => 'Role "'.$role->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Role::class);
+        
+        $roles = Role::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return RoleResource::collection($roles);
     }
 }

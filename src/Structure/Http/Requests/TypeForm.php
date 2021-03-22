@@ -25,7 +25,7 @@ class TypeForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('structure_types')->ignore($this->id)],
+            'name' => ['required', 'string', Rule::unique('structure_award_types')->ignore($this->id)],
             'description' => 'required|string',
         ];
     }

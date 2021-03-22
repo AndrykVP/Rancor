@@ -11,16 +11,6 @@ use AndrykVP\Rancor\News\Http\Requests\TagForm;
 class TagController extends Controller
 {
     /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,7 +19,7 @@ class TagController extends Controller
     {
         $this->authorize('viewAny',Tag::class);
 
-        $query = Tag::latest()->paginate(10);
+        $query = Tag::paginate(config('rancor.pagination'));
 
         return TagResource::collection($query);
     }
@@ -43,7 +33,6 @@ class TagController extends Controller
     public function store(TagForm $request)
     {
         $this->authorize('create',Tag::class);
-        
         $data = $request->validated();
         $tag = Tag::create($data);
 
@@ -55,12 +44,13 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\News\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function show(Tag $tag)
     {
         $this->authorize('view', $tag);
+        $tag->load('articles');
 
         return new TagResource($tag);
     }
@@ -69,35 +59,48 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\News\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function update(TagForm $request, Tag $tag)
     {
         $this->authorize('update', $tag);
-        
         $data = $request->validated();
         $tag->update($data);
 
         return response()->json([
-            'message' => 'Tag "'.$tag->title.'" has been updated'
+            'message' => 'Tag "'.$tag->name.'" has been updated'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\News\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tag $tag)
     {
         $this->authorize('delete', $tag);
-
         $tag->delete();
 
         return response()->json([
-            'message' => 'Tag "'.$tag->title.'" has been deleted'
+            'message' => 'Tag "'.$tag->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Tag::class);
+        
+        $tags = Tag::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return TagResource::collection($tags);
     }
 }

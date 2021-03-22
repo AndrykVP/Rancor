@@ -6,20 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Http\Resources\DiscussionResource;
-use AndrykVP\Rancor\Forums\Http\Requests\DiscussionForm;
+use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
+use AndrykVP\Rancor\Forums\Http\Requests\EditDiscussionForm;
 
 class DiscussionController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +18,7 @@ class DiscussionController extends Controller
      */
     public function index()
     {
-        $discussions = Discussion::paginate(20);
+        $discussions = Discussion::with('author','board','latest_reply')->paginate(config('rancor.pagination'));
 
         return DiscussionResource::collection($discussions);
     }
@@ -46,7 +37,7 @@ class DiscussionController extends Controller
         $discussion = Discussion::create($data);
 
         return response()->json([
-            'message' => 'Discussion "'.$discussion->title.'" has been created'
+            'message' => 'Discussion "'.$discussion->name.'" has been created'
         ], 200);
     }
 
@@ -60,7 +51,7 @@ class DiscussionController extends Controller
     {
         $this->authorize('view',$discussion);
 
-        return new DiscussionResource($discussion->load('author','board', 'replies', 'latest_reply'));
+        return new DiscussionResource($discussion->load('author','board', 'latest_reply'));
     }
 
     /**
@@ -78,7 +69,7 @@ class DiscussionController extends Controller
         $discussion->update($data);
 
         return response()->json([
-            'message' => 'Discussion "'.$discussion->title.'" has been updated'
+            'message' => 'Discussion "'.$discussion->name.'" has been updated'
         ], 200);
     }
 
@@ -95,7 +86,22 @@ class DiscussionController extends Controller
         $discussion->delete();
 
         return response()->json([
-            'message' => 'Discussion "'.$discussion->title.'" has been deleted'
+            'message' => 'Discussion "'.$discussion->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Discussion::class);
+        
+        $discussions = Discussion::with('author','board','latest_reply')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return DiscussionResource::collection($discussions);
     }
 }

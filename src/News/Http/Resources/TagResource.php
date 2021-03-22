@@ -17,7 +17,6 @@ class TagResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'color' => $this->color,
             'articles' => ArticleResource::collection($this->whenLoaded('articles')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),

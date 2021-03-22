@@ -17,8 +17,9 @@ class DiscussionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'name' => $this->name,
             'is_sticky' => $this->is_sticky,
+            'is_locked' => $this->is_locked,
             'views' => $this->views,
             'board' => new BoardResource($this->whenLoaded('board')),
             'author' => new UserResource($this->whenLoaded('author')),

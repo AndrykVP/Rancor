@@ -30,7 +30,7 @@ class AwardForm extends FormRequest
             'code' => ['required', 'string', Rule::unique('structure_awards')->ignore($this->id)],
             'levels' => 'nullable|integer|min:1|max:255',
             'priority' => 'nullable|integer|min:1|max:255',
-            'type_id' => 'required|integer|exists:structure_types,id'
+            'type_id' => 'required|integer|exists:structure_award_types,id'
         ];
     }
 }

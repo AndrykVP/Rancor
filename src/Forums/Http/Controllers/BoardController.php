@@ -65,7 +65,7 @@ class BoardController extends Controller
         $this->authorize('create',Board::class);
 
         $data = $request->validated();
-        if($data['parent_id'] != null)
+        if($request->has('parent_id'))
         {
             $parent = Board::find($data['parent_id']);
             $data['category_id'] = $parent->category_id;

@@ -9,17 +9,7 @@ use AndrykVP\Rancor\Structure\Http\Resources\FactionResource;
 use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
 
 class FactionController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -59,8 +49,9 @@ class FactionController extends Controller
     public function show(Faction $faction)
     {
         $this->authorize('view', $faction);
+        $faction->load('departments','ranks');
 
-        return new FactionResource($faction->load('departments','ranks'));
+        return new FactionResource($faction);
     }
 
     /**
@@ -97,5 +88,20 @@ class FactionController extends Controller
         return response()->json([
             'message' => 'Faction "'.$faction->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Faction::class);
+        
+        $factions = Faction::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return FactionResource::collection($factions);
     }
 }

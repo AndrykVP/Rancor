@@ -26,7 +26,6 @@ class UserForm extends FormRequest
     {
         $this->merge([
             'rank_id' => $this->rank_id ?: null,
-            'roles' => $this->roles ?: null,
         ]);
     }
 
@@ -45,7 +44,8 @@ class UserForm extends FormRequest
             'rank_id' => 'nullable|integer|exists:structure_ranks,id',
             'avatar' => 'nullable|file|max:1000|mimetypes:image/png',
             'signature' => 'nullable|file|max:1000|mimetypes:image/png',
-            'roles' => 'nullable|array'
+            'roles' => 'required|array',
+            'groups' => 'required|array',
         ];
     }
 }

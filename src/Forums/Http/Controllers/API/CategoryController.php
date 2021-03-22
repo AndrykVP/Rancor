@@ -3,23 +3,14 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Resources\CategoryResource;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
 
 class CategoryController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(20);
+        $categories = Category::with('groups')->paginate(config('rancor.config'));
 
         return CategoryResource::collection($categories);
     }
@@ -43,14 +34,14 @@ class CategoryController extends Controller
         $this->authorize('create',Category::class);
         
         $data = $request->validated();
-        $category = Category::create([
-            'body' => $data['body'],
-            'discussion_id' => $data['discussion_id'],
-            'author_id' => $data['user_id'],
-        ]);
+        $category;
+        DB::transaction(function () use(&$category, $data) {
+            $category = Category::create($data);
+            $category->groups()->sync($data['groups']);
+        });
 
         return response()->json([
-            'message' => 'Category has been posted'
+            'message' => 'Category "'.$category->name.'" has been created'
         ], 200);
     }
 
@@ -64,7 +55,7 @@ class CategoryController extends Controller
     {
         $this->authorize('view',$category);
 
-        return new CategoryResource($category->load('author','discussion','editor'));
+        return new CategoryResource($category->load('boards','groups'));
     }
 
     /**
@@ -77,16 +68,14 @@ class CategoryController extends Controller
     public function update(CategoryForm $request, Category $category)
     {
         $this->authorize('update',$category);
-        
         $data = $request->validated();
-        $category->update([
-            'body' => $data['body'],
-            'discussion_id' => $data['discussion_id'],
-            'editor_id' => $data['user_id'],
-        ]);
+        DB::transaction(function () use(&$category, $data) {
+            $category->update($data);
+            $category->groups()->sync($data['groups']);
+        });
 
         return response()->json([
-            'message' => 'Category #'.$category->id.' has been updated'
+            'message' => 'Category "'.$category->name.'" has been updated'
         ], 200);
     }
 
@@ -100,10 +89,28 @@ class CategoryController extends Controller
     {
         $this->authorize('delete',$category);
         
-        $category->delete();
+        DB::transaction(function () use($category) {
+            $category->groups()->detach();
+            $category->delete();
+        });
 
         return response()->json([
-            'message' => 'Category #'.$category->id.' has been deleted'
+            'message' => 'Category "'.$category->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Category::class);
+        
+        $categories = Category::with('groups')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return CategoryResource::collection($categories);
     }
 }

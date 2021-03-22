@@ -3,23 +3,14 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Http\Resources\BoardResource;
 use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
 
 class BoardController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +18,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        $boards = Board::all();
+        $boards = Board::with('category','parent','children','moderators','latest_reply')->paginate(config('rancor.pagination'));
 
         return BoardResource::collection($boards);
     }
@@ -43,10 +34,19 @@ class BoardController extends Controller
         $this->authorize('create',Board::class);
         
         $data = $request->validated();
-        $board = Board::create($data);
+        if($request->has('parent_id'))
+        {
+            $parent = Board::find($data['parent_id']);
+            $data['category_id'] = $parent->category_id;
+        }
+        $board;
+        DB::transaction(function () use(&$board, $data) {
+            $board = Board::create($data);
+            $board->groups()->sync($data['groups']);
+        });
 
         return response()->json([
-            'message' => 'Board "'.$board->title.'" has been created'
+            'message' => 'Board "'.$board->name.'" has been created'
         ], 200);
     }
 
@@ -75,10 +75,18 @@ class BoardController extends Controller
         $this->authorize('update',$board);
         
         $data = $request->validated();
-        $board->update($data);
+        if($request->has('parent_id'))
+        {
+            $parent = Board::find($data['parent_id']);
+            $data['category_id'] = $parent->category_id;
+        }
+        DB::transaction(function () use(&$board, $data) {
+            $board->update($data);
+            $board->groups()->sync($data['groups']);
+        });
 
         return response()->json([
-            'message' => 'Board "'.$board->title.'" has been updated'
+            'message' => 'Board "'.$board->name.'" has been updated'
         ], 200);
     }
 
@@ -92,10 +100,28 @@ class BoardController extends Controller
     {
         $this->authorize('delete',$board);
         
-        $board->delete();
+        DB::transaction(function () use($board) {
+            $board->groups()->detach();
+            $board->delete();
+        });
 
         return response()->json([
-            'message' => 'Board "'.$board->title.'" has been deleted'
+            'message' => 'Board "'.$board->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Board::class);
+        
+        $boards = Board::with('category','parent','children','moderators','latest_reply')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return BoardResource::collection($boards);
     }
 }

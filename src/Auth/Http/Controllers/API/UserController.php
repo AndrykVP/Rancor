@@ -2,25 +2,16 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
+use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +21,7 @@ class UserController extends Controller
     {
         $this->authorize('viewAny',User::class);
         
-        $query = User::paginate(15);
+        $query = User::paginate(config('rancor.pagination'));
 
         return UserResource::collection($query);
     }
@@ -44,7 +35,9 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        $this->authorize('view',$user);
+        $this->authorize('view', $user);
+
+        $user->load('rank.department.faction','awards.type','permissions','roles','groups');
 
         return new UserResource($user);
     }
@@ -60,32 +53,45 @@ class UserController extends Controller
     {
         $this->authorize('update',$user);
         $data = $request->validated();
-        $user->name = $data['name'];
-        $user->email = $data['email'];
 
-        if($request->has('nickname'))
-        {
-            $user->nickname = $data['nickname'];
-        }
+        DB::transaction(function () use(&$user, $data) {
+            $user->name = $data['name'];
+            $user->email = $data['email'];
 
-        if($request->has('rank_id') && $request->user()->can('changeRank', $user))
-        {
-            $user->rank_id = $data['rank_id'];
-        }
-
-        if($request->user()->can('changePrivs', $user))
-        {
-            if($request->has('permissions'))
+            if($request->has('nickname'))
             {
-                $user->permissions()->sync($request->permissions);
+                $user->nickname = $data['nickname'];
             }
-            if($request->has('roles'))
+            if($request->has('quote'))
             {
-                $user->roles()->sync($request->roles);
+                $user->quote = $data['quote'];
             }
-        }
+            if($request->user()->can('changeRank', $user))
+            {
+                $user->rank_id = $data['rank_id'];
+            }
+            if($request->user()->can('uploadArt', $user))
+            {
+                if($request->has('avatar'))
+                {
+                    $avatarPath = $request->file('avatar')->storeAs('ids/avatars/', $user->id . '.png');
+                }
+                if($request->has('signature'))
+                {
+                    $signaturePath = $request->file('signature')->storeAs('ids/signatures/', $user->id . '.png');
+                }
+            }
+            if($request->user()->can('changeRoles', $user))
+            {
+                $user->roles()->sync($data['roles']);
+            }
+            if($request->user()->can('changeGroups', $user))
+            {
+                $user->groups()->sync($data['groups']);
+            }
 
-        $user->save();
+            $user->save();
+        });
 
         return response()->json([
             'message' => 'User "'.$user->name.'" has been updated'
@@ -110,7 +116,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the results that match the search query.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -119,8 +125,8 @@ class UserController extends Controller
     {
         $this->authorize('viewAny',User::class);
         
-        $query = User::where('name','like','%'.$request->input('search').'%')->paginate(15);
+        $users = User::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
 
-        return UserResource::collection($query);
+        return UserResource::collection($users);
     }
 }

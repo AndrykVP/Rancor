@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Forums\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class BoardForm extends FormRequest
 {
@@ -15,6 +16,18 @@ class BoardForm extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->slug),
+        ]);
     }
 
     /**
@@ -31,9 +44,7 @@ class BoardForm extends FormRequest
             'category_id' => 'nullable|required_without:parent_id|integer|exists:forum_categories,id',
             'parent_id' => 'nullable|required_without:category_id|integer|exists:forum_boards,id',
             'groups' => 'required|array',
-            'order' => ['required','integer', Rule::unique('forum_boards')->where(function ($query) {
-                return $query->where('category_id', $this->category_id);
-            })->ignore($this->id)],
+            'order' => 'required|integer',
         ];
     }
 }

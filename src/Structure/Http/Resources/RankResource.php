@@ -20,7 +20,8 @@ class RankResource extends JsonResource
             'description' => $this->description,
             'level' => $this->level,
             'department' => new DepartmentResource($this->whenLoaded('department')),
-            'created_at' => $this->created_at->format('M j, Y, G:i e'),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

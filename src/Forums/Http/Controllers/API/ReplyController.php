@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Reply;
 use AndrykVP\Rancor\Forums\Http\Resources\ReplyResource;
-use AndrykVP\Rancor\Forums\Http\Requests\ReplyForm;
+use AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm;
+use AndrykVP\Rancor\Forums\Http\Requests\NewReplyForm;
 
 class ReplyController extends Controller
 {
@@ -27,7 +28,7 @@ class ReplyController extends Controller
      */
     public function index()
     {
-        $replies = Reply::paginate(20);
+        $replies = Reply::with('author','discussion')->paginate(config('rancor.pagination'));
 
         return ReplyResource::collection($replies);
     }
@@ -38,16 +39,12 @@ class ReplyController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\ReplyForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReplyForm $request)
+    public function store(NewReplyForm $request)
     {
         $this->authorize('create',Reply::class);
         
         $data = $request->validated();
-        $reply = Reply::create([
-            'body' => $data['body'],
-            'discussion_id' => $data['discussion_id'],
-            'author_id' => $data['user_id'],
-        ]);
+        $reply = Reply::create($data);
 
         return response()->json([
             'message' => 'Reply has been posted'
@@ -74,16 +71,12 @@ class ReplyController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(ReplyForm $request, Reply $reply)
+    public function update(EditReplyForm $request, Reply $reply)
     {
         $this->authorize('update',$reply);
         
         $data = $request->validated();
-        $reply->update([
-            'body' => $data['body'],
-            'discussion_id' => $data['discussion_id'],
-            'editor_id' => $data['user_id'],
-        ]);
+        $reply->update($data);
 
         return response()->json([
             'message' => 'Reply #'.$reply->id.' has been updated'

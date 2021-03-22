@@ -42,6 +42,7 @@ class EditArticleForm extends FormRequest
         return [
             'name' => 'required|string',
             'body' => 'required|min:3',
+            'description' => 'required|string',
             'is_published' => 'required|boolean',
             'tags' => 'nullable|array',
             'editor_id' => 'required|integer|exists:users,id',

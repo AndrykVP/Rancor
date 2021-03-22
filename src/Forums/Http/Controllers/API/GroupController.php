@@ -9,17 +9,7 @@ use AndrykVP\Rancor\Forums\Http\Resources\GroupResource;
 use AndrykVP\Rancor\Forums\Http\Requests\GroupForm;
 
 class GroupController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
+        $groups = Group::paginate(config('rancor.pagination'));
 
         return GroupResource::collection($groups);
     }
@@ -46,7 +36,7 @@ class GroupController extends Controller
         $group = Group::create($data);
 
         return response()->json([
-            'message' => 'Group "'.$group->title.'" has been created'
+            'message' => 'Group "'.$group->name.'" has been created'
         ], 200);
     }
 
@@ -59,8 +49,9 @@ class GroupController extends Controller
     public function show(Group $group)
     {
         $this->authorize('view',$group);
+        $group->load('users','boards','categories');
 
-        return new GroupResource($group->load('users','categories'));
+        return new GroupResource($group);
     }
 
     /**
@@ -78,7 +69,7 @@ class GroupController extends Controller
         $group->update($data);
 
         return response()->json([
-            'message' => 'Group "'.$group->title.'" has been updated'
+            'message' => 'Group "'.$group->name.'" has been updated'
         ], 200);
     }
 
@@ -95,7 +86,22 @@ class GroupController extends Controller
         $group->delete();
 
         return response()->json([
-            'message' => 'Group "'.$group->title.'" has been deleted'
+            'message' => 'Group "'.$group->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Group::class);
+        
+        $groups = Group::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return GroupResource::collection($groups);
     }
 }

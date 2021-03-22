@@ -43,6 +43,7 @@ class CategoryForm extends FormRequest
             'color' => 'nullable|string|size:7',
             'slug' => ['required', 'string', Rule::unique('forum_categories')->ignore($this->id)],
             'order' => ['required', 'integer', Rule::unique('forum_categories')->ignore($this->id)],
+            'groups' => 'nullable|array'
         ];
     }
 }

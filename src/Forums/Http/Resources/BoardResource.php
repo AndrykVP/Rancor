@@ -17,7 +17,7 @@ class BoardResource extends JsonResource
     {
         $resource = [
             'id' => $this->id,
-            'title' => $this->title,
+            'name' => $this->name,
             'description' => $this->description,
             'slug' => $this->slug,
             'category' => new CategoryResource($this->whenLoaded('category')),

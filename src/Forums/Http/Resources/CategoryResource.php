@@ -16,10 +16,12 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'name' => $this->name,
             'color' => $this->color,
-            'uri' => $this->slug,
+            'slug' => $this->slug,
+            'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'boards' => BoardResource::collection($this->whenLoaded('boards')),
+            'discussions' => GroupResource::collection($this->whenLoaded('discussions')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

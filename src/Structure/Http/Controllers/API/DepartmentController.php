@@ -9,17 +9,7 @@ use AndrykVP\Rancor\Structure\Http\Resources\DepartmentResource;
 use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
 
 class DepartmentController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -97,5 +87,20 @@ class DepartmentController extends Controller
         return response()->json([
             'message' => 'Department "'.$department->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Department::class);
+        
+        $departments = Department::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return DepartmentResource::collection($departments);
     }
 }

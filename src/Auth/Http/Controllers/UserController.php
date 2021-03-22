@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Models\Role;
@@ -112,32 +113,44 @@ class UserController extends Controller
 
         $data = $request->validated();
         
-        $user->name = $data['name'];
-        $user->nickname = $data['nickname'];
-        $user->email = $data['email'];
-        $user->quote = $data['quote'];
+        DB::transaction(function () use(&$user, $data) {
+            $user->name = $data['name'];
+            $user->email = $data['email'];
 
-        if($request->user()->can('changeRank', $user))
-        {
-            $user->rank_id = $data['rank_id'];
-        }
-        if($request->user()->can('uploadArt', $user))
-        {
-            if($request->has('avatar') && $data['avatar'] != null)
+            if($request->has('nickname'))
             {
-                $avatarPath = $request->file('avatar')->storeAs('idgen/avatars', $user->id . '.png');
+                $user->nickname = $data['nickname'];
             }
-            if($request->has('signature') && $data['signature'] != null)
+            if($request->has('quote'))
             {
-                $signaturePath = $request->file('signature')->storeAs('idgen/signatures', $user->id . '.png');
+                $user->quote = $data['quote'];
             }
-        }
-        if($request->user()->can('changeRoles', $user))
-        {
-            $user->roles()->sync($data['roles']);
-        }
+            if($request->user()->can('changeRank', $user))
+            {
+                $user->rank_id = $data['rank_id'];
+            }
+            if($request->user()->can('uploadArt', $user))
+            {
+                if($request->has('avatar'))
+                {
+                    $avatarPath = $request->file('avatar')->storeAs('ids/avatars/', $user->id . '.png');
+                }
+                if($request->has('signature'))
+                {
+                    $signaturePath = $request->file('signature')->storeAs('ids/signatures/', $user->id . '.png');
+                }
+            }
+            if($request->user()->can('changeRoles', $user))
+            {
+                $user->roles()->sync($data['roles']);
+            }
+            if($request->user()->can('changeGroups', $user))
+            {
+                $user->groups()->sync($data['groups']);
+            }
 
-        $user->save();
+            $user->save();
+        });
 
         return redirect(route('admin.users.index'))->with('alert', ['model' => $resource->name, 'name' => $user->name,'action' => 'updated']);
 

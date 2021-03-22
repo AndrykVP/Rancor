@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Models\Group;
@@ -63,7 +64,11 @@ class CategoryController extends Controller
         $this->authorize('create',Category::class);
         
         $data = $request->validated();
-        $category = Category::create($data);
+        $category;
+        DB::transaction(function () use(&$category, $data) {
+            $category = Category::create($data);
+            $category->groups()->sync($data['groups']);
+        });
 
         return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name, 'action' => 'created']);
     }
@@ -77,8 +82,6 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $this->authorize('view',$category);
-
-        $boards = Auth::user()->topics();
   
         $category->loadCount('boards','discussions')->load('groups');
   
@@ -110,6 +113,7 @@ class CategoryController extends Controller
     public function edit(Category $category, Request $request)
     {
         $this->authorize('update', $category);
+
         $resource = $this->resource;
         $form = array_merge(['method' => 'POST'],$this->form());
         $model = $category;
@@ -129,7 +133,10 @@ class CategoryController extends Controller
         $this->authorize('update',$category);
         
         $data = $request->validated();
-        $category->update($data);
+        DB::transaction(function () use(&$category, $data) {
+            $category->update($data);
+            $category->groups()->sync($data['groups']);
+        });
 
         return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name, 'action' => 'updated']);
     }
@@ -144,7 +151,10 @@ class CategoryController extends Controller
     {
         $this->authorize('delete',$category);
         
-        $category->delete();
+        DB::transaction(function () use($category) {
+            $category->groups()->detach();
+            $category->delete();
+        });
 
         return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name,'action' => 'deleted']);
     }
@@ -182,6 +192,15 @@ class CategoryController extends Controller
                     'type' => 'number',
                     'attributes' => 'required'
                 ],
+            ],
+            'selects' => [
+                [
+                    'name' => 'groups',
+                    'label' => 'Groups',
+                    'attributes' => 'multiple',
+                    'multiple' => true,
+                    'options' => Group::orderBy('name')->get(),
+                ]
             ],
             'textareas' => [
                 [

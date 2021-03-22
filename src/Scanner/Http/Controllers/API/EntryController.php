@@ -7,20 +7,12 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
 use AndrykVP\Rancor\Scanner\Services\EntryParseService;
+use AndrykVP\Rancor\Scanner\Http\Requests\EditEntry;
 use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
+use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 
 class EntryController extends Controller
 {
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,22 +21,20 @@ class EntryController extends Controller
     public function index()
     {
         $this->authorize('viewAny',Entry::class);
-        $records = Entry::paginate(15);
+        $entries = Entry::paginate(config('rancor.pagination'));
 
-        return EntryResource::collection($records);
+        return EntryResource::collection($entries);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\UploadScan  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UploadScan $request)
     {
         $this->authorize('create',Entry::class);
-        abort_if(!$request->hasFile('files'), 400, 'At least 1 XML file must be uploaded.');
-
         $scans = new EntryParseService($request);
         $scans->start();
 
@@ -72,18 +62,16 @@ class EntryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EditEntry  $request
      * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Entry $entry)
+    public function update(EditEntry $request, Entry $entry)
     {
         $this->authorize('update', $entry);
 
-        $contributor = $request->user();
-        $new_data = $request->all();
-        $entry->updated_by = $contributor->id;
-        $entry->update($new_data);
+        $data = $request->validated();
+        $entry->update($data);
         
         return response()->json([
             'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been updated.",
@@ -109,17 +97,15 @@ class EntryController extends Controller
     /**
      * Search specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry  $request
      * @return \Illuminate\Http\Response
      */
     public function search(SearchEntry $request)
     {
         $this->authorize('viewAny', Entry::class);
         $param = $request->validated();
-        $query = Entry::where($param['attribute'],'like','%'.$param['value'].'%')->paginate(15);
+        $query = Entry::where($param['attribute'],'like','%'.$param['value'].'%')->paginate(config('rancor.pagination'));
         
         return EntryResource::collection($query);
-
-
     }
 }

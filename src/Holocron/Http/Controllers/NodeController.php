@@ -81,7 +81,7 @@ class NodeController extends Controller
     {
         $this->authorize('view', $node);
 
-        $node->load('collections')->loadCount('author', 'editor');
+        $node->load('collections', 'author', 'editor');
 
         return view('rancor::show.node', compact('node'));
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Resources;
+namespace AndrykVP\Rancor\Structure\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PermissionResource extends JsonResource
+class TypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,7 @@ class PermissionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'users' => UserResource::collection($this->whenLoaded('users')),
-            'roles' => RoleResource::collection($this->whenLoaded('roles')),
+            'awards' => AwardResource::collection($this->whenLoaded('awards')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

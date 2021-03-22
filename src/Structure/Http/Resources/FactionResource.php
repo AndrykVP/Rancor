@@ -19,7 +19,8 @@ class FactionResource extends JsonResource
             'name' => $this->name,
             'departments' => DepartmentResource::collection($this->whenLoaded('departments')),
             'ranks' => RankResource::collection($this->whenLoaded('ranks')),
-            'created_at' => $this->created_at->format('M j, Y, G:i e'),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

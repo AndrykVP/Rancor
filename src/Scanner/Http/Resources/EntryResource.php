@@ -26,7 +26,7 @@ class EntryResource extends JsonResource
             'position' => $this->position,
             'contributor' => new UserResource($this->whenLoaded('contributor')),
             'changelog' => LogResource::collection($this->whenLoaded('changelog')),
-            'last_scanned' => $this->last_seen->diffForHumans(),
+            'last_seen' => $this->last_seen->diffForHumans(),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

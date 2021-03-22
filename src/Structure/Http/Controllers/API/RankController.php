@@ -9,17 +9,7 @@ use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
 use AndrykVP\Rancor\Structure\Http\Requests\RankForm;
 
 class RankController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -97,5 +87,20 @@ class RankController extends Controller
         return response()->json([
             'message' => 'Rank "'.$rank->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Rank::class);
+        
+        $ranks = Rank::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return RankResource::collection($ranks);
     }
 }

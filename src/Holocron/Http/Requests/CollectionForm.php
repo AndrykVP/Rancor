@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Holocron\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class CollectionForm extends FormRequest
 {
@@ -15,6 +16,18 @@ class CollectionForm extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->slug),
+        ]);
     }
 
     /**

@@ -3,23 +3,15 @@
 namespace AndrykVP\Rancor\News\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\News\Models\Article;
 use AndrykVP\Rancor\News\Http\Resources\ArticleResource;
-use AndrykVP\Rancor\News\Http\Requests\ArticleForm;
+use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
+use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
 
 class ArticleController extends Controller
 {
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'))->except('public');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,68 +20,42 @@ class ArticleController extends Controller
     public function index()
     {
         $this->authorize('viewAny',Article::class);
+        $articles = Article::with('tags')->paginate(config('rancor.pagination'));
 
-        $query = Article::latest()->paginate(10);
-
-        return ArticleResource::collection($query);
-    }
-    
-    /**
-     * Display a listing of published resources.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function public()
-    {
-        $query = Article::where('is_published',true)->latest()->paginate(10);
-
-        return ArticleResource::collection($query);
-    }
-
-    /**
-     * Display a listing of drafted resources.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function drafts()
-    {
-        $this->authorize('viewAny',Article::class);
-
-        $query = Article::where('is_published',false)->latest()->paginate(10);
-
-        return ArticleResource::collection($query);
+        return ArticleResource::collection($articles);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\News\Http\Requests\NewArticleForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleForm $request)
+    public function store(NewArticleForm $request)
     {
         $this->authorize('create',Article::class);
-        
         $data = $request->validated();
-        $article = new Article;
-        $article->fill($data);
-        $article->author_id = $request->user()->id;
-        $article->save();
+        $article;
+        DB::transaction(function () use(&$article, $data) {
+            $article = Article::create($data);
+            $article->tags()->sync($data['tags']);
+        });
 
         return response()->json([
-            'message' => 'Article "'.$article->title.'" has been created'
+            'message' => 'Article "'.$article->name.'" has been created'
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\News\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
     {
         $this->authorize('view', $article);
+        $article->load('tags','author','editor');
 
         return new ArticleResource($article);
     }
@@ -97,38 +63,52 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\News\Http\Requests\EditArticleForm  $request
+     * @param  \AndrykVP\Rancor\News\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleForm $request, Article $article)
+    public function update(EditArticleForm $request, Article $article)
     {
         $this->authorize('update', $article);
-        
         $data = $request->validated();
-        $article->fill($data);
-        $article->editor_id = $request->user()->id;
-        $article->save();
+        DB::transaction(function () use(&$article, $data) {
+            $article->update($data);
+            $article->tags()->sync($data['tags']);
+        });
 
         return response()->json([
-            'message' => 'Article "'.$article->title.'" has been updated'
+            'message' => 'Article "'.$article->name.'" has been updated'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \AndrykVP\Rancor\News\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
     {
         $this->authorize('delete', $article);
-
         $article->delete();
 
         return response()->json([
-            'message' => 'Article "'.$article->title.'" has been deleted'
+            'message' => 'Article "'.$article->name.'" has been deleted'
         ], 200);        
+    }
+
+    /**
+     * Display the results that match the search query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $this->authorize('viewAny',Article::class);
+        
+        $articles = Article::with('tags')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+
+        return ArticleResource::collection($articles);
     }
 }

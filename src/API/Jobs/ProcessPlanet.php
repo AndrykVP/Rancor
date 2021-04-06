@@ -60,7 +60,7 @@ class ProcessPlanet implements ShouldQueue
         }
         
         $model->name = $query['galaxy-planet']['name'];
-        $model->system_id = array_key_exists('system',$query['galaxy-planet']) ? (int)explode(':',$query['galaxy-planet']['system']['attributes']['uid'])[1] : null;
+        $model->system_id = array_key_exists('system',$query['galaxy-planet']['coordinates']) ? (int)explode(':',$query['galaxy-planet']['coordinates']['system']['attributes']['uid'])[1] : null;
 
         $model->save();
     }

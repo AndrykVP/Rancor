@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - View Components: `AdminLayout`, `MainLayout`, `Alert`, `AdminNavigation`, `Main Navigation`
 - `Search` routes to all resource routes, to filter results in the Resource Index at the Admin Panel
+- Reincorporated `API` module for retrieving sectors, systems and planets from Combine's web services. This module has been upgraded to fit Laravel 8 standards
 
 ### Changed
 - Refactored all Models to folder and namespace `Models` under their respective modules, to follow Laravel 8 directory structure.

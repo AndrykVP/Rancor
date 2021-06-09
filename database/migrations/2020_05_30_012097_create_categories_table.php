@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->text('description')->nullable()->default(null);
             $table->string('color')->default('#000000');
             $table->string('slug')->unique();
-            $table->unsignedBigInteger('order')->unique();
+            $table->unsignedBigInteger('lineup')->unique();
             $table->timestamps();
         });
     }

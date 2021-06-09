@@ -21,7 +21,7 @@ class Board extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'slug', 'category_id', 'parent_id', 'order' ];
+    protected $fillable = [ 'name', 'description', 'slug', 'category_id', 'parent_id', 'lineup' ];
 
     /**
      * Defines the table name

@@ -187,7 +187,7 @@ class CategoryController extends Controller
                     'attributes' => 'required'
                 ],
                 [
-                    'name' => 'order',
+                    'name' => 'lineup',
                     'label' => 'Display Order',
                     'type' => 'number',
                     'attributes' => 'required'

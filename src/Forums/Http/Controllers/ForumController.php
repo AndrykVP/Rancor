@@ -28,7 +28,7 @@ class ForumController extends Controller
                ->whereIn('id',$boards)
                ->withCount('discussions','replies')
                ->with('latest_reply','children')
-               ->orderBy('order');
+               ->orderBy('lineup');
       }])->withCount('boards')->get();
 
       return view('rancor::forums.index',compact('categories'));
@@ -81,7 +81,7 @@ class ForumController extends Controller
                ->whereIn('id',$boards)
                ->withCount('discussions','replies')
                ->with('latest_reply','children')
-               ->orderBy('order');
+               ->orderBy('lineup');
       }])->loadCount('boards')->get();
       
       return view('rancor::forums.category', compact('category'));
@@ -99,7 +99,7 @@ class ForumController extends Controller
       $this->authorize('view', $board);
 
       $board->load('moderators')->load(['children' => function($query) {
-         $query->withCount('discussions','replies','children')->with('latest_reply.discussion')->orderBy('order');
+         $query->withCount('discussions','replies','children')->with('latest_reply.discussion')->orderBy('lineup');
       }]);
 
       $sticky = $board->discussions()

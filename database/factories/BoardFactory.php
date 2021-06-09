@@ -25,7 +25,7 @@ class BoardFactory extends Factory
             'name' => $this->faker->company,
             'description' => $this->faker->sentence(12),
             'slug' => $this->faker->unique()->word,
-            'order' => $this->faker->numberBetween(1,20),
+            'lineup' => $this->faker->numberBetween(1,20),
         ];
     }
 }

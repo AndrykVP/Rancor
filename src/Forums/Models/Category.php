@@ -25,7 +25,7 @@ class Category extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'color', 'slug', 'order' ];
+    protected $fillable = [ 'name', 'description', 'color', 'slug', 'lineup' ];
 
     /**
      * Relationship to Board model
@@ -34,7 +34,7 @@ class Category extends Model
      */
     public function boards()
     {
-        return $this->hasMany(Board::class)->orderBy('order');
+        return $this->hasMany(Board::class)->orderBy('lineup');
     }
 
     /**

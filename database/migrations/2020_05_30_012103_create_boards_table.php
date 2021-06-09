@@ -20,7 +20,7 @@ class CreateBoardsTable extends Migration
             $table->string('slug')->unique();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('parent_id')->nullable()->default(null);
-            $table->unsignedBigInteger('order');
+            $table->unsignedBigInteger('lineup');
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('forum_boards')->onDelete('cascade');

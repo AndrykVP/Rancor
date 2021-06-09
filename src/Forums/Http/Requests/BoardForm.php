@@ -44,7 +44,7 @@ class BoardForm extends FormRequest
             'category_id' => 'nullable|required_without:parent_id|integer|exists:forum_categories,id',
             'parent_id' => 'nullable|required_without:category_id|integer|exists:forum_boards,id',
             'groups' => 'required|array',
-            'order' => 'required|integer',
+            'lineup' => 'required|integer',
         ];
     }
 }

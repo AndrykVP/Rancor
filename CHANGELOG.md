@@ -6,24 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [1.4.0] - 2021-03-09
+## [2.0.0] - 2021-03-09
 ### Added
 - View Components: `AdminLayout`, `MainLayout`, `Alert`, `AdminNavigation`, `Main Navigation`
 - `Search` routes to all resource routes, to filter results in the Resource Index at the Admin Panel
-- Reincorporated `API` module for retrieving sectors, systems and planets from Combine's web services. This module has been upgraded to fit Laravel 8 standards
+- Reincorporated `API` module for retrieving sectors, systems and planets from Combine's web services. This module has been upgraded to fit **Laravel 8** standards
 
 ### Changed
-- Refactored all Models to folder and namespace `Models` under their respective modules, to follow Laravel 8 directory structure.
-- `App\User` to `App\Models\User` change as per Laravel 8 directory structure
+- Refactored all Models to folder and namespace `Models` under their respective modules, to follow **Laravel 8** directory structure.
+- `App\User` to `App\Models\User` change as per **Laravel 8** directory structure
 - Namespacing of database Seeders and Factories
-- Views now use Tailwind CSS instead of Bootstrap, as per Laravel 8 Startkits (Laravel Breeze specifically)
+- Views now use **Tailwind CSS** instead of Bootstrap, as per **Laravel 8** Startkits (Laravel Breeze specifically)
 - Renamed `FrameworkServiceProvider` to `PackageServiceProvider` for consistency of naming convention.
 - Scanner log moved to Audit module:
   - `Scanner\Log` => `Audit\Models\EntryLog`
   - `Scanner\Events\EditScan` => `Audit\Events\EntryUpdate`
   - `Scanner\Listeners\CreateScanLog` => `Audit\Listeners\CreateScanLog`
 - Turned Forums `views/includes` into View Components:  `BoardRow`, `CategoryCard`, `DiscussionList`
-- `Structure\Policies` and `Auth\Policies` now use model binding for potential future extensions 
+- `Structure\Policies` and `Auth\Policies` now use model binding for potential future extensions
+- Column name `order` changed to `lineup` in the forums's `Category` and `Board` models, as well as their RequestForms, Controllers, Migrations, etc.
 
 ### Deleted
 - Gate `manage-faction` became irrelevant after the addition of the permission `view-admin-panel` used for admin middleware.

@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\API\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,12 +36,20 @@ class ProcessSector implements ShouldQueue
     public function handle()
     {
         $id = (int)explode(':',$this->uid)[1];
-        $json = file_get_contents('https://www.swcombine.com/ws/v1.0/galaxy/sectors/'.$this->uid.'.json');
-        $query = json_decode(str_replace('\\','',$json),TRUE);
+        $response = Http::withHeaders([
+            'Accept' => 'application/json'
+        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/sectors/{$this->uid}`)
 
-        $model = Sector::firstOrNew(['id' => $id]);
-        $model->name = $query['galaxy-sector']['name'];
-        $model->save();
+        if($response->successful())
+        {
+            $query = $response->json();
+            $query = query['swcapi']['sector'];
+    
+            $model = Sector::firstOrNew(['id' => $id]);
+            $model->name = $query['name'];
+            $model->color = sprintf("#%02x%02x%02x", $query['colour']['r'], $query['colour']['g'], $query['colour']['b']);
+            $model->save();
+        }
     }
 
     /**

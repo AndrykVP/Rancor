@@ -20,7 +20,7 @@ class Sector extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'id', 'name'];
+    protected $fillable = [ 'id', 'name', 'color'];
 
     /**
      * Disable auto-increments on 'id' column of the Model

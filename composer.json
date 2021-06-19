@@ -19,12 +19,14 @@
       }
    ],
    "require": {
-      "php": "^7.0",
+      "php": "^7.0|^8.0",
       "laravel/framework": "^8.0",
-      "mews/purifier": "^3.2"
+      "mews/purifier": "^3.2",
+      "guzzlehttp/guzzle": "^7.0"
    },
    "require-dev": {
-      "orchestra/testbench": "^6.0"
+      "orchestra/testbench": "^6.0",
+      "phpunit/phpunit": "^9.5"
    },
    "support": {
       "wiki": "https://github.com/AndrykVP/Rancor/wiki"

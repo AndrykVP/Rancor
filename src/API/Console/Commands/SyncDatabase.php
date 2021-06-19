@@ -1,9 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\API\Commands;
+namespace AndrykVP\Rancor\API\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Exception;
 
 class SyncDatabase extends Command
@@ -135,17 +137,20 @@ class SyncDatabase extends Command
         {
             $query = $this->sendQuery($parameter['uri'], $type, $resource, $i);
 
-            foreach($query['array'] as $entry)
+            if($query)
             {
-                $parameter['class']::dispatch($entry['attributes']['uid'])->onQueue($resource);
+                foreach($query['array'] as $entry)
+                {
+                    $parameter['class']::dispatch($entry['attributes']['uid'])->onQueue($resource);
+                }
+    
+                if($i+50 >= $query['total'])
+                {
+                    $running = false;
+                }
+    
+                $i += 50;
             }
-
-            if($i+50 >= $query['total'])
-            {
-                $running = false;
-            }
-
-            $i += 50;
         }
     }
 
@@ -155,7 +160,7 @@ class SyncDatabase extends Command
      * 
      * @return array
      */
-    private function parseParamaters($res, $type)
+    private function parseParamaters($resource, $type)
     {
         $result = [
             'uri' => null,
@@ -165,14 +170,14 @@ class SyncDatabase extends Command
         switch($type)
         {
             case 'galaxy':
-                $result['uri'] = 'galaxy/'.$res.'s';
+                $result['uri'] = 'galaxy/'.Str::plural($resource);
             break;
             case 'entity':
-                $result['uri'] = 'types/'.$res.'s';
+                $result['uri'] = 'types/'.Str::plural($resource);
             break;
         }
 
-        $result['class'] = 'AndrykVP\Rancor\API\Jobs\Process'.ucfirst($res);
+        $result['class'] = 'AndrykVP\Rancor\API\Jobs\Process'.ucfirst($resource);
 
         return $result;
     }
@@ -180,39 +185,43 @@ class SyncDatabase extends Command
     /** 
      * Returns queried array from json file
      * 
-     * @return array
+     * @return mixed array|boolean
      */
-    private function sendQuery($uri, $type, $res, $i)
+    private function sendQuery($uri, $type, $resource, $index)
     {
-        $json = file_get_contents('https://www.swcombine.com/ws/v1.0/'.$uri.'.json?start_index='.$i);
-        $query = json_decode(str_replace('\\','',$json),TRUE);
+        $response = Http::withHeaders([
+            'Accept' => 'application/json'
+        ])->get(`https://www.swcombine.com/ws/v2.0/{$uri}/`, [
+            'start_index' => $index
+        ]);
 
-        if(!$query)
+        if($response->successful())
         {
-            $query = json_decode($json,TRUE);
+            $query = $response->json();
+    
+            switch($type)
+            {
+                case 'galaxy':
+                    $result = [
+                        'array' => $query['swcapi'][Str::plural($resource)][$resource],
+                        'total' => $query['swcapi'][Str::plural($resource)]['attributes']['total']
+                    ];
+                break;
+                case 'entity':
+                    $result = [
+                        'array' => $query['swcapi'][$res.'types'][$res.'type'],
+                        'total' => $query['swcapi'][$res.'types']['attributes']['total']
+                    ];
+                break;
+            }
+    
+            return $result;
         }
-
-        $result = [
-            'array' => [],
-            'total' => null
-        ];
-
-        switch($type)
+        else
         {
-            case 'galaxy':
-                $result = [
-                    'array' => $query['galaxy-'.$res.'s'][$res],
-                    'total' => $query['galaxy-'.$res.'s']['attributes']['total'],
-                ];
-            break;
-            case 'entity':
-                $result = [
-                    'array' => $query['types-entities']['types']['type'],
-                    'total' => $query['types-entities']['types']['attributes']['total'],
-                ];
-            break;
+            $timestamp = now();
+            Log::channel('rancor')->warning(`[{$timestamp}] The request to https://www.swcombine.com/ws/v2.0/{$uri}/?start_index={$i} returned an error.`);
+            return false;
         }
-
-        return $result;
     }
 }

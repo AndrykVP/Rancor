@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Factories;
+namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Forums\Models\Discussion;

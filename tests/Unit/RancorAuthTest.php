@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Database\Seeders\RancorSeeder;
+use AndrykVP\Rancor\DB\Seeders\RancorSeeder;
 
 class RancorAuthTest extends TestCase
 {

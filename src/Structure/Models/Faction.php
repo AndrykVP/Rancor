@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\Database\Factories\FactionFactory;
+use AndrykVP\Rancor\DB\Factories\FactionFactory;
 
 class Faction extends Model
 {

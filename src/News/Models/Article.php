@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\News\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\ArticleFactory;
+use AndrykVP\Rancor\DB\Factories\ArticleFactory;
 
 class Article extends Model
 {

@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\Database\Factories\TypeFactory;
+use AndrykVP\Rancor\DB\Factories\TypeFactory;
 
 class Type extends Model
 {

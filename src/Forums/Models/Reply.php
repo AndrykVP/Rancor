@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
-use AndrykVP\Rancor\Database\Factories\ReplyFactory;
+use AndrykVP\Rancor\DB\Factories\ReplyFactory;
 
 class Reply extends Model
 {

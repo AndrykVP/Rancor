@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Seeders;
+namespace AndrykVP\Rancor\DB\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Sequence;

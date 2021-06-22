@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\BoardFactory;
+use AndrykVP\Rancor\DB\Factories\BoardFactory;
 
 class Board extends Model
 {

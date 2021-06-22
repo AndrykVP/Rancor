@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\GroupFactory;
+use AndrykVP\Rancor\DB\Factories\GroupFactory;
 
 class Group extends Model
 {

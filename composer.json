@@ -34,13 +34,12 @@
    "autoload": {
       "psr-4": {
          "AndrykVP\\Rancor\\": "src/",
-         "AndrykVP\\Rancor\\Database\\Seeders\\": "database/seeders/" ,
-         "AndrykVP\\Rancor\\Database\\Factories\\": "database/factories/" 
+         "AndrykVP\\Rancor\\DB\\Factories\\": "database/factories",
+         "AndrykVP\\Rancor\\DB\\Seeders\\": "database/seeders"
       }
    },
    "autoload-dev": {
       "psr-4": {
-         "App\\": "app/",
          "AndrykVP\\Rancor\\Tests\\": "tests/"
       }
    },
@@ -51,9 +50,5 @@
             "AndrykVP\\Rancor\\Providers\\PackageServiceProvider"
          ]
       }
-   },
-   "scripts": {
-     "test": "vendor/bin/phpunit",
-     "test-f": "vendor/bin/phpunit --filter"
    }
 }

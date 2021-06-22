@@ -4,7 +4,6 @@ namespace AndrykVP\Rancor\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Rancor\Auth\Models\Role;
 
 class Permission extends Model
 {

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use AndrykVP\Rancor\Database\Factories\ArticleFactory;
-use AndrykVP\Rancor\News\Models\Tag;
 
 class Article extends Model
 {

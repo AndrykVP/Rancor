@@ -9,7 +9,6 @@ use Auth;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use AndrykVP\Rancor\Database\Factories\NodeFactory;
-use AndrykVP\Rancor\Holocron\Models\Collection;
 
 class Node extends Model
 {

@@ -5,7 +5,6 @@ namespace AndrykVP\Rancor\Holocron\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\CollectionFactory;
-use AndrykVP\Rancor\Holocron\Models\Node;
 
 class Collection extends Model
 {

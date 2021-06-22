@@ -5,8 +5,6 @@ namespace AndrykVP\Rancor\Structure\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Database\Factories\FactionFactory;
-use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Models\Department;
 
 class Faction extends Model
 {

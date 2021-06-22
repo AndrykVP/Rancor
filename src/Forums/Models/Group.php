@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use AndrykVP\Rancor\Database\Factories\GroupFactory;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Category;
 
 class Group extends Model
 {
@@ -35,7 +33,7 @@ class Group extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'color' ];
+    protected $fillable = [ 'name', 'description' ];
 
     /**
      * Defines the table name

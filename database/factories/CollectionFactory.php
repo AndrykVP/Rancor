@@ -23,7 +23,7 @@ class CollectionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->company,
+            'name' => $this->faker->unique()->title,
             'slug' => $this->faker->unique()->word,
             'description' => $this->faker->text(150),
         ];

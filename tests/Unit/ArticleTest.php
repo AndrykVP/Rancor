@@ -59,9 +59,9 @@ class ArticleTest extends TestCase
      * @test
      * @depends make_article
      */
-    function article_has_is_published($article)
+    function article_is_published($article)
     {
-        $this->assertEquals(true, $article->is_published);
+        $this->assertTrue($article->is_published);
     }
 
     /**

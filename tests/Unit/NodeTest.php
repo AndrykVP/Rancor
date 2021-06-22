@@ -48,9 +48,9 @@ class NodeTest extends TestCase
      * @test
      * @depends make_node
      */
-    function node_has_is_public($node)
+    function node_is_public($node)
     {
-        $this->assertEquals(true, $node->is_public);
+        $this->assertTrue($node->is_public);
     }
 
     /**

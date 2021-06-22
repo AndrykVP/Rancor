@@ -33,7 +33,7 @@ class Award extends Model
     * 
     * @var array
     */
-   protected $fillable = [ 'class', 'name', 'description', 'type_id', 'code', 'levels', 'priority' ];
+   protected $fillable = [ 'name', 'description', 'type_id', 'code', 'levels', 'priority' ];
 
    /**
     * Relationship to Rank model

@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->title,
+            'name' => $this->faker->sentence(5),
             'description' => $this->faker->sentence(12),
             'color' => $this->faker->hexcolor,
             'slug' => $this->faker->unique()->word,

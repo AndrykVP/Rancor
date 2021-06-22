@@ -22,7 +22,7 @@ class NodeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->title,
+            'name' => $this->faker->unique()->sentence(5),
             'body' => $this->faker->paragraph(true),
             'is_public' => $this->faker->boolean,
             'created_at' => now(),

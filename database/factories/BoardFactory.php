@@ -22,7 +22,7 @@ class BoardFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->title,
+            'name' => $this->faker->sentence(5),
             'description' => $this->faker->sentence(12),
             'slug' => $this->faker->unique()->word,
             'lineup' => $this->faker->numberBetween(1,20),

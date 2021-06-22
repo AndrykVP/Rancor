@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Tests\TestCase;
-use App\Models\User;
 
 class DiscussionTest extends TestCase
 {
@@ -17,7 +16,7 @@ class DiscussionTest extends TestCase
     {
         $discussion = Discussion::factory()
         ->for(Board::factory()->forCategory()->create())
-        ->for(User::factory()->create(), 'author')
+        ->forAuthor()
         ->sticky()->locked()
         ->create([
             'name' => 'Fake Title',

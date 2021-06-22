@@ -7,7 +7,6 @@ use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Models\Reply;
 use AndrykVP\Rancor\Tests\TestCase;
-use App\Models\User;
 
 class ReplyTest extends TestCase
 {
@@ -18,8 +17,7 @@ class ReplyTest extends TestCase
     {
         $reply = Reply::factory()
         ->for(Discussion::factory()->for(Board::factory()->forCategory())->forAuthor())
-        ->for(User::factory(), 'author')
-        ->for(User::factory(), 'editor')
+        ->forAuthor()->forEditor()
         ->create([
             'body' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
         ]);

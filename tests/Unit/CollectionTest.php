@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Holocron\Models\Collection;
 use AndrykVP\Rancor\Holocron\Models\Node;
 use AndrykVP\Rancor\Tests\TestCase;
-use App\Models\User;
 
 class CollectionTest extends TestCase
 {

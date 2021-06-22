@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\News\Models\Tag;
 use AndrykVP\Rancor\News\Models\Article;
 use AndrykVP\Rancor\Tests\TestCase;
-use App\Models\User;
 
 class TagTest extends TestCase
 {

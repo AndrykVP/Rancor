@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Tests\TestCase;
-use App\Models\User;
 
 class BoardTest extends TestCase
 {
@@ -18,7 +17,7 @@ class BoardTest extends TestCase
         $board = Board::factory()
         ->forCategory()
         ->has(Discussion::factory()->count(4)->forAuthor())
-        ->has(User::factory()->count(2), 'moderators')
+        ->hasModerators(2)
         ->create([
             'name' => 'Fake Title',
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',

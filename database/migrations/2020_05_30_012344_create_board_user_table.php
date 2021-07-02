@@ -13,7 +13,7 @@ class CreateBoardUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('forum_board_user', function (Blueprint $table) {
+        Schema::create('forum_moderators', function (Blueprint $table) {
             $table->unsignedBigInteger('board_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateBoardUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum_board_user');
+        Schema::dropIfExists('forum_moderators');
     }
 }

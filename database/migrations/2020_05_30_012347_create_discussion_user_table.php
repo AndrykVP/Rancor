@@ -13,7 +13,7 @@ class CreateDiscussionUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('forum_discussion_user', function (Blueprint $table) {
+        Schema::create('forum_unread_discussions', function (Blueprint $table) {
             $table->unsignedBigInteger('discussion_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateDiscussionUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum_discussion_user');
+        Schema::dropIfExists('forum_unread_discussions');
     }
 }

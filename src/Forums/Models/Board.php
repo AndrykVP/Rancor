@@ -89,7 +89,7 @@ class Board extends Model
      */
     public function moderators()
     {
-        return $this->belongsToMany(User::class, 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany(User::class, 'forum_moderators')->withTimestamps();
     }
 
     /**

@@ -25,6 +25,6 @@ class LinkUserDiscussion
      */
     public function handle(CreateReply $event)
     {
-      $event->reply->discussion->visitors()->sync($this->users);
+      $event->reply->discussion->pending_visitors()->sync($this->users);
     }
 }

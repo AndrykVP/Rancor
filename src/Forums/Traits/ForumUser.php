@@ -26,7 +26,7 @@ trait ForumUser
      */
     public function boards()
     {
-        return $this->belongsToMany(Board::class, 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany(Board::class, 'forum_moderators')->withTimestamps();
     }
 
     /**
@@ -36,7 +36,7 @@ trait ForumUser
      */
     public function unreadDiscussions()
     {
-        return $this->belongsToMany(Discussion::class, 'forum_discussion_user')->whereHas('board', function($query) {
+        return $this->belongsToMany(Discussion::class, 'forum_unread_discussions')->whereHas('board', function($query) {
             $query->whereIn('id', $this->topics());
       })->withTimestamps()->orderByDesc('updated_at');
     }

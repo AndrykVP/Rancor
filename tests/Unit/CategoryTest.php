@@ -15,7 +15,6 @@ class CategoryTest extends TestCase
     {
         $category = Category::factory()
         ->hasBoards(3)
-        ->hasGroups(2)
         ->create([
             'name' => 'Fake Title',
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
@@ -24,7 +23,7 @@ class CategoryTest extends TestCase
             'lineup' => 1
         ]);
         $this->assertNotNull($category);
-        return $category->load('boards','groups');
+        return $category->load('boards');
     }
 
     /** 
@@ -79,14 +78,5 @@ class CategoryTest extends TestCase
     function category_has_boards($category)
     {
         $this->assertCount(3, $category->boards);
-    }
-
-    /**
-     * @test
-     * @depends make_category
-     */
-    function category_has_groups($category)
-    {
-        $this->assertCount(2, $category->groups);
     }
 }

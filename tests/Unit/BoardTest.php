@@ -16,6 +16,7 @@ class BoardTest extends TestCase
     {
         $board = Board::factory()
         ->forCategory()
+        ->hasGroups(2)
         ->has(Discussion::factory()->count(4)->forAuthor())
         ->hasModerators(2)
         ->create([
@@ -25,7 +26,7 @@ class BoardTest extends TestCase
             'lineup' => 1
         ]);
         $this->assertNotNull($board);
-        return $board->load('discussions', 'moderators');
+        return $board->load('discussions', 'moderators', 'groups');
     }
 
     /** 
@@ -107,5 +108,14 @@ class BoardTest extends TestCase
     function board_has_moderators($board)
     {
         $this->assertCount(2, $board->moderators);
+    }
+
+    /**
+     * @test
+     * @depends make_board
+     */
+    function board_has_groups($board)
+    {
+        $this->assertCount(2, $board->groups);
     }
 }

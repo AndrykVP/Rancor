@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Auth;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
-use AndrykVP\Rancor\Database\Factories\NodeFactory;
-use AndrykVP\Rancor\Holocron\Models\Collection;
+use AndrykVP\Rancor\DB\Factories\NodeFactory;
 
 class Node extends Model
 {

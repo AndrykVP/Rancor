@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
-use AndrykVP\Rancor\Database\Factories\ReplyFactory;
-use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\DB\Factories\ReplyFactory;
 
 class Reply extends Model
 {
@@ -37,14 +36,6 @@ class Reply extends Model
      */
     protected $table = 'forum_replies';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_locked' => 'boolean',
-    ];
 
     /**
      * All of the relationships to be touched.

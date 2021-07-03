@@ -19,7 +19,7 @@ class Planet extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'id', 'civilisation', 'morale', 'crime', 'tax' ];
+    protected $fillable = [ 'id', 'population', 'civilisation', 'morale', 'crime', 'tax' ];
     
     /**
      * Disable auto-increments on 'id' column of the Model

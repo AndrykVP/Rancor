@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Factories;
+namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Forums\Models\Discussion;
@@ -22,7 +22,7 @@ class DiscussionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->sentence(4),
+            'name' => $this->faker->sentence(5),
             'is_sticky' => $this->faker->boolean,
             'is_locked' => $this->faker->boolean,
         ];
@@ -35,7 +35,7 @@ class DiscussionFactory extends Factory
      */
     public function sticky($value = true)
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes) use($value) {
             return [
                 'is_sticky' => $value,
             ];
@@ -49,7 +49,7 @@ class DiscussionFactory extends Factory
      */
     public function locked($value = true)
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes) use($value) {
             return [
                 'is_locked' => $value,
             ];

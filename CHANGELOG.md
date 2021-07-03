@@ -6,11 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [2.0.0] - 2021-03-09
+## [2.0.0] - 2021-07-02
 ### Added
 - View Components: `AdminLayout`, `MainLayout`, `Alert`, `AdminNavigation`, `Main Navigation`
 - `Search` routes to all resource routes, to filter results in the Resource Index at the Admin Panel
 - Reincorporated `API` module for retrieving sectors, systems and planets from Combine's web services. This module has been upgraded to fit **Laravel 8** standards
+- New Columns to API module: `color` for the System class, and `population` for planets.
+- Unit Testing for all Models.
 
 ### Changed
 - Refactored all Models to folder and namespace `Models` under their respective modules, to follow **Laravel 8** directory structure.
@@ -22,9 +24,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `Scanner\Log` => `Audit\Models\EntryLog`
   - `Scanner\Events\EditScan` => `Audit\Events\EntryUpdate`
   - `Scanner\Listeners\CreateScanLog` => `Audit\Listeners\CreateScanLog`
-- Turned Forums `views/includes` into View Components:  `BoardRow`, `CategoryCard`, `DiscussionList`
+- Turned Forums `views/includes` into View Components:  `BoardRow`, `CategoryCard` and `DiscussionList`
 - `Structure\Policies` and `Auth\Policies` now use model binding for potential future extensions
 - Column name `order` changed to `lineup` in the forums's `Category` and `Board` models, as well as their RequestForms, Controllers, Migrations, etc.
+- Moved `API\Commands` folder to `API\Console\Commands` to follow Laravel Directory structure.
+- `API\Console\Commands\SyncDatabase` and all jobs in `API\Jobs` now use Laravel's Guzzle to make Http requests to **Combine WS v2.0** instead of using PHP's `file_get_contents()` function.
+- Forum Groups relationships changed from `categories` to `boards` for programatical simplicity.
+- Forum Table names changed for clarity:
+  - `forum_board_user` => `forum_moderators`
+  - `forum_discussion_user` => `forum_unread_discussions`
 
 ### Deleted
 - Gate `manage-faction` became irrelevant after the addition of the permission `view-admin-panel` used for admin middleware.

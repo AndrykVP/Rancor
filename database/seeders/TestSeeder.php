@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Seeders;
+namespace AndrykVP\Rancor\DB\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -52,6 +52,11 @@ class TestSeeder extends Seeder
                      ->has(Award::factory()->count(8))
                      ->create();
 
+      /**
+       * Forum Seeding
+       */
+      $groups = Group::factory()->count(5)->create();
+
       $users = User::factory()
                   ->count(20)
                   ->state(new Sequence(
@@ -59,7 +64,26 @@ class TestSeeder extends Seeder
                   ))->state(new Sequence(
                      ['is_admin' => true],
                      ['is_admin' => false],
-                  ))->create();
+                  ))->hasAttached($groups->random(3))
+                  ->create();
+
+      $categories = Category::factory()->count(7)->create();
+      $boards = Board::factory()
+               ->count(40)
+               ->state(new Sequence(
+                  fn () => ['category_id' => $categories->random()],
+               ))->hasAttached($groups->random(3))
+               ->has(Discussion::factory()
+                     ->count(6)
+                     ->for($users->random(), 'author')
+                     ->has(Reply::factory()
+                           ->count(50)
+                           ->state(new Sequence(
+                              fn () => ['author_id' => $users->random()],
+                           ))
+                     )
+               )->create();
+
 
       /**
        * News Seeding
@@ -92,29 +116,6 @@ class TestSeeder extends Seeder
                               ['is_public' => false],
                            ))
                      )->create();
-
-      /**
-       * Forum Seeding
-       */
-      $groups = Group::factory()
-                     ->count(5)
-                     ->has(Category::factory()
-                           ->count(2)
-                           ->has(Board::factory()
-                                 ->count(3)
-                                 ->has(Discussion::factory()
-                                       ->count(6)
-                                       ->for($users->random(), 'author')
-                                       ->has(Reply::factory()
-                                             ->count(50)
-                                             ->state(new Sequence(
-                                                fn () => ['author_id' => $users->random()],
-                                             ))
-                                       )
-                                 )
-                           )
-                     )
-                     ->create();
 
       /**
        * Scanner Seeding

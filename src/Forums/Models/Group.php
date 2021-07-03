@@ -5,9 +5,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\GroupFactory;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\DB\Factories\GroupFactory;
 
 class Group extends Model
 {
@@ -35,7 +33,7 @@ class Group extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'color' ];
+    protected $fillable = [ 'name', 'description' ];
 
     /**
      * Defines the table name
@@ -62,15 +60,5 @@ class Group extends Model
     public function boards()
     {
         return $this->morphedByMany(Board::class, 'groupable', 'forum_groupables')->withTimestamps();
-    }
-
-    /**
-     * Relationship to Category model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function categories()
-    {
-        return $this->morphedByMany(Category::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Factories;
+namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\News\Models\Article;
@@ -22,7 +22,7 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company,
+            'name' => $this->faker->sentence(5),
             'body' => $this->faker->paragraph(10),
             'description' => $this->faker->text(150),
             'is_published' => false,

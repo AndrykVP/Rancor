@@ -5,9 +5,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\DiscussionFactory;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Reply;
+use AndrykVP\Rancor\DB\Factories\DiscussionFactory;
 
 class Discussion extends Model
 {
@@ -62,9 +60,9 @@ class Discussion extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function visitors()
+    public function pending_visitors()
     {
-        return $this->belongsToMany(User::class, 'forum_discussion_user')->withTimestamps();
+        return $this->belongsToMany(User::class, 'forum_unread_discussions')->withTimestamps();
     }
 
     /**

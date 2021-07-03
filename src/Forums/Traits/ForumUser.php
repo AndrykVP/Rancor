@@ -26,7 +26,7 @@ trait ForumUser
      */
     public function boards()
     {
-        return $this->belongsToMany(Board::class, 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany(Board::class, 'forum_moderators')->withTimestamps();
     }
 
     /**
@@ -36,7 +36,7 @@ trait ForumUser
      */
     public function unreadDiscussions()
     {
-        return $this->belongsToMany(Discussion::class, 'forum_discussion_user')->whereHas('board', function($query) {
+        return $this->belongsToMany(Discussion::class, 'forum_unread_discussions')->whereHas('board', function($query) {
             $query->whereIn('id', $this->topics());
       })->withTimestamps()->orderByDesc('updated_at');
     }
@@ -63,7 +63,7 @@ trait ForumUser
             return Board::all()->pluck('id');
         }
 
-        return $this->groups->pluck('boards')->flatten()->merge($this->boards)->pluck('id')->unique();
+        return $this->visibleBoards()->pluck('id')->unique()->sort()->values();
     }
 
     /**
@@ -78,6 +78,16 @@ trait ForumUser
             return Category::all()->pluck('id');
         }
 
-        return $this->groups->pluck('categories')->flatten()->pluck('id')->unique();
+        return $this->visibleBoards()->pluck('category_id')->unique()->sort()->values();
+    }
+
+    /**
+     * Function to retrieve all Boards that the User can see
+     * 
+     * @return Illuminate\Support\Collection
+     */
+    private function visibleBoards()
+    {
+        return $this->groups->pluck('boards')->merge($this->boards)->flatten();
     }
 }

@@ -5,12 +5,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\BoardFactory;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Models\Group;
-use AndrykVP\Rancor\Forums\Models\Reply;
+use AndrykVP\Rancor\DB\Factories\BoardFactory;
 
 class Board extends Model
 {
@@ -94,7 +89,7 @@ class Board extends Model
      */
     public function moderators()
     {
-        return $this->belongsToMany(User::class, 'forum_board_user')->withTimestamps();
+        return $this->belongsToMany(User::class, 'forum_moderators')->withTimestamps();
     }
 
     /**

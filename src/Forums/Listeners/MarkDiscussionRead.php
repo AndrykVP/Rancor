@@ -26,6 +26,6 @@ class MarkDiscussionRead
      */
     public function handle(VisitDiscussion $event)
     {
-      $event->discussion->visitors()->detach($this->user_id);
+      $event->discussion->pending_visitors()->detach($this->user_id);
     }
 }

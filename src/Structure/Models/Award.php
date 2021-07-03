@@ -5,8 +5,7 @@ namespace AndrykVP\Rancor\Structure\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\AwardFactory;
-use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\DB\Factories\AwardFactory;
 
 class Award extends Model
 {
@@ -34,7 +33,7 @@ class Award extends Model
     * 
     * @var array
     */
-   protected $fillable = [ 'class', 'name', 'description', 'type_id', 'code', 'levels', 'priority' ];
+   protected $fillable = [ 'name', 'description', 'type_id', 'code', 'levels', 'priority' ];
 
    /**
     * Relationship to Rank model

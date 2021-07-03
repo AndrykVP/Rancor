@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\API\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,23 +36,25 @@ class ProcessSystem implements ShouldQueue
     public function handle()
     {
         $id = (int)explode(':',$this->uid)[1];
-        $json = file_get_contents('https://www.swcombine.com/ws/v1.0/galaxy/systems/'.$this->uid.'.json');
-        $query = json_decode(str_replace('\\','',$json),TRUE);
+        $response = Http::withHeaders([
+            'Accept' => 'application/json'
+        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/systems/{$this->uid}`)
 
-        if(!$query)
+        if($response->successful())
         {
-            $query = json_decode($json,TRUE);
+            $query = $response->json();
+            $query = $query['swcapi']['system']
+    
+            $model = System::firstOrNew(['id' => $id]);
+            $sector_id = $query['location']['sector']['attributes']['uid'];
+    
+            $model->name = $query['name'];
+            $model->x_coordinate = $query['location']['coordinates']['galaxy']['attributes']['x'];
+            $model->y_coordinate = $query['location']['coordinates']['galaxy']['attributes']['y'];
+            $model->sector_id = $sector_id ? (int)explode(':',$sector_id)[1] : null;
+    
+            $model->save();
         }
-
-        $model = System::firstOrNew(['id' => $id]);
-        $sector_id = $query['galaxy-system']['sector']['attributes']['uid'];
-
-        $model->name = $query['galaxy-system']['name'];
-        $model->x_coordinate = $query['galaxy-system']['coordinates']['galaxy']['attributes']['x'];
-        $model->y_coordinate = $query['galaxy-system']['coordinates']['galaxy']['attributes']['y'];
-		$model->sector_id = $sector_id ? (int)explode(':',$sector_id)[1] : null;
-
-        $model->save();
     }
 
     /**

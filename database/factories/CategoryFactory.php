@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Factories;
+namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Forums\Models\Category;
@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company,
+            'name' => $this->faker->sentence(5),
             'description' => $this->faker->sentence(12),
             'color' => $this->faker->hexcolor,
             'slug' => $this->faker->unique()->word,

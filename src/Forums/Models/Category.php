@@ -4,10 +4,7 @@ namespace AndrykVP\Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\Database\Factories\CategoryFactory;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Models\Group;
+use AndrykVP\Rancor\DB\Factories\CategoryFactory;
 
 class Category extends Model
 {
@@ -45,16 +42,6 @@ class Category extends Model
     public function discussions()
     {
         return $this->hasManyThrough(Discussion::class, Board::class);
-    }
-
-    /**
-     * Relationship to Group model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function groups()
-    {
-        return $this->morphToMany(Group::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
 
     /**

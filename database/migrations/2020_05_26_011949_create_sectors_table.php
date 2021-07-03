@@ -16,6 +16,7 @@ class CreateSectorsTable extends Migration
         Schema::create('swc_sectors', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
             $table->string('name')->nullable()->default(null);
+            $table->string('color')->default('#000000');
             $table->timestamps();
         });
     }

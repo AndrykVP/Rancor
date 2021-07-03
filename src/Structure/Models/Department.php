@@ -5,9 +5,7 @@ namespace AndrykVP\Rancor\Structure\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Database\Factories\DepartmentFactory;
-use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Models\Faction;
+use AndrykVP\Rancor\DB\Factories\DepartmentFactory;
 
 class Department extends Model
 {
@@ -35,7 +33,7 @@ class Department extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'faction_id' ];
+    protected $fillable = [ 'name', 'description', 'color', 'faction_id' ];
 
     /**
      * Relationship to Rank model

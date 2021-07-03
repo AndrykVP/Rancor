@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Database\Factories;
+namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use AndrykVP\Rancor\Forums\Models\Board;
@@ -22,7 +22,7 @@ class BoardFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company,
+            'name' => $this->faker->sentence(5),
             'description' => $this->faker->sentence(12),
             'slug' => $this->faker->unique()->word,
             'lineup' => $this->faker->numberBetween(1,20),

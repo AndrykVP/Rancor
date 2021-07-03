@@ -63,7 +63,7 @@ trait ForumUser
             return Board::all()->pluck('id');
         }
 
-        return $this->groups->pluck('boards')->flatten()->merge($this->boards)->pluck('id')->unique();
+        return $this->visibleBoards()->pluck('id')->unique()->sort()->values();
     }
 
     /**
@@ -78,6 +78,16 @@ trait ForumUser
             return Category::all()->pluck('id');
         }
 
-        return $this->groups->pluck('categories')->flatten()->pluck('id')->unique();
+        return $this->visibleBoards()->pluck('category_id')->unique()->sort()->values();
+    }
+
+    /**
+     * Function to retrieve all Boards that the User can see
+     * 
+     * @return Illuminate\Support\Collection
+     */
+    private function visibleBoards()
+    {
+        return $this->groups->pluck('boards')->merge($this->boards)->flatten();
     }
 }

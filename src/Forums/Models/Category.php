@@ -45,16 +45,6 @@ class Category extends Model
     }
 
     /**
-     * Relationship to Group model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function groups()
-    {
-        return $this->morphToMany(Group::class, 'groupable', 'forum_groupables')->withTimestamps();
-    }
-
-    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory

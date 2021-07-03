@@ -8,7 +8,6 @@ use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
-use Auth;
 
 class ForumController extends Controller
 {   
@@ -18,10 +17,10 @@ class ForumController extends Controller
     * @param \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-   public function index()
+   public function index(Request $request)
    {
-      $boards = Auth::user()->topics();
-      $categories = Auth::user()->categories();
+      $boards = $request->user()->topics();
+      $categories = $request->user()->categories();
 
       $categories = Category::whereIn('id',$categories)->with(['boards' => function($query) use($boards) {
          $query->topTier()

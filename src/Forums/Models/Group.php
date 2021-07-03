@@ -61,14 +61,4 @@ class Group extends Model
     {
         return $this->morphedByMany(Board::class, 'groupable', 'forum_groupables')->withTimestamps();
     }
-
-    /**
-     * Relationship to Category model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function categories()
-    {
-        return $this->morphedByMany(Category::class, 'groupable', 'forum_groupables')->withTimestamps();
-    }
 }

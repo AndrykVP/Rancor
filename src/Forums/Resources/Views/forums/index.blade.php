@@ -7,7 +7,9 @@
             </li>
           </ul>
           <div class="inline-flex">
+             @can('create', Category::class)
              <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-green-600 px-3 py-2" href="{{ route('admin.categories.create') }}">{{ __('New Category') }}</a>
+             @endcan
           </div>
       </div>
    </x-slot>

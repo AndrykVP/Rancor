@@ -2,7 +2,7 @@
 
 namespace AndrykVP\Rancor\Scanner\Traits;
 
-use AndrykVP\Rancor\Scanner\Models\Log;
+use AndrykVP\Rancor\Audit\Models\EntryLog;
 
 trait CanScan
 {
@@ -13,6 +13,6 @@ trait CanScan
      */
     public function scanlogs()
     {
-        return $this->hasMany(Log::class);
+        return $this->hasMany(EntryLog::class);
     }
 }

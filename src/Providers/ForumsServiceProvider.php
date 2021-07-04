@@ -28,7 +28,7 @@ class ForumsServiceProvider extends ServiceProvider
        Category::class => CategoryPolicy::class,
        Discussion::class => DiscussionPolicy::class,
        Group::class => GroupPolicy::class,
-       Reply::class => BoardPolicy::class,
+       Reply::class => ReplyPolicy::class,
     ];
 
     /**

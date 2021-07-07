@@ -94,20 +94,4 @@ class BoardPolicy
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Delete this Forum Board.');
     }
-
-    /**
-     * Determine whether the user can post to the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
-     * @return mixed
-     */
-    public function post(User $user, Board $board)
-    {
-        return $board->moderators->contains($user)
-                || $user->topics()->contains($board->id)
-                || $user->hasPermission('create-forum-discussions')
-                ? Response::allow()
-                : Response::deny('You do not have Permissions to Create a Discussion in this Forum Board.');
-    }
 }

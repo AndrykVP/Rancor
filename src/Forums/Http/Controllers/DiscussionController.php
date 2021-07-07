@@ -80,7 +80,7 @@ class DiscussionController extends Controller
 
         $board = Board::with('category')->findOrFail($request->board);
 
-        $this->authorize('post', $board);
+        $this->authorize('create', [Discussion::class, $board]);
 
         return view('rancor::create.discussion',compact('board'));
     }
@@ -93,7 +93,8 @@ class DiscussionController extends Controller
      */
     public function store(NewDiscussionForm $request)
     {
-        $this->authorize('create', Discussion::class);
+        $board = Board::with('moderators')->find($request->board_id);
+        $this->authorize('create', [Discussion::class, $board]);
 
         $data = $request->validated();
         $discussion;
@@ -109,7 +110,7 @@ class DiscussionController extends Controller
             'category' => $discussion->board->category,
             'board' => $discussion->board,
             'discussion' => $discussion,
-        ],)->with('alert', ['model' => $resource->name, 'name' => $discussion->name,'action' => 'created']);
+        ],)->with('alert', ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'created']);
     }
 
     /**
@@ -143,7 +144,7 @@ class DiscussionController extends Controller
         $data = $request->validated();
         $discussion->update($data);
 
-        return redirect()->route('admin.discussions.index')->with('alert', ['model' => $resource->name, 'name' => $discussion->name,'action' => 'updated']);
+        return redirect()->route('admin.discussions.index')->with('alert', ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'updated']);
     }
 
     /**
@@ -158,7 +159,7 @@ class DiscussionController extends Controller
         
         $discussion->delete();
 
-        return redirect()->route('admin.discussions.index')->with('alert', ['model' => $resource->name, 'name' => $discussion->name,'action' => 'deleted']);
+        return redirect()->route('admin.discussions.index')->with('alert', ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'deleted']);
     }
 
     /**

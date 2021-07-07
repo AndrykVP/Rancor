@@ -48,11 +48,23 @@ class Alert extends Component
      */
     private function buildMessage(Object $alert)
     {
-        if(property_exists($alert, 'id'))
+        $message = '';
+
+        if(property_exists($alert, 'model') && $alert->model != null)
         {
-            return `{$alert->model} "{$alert->name}" (#{$alert->id}) has been successfully {$alert->action}`;
+            $message .= $alert->model.' ';
+        }
+        if(property_exists($alert, 'name') && $alert->name != null)
+        {
+            $message .= '"'.$alert->name.'" ';
+        }
+        if(property_exists($alert, 'id') && $alert->id != null)
+        {
+            $message .= '(#'.$alert->id.') ';
         }
         
-        return `{$alert->model} "{$alert->name}" has been successfully {$alert->action}`;
+        $message .= 'has been successfully '.$alert->action;
+
+        return $message;
     }
 }

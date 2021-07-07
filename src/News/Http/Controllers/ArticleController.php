@@ -69,7 +69,7 @@ class ArticleController extends Controller
             $article->tags()->sync($data['tags']);
         });
 
-        return redirect(route('admin.articles.index'))->with('alert',['model' => $resource->name, 'name' => $article->name,'action' => 'created']);
+        return redirect(route('admin.articles.index'))->with('alert',['model' => $this->resource['name'], 'name' => $article->name,'action' => 'created']);
     }
 
     /**
@@ -136,7 +136,7 @@ class ArticleController extends Controller
             $article->tags()->sync($data['tags']);
         });
 
-        return redirect(route('admin.articles.index'))->with('alert',['model' => $resource->name, 'name' => $article->name,'action' => 'updated']);
+        return redirect(route('admin.articles.index'))->with('alert',['model' => $this->resource['name'], 'name' => $article->name,'action' => 'updated']);
     }
 
     /**
@@ -151,7 +151,7 @@ class ArticleController extends Controller
 
         $article->delete();
          
-        return redirect(route('articles.index'))->with('alert',['model' => $resource->name, 'name' => $article->name,'action' => 'deleted']);
+        return redirect(route('articles.index'))->with('alert',['model' => $this->resource['name'], 'name' => $article->name,'action' => 'deleted']);
     }
 
     /**

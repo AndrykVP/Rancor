@@ -50,7 +50,7 @@ class ReplyController extends Controller
 
         $discussion = Discussion::with('board.category')->findOrFail($request->discussion);
 
-        $this->authorize('post', $discussion);
+        $this->authorize('create', [Reply::class, $discussion]);
         $quote = Reply::with('author')->find($request->quote);
 
         if($quote != null)
@@ -69,7 +69,8 @@ class ReplyController extends Controller
      */
     public function store(NewReplyForm $request)
     {
-        $this->authorize('create', Reply::class);
+        $discussion = Discussion::with('board.moderators')->find($request->discussion_id);
+        $this->authorize('create', [Reply::class, $discussion]);
         
         $data = $request->validated();
         $reply = Reply::create($data);
@@ -84,7 +85,7 @@ class ReplyController extends Controller
             'board' => $reply->discussion->board->slug,
             'discussion' => $reply->discussion->id,
             'page' => $page
-        ])->with('alert', ['model' => $resource->name, 'name' => $reply->name,'action' => 'created']);
+        ])->with('alert', ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'created']);
     }
 
     /**
@@ -124,7 +125,7 @@ class ReplyController extends Controller
             'board' => $reply->discussion->board->slug,
             'discussion' => $reply->discussion->id,
             'page' => $page
-        ])->with('alert', ['model' => $resource->name, 'name' => $reply->name,'action' => 'updated']);
+        ])->with('alert', ['model' => $this->resource['name'],  'id' => $reply->id, 'action' => 'updated']);
     }
 
     /**
@@ -139,7 +140,11 @@ class ReplyController extends Controller
         
         $reply->delete();
 
-        return redirect()->route('forums.Replys.index')->with('alert', ['model' => $resource->name, 'name' => $reply->name,'action' => 'deleted']);
+        return redirect()->route('forums.discussion',[
+            'category' => $reply->discussion->board->category->slug,
+            'board' => $reply->discussion->board->slug,
+            'discussion' => $reply->discussion->id,
+        ])->with('alert', ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'deleted']);
     }
 
     /**

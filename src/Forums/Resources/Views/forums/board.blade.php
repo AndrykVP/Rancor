@@ -25,7 +25,7 @@
             @can('create', \AndrykVP\Rancor\Forums\Models\Board::class)
             <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('admin.boards.create', ['parent' => $board]) }}">{{ __('New Child Board') }}</a>
             @endcan
-            @can('post', $board)
+            @can('create', [\AndrykVP\Rancor\Forums\Models\Discussion::class, $board])
             <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('forums.discussions.create', ['board' => $board]) }}">{{ __('New Discussion') }}</a>
             @endcan
             @can('delete',$board)

@@ -95,7 +95,7 @@ class EntryController extends Controller
         $data = $request->validated();
         $entry->update($data);
 
-        return redirect(route('scanner.index'))->with('alert', ['model' => $resource->name, 'name' => $entry->name, 'id' => $entry->entity_id, 'action' => 'updated']);
+        return redirect(route('scanner.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $entry->name, 'id' => $entry->entity_id, 'action' => 'updated']);
     }
 
     /**
@@ -109,7 +109,7 @@ class EntryController extends Controller
         $this->authorize('delete', $entry);
         $entry->delete();
 
-        return redirect(route('scanner.index'))->with('alert', ['model' => $resource->name, 'name' => $entry->name, 'id' => $entry->entity_id, 'action' => 'deleted']);
+        return redirect(route('scanner.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $entry->name, 'id' => $entry->entity_id, 'action' => 'deleted']);
     }
 
     /**

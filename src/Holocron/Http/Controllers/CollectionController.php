@@ -61,7 +61,7 @@ class CollectionController extends Controller
         $data = $request->validated();
         $collection = Collection::create($data);
 
-        return redirect(route('admin.collections.index'))->with('alert', ['model' => $resource->name, 'name' => $collection->name,'action' => 'created']);
+        return redirect(route('admin.collections.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $collection->name,'action' => 'created']);
     }
 
     /**
@@ -125,7 +125,7 @@ class CollectionController extends Controller
         $data = $request->validated();
         $collection->update($data);
 
-        return redirect(route('admin.collections.index'))->with('alert',['model' => $resource->name, 'name' => $collection->name,'action' => 'updated']);
+        return redirect(route('admin.collections.index'))->with('alert',['model' => $this->resource['name'], 'name' => $collection->name,'action' => 'updated']);
     }
     
     /**
@@ -140,7 +140,7 @@ class CollectionController extends Controller
         
         $collection->delete();
 
-        return redirect(route('admin.collections.index'))->with('alert',['model' => $resource->name, 'name' => $collection->name,'action' => 'deleted']);
+        return redirect(route('admin.collections.index'))->with('alert',['model' => $this->resource['name'], 'name' => $collection->name,'action' => 'deleted']);
     }
 
     /**

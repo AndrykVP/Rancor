@@ -76,7 +76,7 @@ class BoardController extends Controller
             $board->groups()->sync($data['groups']);
         });
 
-        return redirect()->route('admin.boards.index')->with('alert', ['model' => $resource->name, 'name' => $board->name,'action' => 'created']);
+        return redirect()->route('admin.boards.index')->with('alert', ['model' => $this->resource['name'], 'name' => $board->name,'action' => 'created']);
     }
 
     /**
@@ -149,7 +149,7 @@ class BoardController extends Controller
             $board->groups()->sync($data['groups']);
         });
 
-        return redirect()->route('admin.boards.index')->with('alert', ['model' => $resource->name, 'name' => $board->name,'action' => 'updated']);
+        return redirect()->route('admin.boards.index')->with('alert', ['model' => $this->resource['name'], 'name' => $board->name,'action' => 'updated']);
     }
 
     /**
@@ -164,7 +164,7 @@ class BoardController extends Controller
         
         $board->delete();
 
-        return redirect()->route('admin.boards.index')->with('alert', ['model' => $resource->name, 'name' => $board->name,'action' => 'deleted']);
+        return redirect()->route('admin.boards.index')->with('alert', ['model' => $this->resource['name'], 'name' => $board->name,'action' => 'deleted']);
     }
 
     /**

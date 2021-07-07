@@ -61,7 +61,7 @@ class TypeController extends Controller
         $data = $request->validated();
         $type = Type::create($data);
 
-        return redirect(route('admin.types.index'))->with('alert', ['model' => $resource->name, 'name' => $type->name, 'action' => 'created']);
+        return redirect(route('admin.types.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $type->name, 'action' => 'created']);
     }
 
     /**
@@ -125,7 +125,7 @@ class TypeController extends Controller
         $data = $request->validated();
         $type->update($data);
 
-        return redirect(route('admin.types.index'))->with('alert', ['model' => $resource->name, 'name' => $type->name, 'action' => 'updated']);
+        return redirect(route('admin.types.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $type->name, 'action' => 'updated']);
     }
     
     /**
@@ -140,7 +140,7 @@ class TypeController extends Controller
         
         $type->delete();
 
-        return redirect(route('admin.types.index'))->with('alert', ['model' => $resource->name, 'name' => $type->name, 'action' => 'deleted']);
+        return redirect(route('admin.types.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $type->name, 'action' => 'deleted']);
     }
 
     /**

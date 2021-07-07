@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Policies;
 
 use App\Models\User;
+use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Models\Reply;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -58,11 +59,14 @@ class ReplyPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Discussion $discussion)
     {
-        return $user->hasPermission('create-forum-replies')
+        return !$discussion->is_locked
+                || $discussion->author_id === $user->id
+                || $discussion->board->moderators->contains($user)
+                || $user->hasPermission('create-forum-replies')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Create Forum Replies.');
+                : Response::deny('You do not have Permissions to Reply to this Forum Discussion.');
     }
 
     /**

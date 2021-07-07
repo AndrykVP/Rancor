@@ -63,7 +63,7 @@ class GroupController extends Controller
         $data = $request->validated();
         $group = Group::create($data);
 
-        return redirect()->route('admin.groups.index')->with('alert', ['model' => $resource->name, 'name' => $group->name,'action' => 'created']);
+        return redirect()->route('admin.groups.index')->with('alert', ['model' => $this->resource['name'], 'name' => $group->name,'action' => 'created']);
     }
 
     /**
@@ -129,7 +129,7 @@ class GroupController extends Controller
         $data = $request->validated();
         $group->update($data);
 
-        return redirect()->route('admin.groups.index')->with('alert', ['model' => $resource->name, 'name' => $group->name,'action' => 'updated']);
+        return redirect()->route('admin.groups.index')->with('alert', ['model' => $this->resource['name'], 'name' => $group->name,'action' => 'updated']);
     }
 
     /**
@@ -144,7 +144,7 @@ class GroupController extends Controller
         
         $group->delete();
 
-        return redirect()->route('admin.groups.index')->with('alert', ['model' => $resource->name, 'name' => $group->name,'action' => 'deleted']);
+        return redirect()->route('admin.groups.index')->with('alert', ['model' => $this->resource['name'], 'name' => $group->name,'action' => 'deleted']);
     }
 
     /**

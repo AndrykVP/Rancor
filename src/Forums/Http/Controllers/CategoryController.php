@@ -70,7 +70,7 @@ class CategoryController extends Controller
             $category->groups()->sync($data['groups']);
         });
 
-        return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name, 'action' => 'created']);
+        return redirect()->route('admin.categories.index')->with('alert', ['model' => $this->resource['name'], 'name' => $category->name, 'action' => 'created']);
     }
 
     /**
@@ -138,7 +138,7 @@ class CategoryController extends Controller
             $category->groups()->sync($data['groups']);
         });
 
-        return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name, 'action' => 'updated']);
+        return redirect()->route('admin.categories.index')->with('alert', ['model' => $this->resource['name'], 'name' => $category->name, 'action' => 'updated']);
     }
 
     /**
@@ -156,7 +156,7 @@ class CategoryController extends Controller
             $category->delete();
         });
 
-        return redirect()->route('admin.categories.index')->with('alert', ['model' => $resource->name, 'name' => $category->name,'action' => 'deleted']);
+        return redirect()->route('admin.categories.index')->with('alert', ['model' => $this->resource['name'], 'name' => $category->name,'action' => 'deleted']);
     }
 
     /**

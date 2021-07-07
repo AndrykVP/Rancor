@@ -28,10 +28,10 @@
             @can('update',$discussion)
             <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2" href="{{ route('admin.discussions.edit', $discussion) }}">{{ __('Edit Discussion') }}</a>
             @endcan
-            @can('post', $discussion)
+            @can('create', [\AndrykVP\Rancor\Forums\Models\Reply::class, $discussion])
             <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('forums.replies.create', ['discussion' => $discussion]) }}">{{ __('New Reply') }}</a>
             @endcan
-            @can('delete',$board)
+            @can('delete',$discussion)
             <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-red-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="#">{{ __('Delete Discussion') }}</a>
             @endcan
          </div>
@@ -49,7 +49,7 @@
                <div class="flex justify-between items-center px-4 py-2">
                   <div class="col small">Posted {{ $reply->created_at->diffForHumans() }}@if($reply->editor != null). Last Edited by: {{ $reply->editor->name . ' '. $reply->updated_at->diffForHumans() }}@endif</div>
                   <div class="col text-right">
-                     @can('post', $reply->discussion)
+                     @can('create', [\AndrykVP\Rancor\Forums\Models\Reply::class, $reply->discussion])
                      <a type="button" class="text-white bg-blue-600 px-2 py-1 rounded" href="{{ route('forums.replies.create',[ 'discussion' => $discussion, 'quote' => $reply ]) }}">Quote</a>
                      @endcan
                      @can('update', $reply)

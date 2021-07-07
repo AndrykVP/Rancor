@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Policies;
 
 use App\Models\User;
+use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -59,11 +60,13 @@ class DiscussionPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Board $board)
     {
-        return $user->hasPermission('create-forum-discussions')
+        return $board->moderators->contains($user)
+                || $user->topics()->contains($board->id)
+                || $user->hasPermission('create-forum-discussions')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Create Forum Discussions.');
+                : Response::deny('You do not have Permissions to Create a Discussion in this Forum Board.');
     }
 
     /**
@@ -94,22 +97,5 @@ class DiscussionPolicy
         return $user->hasPermission('delete-forum-discussions')
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Delete this Forum Discussion.');
-    }
-
-    /**
-     * Determine whether the user can post to the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
-     * @return mixed
-     */
-    public function post(User $user, Discussion $discussion)
-    {
-        return !$discussion->is_locked
-                || $discussion->author_id === $user->id
-                || $discussion->board->moderators->contains($user)
-                || $user->hasPermission('create-forum-discussions')
-                ? Response::allow()
-                : Response::deny('You do not have Permissions to Reply to this Forum Discussion.');
     }
 }

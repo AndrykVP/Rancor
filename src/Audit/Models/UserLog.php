@@ -3,7 +3,7 @@
 namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Users;
+use App\Models\User;
 
 class UserLog extends Model
 {

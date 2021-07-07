@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Audit\Traits;
 
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Models\AwardLog;
+use AndrykVP\Rancor\Audit\Models\IPLog;
 use AndrykVP\Rancor\Audit\Models\NodeLog;
 use AndrykVP\Rancor\Audit\Models\UserLog;
 
@@ -17,6 +18,16 @@ trait Auditable
     public function awardLog()
     {
         return $this->hasMany(AwardLog::class)->latest();
+    }
+    
+    /**
+     * Relationship to IPLog model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ipLog()
+    {
+        return $this->hasMany(IPLog::class)->latest();
     }
     
     /**

@@ -27,5 +27,6 @@ class AuditServiceProvider extends ServiceProvider
     {
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Audit/Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Audit/Routes/web.php');
     }
 }

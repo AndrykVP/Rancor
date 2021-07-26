@@ -188,6 +188,26 @@
                </select>
             </div>
             @endcan
+            @can('changeAwards', $user)
+            <div class="mb-6">
+               <label for="awards" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  {{ __('Awards') }}
+               </label>
+               @foreach($awards as $option)
+               @php
+               $user_award = $user->awards->firstWhere("id", $option->id)
+               @endphp
+               <div x-data='{option: @json($option), checked: {{ $user_award != null ? "true" : "false" }}, level: {{ $user_award != null ? $user_award->pivot->level : 0 }} }' class="grid grid-cols-5 mb-1">
+                  <input type="hidden" name="awards[{{ $option->id }}]" :value='checked ? level : 0'>
+                  <input class="col-span-1" type="checkbox" id="award_{{ $option->code }}_check" :checked="checked" x-model="checked"/>
+                  <span class="col-span-2" for="award_{{ $option->code }}" x-text="option.name" class="text-sm text-gray-900 dark:text-gray-200"></span>
+                  <template x-if="checked">
+                     <input class="col-span-2" type="number" id="award_{{ $option->code }}" x-model="level" min="1" :max="option.levels" />
+                  </template>
+               </div>
+               @endforeach
+            </div>
+            @endcan
             <x-button type="submit">Apply Changes</x-button>
          </form>
       </div>

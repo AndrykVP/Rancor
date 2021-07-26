@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Models\Role;
-use AndrykVP\Rancor\Structure\Models\Faction;
+use AndrykVP\Rancor\Structure\Models\Award;
 use AndrykVP\Rancor\Structure\Models\Department;
+use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Structure\Models\Rank;
 
 class UserController extends Controller
@@ -96,8 +97,9 @@ class UserController extends Controller
         $departments = Department::all();
         $ranks = Rank::all();
         $roles = Role::all();
+        $awards = Award::all();
 
-        return view('rancor::users.edit', compact('user','factions','departments','ranks','roles'));
+        return view('rancor::users.edit', compact('user','factions','departments','ranks','roles', 'awards'));
     }
 
     /**
@@ -113,7 +115,7 @@ class UserController extends Controller
 
         $data = $request->validated();
         
-        DB::transaction(function () use(&$user, $data) {
+        DB::transaction(function () use(&$user, $data, $request) {
             $user->name = $data['name'];
             $user->email = $data['email'];
 
@@ -125,26 +127,30 @@ class UserController extends Controller
             {
                 $user->quote = $data['quote'];
             }
-            if($request->user()->can('changeRank', $user))
+            if($request->has('rank_id') && $request->user()->can('changeRank', $user))
             {
                 $user->rank_id = $data['rank_id'];
             }
             if($request->user()->can('uploadArt', $user))
             {
-                if($request->has('avatar'))
+                if($request->hasFile('avatar'))
                 {
                     $avatarPath = $request->file('avatar')->storeAs('ids/avatars/', $user->id . '.png');
                 }
-                if($request->has('signature'))
+                if($request->hasFile('signature'))
                 {
                     $signaturePath = $request->file('signature')->storeAs('ids/signatures/', $user->id . '.png');
                 }
             }
-            if($request->user()->can('changeRoles', $user))
+            if($request->has('roles') && $request->user()->can('changeRoles', $user))
             {
                 $user->roles()->sync($data['roles']);
             }
-            if($request->user()->can('changeGroups', $user))
+            if($request->has('awards') && $request->user()->can('changeAwards', $user))
+            {
+                $user->awards()->sync($data['awards']);
+            }
+            if($request->has('groups') && $request->user()->can('changeGroups', $user))
             {
                 $user->groups()->sync($data['groups']);
             }

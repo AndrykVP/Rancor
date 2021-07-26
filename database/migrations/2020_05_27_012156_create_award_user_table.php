@@ -16,7 +16,7 @@ class CreateAwardUserTable extends Migration
         Schema::create('structure_award_user', function (Blueprint $table) {
             $table->unsignedBigInteger('award_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('level');
+            $table->unsignedInteger('level')->default(1);
             $table->timestamps();
 
             $table->foreign('award_id')->references('id')->on('structure_awards')->onDelete('cascade');

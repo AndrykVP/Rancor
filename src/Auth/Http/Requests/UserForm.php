@@ -24,8 +24,17 @@ class UserForm extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $awards = [];
+        foreach($this->awards as $award => $level)
+        {
+            if($level > 0)
+            {
+                $awards[$award] = ['level' => $level];
+            }
+        }
         $this->merge([
             'rank_id' => $this->rank_id ?: null,
+            'awards' => $awards ?: null,
         ]);
     }
 
@@ -44,8 +53,9 @@ class UserForm extends FormRequest
             'rank_id' => 'nullable|integer|exists:structure_ranks,id',
             'avatar' => 'nullable|file|max:1000|mimetypes:image/png',
             'signature' => 'nullable|file|max:1000|mimetypes:image/png',
-            'roles' => 'required|array',
-            'groups' => 'required|array',
+            'awards' => 'nullable|array',
+            'roles' => 'nullable|array',
+            'groups' => 'nullable|array',
         ];
     }
 }

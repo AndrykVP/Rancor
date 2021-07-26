@@ -26,28 +26,34 @@
             <div class="bg-white rounded border">
                <div class="w-full bg-gray-200 text-sm text-gray-500 font-bold tracking-wider uppercase px-4 py-2">{{ __('Identity') }}</div>
                <div class="flex flex-col px-4 py-2">
+                  @if($user->avatar != null)
                   <div class="grid grid-cols-4 gap-4 items-end mb-2">
                      <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Avatar') }}:</div>
                      <div class="col-span-3"><img src="{{ $user->avatar }}" /></div>
                   </div>
+                  @endif
                   <div class="grid grid-cols-4 gap-4 items-center mb-2">
                      <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Handle') }}:</div>
                      <div class="col-span-3">{{ $user->name }}</div>
                   </div>
+                  @if($user->nickname != null)
                   <div class="grid grid-cols-4 gap-4 items-center mb-2">
                      <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Nickname') }}:</div>
                      <div class="col-span-3">{{ $user->nickname }}</div>
                   </div>
+                  @endif
                   @if($user->show_email)
                   <div class="grid grid-cols-4 gap-4 items-center mb-2">
                      <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Email') }}:</div>
                      <div class="col-span-3">{{ $user->email }}</div>
                   </div>
                   @endif
+                  @if($user->quote != null)
                   <div class="grid grid-cols-4 gap-4 items-center mb-2">
                      <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Quote') }}:</div>
                      <div class="col-span-3"><i>"{{ $user->quote }}"</i></div>
                   </div>
+                  @endif
                </div>
             </div>
 
@@ -56,6 +62,7 @@
                <div class="row-span-2 bg-white rounded border">
                   <div class="w-full bg-gray-200 text-sm text-gray-500 font-bold tracking-wider uppercase px-4 py-2">{{ __('Service') }}</div>
                   <div class="flex flex-col px-4 py-2">
+                     @if($user->rank != null)
                      <div class="grid grid-cols-4 gap-4 items-end mb-2">
                         <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Faction') }}:</div>
                         <div class="col-span-3">{{ $user->rank->department->faction->name }}</div>
@@ -68,6 +75,7 @@
                         <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Rank') }}:</div>
                         <div class="col-span-3">{{ $user->rank->name }}</div>
                      </div>
+                     @endif
                      <div class="grid grid-cols-4 gap-4 items-center mb-2">
                         <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Joined') }}:</div>
                         <div class="col-span-3">{{ $user->created_at->diffForHumans() }}</div>

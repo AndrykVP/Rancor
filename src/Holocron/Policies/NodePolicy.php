@@ -47,8 +47,8 @@ class NodePolicy
     public function view(?User $user, Node $node)
     {
         return $node->is_public
-                ||$user->id === $node->author_id
-                ||$user->id === $node->editor_id
+                ||$user->is($node->author)
+                ||$user->is($node->editor)
                 ||$user->hasPermission('view-holocron-nodes')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this holocron node.');
@@ -76,7 +76,7 @@ class NodePolicy
      */
     public function update(User $user, Node $node)
     {
-        return $user->id === $node->author_id
+        return $user->is($node->author)
                 ||$user->hasPermission('update-holocron-nodes')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this holocron node.');
@@ -91,7 +91,7 @@ class NodePolicy
      */
     public function delete(User $user, Node $node)
     {
-        return $user->id === $node->author_id
+        return $user->is($node->author)
                 || $user->hasPermission('delete-holocron-nodes')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete this holocron node.');

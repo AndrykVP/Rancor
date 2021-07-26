@@ -45,7 +45,7 @@ class UserPolicy
      */
     public function viewReplies(User $user, User $model)
     {
-        return $user->id === $model->id
+        return $user->is($model)
                 || $user->hasPermission('view-forum-replies')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this user.');
@@ -60,7 +60,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->id === $model->id
+        return $user->is($model)
                 || $user->hasPermission('view-users')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this user.');
@@ -75,10 +75,12 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->id === $model->id
+        return $user->is($model)
                 || $user->hasPermission('update-users')
                 || $user->hasPermission('update-users-art')
                 || $user->hasPermission('update-users-rank')
+                || $user->hasPermission('update-users-roles')
+                || $user->hasPermission('update-users-awards')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this user.');
     }
@@ -87,7 +89,6 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function uploadArt(User $user)
@@ -104,7 +105,7 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function changeRank(User $user)
+    public function changeRank(User $user, User $model)
     {
         return $user->hasPermission('update-users-rank')
                 ? Response::allow()
@@ -118,23 +119,39 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function changeRoles(User $user)
+    public function changeRoles(User $user, User $model)
     {
         return $user->hasPermission('update-users-roles')
+                && $user->isNot($model)
                 ? Response::allow()
                 : Response::deny('You do not have permissions to change this user\'s roles.');
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
+     * @return mixed
+     */
+    public function changeAwards(User $user, User $model)
+    {
+        return $user->hasPermission('update-users-awards')
+                && $user->isNot($model)
+                ? Response::allow()
+                : Response::deny('You do not have permissions to change this user\'s awards.');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return mixed
      */
     public function delete(User $user)
     {
         return $user->hasPermission('delete-users')
+                && $user->isNot($model)
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete users.');
     }

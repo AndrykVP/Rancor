@@ -38,7 +38,7 @@ trait HasPrivs
 
         if($this->roles()->exists())
         {
-            $permissions = $this->roles()->with('permissions')->get()->pluck('permissions')->collapse();
+            $permissions = $this->roles()->with('permissions')->get()->pluck('permissions')->collapse()->merge($this->permissions)->unique();
 
             return $permissions->contains('name', $param);
         }

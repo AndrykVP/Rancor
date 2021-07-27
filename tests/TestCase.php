@@ -3,20 +3,19 @@
 namespace AndrykVP\Rancor\Tests;
 
 use AndrykVP\Rancor\Providers\PackageServiceProvider;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     public function setUp(): void
     {
         parent::setUp();
-        // Route::auth();
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            PackageServiceProvider::class,
+            PackageServiceProvider::class
         ];
     }
 
@@ -33,5 +32,19 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function defineDatabaseMigrations()
     {
         $this->loadLaravelMigrations();
+    }
+
+    /**
+    * Define routes setup.
+    *
+    * @param  \Illuminate\Routing\Router  $router
+    *
+    * @return void
+    */
+    protected function defineRoutes($router)
+    {
+        $router->get('/login')->name('login');
+        $router->post('/logout')->name('logout');
+        $router->get('/register')->name('register');
     }
 }

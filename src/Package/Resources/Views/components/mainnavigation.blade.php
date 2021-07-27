@@ -123,19 +123,16 @@ $mobile_inactive_classes = 'border-transparent text-gray-600 hover:text-gray-800
             {{ __('Holocron') }}
          </a>
          <a class="{{ $mobile_base_classes }} {{ request()->routeIs('news.*') ? $mobile_active_classes : $mobile_inactive_classes }}"
-         href="{{ route('news.index') }}"
-         :class="request()->routeIs('news.*') ? $mobile_active_classes : $mobile_inactive_classes">
+         href="{{ route('news.index') }}">
             {{ __('Press') }}
          </a>
          @auth
             <a class="{{ $mobile_base_classes }} {{ request()->routeIs('forums.*') ? $mobile_active_classes : $mobile_inactive_classes }}"
-            href="{{ route('forums.index') }}"
-            :class="request()->routeIs('forums.*') ? $mobile_active_classes : $mobile_inactive_classes">
+            href="{{ route('forums.index') }}">
                {{ __('Forums') }}
             </a>
             <a class="{{ $mobile_base_classes }} {{ request()->routeIs('admin.*') ? $mobile_active_classes : $mobile_inactive_classes }}"
-            href="{{ route('admin.index') }}"
-            :class="request()->routeIs('admin.*') ? $mobile_active_classes : $mobile_inactive_classes">
+            href="{{ route('admin.index') }}">
                {{ __('Admin Panel') }}
             </a>
          @endauth

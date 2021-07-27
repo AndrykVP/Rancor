@@ -58,7 +58,6 @@
                name="nickname"
                id="nickname"
                placeholder="Edit the User's Nickname"
-               required
                value="{{ old('nickname') ?: $user->nickname }}" />
             </div>
             <div class="mb-6">
@@ -84,7 +83,6 @@
                name="quote"
                id="quote"
                placeholder="Edit the User's Quote"
-               required
                value="{{ old('quote') ?: $user->quote }}" />
             </div>
             @can('changeRank', $user)
@@ -193,17 +191,24 @@
                <label for="awards" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
                   {{ __('Awards') }}
                </label>
-               @foreach($awards as $option)
-               @php
-               $user_award = $user->awards->firstWhere("id", $option->id)
-               @endphp
-               <div x-data='{option: @json($option), checked: {{ $user_award != null ? "true" : "false" }}, level: {{ $user_award != null ? $user_award->pivot->level : 0 }} }' class="grid grid-cols-5 mb-1">
-                  <input type="hidden" name="awards[{{ $option->id }}]" :value='checked ? level : 0'>
-                  <input class="col-span-1" type="checkbox" id="award_{{ $option->code }}_check" :checked="checked" x-model="checked"/>
-                  <span class="col-span-2" for="award_{{ $option->code }}" x-text="option.name" class="text-sm text-gray-900 dark:text-gray-200"></span>
-                  <template x-if="checked">
-                     <input class="col-span-2" type="number" id="award_{{ $option->code }}" x-model="level" min="1" :max="option.levels" />
-                  </template>
+               @foreach($award_types as $type)
+               <div class="mb-6" id="type_{{ $type->id }}">
+                  <span class="uppercase text-xs font-bold">{{ $type->name }}</span>
+                  @foreach($type->awards as $award)
+                  @php
+                  $user_award = $user->awards->firstWhere("id", $award->id)
+                  @endphp
+                  <div x-data='{award: @json($award), checked: {{ $user_award != null ? "true" : "false" }}, level: {{ $user_award != null ? $user_award->pivot->level : 1 }} }' class="flex flex-row content-center mb-1">
+                     <input type="hidden" name="awards[{{ $award->id }}]" :value='checked ? level : 0'>
+                     <div class="flex flex-row flex-grow wrap-none items-center py-2">
+                        <input class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="checkbox" id="award_{{ $award->code }}_check" :checked="checked" x-model="checked"/>
+                        <span class="ml-4 text-sm text-gray-900 dark:text-gray-200" for="award_{{ $award->code }}" x-text="award.name"></span>
+                     </div>
+                     <template x-if="checked">
+                        <input class="w-20 md:w-28 text-sm px-2 py-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" type="number" id="award_{{ $award->code }}" x-model="level" min="1" :max="award.levels" />
+                     </template>
+                  </div>
+                  @endforeach
                </div>
                @endforeach
             </div>

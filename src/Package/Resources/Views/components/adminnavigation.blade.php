@@ -9,7 +9,7 @@
             </svg>
          </button>
       </div>
-      <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+      <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow md:pb-0 hidden md:flex md:justify-end md:flex-row">
          @foreach($links as $menu => $module)
          @if($module->isNotEmpty())
          <div x-data='{open: false}' class="text-white nav-item">
@@ -19,9 +19,18 @@
                   <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                </svg>
             </button>
-            <div @click.away="open = false" x-show="open" class="flex flex-col w-full bg-indigo-800 border-t border-indigo-600">
+            <div 
+            @click.away="open = false"
+            x-show="open"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-y-0"
+            x-transition:enter-end="opacity-100 transform scale-y-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 transform scale-y-100"
+            x-transition:leave-end="opacity-0 transform scale-y-0"
+            class="origin-top flex flex-col w-full bg-indigo-800 border-t border-indigo-600">
                @foreach($module as $link)
-                  <a href="{{ route('admin.' . $link['uri'] . '.index')}}" class="text-sm hover:bg-indigo-600 px-4 py-2">{{ $link['label'] }}</a>
+                  <a href="{{ request()->routeIs('admin.' . $link['uri'] . '.*') ? '#' : route('admin.' . $link['uri'] . '.index')}}" class="text-sm hover:bg-indigo-600 px-4 py-2 {{ request()->routeIs('admin.' . $link['uri'] . '.*') ? 'bg-indigo-600 cursor-default' : ''}}">{{ $link['label'] }}</a>
                @endforeach
             </div>
          </div>

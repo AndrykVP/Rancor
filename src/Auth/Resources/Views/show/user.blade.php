@@ -29,7 +29,7 @@
       </div>
    </x-slot>
 
-   <div class="flex justify-center">
+   <div class="flex flex-col items-center">
       <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">ID:</div>
@@ -87,7 +87,7 @@
             <div class="col-span-3">
                <ul>
                   @foreach($user->awards as $award)
-                  <li>{{ $award->name }}</li>
+                  <li class="text-sm text-gray-600">{{ $award->name }}</li>
                   @endforeach
                </ul>
             </div>
@@ -112,7 +112,7 @@
                </span>
                <small>
                   <span>{{ $log->created_at->diffForHumans() }}</span>
-                  @if($log->has('creator'))
+                  @if($log->creator != null)
                      By <a href="{{ route('profile.show', $log->creator) }}">{{  $log->creator->name  }}</a>
                   @endif
                </small>

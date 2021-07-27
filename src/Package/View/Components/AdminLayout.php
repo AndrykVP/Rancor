@@ -6,23 +6,6 @@ use Illuminate\View\Component;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
-// use AndrykVP\Rancor\Auth\Models\Permission;
-// use AndrykVP\Rancor\Auth\Models\Role;
-// use AndrykVP\Rancor\Structure\Models\Award;
-// use AndrykVP\Rancor\Structure\Models\Department;
-// use AndrykVP\Rancor\Structure\Models\Faction;
-// use AndrykVP\Rancor\Structure\Models\Rank;
-// use AndrykVP\Rancor\Structure\Models\Type;
-// use AndrykVP\Rancor\News\Models\Article;
-// use AndrykVP\Rancor\News\Models\Tag;
-// use AndrykVP\Rancor\Forums\Models\Board;
-// use AndrykVP\Rancor\Forums\Models\Category;
-// use AndrykVP\Rancor\Forums\Models\Discussion;
-// use AndrykVP\Rancor\Forums\Models\Group;
-// use AndrykVP\Rancor\Forums\Models\Reply;
-// use AndrykVP\Rancor\Holocron\Models\Collection;
-// use AndrykVP\Rancor\Holocron\Models\Node;
-// use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class AdminLayout extends Component
 {

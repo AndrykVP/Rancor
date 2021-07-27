@@ -41,6 +41,6 @@ class Type extends Model
     */
    public function awards()
    {
-      return $this->hasMany(Award::class);
+      return $this->hasMany(Award::class)->orderBy('priority', 'desc');
    }
 }

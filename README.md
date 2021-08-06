@@ -33,7 +33,7 @@ Installation is done through the [Composer](https://getcomposer.org/) dependency
 composer require andrykvp/rancor
 ```
 
-Because of the development in Laravel 7, the package is auto-discovered and you do not need to register the Service Provider.
+Because of the development in Laravel 8, the package is auto-discovered and you do not need to register the Service Provider.
 
 Backwards compatibility to previous versions of Laravel has not been tested and it is not recommended to use with previous versions of Laravel 7. However, if you wish to test it yourself, you may add the following lines of code at the end of your `config/app.php` file:
 
@@ -60,4 +60,8 @@ See also the list of [contributors](https://github.com/AndrykVP/Rancor/graphs/co
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Contributing
+
+For instructions on how to contribute to the development of this package see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.

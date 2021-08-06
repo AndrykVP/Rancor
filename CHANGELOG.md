@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Forum Table names changed for clarity:
   - `forum_board_user` => `forum_moderators`
   - `forum_discussion_user` => `forum_unread_discussions`
+- Refactored `RancorSeeder` to separate seeders, for convention.
 
 ### Deleted
 - Gate `manage-faction` became irrelevant after the addition of the permission `view-admin-panel` used for admin middleware.

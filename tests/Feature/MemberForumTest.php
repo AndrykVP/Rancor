@@ -11,11 +11,11 @@ use AndrykVP\Rancor\Forums\Models\Group;
 use AndrykVP\Rancor\Forums\Models\Reply;
 use App\Models\User;
 
-class ForumTest extends TestCase
+class MemberForumTest extends TestCase
 {
    use RefreshDatabase;
 
-   protected $groups, $member, $admin, $categories, $visible_board, $invisible_board, $visible_discussion, $invisible_discussion, $reply_member, $reply_admin;
+   protected $groups, $member, $categories, $visible_board, $invisible_board, $visible_discussion, $invisible_discussion, $editable_reply, $uneditable_reply;
 
    public function setUp(): void
    {
@@ -31,14 +31,14 @@ class ForumTest extends TestCase
       // Initialize Forums
       $this->groups = Group::factory()->count(2)->create();
       $this->member = User::factory()->hasAttached($this->groups->first())->create();
-      $this->admin = User::factory()->create(['is_admin' => true]);
+      $second_member = User::factory()->hasAttached($this->groups->first())->create();
       $this->categories = Category::factory()->count(2)->create();
       $this->visible_board = Board::factory()->for($this->categories->first())->hasAttached($this->groups->first())->create();
       $this->invisible_board = Board::factory()->for($this->categories->last())->hasAttached($this->groups->last())->create();
       $this->visible_discussion = Discussion::factory()->for($this->member, 'author')->for($this->visible_board)->create();
-      $this->invisible_discussion = Discussion::factory()->for($this->admin, 'author')->for($this->invisible_board)->create();
-      $this->reply_member = Reply::factory()->for($this->member, 'author')->for($this->visible_discussion)->create();
-      $this->reply_admin = Reply::factory()->for($this->admin, 'author')->for($this->invisible_discussion)->create();
+      $this->invisible_discussion = Discussion::factory()->for($second_member, 'author')->for($this->invisible_board)->create();
+      $this->editable_reply = Reply::factory()->for($this->member, 'author')->for($this->visible_discussion)->create();
+      $this->uneditable_reply = Reply::factory()->for($second_member, 'author')->for($this->invisible_discussion)->create();
    }
 
    /** @test */
@@ -54,7 +54,7 @@ class ForumTest extends TestCase
    }
 
    /** @test */
-   function member_can_access_forum_category()
+   function member_can_access_visible_forum_category()
    {
       $response = $this->actingAs($this->member)->get(route('forums.category', $this->categories->first()));
       $response->assertSuccessful();
@@ -62,14 +62,14 @@ class ForumTest extends TestCase
    }
 
    /** @test */
-   function member_cannot_access_forum_category()
+   function member_cannot_access_invisible_forum_category()
    {
       $response = $this->actingAs($this->member)->get(route('forums.category', $this->categories->last()));
       $response->assertForbidden();
    }
 
    /** @test */
-   function member_can_access_forum_board()
+   function member_can_access_visible_forum_board()
    {
       $response = $this->actingAs($this->member)->get(route('forums.board', ['category' => $this->categories->first(), 'board' => $this->visible_board]));
       $response->assertSuccessful();
@@ -78,26 +78,41 @@ class ForumTest extends TestCase
    }
 
    /** @test */
-   function member_cannot_access_forum_board()
+   function member_cannot_access_invisible_forum_board()
    {
       $response = $this->actingAs($this->member)->get(route('forums.board', ['category' => $this->categories->last(), 'board' => $this->invisible_board]));
       $response->assertForbidden();
    }
 
    /** @test */
-   function member_can_access_forum_discussion()
+   function member_can_access_visible_forum_discussion()
    {
       $response = $this->actingAs($this->member)->get(route('forums.discussion', ['category' => $this->categories->first(), 'board' => $this->visible_board, 'discussion' => $this->visible_discussion]));
       $response->assertSuccessful();
       $response->assertSee('Edit Discussion');
-      // $response->assertSee('New Reply');
-      $response->assertSee($this->reply_member->body);
+      $response->assertSee('New Reply');
+      $response->assertSee($this->editable_reply->body);
    }
 
    /** @test */
-   function member_cannot_access_forum_discussion()
+   function member_cannot_access_invisible_forum_discussion()
    {
       $response = $this->actingAs($this->member)->get(route('forums.discussion', ['category' => $this->categories->last(), 'board' => $this->invisible_board, 'discussion' => $this->invisible_discussion]));
+      $response->assertForbidden();
+   }
+
+   /** @test */
+   function member_can_edit_editable_forum_reply()
+   {
+      $response = $this->actingAs($this->member)->get(route('forums.replies.edit', $this->editable_reply));
+      // $response->assertSee('Edit Reply');
+      $response->assertSuccessful();
+   }
+
+   /** @test */
+   function member_cannot_edit_uneditable_forum_reply()
+   {
+      $response = $this->actingAs($this->member)->get(route('forums.replies.edit', $this->uneditable_reply));
       $response->assertForbidden();
    }
 }

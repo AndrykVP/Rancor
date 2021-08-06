@@ -15,9 +15,10 @@ class AwardPolicy
      * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @param  string  $ability
+     * @return void|bool
      */
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
         if ($user->is_admin) {
             return true;
@@ -88,37 +89,6 @@ class AwardPolicy
     public function delete(User $user, Award $award)
     {
         return $user->hasPermission('delete-structure-awards')
-                ? Response::allow()
-                : Response::deny('You do not have permissions to delete awards.');
-    }
-
-
-    /**
-     * Determine whether the user can update the model relationship.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return mixed
-     */
-    public function giveAward(User $user, User $model)
-    {
-        return $user->hasPermission('grant-structure-awards')
-                && $model->rank_id != null
-                ? Response::allow()
-                : Response::deny('You do not have permissions to delete awards.');
-    }
-
-
-    /**
-     * Determine whether the user can update the model relationship.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return mixed
-     */
-    public function removeAward(User $user, User $model)
-    {
-        return $user->hasPermission('remove-structure-awards')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete awards.');
     }

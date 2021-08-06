@@ -15,9 +15,10 @@ class NodePolicy
      * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @param  string  $ability
+     * @return void|bool
      */
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
         if ($user->is_admin) {
             return true;
@@ -47,8 +48,8 @@ class NodePolicy
     public function view(?User $user, Node $node)
     {
         return $node->is_public
-                ||$user->is($node->author)
-                ||$user->is($node->editor)
+                ||$node->author->is($user)
+                ||$node->editor->is($user)
                 ||$user->hasPermission('view-holocron-nodes')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this holocron node.');
@@ -76,7 +77,7 @@ class NodePolicy
      */
     public function update(User $user, Node $node)
     {
-        return $user->is($node->author)
+        return $node->author->is($user)
                 ||$user->hasPermission('update-holocron-nodes')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this holocron node.');
@@ -91,7 +92,7 @@ class NodePolicy
      */
     public function delete(User $user, Node $node)
     {
-        return $user->is($node->author)
+        return $node->author->is($user)
                 || $user->hasPermission('delete-holocron-nodes')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete this holocron node.');

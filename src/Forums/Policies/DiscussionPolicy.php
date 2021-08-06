@@ -16,9 +16,10 @@ class DiscussionPolicy
      * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @param  string  $ability
+     * @return void|bool
      */
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
         if ($user->is_admin) {
             return true;
@@ -47,7 +48,7 @@ class DiscussionPolicy
      */
     public function view(User $user, Discussion $discussion)
     {
-        return $discussion->author_id == $user->id
+        return $discussion->author->is($user)
                 || $user->topics()->contains($discussion->board->id)
                 || $user->hasPermission('view-forum-discussions')
                 ? Response::allow()
@@ -79,7 +80,7 @@ class DiscussionPolicy
     public function update(User $user, Discussion $discussion)
     {
         return $user->hasPermission('update-forum-discussions')
-                || $discussion->author_id == $user->id
+                || $discussion->author->is($user)
                 || $discussion->board->moderators->contains($user)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Update this Forum Discussion.');

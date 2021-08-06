@@ -16,9 +16,10 @@ class ReplyPolicy
      * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @param  string  $ability
+     * @return void|bool
      */
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
         if ($user->is_admin) {
             return true;
@@ -47,7 +48,7 @@ class ReplyPolicy
      */
     public function view(User $user, Reply $reply)
     {
-        return $reply->author_id == $user->id
+        return $reply->author->is($user)
                 || $user->topics()->contains($reply->discussion->board->id)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to View this Forum Reply.');
@@ -62,7 +63,7 @@ class ReplyPolicy
     public function create(User $user, Discussion $discussion)
     {
         return !$discussion->is_locked
-                || $discussion->author_id === $user->id
+                || $discussion->author->is($user)
                 || $discussion->board->moderators->contains($user)
                 || $user->hasPermission('create-forum-replies')
                 ? Response::allow()
@@ -79,7 +80,7 @@ class ReplyPolicy
     public function update(User $user, Reply $reply)
     {
         return $user->hasPermission('update-forum-replies')
-                || $reply->author_id == $user->id
+                || $reply->author->is($user)
                 || $reply->discussion->board->moderators->contains($user)
                 ? Response::allow()
                 : Response::deny('You do not have Permissions to Update this Forum Reply.');

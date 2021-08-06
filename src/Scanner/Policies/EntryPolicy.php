@@ -12,7 +12,7 @@ class EntryPolicy
     use HandlesAuthorization;
 
     /**
-     * Perform pre-authorization checks.
+     * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
      * @param  string  $ability
@@ -49,7 +49,7 @@ class EntryPolicy
     public function view(User $user, Entry $entry)
     {
         return $user->hasPermission('view-scanner-entries')
-                || $entry->updated_by === $user->id
+                || $entry->contributor->is($user)
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this scanner entry.');
     }
@@ -76,7 +76,7 @@ class EntryPolicy
     public function update(User $user, Entry $entry)
     {
         return $user->hasPermission('update-scanner-entries')
-                || $entry->updated_by === $user->id
+                || $entry->contributor->is($user)
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this scanner entry.');
     }

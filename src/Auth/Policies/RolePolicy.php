@@ -15,9 +15,10 @@ class RolePolicy
      * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @param  string  $ability
+     * @return void|bool
      */
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
         if ($user->is_admin) {
             return true;

@@ -15,9 +15,10 @@ class ArticlePolicy
      * Bypass policy for Admin users.
      *
      * @param  \App\Models\User  $user
-     * @return mixed
+     * @param  string  $ability
+     * @return void|bool
      */
-    public function before($user, $ability)
+    public function before(User $user, $ability)
     {
         if ($user->is_admin) {
             return true;
@@ -47,8 +48,8 @@ class ArticlePolicy
     public function view(?User $user, Article $article)
     {
         return $article->is_published
-                ||$user->is($article->author)
-                ||$user->is($article->editor)
+                ||$article->author->is($user)
+                ||$article->editor->is($user)
                 ||$user->hasPermission('view-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this article.');
@@ -76,7 +77,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user->is($article->author)
+        return $article->author->is($user)
                 ||$user->hasPermission('update-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this article.');

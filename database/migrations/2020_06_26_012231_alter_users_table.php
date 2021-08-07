@@ -20,7 +20,8 @@ class AlterUsersTable extends Migration
             $table->text('quote')->nullable()->default(null)->after('nickname');
             $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('quote');
             $table->boolean('is_admin')->default(0)->after('rank_id');
-            $table->boolean('show_email')->default(1)->after('is_admin');
+            $table->boolean('is_banned')->default(0)->after('is_admin');
+            $table->boolean('show_email')->default(1)->after('is_banned');
             $table->timestamp('last_login')->nullable()->default(null);
 
             $table->foreign('rank_id')->references('id')->on('structure_ranks')->onDelete('set null');

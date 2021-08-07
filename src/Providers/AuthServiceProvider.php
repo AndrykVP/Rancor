@@ -12,6 +12,7 @@ use AndrykVP\Rancor\Auth\Policies\PermissionPolicy;
 use AndrykVP\Rancor\Auth\Policies\RolePolicy;
 use AndrykVP\Rancor\Auth\Policies\UserPolicy;
 use AndrykVP\Rancor\Auth\Http\Middleware\AdminAccess;
+use AndrykVP\Rancor\Auth\Http\Middleware\UserIsNotBanned;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -65,6 +66,7 @@ class AuthServiceProvider extends ServiceProvider
         // Register Middleware Alias
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('admin', AdminAccess::class);
+        $router->aliasMiddleware('unbanned', UserIsNotBanned::class);
     }
 
     /**

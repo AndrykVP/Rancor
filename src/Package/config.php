@@ -16,9 +16,14 @@ return [
     'middleware' => [
 
         // If you request users to verify email, use ['auth', 'verified']
-        // Otherwise, ['auth'] is enough, unless you have a custom middleware
+        // otherwise, ['auth'] is enough, unless you have a custom middleware.
+        // Additionally, Rancor allows you to restrict user-side pages to Users
+        // that are not marked as banned. Uncomment 'unbanned' to enable this.
 
-        'web' => ['auth'],
+        'web' => [
+            'auth',
+            // 'unbanned',
+        ],
 
 
         // For User models that use an api_token column, use 'auth:api'

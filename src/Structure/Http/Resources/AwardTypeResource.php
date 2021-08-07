@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Structure\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TypeResource extends JsonResource
+class AwardTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

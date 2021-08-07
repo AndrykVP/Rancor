@@ -22,7 +22,7 @@ class AwardResource extends JsonResource
             'code' => $this->code,
             'levels' => $this->levels,
             'priority' => $this->priority,
-            'type' => new TypeResource($this->whenLoaded('type')),
+            'type' => new AwardTypeResource($this->whenLoaded('type')),
             'users' => UserResource::collection($this->whenLoaded('users')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),

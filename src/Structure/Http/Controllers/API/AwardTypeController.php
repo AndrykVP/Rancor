@@ -19,7 +19,7 @@ class AwardTypeController extends Controller
     {
         $awardtypes = AwardType::paginate(config('rancor.pagination'));
 
-        return TypeResource::collection($awardtypes);
+        return AwardTypeResource::collection($awardtypes);
     }
 
     /**
@@ -51,7 +51,7 @@ class AwardTypeController extends Controller
         $this->authorize('view', $awardtype);
         $awardtype->load('awards');
 
-        return new TypeResource($awardtype);
+        return new AwardTypeResource($awardtype);
     }
 
     /**
@@ -100,6 +100,6 @@ class AwardTypeController extends Controller
         $this->authorize('viewAny',AwardType::class);
         $awardtypes = AwardType::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
 
-        return TypeResource::collection($awardtypes);
+        return AwardTypeResource::collection($awardtypes);
     }
 }

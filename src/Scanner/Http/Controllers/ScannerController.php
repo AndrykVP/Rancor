@@ -11,15 +11,6 @@ use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 
 class ScannerController extends Controller
 {
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the form for searching a scanner entry.
@@ -31,7 +22,7 @@ class ScannerController extends Controller
         $this->authorize('viewAny', Entry::class);
         $entries = Entry::with('contributor')->paginate(config('rancor.pagination'));
 
-        return view('rancor::scanner.search', compact('entries'));
+        return view('rancor::scanner.index', compact('entries'));
     }
 
     /**
@@ -46,62 +37,5 @@ class ScannerController extends Controller
         $entry->load('contributor', 'changelog.contributor');
 
         return view('rancor::scanner.show', compact('entry'));
-    }
-    
-    /**
-     * Display the results of the search.
-     *
-     * @param \AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(SearchEntry $request)
-    {
-        $this->authorize('viewAny', Entry::class);
-
-        $param = $request->validated();
-        $entries = Entry::where($param['attribute'],'like', $param['value'].'%')->paginate(config('rancor.pagination'));
-
-        return view('rancor::scanner.search',compact('entries'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function upload()
-    {
-        $this->authorize('create',Entry::class);
-
-        return view('rancor::scanner.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\UploadScan  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UploadScan $request)
-    {
-        $this->authorize('create',Entry::class);
-
-        $scanner = new EntryParseService($request);
-        $scanner->start();
-        $response = 'Scanner entries have been successfully processed with';
-        if($scanner->new > 0)
-        {
-            $response = $response." {$scanner->new} new entries.";
-        }
-        if($scanner->updated > 0)
-        {
-            $response = $response." {$scanner->updated} updated entries.";
-        }
-        if($scanner->unchanged > 0)
-        {
-            $response = $response." {$scanner->unchanged} unchanged entries.";
-        }
-
-        return redirect(route('scanner.upload'))->with('alert', $response);
     }
 }

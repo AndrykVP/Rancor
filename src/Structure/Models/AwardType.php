@@ -4,9 +4,9 @@ namespace AndrykVP\Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\DB\Factories\TypeFactory;
+use AndrykVP\Rancor\DB\Factories\AwardTypeFactory;
 
-class Type extends Model
+class AwardType extends Model
 {
    use HasFactory;
    
@@ -17,7 +17,7 @@ class Type extends Model
     */
    protected static function newFactory()
    {
-       return TypeFactory::new();
+       return AwardTypeFactory::new();
    }
    
    /**
@@ -41,6 +41,6 @@ class Type extends Model
     */
    public function awards()
    {
-      return $this->hasMany(Award::class)->orderBy('priority', 'desc');
+      return $this->hasMany(Award::class, 'type_id')->orderBy('priority', 'desc');
    }
 }

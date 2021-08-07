@@ -8,12 +8,12 @@ use AndrykVP\Rancor\Structure\Models\Award;
 use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Models\AwardType;
 use AndrykVP\Rancor\Structure\Policies\AwardPolicy;
 use AndrykVP\Rancor\Structure\Policies\FactionPolicy;
 use AndrykVP\Rancor\Structure\Policies\DepartmentPolicy;
 use AndrykVP\Rancor\Structure\Policies\RankPolicy;
-use AndrykVP\Rancor\Structure\Policies\TypePolicy;
+use AndrykVP\Rancor\Structure\Policies\AwardTypePolicy;
 
 class StructureServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class StructureServiceProvider extends ServiceProvider
         Faction::class => FactionPolicy::class,
         Department::class => DepartmentPolicy::class,
         Rank::class => RankPolicy::class,
-        Type::class => TypePolicy::class,
+        AwardType::class => AwardTypePolicy::class,
     ];
 
     /**

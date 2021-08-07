@@ -4,10 +4,10 @@ namespace AndrykVP\Rancor\Structure\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\Type;
-use AndrykVP\Rancor\Structure\Http\Requests\TypeForm;
+use AndrykVP\Rancor\Structure\Models\AwardType;
+use AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm;
 
-class TypeController extends Controller
+class AwardTypeController extends Controller
 {
     /**
      * Variable used in View rendering
@@ -15,8 +15,8 @@ class TypeController extends Controller
      * @var array
      */
     protected $resource = [
-        'name' => 'Type',
-        'route' => 'types'
+        'name' => 'Award Type',
+        'route' => 'awardtypes'
     ];
 
     /**
@@ -26,10 +26,10 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Type::class);
+        $this->authorize('viewAny', AwardType::class);
 
         $resource = $this->resource;
-        $models = Type::paginate(config('rancor.pagination'));
+        $models = AwardType::paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }
@@ -41,7 +41,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Type::class);
+        $this->authorize('create', AwardType::class);
 
         $resource = $this->resource;
         $form = array_merge(['method' => 'POST',],$this->form());
@@ -51,32 +51,32 @@ class TypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\TypeForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TypeForm $request)
+    public function store(AwardTypeForm $request)
     {
-        $this->authorize('create', Type::class);
+        $this->authorize('create', AwardType::class);
 
         $data = $request->validated();
-        $type = Type::create($data);
+        $awardtype = AwardType::create($data);
 
-        return redirect(route('admin.types.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $type->name, 'action' => 'created']);
+        return redirect(route('admin.awardtypes.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $awardtype->name, 'action' => 'created']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Type  $type
+     * @param  \AndrykVP\Rancor\Structure\Models\AwardType  $awardtype
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $type)
+    public function show(AwardType $awardtype)
     {
-        $this->authorize('view', $type);
+        $this->authorize('view', $awardtype);
 
-        $type->load('awards');
+        $awardtype->load('awards');
 
-        return view('rancor::show.type', compact('type'));
+        return view('rancor::show.awardtype', compact('awardtype'));
     }
 
     /**
@@ -87,10 +87,10 @@ class TypeController extends Controller
      */
     public function search(Request $request)
     {
-        $this->authorize('viewAny', Type::class);
+        $this->authorize('viewAny', AwardType::class);
         
         $resource = $this->resource;
-        $models = Type::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $models = AwardType::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }
@@ -98,49 +98,49 @@ class TypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Type  $type
+     * @param  \AndrykVP\Rancor\Structure\Models\AwardType  $awardtype
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type)
+    public function edit(AwardType $awardtype)
     {
-        $this->authorize('update', $type);
+        $this->authorize('update', $awardtype);
 
         $resource = $this->resource;
         $form = array_merge(['method' => 'PATCH',],$this->form());
-        $model = $type;
+        $model = $awardtype;
         return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\TypeForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Models\Type  $type
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm  $request
+     * @param  \AndrykVP\Rancor\Structure\Models\AwardType  $awardtype
      * @return \Illuminate\Http\Response
      */
-    public function update(TypeForm $request, Type $type)
+    public function update(AwardTypeForm $request, AwardType $awardtype)
     {
-        $this->authorize('update', $type);
+        $this->authorize('update', $awardtype);
 
         $data = $request->validated();
-        $type->update($data);
+        $awardtype->update($data);
 
-        return redirect(route('admin.types.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $type->name, 'action' => 'updated']);
+        return redirect(route('admin.awardtypes.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $awardtype->name, 'action' => 'updated']);
     }
     
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Type  $type
+     * @param  \AndrykVP\Rancor\Structure\Models\AwardType  $awardtype
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $type)
+    public function destroy(AwardType $awardtype)
     {
-        $this->authorize('delete', $type);
+        $this->authorize('delete', $awardtype);
         
-        $type->delete();
+        $awardtype->delete();
 
-        return redirect(route('admin.types.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $type->name, 'action' => 'deleted']);
+        return redirect(route('admin.awardtypes.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $awardtype->name, 'action' => 'deleted']);
     }
 
     /**

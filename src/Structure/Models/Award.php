@@ -52,6 +52,6 @@ class Award extends Model
     */
     public function type()
     {
-       return $this->belongsTo(Type::class);
+       return $this->belongsTo(AwardType::class, 'type_id');
     }
 }

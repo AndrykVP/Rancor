@@ -5,9 +5,9 @@ namespace AndrykVP\Rancor\Structure\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Models\AwardType;
 
-class TypePolicy
+class AwardTypePolicy
 {
     use HandlesAuthorization;
 
@@ -42,7 +42,7 @@ class TypePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\Type  $type
+     * @param \AndrykVP\Rancor\Structure\Models\AwardType  $type
      * @return mixed
      */
     public function view(User $user, Tpye $type)

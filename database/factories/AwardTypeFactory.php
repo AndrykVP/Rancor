@@ -3,16 +3,16 @@
 namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Models\AwardType;
 
-class TypeFactory extends Factory
+class AwardTypeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Type::class;
+    protected $model = AwardType::class;
 
     /**
      * Define the model's default state.

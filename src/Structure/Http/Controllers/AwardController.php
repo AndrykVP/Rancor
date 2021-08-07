@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Structure\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\Award;
-use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Models\AwardType;
 use AndrykVP\Rancor\Structure\Http\Requests\AwardForm;
 
 class AwardController extends Controller
@@ -190,7 +190,7 @@ class AwardController extends Controller
                     'label' => 'Type',
                     'attributes' => 'required',
                     'multiple' => false,
-                    'options' => Type::orderBy('name')->get(),
+                    'options' => AwardType::orderBy('name')->get(),
                 ],
             ]
         ];

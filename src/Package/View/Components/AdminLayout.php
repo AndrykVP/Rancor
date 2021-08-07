@@ -49,7 +49,7 @@ class AdminLayout extends Component
             ['namespace' => 'Structure', 'class' => 'Department'],
             ['namespace' => 'Structure', 'class' => 'Rank'],
             ['namespace' => 'Structure', 'class' => 'Award'],
-            ['namespace' => 'Structure', 'class' => 'Type', 'label' => 'Award Types'],
+            ['namespace' => 'Structure', 'class' => 'AwardType', 'label' => 'Award Types'],
             ['namespace' => 'News', 'class' => 'Article'],
             ['namespace' => 'News', 'class' => 'Tag'],
             ['namespace' => 'Forums', 'class' => 'Group', 'label' => 'Usergroups'],
@@ -58,7 +58,6 @@ class AdminLayout extends Component
             ['namespace' => 'Forums', 'class' => 'Discussion'],
             ['namespace' => 'Holocron', 'class' => 'Collection'],
             ['namespace' => 'Holocron', 'class' => 'Node'],
-            ['namespace' => 'Scanner', 'class' => 'Entry'],
         ];
         
         foreach($models as $model)

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Models\Role;
-use AndrykVP\Rancor\Structure\Models\Type;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Structure\Models\Rank;
@@ -97,7 +96,7 @@ class UserController extends Controller
         $departments = Department::all();
         $ranks = Rank::all();
         $roles = Role::all();
-        $award_types = Type::with('awards')->orderBy('name', 'asc')->get();
+        $award_types = AwardType::with('awards')->orderBy('name', 'asc')->get();
 
         // dd($awards->toArray());
 

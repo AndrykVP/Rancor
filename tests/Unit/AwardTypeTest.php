@@ -3,17 +3,17 @@
 namespace AndrykVP\Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Structure\Models\Type;
+use AndrykVP\Rancor\Structure\Models\AwardType;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class TypeTest extends TestCase
+class AwardTypeTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     function make_type()
     {
-        $type = Type::factory()
+        $type = AwardType::factory()
         ->hasAwards(3)
         ->create([
             'name' => 'Fake Title',

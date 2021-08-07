@@ -30,9 +30,11 @@
          </div>
       </div>
    </x-slot>
+   @if($models->total() >= config('rancor.pagination'))
    <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
       {{ $models->links() }}
    </div>
+   @endif
    
    <div class="flex flex-col">
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

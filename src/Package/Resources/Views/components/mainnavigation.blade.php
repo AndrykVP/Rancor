@@ -32,16 +32,22 @@ $mobile_inactive_classes = 'border-transparent text-gray-600 hover:text-gray-800
                      {{ __('Press') }}
                   </a>
                   @auth
-                  <a class="{{ $base_classes }} {{ request()->routeIs('forums.*') ? $active_classes : $inactive_classes }}"
-                  href="{{ route('forums.index') }}">
-                     {{ __('Forums') }}
-                  </a>
-                  @if(Auth::user()->hasPermission('view-admin-panel'))
-                  <a class="{{ $base_classes }} {{ request()->routeIs('admin.*') ? $active_classes : $inactive_classes }}"
-                  href="{{ route('admin.index') }}">
-                     {{ __('Admin Panel') }}
-                  </a>
-                  @endif
+                     <a class="{{ $base_classes }} {{ request()->routeIs('forums.*') ? $active_classes : $inactive_classes }}"
+                     href="{{ route('forums.index') }}">
+                        {{ __('Forums') }}
+                     </a>
+                     @if(Auth::user()->hasPermission('view-scanner-entries'))
+                     <a class="{{ $base_classes }} {{ request()->routeIs('scanner.*') ? $active_classes : $inactive_classes }}"
+                     href="{{ route('scanner.entries.index') }}">
+                        {{ __('Scanner') }}
+                     </a>
+                     @endif
+                     @if(Auth::user()->hasPermission('view-admin-panel'))
+                     <a class="{{ $base_classes }} {{ request()->routeIs('admin.*') ? $active_classes : $inactive_classes }}"
+                     href="{{ route('admin.index') }}">
+                        {{ __('Admin Panel') }}
+                     </a>
+                     @endif
                   @endauth
                   </div>
                </div>

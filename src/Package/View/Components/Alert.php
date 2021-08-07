@@ -19,16 +19,24 @@ class Alert extends Component
      * @var string
      */
     public $message;
+    
+    /**
+     * Miliseconds to keep the Alet alive
+     * 
+     * @var integer
+     */
+    public $timeout;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Array $alert, String $color = 'green')
+    public function __construct(Array $alert, String $color = 'green', $timeout = 3500)
     {
         $this->message = $this->buildMessage((object) $alert);
         $this->color = $color;
+        $this->timeout = $timeout;
     }
 
     /**

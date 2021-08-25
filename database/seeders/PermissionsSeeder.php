@@ -42,7 +42,6 @@ class PermissionsSeeder extends Seeder
       ];
 
       $permissions = [
-         'view-any',
          'view',
          'create',
          'update',

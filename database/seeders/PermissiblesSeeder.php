@@ -39,7 +39,7 @@ class PermissiblesSeeder extends Seeder
          // Access Manager
          3 => $permissions->filter(function($value, $key) {
             return strpos($value->name, 'admin') !== false
-                  || strpos($value->name, 'view-any-user') !== false
+                  || strpos($value->name, 'view-user') !== false
                   || strpos($value->name, '-roles') !== false
                   || strpos($value->name, '-permission') !== false
                   || strpos($value->name, 'users-roles') !== false;
@@ -48,7 +48,7 @@ class PermissiblesSeeder extends Seeder
          // CO/XO
          4 => $permissions->filter(function($value, $key) {
             return strpos($value->name, 'admin') !== false
-                  || strpos($value->name, 'view-any-user') !== false
+                  || strpos($value->name, 'view-user') !== false
                   || strpos($value->name, 'users-rank') !== false
                   || strpos($value->name, 'users-award') !== false;
          })->pluck('id'),
@@ -56,7 +56,7 @@ class PermissiblesSeeder extends Seeder
          // Art Team
          5 => $permissions->filter(function($value, $key) {
             return strpos($value->name, 'admin') !== false
-                  || strpos($value->name, 'view-any-user') !== false
+                  || strpos($value->name, 'view-user') !== false
                   || strpos($value->name, 'users-art') !== false;
          })->pluck('id'),
 

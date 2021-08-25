@@ -110,7 +110,9 @@ class DiscussionController extends Controller
             'category' => $discussion->board->category,
             'board' => $discussion->board,
             'discussion' => $discussion,
-        ],)->with('alert', ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'created']);
+        ],)->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'created']
+        ]);
     }
 
     /**
@@ -144,7 +146,9 @@ class DiscussionController extends Controller
         $data = $request->validated();
         $discussion->update($data);
 
-        return redirect()->route('admin.discussions.index')->with('alert', ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'updated']);
+        return redirect()->route('admin.discussions.index')->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'updated']
+        ]);
     }
 
     /**
@@ -159,7 +163,9 @@ class DiscussionController extends Controller
         
         $discussion->delete();
 
-        return redirect()->route('admin.discussions.index')->with('alert', ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'deleted']);
+        return redirect()->route('admin.discussions.index')->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'deleted']
+        ]);
     }
 
     /**

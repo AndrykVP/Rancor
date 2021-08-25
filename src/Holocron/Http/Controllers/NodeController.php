@@ -68,7 +68,9 @@ class NodeController extends Controller
             $node->collections()->sync($data['collections']);
         });
 
-        return redirect(route('admin.nodes.index'))->with('alert',['model' => $this->resource['name'], 'name' => $node->name,'action' => 'created']);
+        return redirect(route('admin.nodes.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $node->name,'action' => 'created']
+        ]);
     }
 
     /**
@@ -135,7 +137,9 @@ class NodeController extends Controller
             $node->collections()->sync($data['collections']);
         });
 
-        return redirect(route('admin.nodes.index'))->with('alert',['model' => $this->resource['name'], 'name' => $node->name,'action' => 'updated']);
+        return redirect(route('admin.nodes.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $node->name,'action' => 'updated']
+        ]);
     }
     
     /**
@@ -150,7 +154,9 @@ class NodeController extends Controller
         
         $node->delete();
 
-        return redirect(route('admin.nodes.index'))->with('alert',['model' => $this->resource['name'], 'name' => $node->name,'action' => 'deleted']);
+        return redirect(route('admin.nodes.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $node->name,'action' => 'deleted']
+        ]);
     }
 
     /**

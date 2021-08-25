@@ -32,11 +32,15 @@ class Alert extends Component
      *
      * @return void
      */
-    public function __construct(Array $alert, String $color = 'green', $timeout = 3500)
+    public function __construct(Array $alert)
     {
-        $this->message = $this->buildMessage((object) $alert);
-        $this->color = $color;
-        $this->timeout = $timeout;
+        $this->color = $alert['color'] ?? 'green';
+        $this->timeout = $alert['timeout'] ?? 3500;
+        $message = $alert['message'] ?? '';
+        if(gettype($message) == 'array') {
+            $message = $this->buildMessage((object) $message);
+        }
+        $this->message = $message;
     }
 
     /**

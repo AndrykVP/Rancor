@@ -110,7 +110,9 @@ class RoleController extends Controller
             $role->permissions()->sync($data['permissions']);
         });
         
-        return redirect(route('admin.roles.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'created']);
+        return redirect(route('admin.roles.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'created']
+        ]);
     }
 
     /**
@@ -148,7 +150,9 @@ class RoleController extends Controller
             $role->permissions()->sync($data['permissions']);
         });
 
-        return redirect(route('admin.roles.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'updated']);
+        return redirect(route('admin.roles.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'updated']
+        ]);
     }
 
     /**
@@ -164,7 +168,9 @@ class RoleController extends Controller
         $roles->permissions()->detach();
         $role->delete();
 
-        return redirect(route('admin.roles.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'deleted']);
+        return redirect(route('admin.roles.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'deleted']
+        ]);
     }
 
     /**

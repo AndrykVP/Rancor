@@ -59,7 +59,7 @@ class ForumController extends Controller
    {
       $unread = $request->user()->unreadDiscussions()->detach();
 
-      return redirect()->route('forums.unread.index');
+      return redirect()->route('forums.unread.index')->with('alert', 'All Discussions have been marked as read');
    }
 
    /**

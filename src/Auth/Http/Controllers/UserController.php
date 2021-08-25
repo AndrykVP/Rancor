@@ -159,7 +159,9 @@ class UserController extends Controller
             $user->save();
         });
 
-        return redirect(route('admin.users.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $user->name,'action' => 'updated']);
+        return redirect(route('admin.users.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $user->name,'action' => 'updated']
+        ]);
 
     }
 
@@ -175,6 +177,8 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect(route('admin.users.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $user->name,'action' => 'deleted']);
+        return redirect(route('admin.users.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $user->name,'action' => 'deleted']
+        ]);
     }
 }

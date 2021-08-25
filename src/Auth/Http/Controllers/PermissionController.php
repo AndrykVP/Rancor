@@ -103,7 +103,9 @@ class PermissionController extends Controller
         $data = $request->validated();
         $permission = Permission::create($data);
         
-        return redirect(route('admin.permissions.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $permission->name,'action' => 'created']);
+        return redirect(route('admin.permissions.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $permission->name,'action' => 'created'],
+        ]);
     }
 
     /**
@@ -137,7 +139,9 @@ class PermissionController extends Controller
         $data = $request->validated();
         $permission->update($data);
 
-        return redirect(route('admin.permissions.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $permission->name,'action' => 'updated']);
+        return redirect(route('admin.permissions.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $permission->name,'action' => 'updated']
+        ]);
     }
 
     /**
@@ -152,7 +156,9 @@ class PermissionController extends Controller
         
         $permission->delete();
 
-        return redirect(route('admin.permissions.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $permission->name,'action' => 'deleted']);
+        return redirect(route('admin.permissions.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $permission->name,'action' => 'deleted']
+        ]);
     }
 
     /**

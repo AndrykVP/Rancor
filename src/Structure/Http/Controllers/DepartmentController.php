@@ -62,7 +62,9 @@ class DepartmentController extends Controller
         $data = $request->validated();
         $department = Department::create($data);
 
-        return redirect(route('admin.departments.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $department->name, 'action' => 'created']);
+        return redirect(route('admin.departments.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $department->name, 'action' => 'created']
+        ]);
     }
 
     /**
@@ -126,7 +128,9 @@ class DepartmentController extends Controller
         $data = $request->validated();
         $department->update($data);
 
-        return redirect(route('admin.departments.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $department->name, 'action' => 'updated']);
+        return redirect(route('admin.departments.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $department->name, 'action' => 'updated']
+        ]);
     }
     
     /**
@@ -141,7 +145,9 @@ class DepartmentController extends Controller
         
         $department->delete();
 
-        return redirect(route('admin.departments.index'))->with('alert', ['model' => $this->resource['name'], 'name' => $department->name, 'action' => 'deleted']);
+        return redirect(route('admin.departments.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $department->name, 'action' => 'deleted']
+        ]);
     }
 
     /**

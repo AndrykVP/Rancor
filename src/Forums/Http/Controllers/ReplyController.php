@@ -85,7 +85,9 @@ class ReplyController extends Controller
             'board' => $reply->discussion->board->slug,
             'discussion' => $reply->discussion->id,
             'page' => $page
-        ])->with('alert', ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'created']);
+        ])->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'created']
+        ]);
     }
 
     /**
@@ -125,7 +127,9 @@ class ReplyController extends Controller
             'board' => $reply->discussion->board->slug,
             'discussion' => $reply->discussion->id,
             'page' => $page
-        ])->with('alert', ['model' => $this->resource['name'],  'id' => $reply->id, 'action' => 'updated']);
+        ])->with('alert', [
+            'message' => ['model' => $this->resource['name'],  'id' => $reply->id, 'action' => 'updated']
+        ]);
     }
 
     /**
@@ -144,7 +148,9 @@ class ReplyController extends Controller
             'category' => $reply->discussion->board->category->slug,
             'board' => $reply->discussion->board->slug,
             'discussion' => $reply->discussion->id,
-        ])->with('alert', ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'deleted']);
+        ])->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'deleted']
+        ]);
     }
 
     /**

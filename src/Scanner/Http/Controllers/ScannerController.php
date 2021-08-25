@@ -4,38 +4,97 @@ namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Scanner\Models\Entry;
-use AndrykVP\Rancor\Scanner\Services\EntryParseService;
-use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
+use AndrykVP\Rancor\Scanner\Models\Quadrant;
 use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
+use AndrykVP\Rancor\Scanner\Services\EntryParseService;
 
 class ScannerController extends Controller
 {
 
     /**
-     * Show the form for searching a scanner entry.
+     * Display the resource specified in the rancor configuration.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $this->authorize('viewAny', Entry::class);
-        $entries = Entry::with('contributor')->paginate(config('rancor.pagination'));
+        $quadrant = Quadrant::with('territories')->findOrFail(config('rancor.scanner.index'));
+        
+        return view('rancor::scanner.quadrant', compact('quadrant'));
+    }
+    
+    /**
+     * Display the specified quadrant.
+     *
+     * @param  \AndrykVP\Rancor\Scanner\Models\Quadrant  $quadrant
+     * @return \Illuminate\Http\Response
+     */
+    public function quadrant(Quadrant $quadrant)
+    {
+        $this->authorize('view', $quadrant);
 
-        return view('rancor::scanner.index', compact('entries'));
+        $quadrant->load('territories');
+
+        return view('rancor::scanner.quadrant', compact('quadrant'));
     }
 
     /**
-     * Show the form for searching a scanner entry.
+     * Display the specified territory.
      *
-     * @param \AndrykVP\Rancor\Scanner\Models\Entry  $entry
+     * @param  \AndrykVP\Rancor\Scanner\Models\Territory  $territory
      * @return \Illuminate\Http\Response
      */
-    public function show(Entry $entry)
+    public function territory(Territory $territory)
     {
-        $this->authorize('view', $entry);
-        $entry->load('contributor', 'changelog.contributor');
+        $this->authorize('view', $territory);
 
-        return view('rancor::scanner.show', compact('entry'));
+        $territory->loadCount('entries');
+        $entries = $territory->entries()->paginate(config('rancor.pagination'));
+
+        return view('rancor::scanner.territory', compact('quadrant', 'territory', 'entries'));
+    }
+
+    /**
+     * Displays the upload form
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $this->authorize('create', Entry::class);
+
+        return view('rancor::scanner.create');
+    }
+
+    /**
+     * Stores the information from uploaded XML file
+     * 
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\UploadScan  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UploadScan $request)
+    {
+        $this->authorize('create', Entry::class);
+
+        $scanner = new EntryParseService($request);
+        $scanner->start();
+        $response = 'Scanner Entries processed with: ';
+        if($scanner->new > 0)
+        {
+            $response = $response." {$scanner->new} new.";
+        }
+        if($scanner->updated > 0)
+        {
+            $response = $response." {$scanner->updated} updated.";
+        }
+        if($scanner->unchanged > 0)
+        {
+            $response = $response." {$scanner->unchanged} unchanged.";
+        }
+
+        return redirect(route('scanner.create'))->with('alert', [
+            'message' => $response,
+            'timeout' => 15000
+        ]);
     }
 }

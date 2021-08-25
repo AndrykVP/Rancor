@@ -3,8 +3,9 @@
 namespace AndrykVP\Rancor\Scanner\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UploadScan extends FormRequest
+class EditTerritoryType extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +24,9 @@ class UploadScan extends FormRequest
      */
     public function rules()
     {
-        // dd($this->input('files'));
         return [
-            'scans' => 'required',
-            'scans.*' => 'file|mimes:xml|max:20000'
+            'name' => ['required', 'string', Rule::unique('scanner_territory_types')->ignore($this->id)],
+            'image' => 'required|url',
         ];
     }
 }

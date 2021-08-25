@@ -9,7 +9,7 @@
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('scanner.entries.index') }}">{{ __('Entries') }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('admin.entries.index') }}">{{ __('Entries') }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
@@ -20,10 +20,10 @@
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
             @can('update', $entry)
-            <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-green-600 px-3 py-2" href="{{ route('scanner.entries.edit', $entry) }}">{{ __('Edit Entry') }}</a>
+            <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-green-600 px-3 py-2" href="{{ route('admin.entries.edit', $entry) }}">{{ __('Edit Entry') }}</a>
             @endcan
             @can('delete', $entry)
-            <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-red-600 px-3 py-2 ml-2" href="{{ route('scanner.entries.destroy', $entry) }}">{{ __('Delete Entry') }}</a>
+            <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-red-600 px-3 py-2 ml-2" href="{{ route('admin.entries.destroy', $entry) }}">{{ __('Delete Entry') }}</a>
             @endcan
          </div>
       </div>
@@ -54,6 +54,7 @@
          <div class="grid grid-cols-4 mb-2 gap-4 items-top">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Last Position:</div>
             <div class="col-span-3">
+               @if($entry->position != null)
                <strong>System:</strong> ({{ $entry->position['galaxy']['x'] }}, {{ $entry->position['galaxy']['y'] }})<br />
                <strong>Orbit:</strong> ({{ $entry->position['system']['x'] }}, {{ $entry->position['system']['y'] }})
                @if(array_key_exists('surface', $entry->position))
@@ -62,7 +63,11 @@
                @if(array_key_exists('ground', $entry->position))
                <br/><strong>Ground:</strong> ({{ $entry->position['ground']['x'] }}, {{ $entry->position['ground']['y'] }})
                @endif
+               @else
+               None
+               @endif
             </div>
+
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Contributor:</div>
@@ -70,7 +75,14 @@
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Last Seen:</div>
-            <div class="col-span-3">{{ $entry->last_seen->diffForHumans() }}</div>
+            <div class="col-span-3">
+               @if($entry->last_seen != null)
+               {{ $entry->last_seen->diffForHumans() }}
+               @else
+               None
+               @endif
+            </div>
+
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Last Update:</div>

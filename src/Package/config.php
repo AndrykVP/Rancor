@@ -65,4 +65,22 @@ return [
     */
 
     'pagination' => 10,
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scanner
+    |--------------------------------------------------------------------------
+    |
+    | Configuration used in the scanner module
+    |
+    */
+
+    'scanner' => [
+
+        // The id of the quadrant containing the home system of your
+        // faction. You can find this in the database, or you can contact
+        // the dev team of the Rancor package for help
+        'index' => 24
+    ],
 ];

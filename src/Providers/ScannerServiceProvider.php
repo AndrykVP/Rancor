@@ -5,7 +5,13 @@ namespace AndrykVP\Rancor\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use AndrykVP\Rancor\Scanner\Models\Entry;
+use AndrykVP\Rancor\Scanner\Models\Quadrant;
+use AndrykVP\Rancor\Scanner\Models\Territory;
+use AndrykVP\Rancor\Scanner\Models\TerritoryType;
 use AndrykVP\Rancor\Scanner\Policies\EntryPolicy;
+use AndrykVP\Rancor\Scanner\Policies\QuadrantPolicy;
+use AndrykVP\Rancor\Scanner\Policies\TerritoryPolicy;
+use AndrykVP\Rancor\Scanner\Policies\TerritoryTypePolicy;
 
 class ScannerServiceProvider extends ServiceProvider
 {
@@ -16,6 +22,9 @@ class ScannerServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Entry::class => EntryPolicy::class,
+        Quadrant::class => QuadrantPolicy::class,
+        Territory::class => TerritoryPolicy::class,
+        TerritoryType::class => TerritoryTypePolicy::class,
     ];
 
     /**

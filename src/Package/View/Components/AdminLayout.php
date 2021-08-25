@@ -58,6 +58,7 @@ class AdminLayout extends Component
             ['namespace' => 'Forums', 'class' => 'Discussion'],
             ['namespace' => 'Holocron', 'class' => 'Collection'],
             ['namespace' => 'Holocron', 'class' => 'Node'],
+            ['namespace' => 'Scanner', 'class' => 'Entry'],
         ];
         
         foreach($models as $model)

@@ -29,7 +29,7 @@ class Entry extends Model
      * @var array
      */
     protected $fillable = [
-        'type', 'name', 'owner', 'position', 'last_seen'
+        'entity_id', 'type', 'name', 'owner', 'position', 'last_seen', 'updated_by'
     ];
 
     /**

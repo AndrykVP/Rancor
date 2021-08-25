@@ -38,7 +38,7 @@ $mobile_inactive_classes = 'border-transparent text-gray-600 hover:text-gray-800
                      </a>
                      @if(Auth::user()->hasPermission('view-scanner-entries'))
                      <a class="{{ $base_classes }} {{ request()->routeIs('scanner.*') ? $active_classes : $inactive_classes }}"
-                     href="{{ route('scanner.entries.index') }}">
+                     href="{{ route('scanner.index') }}">
                         {{ __('Scanner') }}
                      </a>
                      @endif

@@ -24,7 +24,7 @@ class EntryParseService {
    {
       $this->contributor = $request->user();
       $validated = $request->validated();
-      $this->files = $validated['files'];
+      $this->files = $validated['scans'];
    }
 
    /**

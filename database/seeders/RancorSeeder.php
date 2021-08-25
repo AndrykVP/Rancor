@@ -18,7 +18,8 @@ class RancorSeeder extends Seeder
          GroupsSeeder::class,
          PermissionsSeeder::class,
          RolesSeeder::class,
-         PermissiblesSeeder::class
+         PermissiblesSeeder::class,
+         TerritoryTypesSeeder::class,
       ]);
    }
 }

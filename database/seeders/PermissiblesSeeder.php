@@ -14,9 +14,9 @@ class PermissiblesSeeder extends Seeder
     */
    public function run()
    {
-      $permissions = DB::table('rancor_permissions')->count();
+      $permissions = DB::table('rancor_permissions')->get();
 
-      for($i = 1; $i <= $permissions; $i++)
+      for($i = 1; $i <= $permissions->count(); $i++)
       {
          DB::table('rancor_permissibles')->insert([
             [
@@ -30,15 +30,59 @@ class PermissiblesSeeder extends Seeder
       }
 
       $roles = [
-         2 => [1,2,3,4,5,6,7,8],
-         3 => [1,17,18,19,21,22,23,25,26,27],
-         4 => [1,9,11,13,14],
-         5 => [1,5,3],
-         6 => [1,5,2],
-         7 => [1,29,30,31,33,34,35],
-         8 => [1,33,37,38],
-         9 => [1,41,42,43,45,46,47,49,50,51,53,54,55,57,58,59],
-         10 => [1,69,70,71,73,74,75]
+         // Faction Manager
+         2 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'structure-') !== false;
+         })->pluck('id'),
+
+         // Access Manager
+         3 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'view-any-user') !== false
+                  || strpos($value->name, '-roles') !== false
+                  || strpos($value->name, '-permission') !== false
+                  || strpos($value->name, 'users-roles') !== false;
+         })->pluck('id'),
+
+         // CO/XO
+         4 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'view-any-user') !== false
+                  || strpos($value->name, 'users-rank') !== false
+                  || strpos($value->name, 'users-award') !== false;
+         })->pluck('id'),
+
+         // Art Team
+         5 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'view-any-user') !== false
+                  || strpos($value->name, 'users-art') !== false;
+         })->pluck('id'),
+
+         // News Team
+         6 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'news-') !== false;
+         })->pluck('id'),
+
+         // Scanner Manager
+         7 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'scanner-') !== false;
+         })->pluck('id'),
+
+         // Forum Manager
+         8 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'forum-') !== false;
+         })->pluck('id'),
+
+         // Holocron Manager
+         9 => $permissions->filter(function($value, $key) {
+            return strpos($value->name, 'admin') !== false
+                  || strpos($value->name, 'holocron-') !== false;
+         })->pluck('id'),
       ];
 
       foreach($roles as $role => $privs)

@@ -36,7 +36,7 @@ class DiscussionPolicy
     {
         return $user->hasPermission('view-forum-discussions')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View Forum Discussions.');
+                : Response::deny('You do not have permissions to view forum discussions.');
     }
 
     /**
@@ -52,7 +52,7 @@ class DiscussionPolicy
                 || $user->topics()->contains($discussion->board->id)
                 || $user->hasPermission('view-forum-discussions')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View this Forum Discussion.');
+                : Response::deny('You do not have permissions to view this forum discussion.');
     }
 
     /**
@@ -67,7 +67,7 @@ class DiscussionPolicy
                 || $user->topics()->contains($board->id)
                 || $user->hasPermission('create-forum-discussions')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Create a Discussion in this Forum Board.');
+                : Response::deny('You do not have permissions to create a discussion in this forum board.');
     }
 
     /**
@@ -83,7 +83,7 @@ class DiscussionPolicy
                 || $discussion->author->is($user)
                 || $discussion->board->moderators->contains($user)
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Update this Forum Discussion.');
+                : Response::deny('You do not have permissions to update this forum discussion.');
     }
 
     /**
@@ -97,6 +97,6 @@ class DiscussionPolicy
     {
         return $user->hasPermission('delete-forum-discussions')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Delete this Forum Discussion.');
+                : Response::deny('You do not have permissions to delete this forum discussion.');
     }
 }

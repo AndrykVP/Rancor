@@ -35,7 +35,7 @@ class PermissionPolicy
     {
         return $user->hasPermission('view-permissions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view Permissions.');
+                : Response::deny('You do not have permissions to view permissions.');
     }
 
     /**
@@ -49,7 +49,7 @@ class PermissionPolicy
     {
         return $user->hasPermission('view-permissions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view this Permission.');
+                : Response::deny('You do not have permissions to view this permission.');
     }
 
     /**
@@ -62,7 +62,7 @@ class PermissionPolicy
     {    
         return $user->hasPermission('create-permissions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create Permissions.');
+                : Response::deny('You do not have permissions to create permissions.');
     }
 
     /**
@@ -76,7 +76,7 @@ class PermissionPolicy
     {
         return $user->hasPermission('update-permissions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit this Permission.');
+                : Response::deny('You do not have permissions to edit this permission.');
     }
 
     /**
@@ -90,6 +90,6 @@ class PermissionPolicy
     {
         return $user->hasPermission('delete-permissions')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete this Permission.');
+                : Response::deny('You do not have permissions to delete this permission.');
     }
 }

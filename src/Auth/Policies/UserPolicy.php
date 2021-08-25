@@ -154,6 +154,6 @@ class UserPolicy
         return $user->hasPermission('delete-users')
                 && $user->isNot($model)
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete users.');
+                : Response::deny('You do not have permissions to delete this user.');
     }
 }

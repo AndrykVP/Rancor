@@ -35,7 +35,7 @@ class CategoryPolicy
     {
         return $user->hasPermission('view-forum-categories')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to View Forum Categories.');
+                : Response::deny('You do not have permissions to view forum categories.');
     }
 
     /**
@@ -50,7 +50,7 @@ class CategoryPolicy
         return $user->categories()->contains($category->id)
                 || $user->hasPermission('view-forum-categories')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to View this Forum Category.');
+                : Response::deny('You do not have permissions to view this forum category.');
     }
 
     /**
@@ -63,7 +63,7 @@ class CategoryPolicy
     {
         return $user->hasPermission('create-forum-categories')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to Create Forum Categories.');
+                : Response::deny('You do not have permissions to create forum categories.');
     }
 
     /**
@@ -77,7 +77,7 @@ class CategoryPolicy
     {
         return $user->hasPermission('update-forum-categories')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to Update this Forum Category.');
+                : Response::deny('You do not have permissions to update this forum category.');
     }
 
     /**
@@ -91,6 +91,6 @@ class CategoryPolicy
     {
         return $user->hasPermission('delete-forum-categories')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to Delete this Forum Category.');
+                : Response::deny('You do not have permissions to delete this forum category.');
     }
 }

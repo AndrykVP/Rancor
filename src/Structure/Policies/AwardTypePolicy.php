@@ -33,9 +33,9 @@ class AwardTypePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-structure-awards')
+        return $user->hasPermission('view-structure-award-types')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view awards.');
+                : Response::deny('You do not have permissions to view award types.');
     }
     
     /**
@@ -47,9 +47,9 @@ class AwardTypePolicy
      */
     public function view(User $user, Tpye $type)
     {
-        return $user->hasPermission('view-structure-awards')
+        return $user->hasPermission('view-structure-award-types')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view this award.');
+                : Response::deny('You do not have permissions to view this award type.');
     }
 
     /**

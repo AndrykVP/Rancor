@@ -33,9 +33,9 @@ class TagPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-tags')
+        return $user->hasPermission('view-news-tags')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view Tags.');
+                : Response::deny('You do not have permissions to view news tags.');
     }
 
     /**
@@ -47,9 +47,9 @@ class TagPolicy
      */
     public function view(User $user, Tag $tag)
     {
-        return $user->hasPermission('view-tags')
+        return $user->hasPermission('view-news-tags')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to view this Tag.');
+                : Response::deny('You do not have permissions to view this news tag.');
     }
 
     /**
@@ -60,9 +60,9 @@ class TagPolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-tags')
+        return $user->hasPermission('create-news-tags')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to create Tags.');
+                : Response::deny('You do not have permissions to create news tags.');
     }
 
     /**
@@ -74,9 +74,9 @@ class TagPolicy
      */
     public function update(User $user, Tag $tag)
     {
-        return $user->hasPermission('update-tags')
+        return $user->hasPermission('update-news-tags')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to edit this Tag.');
+                : Response::deny('You do not have permissions to edit this news tag.');
     }
 
     /**
@@ -88,8 +88,8 @@ class TagPolicy
      */
     public function delete(User $user, Tag $tag)
     {
-        return $user->hasPermission('delete-tags')
+        return $user->hasPermission('delete-news-tags')
                 ? Response::allow()
-                : Response::deny('You do not have permissions to delete this Tag.');
+                : Response::deny('You do not have permissions to delete this news tag.');
     }
 }

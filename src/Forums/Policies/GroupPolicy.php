@@ -35,7 +35,7 @@ class GroupPolicy
     {
         return $user->hasPermission('view-forum-groups')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View Forum Groups.');
+                : Response::deny('You do not have permissions to view forum groups.');
     }
 
     /**
@@ -49,7 +49,7 @@ class GroupPolicy
     {
         return $user->hasPermission('view-forum-groups')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View this Forum Group.');
+                : Response::deny('You do not have permissions to view this forum group.');
     }
 
     /**
@@ -62,7 +62,7 @@ class GroupPolicy
     {
         return $user->hasPermission('create-forum-groups')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Create Forum Groups.');
+                : Response::deny('You do not have permissions to create forum groups.');
     }
 
     /**
@@ -76,7 +76,7 @@ class GroupPolicy
     {
         return $user->hasPermission('update-forum-groups')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Update this Forum Group.');
+                : Response::deny('You do not have permissions to update this forum group.');
     }
 
     /**
@@ -90,6 +90,6 @@ class GroupPolicy
     {
         return $user->hasPermission('delete-forum-groups')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Delete this Forum Group.');
+                : Response::deny('You do not have permissions to delete this forum group.');
     }
 }

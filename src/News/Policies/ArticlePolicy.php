@@ -33,7 +33,7 @@ class ArticlePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('view-articles')
+        return $user->hasPermission('view-news-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view articles.');
     }
@@ -50,7 +50,7 @@ class ArticlePolicy
         return $article->is_published
                 ||$article->author->is($user)
                 ||$article->editor->is($user)
-                ||$user->hasPermission('view-articles')
+                ||$user->hasPermission('view-news-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to view this article.');
     }
@@ -63,7 +63,7 @@ class ArticlePolicy
      */
     public function create(User $user)
     {    
-        return $user->hasPermission('create-articles')
+        return $user->hasPermission('create-news-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to create articles.');
     }
@@ -78,7 +78,7 @@ class ArticlePolicy
     public function update(User $user, Article $article)
     {
         return $article->author->is($user)
-                ||$user->hasPermission('update-articles')
+                ||$user->hasPermission('update-news-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to edit this article.');
     }
@@ -92,7 +92,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        return $user->hasPermission('delete-articles')
+        return $user->hasPermission('delete-news-articles')
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete this article.');
     }

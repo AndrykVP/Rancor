@@ -35,7 +35,7 @@ class BoardPolicy
     {
         return $user->hasPermission('view-forum-boards')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View Forum Boards.');
+                : Response::deny('You do not have permissions to view forum boards.');
     }
 
     /**
@@ -51,7 +51,7 @@ class BoardPolicy
                 || $user->topics()->contains($board->id)
                 || $user->hasPermission('view-forum-boards')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View this Forum Board.');
+                : Response::deny('You do not have permissions to view this forum board.');
     }
 
     /**
@@ -64,7 +64,7 @@ class BoardPolicy
     {
         return $user->hasPermission('create-forum-boards')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Create Forum Boards.');
+                : Response::deny('You do not have permissions to create forum boards.');
     }
 
     /**
@@ -79,7 +79,7 @@ class BoardPolicy
         return $board->moderators->contains($user)
                 ||$user->hasPermission('update-forum-boards')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Update this Forum Board.');
+                : Response::deny('You do not have permissions to update this forum board.');
     }
 
     /**
@@ -93,6 +93,6 @@ class BoardPolicy
     {
         return $user->hasPermission('delete-forum-boards')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Delete this Forum Board.');
+                : Response::deny('You do not have permissions to delete this forum board.');
     }
 }

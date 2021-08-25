@@ -36,7 +36,7 @@ class ReplyPolicy
     {
         return $user->hasPermission('view-forum-replies')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View Forum Replies.');
+                : Response::deny('You do not have permissions to view forum replies.');
     }
 
     /**
@@ -51,7 +51,7 @@ class ReplyPolicy
         return $reply->author->is($user)
                 || $user->topics()->contains($reply->discussion->board->id)
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to View this Forum Reply.');
+                : Response::deny('You do not have permissions to view this forum reply.');
     }
 
     /**
@@ -67,7 +67,7 @@ class ReplyPolicy
                 || $discussion->board->moderators->contains($user)
                 || $user->hasPermission('create-forum-replies')
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Reply to this Forum Discussion.');
+                : Response::deny('You do not have permissions to reply to this forum discussion.');
     }
 
     /**
@@ -83,7 +83,7 @@ class ReplyPolicy
                 || $reply->author->is($user)
                 || $reply->discussion->board->moderators->contains($user)
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Update this Forum Reply.');
+                : Response::deny('You do not have permissions to update this forum reply.');
     }
 
     /**
@@ -98,6 +98,6 @@ class ReplyPolicy
         return $user->hasPermission('delete-forum-replies')
                 || $reply->discussion->board->moderators->contains($user)
                 ? Response::allow()
-                : Response::deny('You do not have Permissions to Delete this Forum Reply.');
+                : Response::deny('You do not have permissions to delete this forum reply.');
     }
 }

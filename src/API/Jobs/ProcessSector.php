@@ -38,7 +38,7 @@ class ProcessSector implements ShouldQueue
         $id = (int)explode(':',$this->uid)[1];
         $response = Http::withHeaders([
             'Accept' => 'application/json'
-        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/sectors/{$this->uid}`)
+        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/sectors/{$this->uid}`);
 
         if($response->successful())
         {

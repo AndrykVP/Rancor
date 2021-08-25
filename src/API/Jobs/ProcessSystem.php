@@ -38,12 +38,12 @@ class ProcessSystem implements ShouldQueue
         $id = (int)explode(':',$this->uid)[1];
         $response = Http::withHeaders([
             'Accept' => 'application/json'
-        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/systems/{$this->uid}`)
+        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/systems/{$this->uid}`);
 
         if($response->successful())
         {
             $query = $response->json();
-            $query = $query['swcapi']['system']
+            $query = $query['swcapi']['system'];
     
             $model = System::firstOrNew(['id' => $id]);
             $sector_id = $query['location']['sector']['attributes']['uid'];

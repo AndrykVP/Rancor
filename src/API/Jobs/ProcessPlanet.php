@@ -67,7 +67,7 @@ class ProcessPlanet implements ShouldQueue
             $model->save();
         }
         else {
-            $this->fail()
+            $this->fail();
         }
 
     }

@@ -20,19 +20,19 @@ class TerritoryTypesSeeder extends Seeder
       DB::table('scanner_territory_types')->insert([
          [
             'name' => 'System',
-            'image' => storage_path('territory_types/system.png'),
+            'image' => url('storage/territory_types/system.png'),
             'created_at' => now(),
             'updated_at' => now(),
          ],
          [
             'name' => 'Asteroid Field',
-            'image' => storage_path('territory_types/asteroid.png'),
+            'image' => url('storage/territory_types/asteroid.png'),
             'created_at' => now(),
             'updated_at' => now(),
          ],
          [
             'name' => 'Station',
-            'image' => storage_path('territory_types/station.png'),
+            'image' => url('storage/territory_types/station.png'),
             'created_at' => now(),
             'updated_at' => now(),
          ],

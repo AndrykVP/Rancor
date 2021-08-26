@@ -15,7 +15,6 @@ class CreateQuadrantsTable extends Migration
     {
         Schema::create('scanner_quadrants', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

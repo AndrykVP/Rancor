@@ -59,6 +59,7 @@ class AdminLayout extends Component
             ['namespace' => 'Holocron', 'class' => 'Collection'],
             ['namespace' => 'Holocron', 'class' => 'Node'],
             ['namespace' => 'Scanner', 'class' => 'Entry'],
+            ['namespace' => 'Scanner', 'class' => 'TerritoryType', 'label' => 'Territory Types'],
         ];
         
         foreach($models as $model)

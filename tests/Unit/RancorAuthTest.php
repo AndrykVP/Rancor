@@ -14,7 +14,7 @@ class RancorAuthTest extends TestCase
     function permissions_and_roles_can_be_created()
     {
         $this->seed(RancorSeeder::class);
-        $this->assertDatabaseCount('rancor_permissions', 78);
-        $this->assertDatabaseCount('rancor_roles', 10);
+        $this->assertDatabaseCount('rancor_permissions', 85);
+        $this->assertDatabaseCount('rancor_roles', 9);
     }
 }

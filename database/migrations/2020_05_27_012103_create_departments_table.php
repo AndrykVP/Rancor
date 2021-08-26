@@ -18,10 +18,8 @@ class CreateDepartmentsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
-            $table->unsignedBigInteger('faction_id');
+            $table->foreignId('faction_id')->constrained('structure_factions')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('faction_id')->references('id')->on('structure_factions')->onDelete('cascade');
         });
     }
 

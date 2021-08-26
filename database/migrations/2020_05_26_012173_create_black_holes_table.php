@@ -16,10 +16,8 @@ class CreateBlackHolesTable extends Migration
         Schema::create('swc_blackholes', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
             $table->string('name')->nullable()->default(null);
-            $table->unsignedBigInteger('system_id')->nullable()->default(null);
+            $table->foreignId('system_id')->constrained('swc_systems')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('system_id')->references('id')->on('swc_systems')->onDelete('set null');
         });
     }
 

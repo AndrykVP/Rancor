@@ -18,10 +18,10 @@ class CreateSystemsTable extends Migration
             $table->string('name')->nullable()->default(null);;
             $table->integer('x_coordinate');
             $table->integer('y_coordinate');
-            $table->unsignedBigInteger('sector_id')->nullable()->default(null);;
+            $table->foreignId('sector_id')->constrained('swc_sectors')->onDelete('cascade');
             $table->timestamps();
 
-            $table->foreign('sector_id')->references('id')->on('swc_sectors')->onDelete('set null');
+            $table->index(['x_coordinate', 'y_coordinate']);
         });
     }
 

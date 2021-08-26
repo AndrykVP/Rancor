@@ -15,8 +15,8 @@ class CreateEntryLogsTable extends Migration
     {
         Schema::create('changelog_entries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('entry_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('entry_id')->constrained('scanner_entries')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('old_type')->nullable();
             $table->string('new_type')->nullable();
             $table->string('old_name')->nullable();
@@ -26,9 +26,6 @@ class CreateEntryLogsTable extends Migration
             $table->json('old_position')->nullable();
             $table->json('new_position')->nullable();
             $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('entry_id')->references('id')->on('scanner_entries')->onDelete('cascade');
         });
     }
 

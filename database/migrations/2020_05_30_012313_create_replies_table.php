@@ -15,15 +15,11 @@ class CreateRepliesTable extends Migration
     {
         Schema::create('forum_replies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('discussion_id');
-            $table->unsignedBigInteger('author_id');
-            $table->unsignedBigInteger('editor_id')->nullable()->default(null);
+            $table->foreignId('discussion_id')->constrained('forum_discussions')->onDelete('cascade');
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('editor_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->mediumText('body');
             $table->timestamps();
-
-            $table->foreign('discussion_id')->references('id')->on('forum_discussions')->onDelete('cascade');
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('editor_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

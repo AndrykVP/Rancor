@@ -14,12 +14,9 @@ class CreateDiscussionUserTable extends Migration
     public function up()
     {
         Schema::create('forum_unread_discussions', function (Blueprint $table) {
-            $table->unsignedBigInteger('discussion_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('discussion_id')->constrained('forum_discussions')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('discussion_id')->references('id')->on('forum_discussions')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

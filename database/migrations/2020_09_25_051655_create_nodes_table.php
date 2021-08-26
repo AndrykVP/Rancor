@@ -17,13 +17,10 @@ class CreateNodesTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('body');
-            $table->unsignedBigInteger('author_id')->nullable()->default(null);
-            $table->unsignedBigInteger('editor_id')->nullable()->default(null);
+            $table->foreignId('author_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
+            $table->foreignId('editor_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->boolean('is_public');
             $table->timestamps();
-            
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('editor_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

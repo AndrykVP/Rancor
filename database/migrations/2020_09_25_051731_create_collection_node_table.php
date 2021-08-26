@@ -14,12 +14,9 @@ class CreateCollectionNodeTable extends Migration
     public function up()
     {
         Schema::create('holocron_collection_node', function (Blueprint $table) {
-            $table->unsignedBigInteger('collection_id');
-            $table->unsignedBigInteger('node_id');
+            $table->foreignId('collection_id')->constrained('holocron_collections')->onDelete('cascade');
+            $table->foreignId('node_id')->constrained('holocron_nodes')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('collection_id')->references('id')->on('holocron_collections')->onDelete('cascade');
-            $table->foreign('node_id')->references('id')->on('holocron_nodes')->onDelete('cascade');
         });
     }
 

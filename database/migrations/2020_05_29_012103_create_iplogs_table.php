@@ -15,13 +15,11 @@ class CreateIPLogsTable extends Migration
     {
         Schema::create('changelog_ips', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->ipAddress('ip_address');
             $table->text('user_agent');
             $table->string('type');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

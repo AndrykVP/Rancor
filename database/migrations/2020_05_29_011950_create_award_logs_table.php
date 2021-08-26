@@ -15,15 +15,11 @@ class CreateAwardLogsTable extends Migration
     {
         Schema::create('changelog_awards', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('award_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('award_id')->constrained('structure_awards')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('action');
-            $table->unsignedBigInteger('updated_by')->nullable()->default(null);
+            $table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->timestamps();
-
-            $table->foreign('award_id')->references('id')->on('structure_awards')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

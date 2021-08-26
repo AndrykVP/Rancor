@@ -14,12 +14,9 @@ class CreateRoleUserTable extends Migration
     public function up()
     {
         Schema::create('rancor_role_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('role_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('role_id')->constrained('rancor_roles')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('rancor_roles')->onDelete('cascade');
         });
     }
 

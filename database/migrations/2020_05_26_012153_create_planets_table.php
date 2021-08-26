@@ -18,7 +18,7 @@ class CreatePlanetsTable extends Migration
             $table->string('name')->nullable()->default(null);
             $table->unsignedInteger('x_coordinate');
             $table->unsignedInteger('y_coordinate');
-            $table->unsignedBigInteger('system_id')->nullable()->default(null);
+            $table->foreignId('system_id')->constrained('swc_systems')->onDelete('cascade');
             $table->unsignedBigInteger('population');
             $table->decimal('civilisation')->nullable()->default(null);
             $table->decimal('morale')->nullable()->default(null);
@@ -26,7 +26,7 @@ class CreatePlanetsTable extends Migration
             $table->decimal('tax')->default(0);
             $table->timestamps();
 
-            $table->foreign('system_id')->references('id')->on('swc_systems')->onDelete('set null');
+            $table->index(['x_coordinate', 'y_coordinate']);
         });
     }
 

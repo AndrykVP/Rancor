@@ -14,12 +14,9 @@ class CreateBoardUserTable extends Migration
     public function up()
     {
         Schema::create('forum_moderators', function (Blueprint $table) {
-            $table->unsignedBigInteger('board_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('board_id')->constrained('forum_boards')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('board_id')->references('id')->on('forum_boards')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

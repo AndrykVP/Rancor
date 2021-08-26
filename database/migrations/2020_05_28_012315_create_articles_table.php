@@ -19,13 +19,10 @@ class CreateArticlesTable extends Migration
             $table->longText('body');
             $table->text('description');
             $table->boolean('is_published')->default(0);
-            $table->unsignedBigInteger('author_id')->nullable()->default(null);
-            $table->unsignedBigInteger('editor_id')->nullable()->default(null);
+            $table->foreignId('author_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
+            $table->foreignId('editor_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->timestamp('published_at')->nullable()->default(null);
             $table->timestamps();
-
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('editor_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

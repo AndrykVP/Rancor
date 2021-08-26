@@ -18,12 +18,10 @@ class CreateAwardsTable extends Migration
             $table->string('name')->unique();
             $table->text('description')->nullable()->default(null);
             $table->string('code')->unique();
-            $table->unsignedBigInteger('type_id');
+            $table->foreignId('type_id')->on('structure_award_types')->onDelete('cascade');
             $table->unsignedInteger('levels')->default(1);
             $table->unsignedInteger('priority')->default(1);
             $table->timestamps();
-
-            $table->foreign('type_id')->references('id')->on('structure_award_types')->onDelete('cascade');
         });
     }
 

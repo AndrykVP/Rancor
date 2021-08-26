@@ -18,13 +18,11 @@ class AlterUsersTable extends Migration
             $table->text('signature')->nullable()->default(null)->after('avatar');
             $table->string('nickname')->nullable()->default(null)->after('email');
             $table->text('quote')->nullable()->default(null)->after('nickname');
-            $table->unsignedBigInteger('rank_id')->nullable()->default(null)->after('quote');
+            $table->foreignId('rank_id')->nullable()->default(null)->after('quote')->constrained('structure_ranks')->onDelete('set null');
             $table->boolean('is_admin')->default(0)->after('rank_id');
             $table->boolean('is_banned')->default(0)->after('is_admin');
             $table->boolean('show_email')->default(1)->after('is_banned');
             $table->timestamp('last_login')->nullable()->default(null);
-
-            $table->foreign('rank_id')->references('id')->on('structure_ranks')->onDelete('set null');
         });
     }
 

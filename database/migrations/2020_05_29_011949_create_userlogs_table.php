@@ -15,14 +15,11 @@ class CreateUserLogsTable extends Migration
     {
         Schema::create('changelog_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('updated_by')->nullable()->default(null);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');;
             $table->text('action');
             $table->string('color');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

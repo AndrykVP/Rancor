@@ -14,11 +14,9 @@ class CreatePermissiblesTable extends Migration
     public function up()
     {
         Schema::create('rancor_permissibles', function (Blueprint $table) {
-            $table->unsignedBigInteger('permission_id');
+            $table->foreignId('permission_id')->contrained('rancor_permissions')->onDelete('cascade');
             $table->morphs('permissible');
             $table->timestamps();
-
-            $table->foreign('permission_id')->references('id')->on('rancor_permissions')->onDelete('cascade');
         });
     }
 

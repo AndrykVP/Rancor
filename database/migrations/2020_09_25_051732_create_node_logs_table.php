@@ -15,12 +15,9 @@ class CreateNodeLogsTable extends Migration
     {
         Schema::create('changelog_nodes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('node_id');
-            $table->unsignedBigInteger('updated_by')->nullable()->default(null);
+            $table->foreignId('node_id')->constrained('holocron_nodes')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->timestamps();
-
-            $table->foreign('node_id')->references('id')->on('holocron_nodes')->onDelete('cascade');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 

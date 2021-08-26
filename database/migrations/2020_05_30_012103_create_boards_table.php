@@ -18,13 +18,10 @@ class CreateBoardsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable()->default(null);
             $table->string('slug')->unique();
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
+            $table->foreignId('category_id')->constrained('forum_categories')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->default(null)->constrained('forum_categories')->onDelete('cascade');
             $table->unsignedBigInteger('lineup');
             $table->timestamps();
-
-            $table->foreign('parent_id')->references('id')->on('forum_boards')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('forum_categories')->onDelete('cascade');
         });
     }
 

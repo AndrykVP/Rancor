@@ -18,11 +18,9 @@ class CreateRanksTable extends Migration
             $table->string('name');
             $table->text('description')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
-            $table->unsignedBigInteger('department_id');
+            $table->foreignId('department_id')->constrained('structure_departments')->onDelete('cascade');
             $table->unsignedTinyInteger('level')->default(1);
             $table->timestamps();
-
-            $table->foreign('department_id')->references('id')->on('structure_departments')->onDelete('cascade');
         });
     }
 

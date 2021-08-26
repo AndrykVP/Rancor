@@ -3,8 +3,9 @@
 namespace AndrykVP\Rancor\Scanner\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class NewTerritoryType extends FormRequest
+class TerritoryTypeForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,7 @@ class NewTerritoryType extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:scanner_territory_types,name',
+            'name' => ['required', 'string', Rule::unique('scanner_territory_types')->ignore($this->id)],
             'image' => 'required|url',
         ];
     }

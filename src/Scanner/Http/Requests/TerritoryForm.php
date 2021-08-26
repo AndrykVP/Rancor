@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Scanner\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditTerritory extends FormRequest
+class TerritoryForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

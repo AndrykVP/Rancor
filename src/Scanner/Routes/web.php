@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use AndrykVP\Rancor\Scanner\Http\Controllers\ScannerController;
 use AndrykVP\Rancor\Scanner\Http\Controllers\EntryController;
+use AndrykVP\Rancor\Scanner\Http\Controllers\TerritoryTypeController;
 
 $middleware = array_merge(['web'], config('rancor.middleware.web'));
 
@@ -19,7 +20,9 @@ Route::group(['middleware' => $middleware], function() {
 
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function() {
 		Route::post('entries/search', [EntryController::class, 'search'])->name('entries.search');
+		Route::post('territorytypes/search', [TerritoryTypeController::class, 'search'])->name('territorytypes.search');
 		Route::resource('entries', EntryController::class);
+		Route::resource('territorytypes', TerritoryTypeController::class);
 	});
 });
 

@@ -44,7 +44,7 @@ class CollectionController extends Controller
         $this->authorize('create', Collection::class);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST',],$this->form());
+        $form = $this->form();
         return view('rancor::resources.create', compact('resource','form'));
     }
 
@@ -108,7 +108,7 @@ class CollectionController extends Controller
         $this->authorize('update', $collection);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH',],$this->form());
+        $form = $this->form();
         $model = $collection;
         return view('rancor::resources.edit', compact('resource','form','model'));
     }

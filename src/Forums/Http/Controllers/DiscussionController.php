@@ -126,7 +126,7 @@ class DiscussionController extends Controller
         $this->authorize('update', $discussion);
         
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $form = $this->form();
         $model = $discussion;
 
         return view('rancor::resources.edit',compact('resource','form','model'));

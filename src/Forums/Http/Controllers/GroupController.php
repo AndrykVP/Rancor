@@ -45,7 +45,7 @@ class GroupController extends Controller
         $this->authorize('create',Group::class);
         
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST'], $this->form());
+        $form = $this->form();
 
         return view('rancor::resources.create',compact('resource','form'));
     }
@@ -111,7 +111,7 @@ class GroupController extends Controller
         $this->authorize('update', $group);
         
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $form = $this->form();
         $model = $group;
 
         return view('rancor::resources.edit',compact('resource','form','model'));

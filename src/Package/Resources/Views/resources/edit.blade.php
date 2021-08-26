@@ -33,7 +33,7 @@
          
          <form action="{{ route('admin.'.$resource['route'].'.update', $model)}}" method="POST">
             @csrf
-            @method($form['method'])
+            @method('PATCH')
             <input type="hidden" name="id" value="{{ $model->id }}">
             @if(array_key_exists('hiddens',$form))
                @foreach($form['hiddens'] as $field)

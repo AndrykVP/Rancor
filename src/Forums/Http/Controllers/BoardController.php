@@ -48,7 +48,7 @@ class BoardController extends Controller
         $this->authorize('create',Board::class);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST'], $this->form($request->category, $request->board));
+        $form = $this->form($request->category, $request->board);
         $params = $request->all();
 
         return view('rancor::resources.create',compact('resource','form','params'));
@@ -123,7 +123,7 @@ class BoardController extends Controller
         $this->authorize('update', $board);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH'], $this->form());
+        $form = $this->form();
         $model = $board->load('category');
 
         return view('rancor::resources.edit',compact('model', 'form','resource'));

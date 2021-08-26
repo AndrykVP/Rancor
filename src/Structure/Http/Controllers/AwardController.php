@@ -45,7 +45,7 @@ class AwardController extends Controller
         $this->authorize('create', Award::class);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST',],$this->form());
+        $form = $this->form();
         return view('rancor::resources.create', compact('resource','form'));
     }
 
@@ -109,7 +109,7 @@ class AwardController extends Controller
         $this->authorize('update', $award);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH',],$this->form());
+        $form = $this->form();
         $model = $award;
         return view('rancor::resources.edit', compact('resource','form','model'));
     }

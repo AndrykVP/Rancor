@@ -47,7 +47,7 @@ class NodeController extends Controller
         $this->authorize('create', Node::class);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST',],$this->form());
+        $form = $this->form();
         return view('rancor::resources.create', compact('resource','form'));
     }
 
@@ -115,7 +115,7 @@ class NodeController extends Controller
         $this->authorize('update', $node);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH',],$this->form());
+        $form = $this->form();
         $model = $node;
         return view('rancor::resources.edit', compact('resource','form','model'));
     }

@@ -75,7 +75,7 @@ class EntryController extends Controller
     {
         $this->authorize('create',Entry::class);
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST'], $this->form());
+        $form = $this->form();
 
         return view('rancor::resources.create', compact('resource', 'form'));
     }
@@ -106,7 +106,7 @@ class EntryController extends Controller
     {
         $this->authorize('update', $entry);
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH'],$this->form());
+        $form = $this->form();
         $model = $entry;
 
         return view('rancor::resources.edit',compact('resource', 'form', 'model'));

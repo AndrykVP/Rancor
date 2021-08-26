@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $this->authorize('create',Category::class);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST'],$this->form());
+        $form = $this->form();
 
         return view('rancor::resources.create', compact('resource','form'));
     }
@@ -117,7 +117,7 @@ class CategoryController extends Controller
         $this->authorize('update', $category);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST'],$this->form());
+        $form = $this->form();
         $model = $category;
 
         return view('rancor::resources.edit', compact('resource','form','model'));

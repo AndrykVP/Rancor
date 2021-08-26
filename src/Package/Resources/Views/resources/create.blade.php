@@ -28,7 +28,7 @@
          
          <form action="{{ route('admin.'.$resource['route'].'.store')}}" method="POST">
             @csrf
-            @method($form['method'])
+            @method('PUT')
             @if(array_key_exists('hiddens',$form))
                @foreach($form['hiddens'] as $field)
                <input type="hidden" name="{{ $field['name'] }}" value="{{ $field['value'] }}">

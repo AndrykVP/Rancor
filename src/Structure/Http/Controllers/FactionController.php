@@ -44,7 +44,7 @@ class FactionController extends Controller
         $this->authorize('create', Faction::class);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'POST',],$this->form());
+        $form = $this->form();
         return view('rancor::resources.create', compact('resource','form'));
     }
 
@@ -108,7 +108,7 @@ class FactionController extends Controller
         $this->authorize('update', $faction);
 
         $resource = $this->resource;
-        $form = array_merge(['method' => 'PATCH',],$this->form());
+        $form = $this->form();
         $model = $faction;
         return view('rancor::resources.edit', compact('resource','form','model'));
     }

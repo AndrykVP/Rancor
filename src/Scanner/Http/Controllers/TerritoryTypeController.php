@@ -36,15 +36,15 @@ class TerritoryTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territory_type
+     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
-    public function show(TerritoryType $territory_type)
+    public function show(TerritoryType $territorytype)
     {
-        $this->authorize('view', $territory_type);
-        $territory_type->loadCount('entries');
+        $this->authorize('view', $territorytype);
+        $territorytype->loadCount('territories');
 
-        return view('rancor::show.territorytypes', compact('territory_type'));
+        return view('rancor::show.territorytypes', compact('territorytype'));
     }
 
     /**
@@ -58,7 +58,6 @@ class TerritoryTypeController extends Controller
         $this->authorize('viewAny', TerritoryType::class);
         
         $resource = $this->resource;
-        $param = $request->validated();
         $models = TerritoryType::where('name','like', $request->search.'%')->paginate(config('rancor.pagination'));
 
         session()->flashInput($request->input());
@@ -88,25 +87,25 @@ class TerritoryTypeController extends Controller
     public function store(TerritoryTypeForm $request)
     {
         $this->authorize('create',TerritoryType::class);
-        $territory_type = TerritoryType::create($request->validated());
+        $territorytype = TerritoryType::create($request->validated());
 
         return redirect(route('admin.territorytypes.index'))->with('alert', [
-            'message' => ['model' => $this->resource['name'], 'name' => $territory_type->name, 'action' => 'created']
+            'message' => ['model' => $this->resource['name'], 'name' => $territorytype->name, 'action' => 'created']
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territory_type
+     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
-    public function edit(TerritoryType $territory_type)
+    public function edit(TerritoryType $territorytype)
     {
-        $this->authorize('update', $territory_type);
+        $this->authorize('update', $territorytype);
         $resource = $this->resource;
         $form = $this->form();
-        $model = $territory_type;
+        $model = $territorytype;
 
         return view('rancor::resources.edit',compact('resource', 'form', 'model'));
     }
@@ -115,32 +114,32 @@ class TerritoryTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeForm  $request
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territory_type
+     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
-    public function update(TerritoryTypeForm $request, TerritoryType $territory_type)
+    public function update(TerritoryTypeForm $request, TerritoryType $territorytype)
     {
-        $this->authorize('update', $territory_type);
-        $territory_type->update($request->validated());
+        $this->authorize('update', $territorytype);
+        $territorytype->update($request->validated());
 
         return redirect(route('admin.territorytypes.index'))->with('alert', [
-            'message' => ['model' => $this->resource['name'], 'name' => $territory_type->name, 'action' => 'updated']
+            'message' => ['model' => $this->resource['name'], 'name' => $territorytype->name, 'action' => 'updated']
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territory_type
+     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TerritoryType $territory_type)
+    public function destroy(TerritoryType $territorytype)
     {
-        $this->authorize('delete', $territory_type);
-        $territory_type->delete();
+        $this->authorize('delete', $territorytype);
+        $territorytype->delete();
 
         return redirect(route('admin.territorytypes.index'))->with('alert', [
-            'message' => ['model' => $this->resource['name'], 'name' => $territory_type->name, 'action' => 'deleted']
+            'message' => ['model' => $this->resource['name'], 'name' => $territorytype->name, 'action' => 'deleted']
         ]);
     }
 

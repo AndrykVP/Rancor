@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
-use AndrykVP\Rancor\Scanner\Services\EntryParseService;
-use AndrykVP\Rancor\Scanner\Http\Requests\EditEntry;
+use AndrykVP\Rancor\Scanner\Http\Requests\EntryForm;
 use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
 use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 
@@ -29,19 +28,16 @@ class EntryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\UploadScan  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EntryForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UploadScan $request)
+    public function store(EntryForm $request)
     {
         $this->authorize('create',Entry::class);
-        $scans = new EntryParseService($request);
-        $scans->start();
+        $entry = Entry::create($request->validated());
 
         return response()->json([
-            'updated' => $scans->updated,
-            'new' => $scans->new,
-            'unchanged' => $scans->unchanged,
+            'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been created.",
         ],200);
     }
 
@@ -66,12 +62,10 @@ class EntryController extends Controller
      * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
-    public function update(EditEntry $request, Entry $entry)
+    public function update(EntryForm $request, Entry $entry)
     {
         $this->authorize('update', $entry);
-
-        $data = $request->validated();
-        $entry->update($data);
+        $entry->update($request->validated());
         
         return response()->json([
             'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been updated.",

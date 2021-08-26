@@ -4,8 +4,9 @@ namespace AndrykVP\Rancor\Scanner\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
 
-class LogResource extends JsonResource
+class EntryLogResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

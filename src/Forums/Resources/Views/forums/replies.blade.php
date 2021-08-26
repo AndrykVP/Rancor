@@ -22,8 +22,8 @@
 
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         @foreach($replies as $index => $reply)
-         <div class="border bg-white w-full md:rounded overflow-hidden mb-4" id="{{ $index + 1 }}">
+         @forelse($replies as $reply)
+         <div class="border bg-white w-full md:rounded overflow-hidden mb-4" id="{{ $reply->id }}">
             <div class="border-b bg-gray-200 text-xs p-4">
                Posted {{ $reply->created_at->diffForHumans() }} on <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.discussion', ['category' => $reply->discussion->board->category, 'board' => $reply->discussion->board, 'discussion' => $reply->discussion, 'page' => $reply->page->number]) . '#' . $reply->page->index }}">{{ $reply->discussion->name }}</a>
             </div>
@@ -31,7 +31,11 @@
                {!!($reply->body) !!}
             </div>
          </div>
-         @endforeach
+         @empty
+         <div class="border bg-white w-full md:rounded overflow-hidden mb-4">
+            No Replies by this User
+         </div>
+         @endforelse
       </div>
    </div>
 </x-rancor::main-layout>

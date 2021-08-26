@@ -16,15 +16,15 @@
  
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         @if($categories->isNotEmpty())
-            @foreach ($categories as $category)
-               <x-rancor::category-card :category="$category"/>
-            @endforeach
-         @else
-         <div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
-            No Categories Found
+         @forelse ($categories as $category)
+            <x-rancor::category-card :category="$category"/>
+         @empty
+         <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="p-4">
+               <strong>No Categories Found</strong>
+            </div>
          </div>
-         @endif
+         @endforelse
       </div>
    </div>
 </x-rancor::main-layout>

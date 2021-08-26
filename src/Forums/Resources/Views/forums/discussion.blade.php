@@ -43,7 +43,7 @@
    
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         @foreach($replies as $reply)
+         @forelse($replies as $reply)
          <div class="border bg-white w-full md:rounded overflow-hidden mb-5" id="{{ $reply->id }}">
             <div class="border-b bg-gray-200 text-xs">
                <div class="flex justify-between items-center px-4 py-2">
@@ -90,7 +90,11 @@
                </div>
             </div>
          </div>
-         @endforeach
+         @empty
+         <div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            No Replies in this Discussion
+         </div>
+         @endforelse
       </div>
 
       <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">

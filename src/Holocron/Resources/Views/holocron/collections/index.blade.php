@@ -17,18 +17,20 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
             <div class="grid grid-cols-6 md:grid-cols-4 lg:grid-cols-3 gap-4 p-4">
-               @foreach ($collections as $collection)
+               @forelse ($collections as $collection)
                <div class="mb-3">
                   <h5><a href="{{ route('holocron.collection.show', $collection) }}" class="font-bold text-xl text-gray-700">{{ $collection->name }}</a></h5>
-                  @if($collection->nodes->isNotEmpty())
-                     @foreach ($collection->nodes as $node)
-                        » <a href="{{ route('holocron.node.show', $node['id']) }}" class="text-indigo-700 hover:text-indigo-600">{{ $node['name'] }}</a><br />
-                     @endforeach
-                  @else
-                     No nodes found in this collection
-                  @endif
+                  @forelse ($collection->nodes as $node)
+                     » <a href="{{ route('holocron.node.show', $node['id']) }}" class="text-indigo-700 hover:text-indigo-600">{{ $node['name'] }}</a><br />
+                  @empty
+                     No Nodes found in this Collection
+                  @endforelse
                </div>
-               @endforeach
+               @empty
+               <div class="col-span-6">
+                  <strong>No Collections Found</strong>
+               </div>
+               @endforelse
             </div>
          </div>
       </div>

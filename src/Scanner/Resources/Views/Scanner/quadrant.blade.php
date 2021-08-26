@@ -16,8 +16,10 @@
 
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         <div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
-            Scanner Quadrant
+         <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="p-4">
+               <strong>Scanner Quadrant</strong>
+            </div>
          </div>
       </div>
    </div>

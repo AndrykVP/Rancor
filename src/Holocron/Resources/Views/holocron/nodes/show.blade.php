@@ -46,11 +46,15 @@
                </p>
             </div>
             <div class="border-t p-4">
-               @foreach($node->collections as $collection)
+               @forelse($node->collections as $collection)
                   <a href="{{ route('holocron.collection.show', $collection) }}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
                      #{{ $collection->name }}
                   </a>
-               @endforeach
+               @empty
+               <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2 mb-2">
+                  No Collections
+               </span>
+               @endforelse
             </div>
          </div>
       </div>

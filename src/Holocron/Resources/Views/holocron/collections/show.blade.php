@@ -27,18 +27,16 @@
                <p>{{ $collection->description }}</p>
             </div> 
             <div class="grid grid-cols-6 md:grid-cols-4 lg:grid-cols-3 gap-4 p-4">
-               @if($collection->nodes->isNotEmpty())
-                  @foreach ($nodes as $letter => $nodes)
-                  <div class="mb-3">
-                     <h5 class="font-bold text-xl text-gray-700">{{ $letter }}</h5>
-                        @foreach ($nodes as $node)
-                           » <a href="{{ route('holocron.node.show', $node['id']) }}" class="text-indigo-700 hover:text-indigo-600">{{ $node['name'] }}</a><br />
-                        @endforeach
-                  </div>
-                  @endforeach
-               @else
+               @forelse ($nodes as $letter => $nodes)
+               <div class="mb-3">
+                  <h5 class="font-bold text-xl text-gray-700">{{ $letter }}</h5>
+                     @foreach ($nodes as $node)
+                        » <a href="{{ route('holocron.node.show', $node['id']) }}" class="text-indigo-700 hover:text-indigo-600">{{ $node['name'] }}</a><br />
+                     @endforeach
+               </div>
+               @empty
                   No nodes found in this collection
-               @endif
+               @endforelse
             </div>
          </div>
       </div>

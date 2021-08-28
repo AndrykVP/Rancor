@@ -9,15 +9,19 @@ use AndrykVP\Rancor\Audit\Events\EntryUpdate;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use AndrykVP\Rancor\Audit\Events\UserAward;
 use AndrykVP\Rancor\Audit\Events\UserUpdate;
-use AndrykVP\Rancor\Forums\Events\CreateReply;
-use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 use AndrykVP\Rancor\Audit\Listeners\SetNodeEditor;
 use AndrykVP\Rancor\Audit\Listeners\UpdateUserAwards;
 use AndrykVP\Rancor\Audit\Listeners\UserLoginIP;
 use AndrykVP\Rancor\Audit\Listeners\UserRank;
 use AndrykVP\Rancor\Audit\Listeners\UserRegisteredIP;
-use AndrykVP\Rancor\Auth\Listeners\UserLastLogin;
 use AndrykVP\Rancor\Audit\Listeners\CreateScanLog;
+use AndrykVP\Rancor\Auth\Listeners\UserLastLogin;
+use AndrykVP\Rancor\Forums\Events\CreateReply;
+use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
+use AndrykVP\Rancor\Forums\Models\Board;
+use AndrykVP\Rancor\Forums\Models\Category;
+use AndrykVP\Rancor\Forums\Observers\BoardObserver;
+use AndrykVP\Rancor\Forums\Observers\CategoryObserver;
 use AndrykVP\Rancor\Forums\Listeners\DefaultGroupUser;
 use AndrykVP\Rancor\Forums\Listeners\IncrementDiscussionViews;
 use AndrykVP\Rancor\Forums\Listeners\LinkUserDiscussion;
@@ -64,5 +68,9 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        // Register Observers
+        Board::observe(BoardObserver::class);
+        Category::observe(CategoryObserver::class);
     }
 }

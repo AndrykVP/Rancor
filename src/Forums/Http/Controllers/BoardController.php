@@ -65,7 +65,7 @@ class BoardController extends Controller
         $this->authorize('create',Board::class);
 
         $data = $request->validated();
-        if($request->has('parent_id'))
+        if($request->has('parent_id') && $data['parent_id'] != null)
         {
             $parent = Board::find($data['parent_id']);
             $data['category_id'] = $parent->category_id;
@@ -141,7 +141,7 @@ class BoardController extends Controller
         $this->authorize('update',$board);
         
         $data = $request->validated();
-        if($request->has('parent_id'))
+        if($request->has('parent_id') && $data['parent_id'] != null)
         {
             $parent = Board::find($data['parent_id']);
             $data['category_id'] = $parent->category_id;
@@ -198,7 +198,7 @@ class BoardController extends Controller
                     'name' => 'lineup',
                     'label' => 'Display Order',
                     'type' => 'number',
-                    'attributes' => 'required'
+                    'attributes' => 'required min="1"'
                 ],
             ],
             'textareas' => [

@@ -3,10 +3,8 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Models\Group;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
 use Auth;
 
@@ -62,13 +60,7 @@ class CategoryController extends Controller
     public function store(CategoryForm $request)
     {
         $this->authorize('create',Category::class);
-        
-        $data = $request->validated();
-        $category;
-        DB::transaction(function () use(&$category, $data) {
-            $category = Category::create($data);
-            $category->groups()->sync($data['groups']);
-        });
+        $category = Category::create($request->validated());
 
         return redirect()->route('admin.categories.index')->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $category->name, 'action' => 'created']
@@ -133,12 +125,7 @@ class CategoryController extends Controller
     public function update(CategoryForm $request, Category $category)
     {
         $this->authorize('update',$category);
-        
-        $data = $request->validated();
-        DB::transaction(function () use(&$category, $data) {
-            $category->update($data);
-            $category->groups()->sync($data['groups']);
-        });
+        $category->update($request->validated());
 
         return redirect()->route('admin.categories.index')->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $category->name, 'action' => 'updated']
@@ -154,11 +141,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->authorize('delete',$category);
-        
-        DB::transaction(function () use($category) {
-            $category->groups()->detach();
-            $category->delete();
-        });
+        $category->delete();
 
         return redirect()->route('admin.categories.index')->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $category->name,'action' => 'deleted']
@@ -196,17 +179,8 @@ class CategoryController extends Controller
                     'name' => 'lineup',
                     'label' => 'Display Order',
                     'type' => 'number',
-                    'attributes' => 'required'
+                    'attributes' => 'required min="1"'
                 ],
-            ],
-            'selects' => [
-                [
-                    'name' => 'groups',
-                    'label' => 'Groups',
-                    'attributes' => 'multiple',
-                    'multiple' => true,
-                    'options' => Group::orderBy('name')->get(),
-                ]
             ],
             'textareas' => [
                 [

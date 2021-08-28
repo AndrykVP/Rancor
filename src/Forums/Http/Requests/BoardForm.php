@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Forums\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class BoardForm extends FormRequest
 {
@@ -44,7 +45,7 @@ class BoardForm extends FormRequest
             'category_id' => 'nullable|required_without:parent_id|integer|exists:forum_categories,id',
             'parent_id' => 'nullable|required_without:category_id|integer|exists:forum_boards,id',
             'groups' => 'required|array',
-            'lineup' => 'required|integer',
+            'lineup' => 'required|integer|min:1',
         ];
     }
 }

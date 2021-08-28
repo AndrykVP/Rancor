@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Observers;
 
 use Illuminate\Support\Facades\DB;
+use AndrykVP\Rancor\Forums\Models\Category;
 
 class CategoryObserver
 {
@@ -24,11 +25,10 @@ class CategoryObserver
                         ->select('id')
                         ->where('lineup', '>=', $category->lineup)
                         ->get()
-                        ->pluck('id');
+                        ->pluck('id')
+                        ->toArray();
 
-      DB::table('forum_categories')
-      ->whereIn('id', $lowerCategories)
-      ->increment('lineup');
+      $this->increment_lineup($lowerCategories);
    }
 
    /**
@@ -41,8 +41,10 @@ class CategoryObserver
    {
       if($category->isClean('lineup')) return;
 
-      $maxLineup = DB::table('forum_categories')->max('lineup') ?? 0;
-      if(is_null($category->lineup) || $category->lineup > $maxLineup + 1)
+      $maxLineup = DB::table('forum_categories')
+                  ->where('id', '!=', $category->id)
+                  ->max('lineup') ?? 0;
+      if(is_null($category->lineup) || $category->lineup > ($maxLineup + 1))
       {
          $category->lineup = $maxLineup + 1;
       }
@@ -60,18 +62,11 @@ class CategoryObserver
                         ->where('id', '!=', $category->id)
                         ->whereBetween('lineup', $lineupRange)
                         ->get()
-                        ->pluck('id');
+                        ->pluck('id')
+                        ->toArray();
 
-      if($category->getOriginal('lineup') < $category->lineup)
-      {
-         DB::table('forum_categories')
-         ->whereIn('id', $lowerCategories)
-         ->decrement('lineup');
-      } else {
-         DB::table('forum_categories')
-         ->whereIn('id', $lowerCategories)
-         ->increment('lineup');
-      }
+      if($category->getOriginal('lineup') < $category->lineup) $this->decrement_lineup($lowerCategories);
+      else $this->increment_lineup($lowerCategories);
    }
 
    /**
@@ -86,10 +81,33 @@ class CategoryObserver
                         ->select('id')
                         ->where('lineup', '>', $category->lineup)
                         ->get()
-                        ->pluck('id');
+                        ->pluck('id')
+                        ->toArray();
 
+      $this->decrement_lineup($lowerCategories);
+   }
+
+   /**
+    * Function to increment Category lineup in case of addition
+    *
+    * @param array  $category_ids
+    */
+   private function increment_lineup(Array $category_ids)
+   {
       DB::table('forum_categories')
-      ->whereIn('id', $lowerCategories)
+      ->whereIn('id', $category_ids)
+      ->increment('lineup');
+   }
+
+   /**
+    * Function to decrement Category lineup in case of removal
+    *
+    * @param array  $category_ids
+    */
+   private function decrement_lineup(Array $category_ids)
+   {
+      DB::table('forum_categories')
+      ->whereIn('id', $category_ids)
       ->decrement('lineup');
    }
 }

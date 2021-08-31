@@ -5,69 +5,86 @@ namespace AndrykVP\Rancor\Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
+use AndrykVP\Rancor\Forums\Models\Reply;
 use AndrykVP\Rancor\Tests\TestCase;
 
 class DiscussionTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_discussion()
+    protected $discussion;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $discussion = Discussion::factory()
-        ->for(Board::factory()->forCategory()->create())
+        ->for(Board::factory()->forCategory())
         ->forAuthor()
+        ->has(Reply::factory()->forAuthor()->count(5))
         ->sticky()->locked()
         ->create([
             'name' => 'Fake Title',
             'views' => 10
         ]);
+        
         $this->assertNotNull($discussion);
-        return $discussion;
+        $this->discussion = $discussion->load('replies');
     }
 
     /** 
      * @test
-     * @depends make_discussion
      */
-    function discussion_has_name($discussion)
+    function discussion_has_name()
     {
-        $this->assertEquals('Fake Title', $discussion->name);
+        $this->assertEquals('Fake Title', $this->discussion->name);
     }
 
     /** 
      * @test
-     * @depends make_discussion
      */
-    function discussion_has_board($discussion)
+    function discussion_has_board()
     {
-        $this->assertNotNull($discussion->board_id);
+        $this->assertNotNull($this->discussion->board_id);
     }
 
     /** 
      * @test
-     * @depends make_discussion
      */
-    function discussion_is_sticky($discussion)
+    function discussion_has_replies()
     {
-        $this->assertEquals(true, $discussion->is_sticky);
+        $this->assertCount(5, $this->discussion->replies);
     }
 
     /** 
      * @test
-     * @depends make_discussion
      */
-    function discussion_is_locked($discussion)
+    function discussion_has_author()
     {
-        $this->assertEquals(true, $discussion->is_locked);
+        $this->assertNotNull($this->discussion->author_id);
     }
 
     /** 
      * @test
-     * @depends make_discussion
      */
-    function discussion_has_views($discussion)
+    function discussion_is_sticky()
     {
-        $this->assertEquals(10, $discussion->views);
+        $this->assertTrue($this->discussion->is_sticky);
+    }
+
+    /** 
+     * @test
+     */
+    function discussion_is_locked()
+    {
+        $this->assertTrue($this->discussion->is_locked);
+    }
+
+    /** 
+     * @test
+     */
+    function discussion_has_views()
+    {
+        $this->assertEquals(10, $this->discussion->views);
     }
 }

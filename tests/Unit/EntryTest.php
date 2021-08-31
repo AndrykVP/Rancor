@@ -10,9 +10,12 @@ class EntryTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_entry()
+    protected $entry;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $entry = Entry::factory()
         ->forContributor()
         ->create([
@@ -21,64 +24,59 @@ class EntryTest extends TestCase
             'owner' => 'Darth Vader',
             'last_seen' => '2021-06-17 22:05:34'
         ]);
+        
         $this->assertNotNull($entry);
-        return $entry;
+        $this->entry = $entry;
     }
 
     /** 
      * @test
-     * @depends make_entry
      */
-    function entry_has_type($entry)
+    function entry_has_type()
     {
-        $this->assertEquals('Star Destroyer', $entry->type);
+        $this->assertEquals('Star Destroyer', $this->entry->type);
     }
 
     /** 
      * @test
-     * @depends make_entry
      */
-    function entry_has_name($entry)
+    function entry_has_name()
     {
-        $this->assertEquals('Fake Title', $entry->name);
+        $this->assertEquals('Fake Title', $this->entry->name);
     }
 
     /** 
      * @test
-     * @depends make_entry
      */
-    function entry_has_owner($entry)
+    function entry_has_owner()
     {
-        $this->assertEquals('Darth Vader', $entry->owner);
+        $this->assertEquals('Darth Vader', $this->entry->owner);
     }
 
     /**
      * @test
-     * @depends make_entry
      */
-    function entry_has_position($entry)
+    function entry_has_position()
     {
-        $this->assertNotNull($entry->position['galaxy']['x']);
-        $this->assertNotNull($entry->position['galaxy']['y']);
-        $this->assertNotNull($entry->position['system']['x']);
-        $this->assertNotNull($entry->position['system']['y']);
+        $this->assertNotNull($this->entry->position['galaxy']['x']);
+        $this->assertNotNull($this->entry->position['galaxy']['y']);
+        $this->assertNotNull($this->entry->position['system']['x']);
+        $this->assertNotNull($this->entry->position['system']['y']);
     }
 
     /** 
      * @test
-     * @depends make_entry
      */
-    function entry_has_last_seen_date($entry)
+    function entry_has_last_seen_date()
     {
-        $this->assertEquals('2021-06-17 22:05:34', $entry->last_seen);
+        $this->assertEquals('2021-06-17 22:05:34', $this->entry->last_seen);
     }
 
     /**
      * @test
-     * @depends make_entry
      */
-    function entry_has_contributor($entry)
+    function entry_has_contributor()
     {
-        $this->assertNotNull($entry->updated_by);
+        $this->assertNotNull($this->entry->updated_by);
     }
 }

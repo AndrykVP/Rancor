@@ -11,9 +11,12 @@ class AwardTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_award()
+    protected $award;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $award = Award::factory()
         ->forType()
         ->hasAttached(User::factory()->count(4), ['level' => 2])
@@ -24,70 +27,64 @@ class AwardTest extends TestCase
             'levels' => 3,
             'priority' => 7
         ]);
+        
         $this->assertNotNull($award);
-        return $award->load('users');
+        $this->award = $award->load('users');
     }
 
     /** 
      * @test
-     * @depends make_award
      */
-    function award_has_name($award)
+    function award_has_name()
     {
-        $this->assertEquals('Fake Title', $award->name);
+        $this->assertEquals('Fake Title', $this->award->name);
     }
 
     /** 
      * @test
-     * @depends make_award
      */
-    function award_has_description($award)
+    function award_has_description()
     {
-        $this->assertEquals('Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.', $award->description);
+        $this->assertEquals('Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.', $this->award->description);
     }
 
     /**
      * @test
-     * @depends make_award
      */
-    function award_has_code($award)
+    function award_has_code()
     {
-        $this->assertEquals('Fake Code', $award->code);
+        $this->assertEquals('Fake Code', $this->award->code);
     }
 
     /**
      * @test
-     * @depends make_award
      */
-    function award_has_levels($award)
+    function award_has_levels()
     {
-        $this->assertEquals(3, $award->levels);
+        $this->assertEquals(3, $this->award->levels);
     }
 
     /**
      * @test
-     * @depends make_award
      */
-    function award_has_priority($award)
+    function award_has_priority()
     {
-        $this->assertEquals(7, $award->priority);
+        $this->assertEquals(7, $this->award->priority);
     }
 
     /**
      * @test
-     * @depends make_award
      */
-    function award_has_type($award)
+    function award_has_type()
     {
-        $this->assertNotNull($award->type_id);
+        $this->assertNotNull($this->award->type_id);
     }
 
     /**
      * @test
-     * @depends make_award
      */
-    function award_has_users($award)
+    function award_has_users()
     {
-        $this->assertNotEmpty($award->users);
+        $this->assertCount(4, $this->award->users);
     }
 }

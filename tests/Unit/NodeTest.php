@@ -11,9 +11,12 @@ class NodeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_node()
+    protected $node;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $node = Node::factory()
         ->has(Collection::factory()->count(5))
         ->forAuthor()->forEditor()
@@ -22,43 +25,40 @@ class NodeTest extends TestCase
             'body' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
             'is_public' => true
         ]);
+        
         $this->assertNotNull($node);
-        return $node->load('collections');
+        $this->node = $node->load('collections');
     }
 
     /** 
      * @test
-     * @depends make_node
      */
-    function node_has_name($node)
+    function node_has_name()
     {
-        $this->assertEquals('Fake Title', $node->name);
+        $this->assertEquals('Fake Title', $this->node->name);
     }
 
     /**
      * @test
-     * @depends make_node
      */
-    function node_has_body($node)
+    function node_has_body()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $node->body);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->node->body);
     }
 
     /**
      * @test
-     * @depends make_node
      */
-    function node_is_public($node)
+    function node_is_public()
     {
-        $this->assertTrue($node->is_public);
+        $this->assertTrue($this->node->is_public);
     }
 
     /**
      * @test
-     * @depends make_node
      */
-    function node_has_collections($node)
+    function node_has_collections()
     {
-        $this->assertCount(5, $node->collections);
+        $this->assertCount(5, $this->node->collections);
     }
 }

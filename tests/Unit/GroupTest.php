@@ -11,9 +11,12 @@ class GroupTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_group()
+    protected $group;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $group = Group::factory()
         ->hasUsers(3)
         ->hasAttached(Board::factory()->count(2)->forCategory()->create())
@@ -21,43 +24,40 @@ class GroupTest extends TestCase
             'name' => 'Fake Title',
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
         ]);
+        
         $this->assertNotNull($group);
-        return $group->load('users','boards');
+        $this->group = $group->load('users','boards');
     }
 
     /** 
      * @test
-     * @depends make_group
      */
-    function group_has_name($group)
+    function group_has_name()
     {
-        $this->assertEquals('Fake Title', $group->name);
+        $this->assertEquals('Fake Title', $this->group->name);
     }
 
     /**
      * @test
-     * @depends make_group
      */
-    function group_has_description($group)
+    function group_has_description()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $group->description);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->group->description);
     }
 
     /**
      * @test
-     * @depends make_group
      */
-    function group_has_users($group)
+    function group_has_users()
     {
-        $this->assertCount(3, $group->users);
+        $this->assertCount(3, $this->group->users);
     }
     
     /**
      * @test
-     * @depends make_group
      */
-    function group_has_boards($group)
+    function group_has_boards()
     {
-        $this->assertCount(2, $group->boards);
+        $this->assertCount(2, $this->group->boards);
     }
 }

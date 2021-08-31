@@ -10,43 +10,44 @@ class AwardTypeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_type()
+    protected $type;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $type = AwardType::factory()
         ->hasAwards(3)
         ->create([
             'name' => 'Fake Title',
             'description' => 'Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.',
         ]);
+        
         $this->assertNotNull($type);
-        return $type->load('awards');
+        $this->type = $type->load('awards');
     }
 
     /** 
      * @test
-     * @depends make_type
      */
-    function type_has_name($type)
+    function type_has_name()
     {
-        $this->assertEquals('Fake Title', $type->name);
+        $this->assertEquals('Fake Title', $this->type->name);
     }
 
     /** 
      * @test
-     * @depends make_type
      */
-    function type_has_description($type)
+    function type_has_description()
     {
-        $this->assertEquals('Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.', $type->description);
+        $this->assertEquals('Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.', $this->type->description);
     }
 
     /**
      * @test
-     * @depends make_type
      */
-    function type_has_awards($type)
+    function type_has_awards()
     {
-        $this->assertCount(3, $type->awards);
+        $this->assertCount(3, $this->type->awards);
     }
 }

@@ -11,9 +11,12 @@ class ArticleTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_article()
+    protected $article;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $article = Article::factory()
         ->has(Tag::factory()->count(5))
         ->forAuthor()->forEditor()
@@ -24,70 +27,64 @@ class ArticleTest extends TestCase
             'is_published' => true,
             'published_at' => '2021-06-17 22:05:34'
         ]);
+        
         $this->assertNotNull($article);
-        return $article->load('tags');
+        $this->article = $article->load('tags');
     }
 
     /** 
      * @test
-     * @depends make_article
      */
-    function article_has_name($article)
+    function article_has_name()
     {
-        $this->assertEquals('Fake Title', $article->name);
+        $this->assertEquals('Fake Title', $this->article->name);
     }
 
     /** 
      * @test
-     * @depends make_article
      */
-    function article_has_description($article)
+    function article_has_description()
     {
-        $this->assertEquals('Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.', $article->description);
+        $this->assertEquals('Ex enim reprehenderit ut ad do adipisicing excepteur ut aute eu deserunt.', $this->article->description);
     }
 
     /**
      * @test
-     * @depends make_article
      */
-    function article_has_body($article)
+    function article_has_body()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $article->body);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->article->body);
     }
 
     /**
      * @test
-     * @depends make_article
      */
-    function article_is_published($article)
+    function article_is_published()
     {
-        $this->assertTrue($article->is_published);
+        $this->assertTrue($this->article->is_published);
     }
 
     /**
      * @test
-     * @depends make_article
      */
-    function article_has_tags($article)
+    function article_has_tags()
     {
-        $this->assertCount(5, $article->tags);
+        $this->assertCount(5, $this->article->tags);
     }
 
     /**
      * @test
-     * @depends make_article
      */
-    function article_has_author($article)
+    function article_has_author()
     {
-        $this->assertNotNull($article->author_id);
+        $this->assertNotNull($this->article->author_id);
     }
 
     /**
      * @test
-     * @depends make_article
      */
-    function article_has_editor($article)
+    function article_has_editor()
     {
-        $this->assertNotNull($article->editor_id);
+        $this->assertNotNull($this->article->editor_id);
     }
 }

@@ -11,33 +11,35 @@ class TagTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_tag()
+    protected $tag;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $tag = Tag::factory()
         ->has(Article::factory()->forAuthor()->count(10))
         ->create([
             'name' => 'Fake Title'
         ]);
+
         $this->assertNotNull($tag);
-        return $tag->load('articles');
+        $this->tag = $tag->load('articles');
     }
 
     /** 
      * @test
-     * @depends make_tag
      */
-    function tag_has_name($tag)
+    function tag_has_name()
     {
-        $this->assertEquals('Fake Title', $tag->name);
+        $this->assertEquals('Fake Title', $this->tag->name);
     }
 
     /**
      * @test
-     * @depends make_tag
      */
-    function tag_has_articles($tag)
+    function tag_has_articles()
     {
-        $this->assertCount(10, $tag->articles);
+        $this->assertCount(10, $this->tag->articles);
     }
 }

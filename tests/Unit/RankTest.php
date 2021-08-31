@@ -11,72 +11,71 @@ class RankTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_rank()
+    protected $rank;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $rank = Rank::factory()
-        ->for(Department::factory()->forFaction())->hasUsers(7)
+        ->for(Department::factory()->forFaction())
+        ->hasUsers(7)
         ->create([
             'name' => 'Fake Title',
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
             'level' => 12,
             'color' => '#123456'
         ]);
+
         $this->assertNotNull($rank);
-        return $rank->load('users');
+        $this->rank = $rank->load('users');
     }
 
     /** 
      * @test
-     * @depends make_rank
      */
-    function rank_has_name($rank)
+    function rank_has_name()
     {
-        $this->assertEquals('Fake Title', $rank->name);
+        $this->assertEquals('Fake Title', $this->rank->name);
     }
 
     /**
      * @test
-     * @depends make_rank
      */
-    function rank_has_description($rank)
+    function rank_has_description()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $rank->description);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->rank->description);
     }
 
     /**
      * @test
-     * @depends make_rank
      */
-    function rank_has_level($rank)
+    function rank_has_level()
     {
-        $this->assertEquals(12, $rank->level);
+        $this->assertEquals(12, $this->rank->level);
     }
 
     /**
      * @test
-     * @depends make_rank
      */
-    function rank_has_color($rank)
+    function rank_has_color()
     {
-        $this->assertEquals('#123456', $rank->color);
+        $this->assertEquals('#123456', $this->rank->color);
     }
     
     /**
      * @test
-     * @depends make_rank
      */
-    function rank_has_department($rank)
+    function rank_has_department()
     {
-        $this->assertNotNull($rank->department_id);
+        $this->assertNotNull($this->rank->department_id);
     }
     
     /**
      * @test
-     * @depends make_rank
      */
-    function rank_has_users($rank)
+    function rank_has_users()
     {
-        $this->assertCount(7, $rank->users);
+        $this->assertCount(7, $this->rank->users);
     }
 }

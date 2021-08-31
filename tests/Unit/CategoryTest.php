@@ -10,9 +10,12 @@ class CategoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_category()
+    protected $category;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $category = Category::factory()
         ->hasBoards(3)
         ->create([
@@ -22,61 +25,56 @@ class CategoryTest extends TestCase
             'slug' => 'lorem',
             'lineup' => 1
         ]);
+        
         $this->assertNotNull($category);
-        return $category->load('boards');
+        $this->category = $category->load('boards');
     }
 
     /** 
      * @test
-     * @depends make_category
      */
-    function category_has_name($category)
+    function category_has_name()
     {
-        $this->assertEquals('Fake Title', $category->name);
+        $this->assertEquals('Fake Title', $this->category->name);
     }
 
     /**
      * @test
-     * @depends make_category
      */
-    function category_has_description($category)
+    function category_has_description()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $category->description);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->category->description);
     }
 
     /**
      * @test
-     * @depends make_category
      */
-    function category_has_slug($category)
+    function category_has_slug()
     {
-        $this->assertEquals('lorem', $category->slug);
+        $this->assertEquals('lorem', $this->category->slug);
     }
 
     /**
      * @test
-     * @depends make_category
      */
-    function category_has_color($category)
+    function category_has_color()
     {
-        $this->assertEquals('#123456', $category->color);
+        $this->assertEquals('#123456', $this->category->color);
     }
 
     /**
      * @test
-     * @depends make_category
      */
-    function category_has_lineup($category)
+    function category_has_lineup()
     {
-        $this->assertEquals(1, $category->lineup);
+        $this->assertEquals(1, $this->category->lineup);
     }
 
     /**
      * @test
-     * @depends make_category
      */
-    function category_has_boards($category)
+    function category_has_boards()
     {
-        $this->assertCount(3, $category->boards);
+        $this->assertCount(3, $this->category->boards);
     }
 }

@@ -10,9 +10,12 @@ class DepartmentTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_department()
+    protected $department;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $department = Department::factory()
         ->forFaction()->hasRanks(7)
         ->create([
@@ -20,52 +23,48 @@ class DepartmentTest extends TestCase
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
             'color' => '#123456'
         ]);
+        
         $this->assertNotNull($department);
-        return $department->load('ranks');
+        $this->department = $department->load('ranks');
     }
 
     /** 
      * @test
-     * @depends make_department
      */
-    function department_has_name($department)
+    function department_has_name()
     {
-        $this->assertEquals('Fake Title', $department->name);
+        $this->assertEquals('Fake Title', $this->department->name);
     }
 
     /**
      * @test
-     * @depends make_department
      */
-    function department_has_description($department)
+    function department_has_description()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $department->description);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->department->description);
     }
 
     /**
      * @test
-     * @depends make_department
      */
-    function department_has_color($department)
+    function department_has_color()
     {
-        $this->assertEquals('#123456', $department->color);
+        $this->assertEquals('#123456', $this->department->color);
     }
     
     /**
      * @test
-     * @depends make_department
      */
-    function department_has_faction($department)
+    function department_has_faction()
     {
-        $this->assertNotNull($department->faction_id);
+        $this->assertNotNull($this->department->faction_id);
     }
     
     /**
      * @test
-     * @depends make_department
      */
-    function department_has_ranks($department)
+    function department_has_ranks()
     {
-        $this->assertCount(7, $department->ranks);
+        $this->assertCount(7, $this->department->ranks);
     }
 }

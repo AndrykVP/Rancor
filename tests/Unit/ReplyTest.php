@@ -12,52 +12,52 @@ class ReplyTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_reply()
+    protected $reply;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $reply = Reply::factory()
         ->for(Discussion::factory()->for(Board::factory()->forCategory())->forAuthor())
         ->forAuthor()->forEditor()
         ->create([
             'body' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
         ]);
+
         $this->assertNotNull($reply);
-        return $reply;
+        $this->reply = $reply;
     }
 
     /**
      * @test
-     * @depends make_reply
      */
-    function reply_has_body($reply)
+    function reply_has_body()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $reply->body);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->reply->body);
     }
 
     /**
      * @test
-     * @depends make_reply
      */
-    function reply_has_discussion($reply)
+    function reply_has_discussion()
     {
-        $this->assertNotNull($reply->discussion_id);
+        $this->assertNotNull($this->reply->discussion_id);
     }
 
     /**
      * @test
-     * @depends make_reply
      */
-    function reply_has_author($reply)
+    function reply_has_author()
     {
-        $this->assertNotNull($reply->author_id);
+        $this->assertNotNull($this->reply->author_id);
     }
 
     /**
      * @test
-     * @depends make_reply
      */
-    function reply_has_editor($reply)
+    function reply_has_editor()
     {
-        $this->assertNotNull($reply->editor_id);
+        $this->assertNotNull($this->reply->editor_id);
     }
 }

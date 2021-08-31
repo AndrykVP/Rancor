@@ -11,9 +11,12 @@ class BoardTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    function make_board()
+    protected $board;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         $board = Board::factory()
         ->forCategory()
         ->hasGroups(2)
@@ -25,97 +28,88 @@ class BoardTest extends TestCase
             'slug' => 'lorem',
             'lineup' => 1
         ]);
+        
         $this->assertNotNull($board);
-        return $board->load('discussions', 'moderators', 'groups');
+        $this->board = $board->load('children', 'discussions', 'groups', 'moderators');
     }
 
     /** 
      * @test
-     * @depends make_board
      */
-    function board_has_name($board)
+    function board_has_name()
     {
-        $this->assertEquals('Fake Title', $board->name);
+        $this->assertEquals('Fake Title', $this->board->name);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_description($board)
+    function board_has_description()
     {
-        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $board->description);
+        $this->assertEquals('Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.', $this->board->description);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_slug($board)
+    function board_has_slug()
     {
-        $this->assertEquals('lorem', $board->slug);
+        $this->assertEquals('lorem', $this->board->slug);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_category($board)
+    function board_has_category()
     {
-        $this->assertNotNull($board->category_id);
+        $this->assertNotNull($this->board->category_id);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_lineup($board)
+    function board_has_lineup()
     {
-        $this->assertEquals(1, $board->lineup);
+        $this->assertEquals(1, $this->board->lineup);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_is_parent($board)
+    function board_is_not_parent()
     {
-        $this->assertNull($board->parent_id);
+        $this->assertNull($this->board->parent_id);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_no_children($board)
+    function board_has_no_children()
     {
-        $this->assertEmpty($board->children);
+        $this->assertEmpty($this->board->children);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_discussions($board)
+    function board_has_discussions()
     {
-        $this->assertCount(4, $board->discussions);
+        $this->assertCount(4, $this->board->discussions);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_moderators($board)
+    function board_has_moderators()
     {
-        $this->assertCount(2, $board->moderators);
+        $this->assertCount(2, $this->board->moderators);
     }
 
     /**
      * @test
-     * @depends make_board
      */
-    function board_has_groups($board)
+    function board_has_groups()
     {
-        $this->assertCount(2, $board->groups);
+        $this->assertCount(2, $this->board->groups);
     }
 }

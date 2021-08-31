@@ -42,7 +42,7 @@
                @csrf
                <input type="hidden" name="discussion_id" value="{{ $reply->discussion_id }}">
                <div>
-                  <x-label for="body" :value="__('Content')" />
+                  <label for="body">{{ __('Content') }}</label>
                   @error('body')
                   <small id="bodyHelp" class="text-red-600">{{ 'Error' }}</small>
                   @enderror
@@ -54,7 +54,7 @@
                   placeholder="Enter the Content"
                   autofocus required rows="7">{!! old('body') ?: $reply->body !!}</textarea>
                </div>
-               <x-button type="submit" class="ml-3">{{ __('Post') }}</x-button>
+               <button type="submit" class="ml-3">{{ __('Post') }}</button>
             </form>
          </div>
       </div>

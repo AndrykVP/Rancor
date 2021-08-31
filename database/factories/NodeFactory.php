@@ -22,7 +22,7 @@ class NodeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->sentence(5),
+            'name' => $this->faker->sentence(5),
             'body' => $this->faker->paragraph(true),
             'is_public' => $this->faker->boolean,
             'created_at' => now(),
@@ -35,7 +35,21 @@ class NodeFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function privte()
+    public function public()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'is_public' => true
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the Node is not public
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function private()
     {
         return $this->state(function (array $attributes) {
             return [

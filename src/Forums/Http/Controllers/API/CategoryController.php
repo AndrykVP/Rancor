@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('groups')->paginate(config('rancor.config'));
+        $categories = Category::paginate(config('rancor.config'));
 
         return CategoryResource::collection($categories);
     }
@@ -32,13 +32,7 @@ class CategoryController extends Controller
     public function store(CategoryForm $request)
     {
         $this->authorize('create',Category::class);
-        
-        $data = $request->validated();
-        $category;
-        DB::transaction(function () use(&$category, $data) {
-            $category = Category::create($data);
-            $category->groups()->sync($data['groups']);
-        });
+        $category = Category::create($request->validated());
 
         return response()->json([
             'message' => 'Category "'.$category->name.'" has been created'
@@ -55,7 +49,7 @@ class CategoryController extends Controller
     {
         $this->authorize('view',$category);
 
-        return new CategoryResource($category->load('boards','groups'));
+        return new CategoryResource($category->load('boards'));
     }
 
     /**
@@ -68,11 +62,7 @@ class CategoryController extends Controller
     public function update(CategoryForm $request, Category $category)
     {
         $this->authorize('update',$category);
-        $data = $request->validated();
-        DB::transaction(function () use(&$category, $data) {
-            $category->update($data);
-            $category->groups()->sync($data['groups']);
-        });
+        $category->update($request->validated());
 
         return response()->json([
             'message' => 'Category "'.$category->name.'" has been updated'
@@ -88,12 +78,8 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->authorize('delete',$category);
+        $category->delete();
         
-        DB::transaction(function () use($category) {
-            $category->groups()->detach();
-            $category->delete();
-        });
-
         return response()->json([
             'message' => 'Category "'.$category->name.'" has been deleted'
         ], 200);        
@@ -109,7 +95,7 @@ class CategoryController extends Controller
     {
         $this->authorize('viewAny',Category::class);
         
-        $categories = Category::with('groups')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $categories = Category::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
 
         return CategoryResource::collection($categories);
     }

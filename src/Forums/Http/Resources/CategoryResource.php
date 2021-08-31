@@ -17,9 +17,9 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'color' => $this->color,
             'slug' => $this->slug,
-            'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'boards' => BoardResource::collection($this->whenLoaded('boards')),
             'discussions' => GroupResource::collection($this->whenLoaded('discussions')),
             'created_at' => $this->created_at->diffForHumans(),

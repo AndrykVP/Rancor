@@ -19,7 +19,7 @@ class PermissionController extends Controller
     {
         $this->authorize('viewAny',Permission::class);
 
-        $query = Permission::paginate(15);
+        $query = Permission::paginate(config('rancor.pagination'));
 
         return PermissionResource::collection($query);
     }
@@ -38,7 +38,7 @@ class PermissionController extends Controller
         $permission = Permission::create($data);
 
         return response()->json([
-            'message' => 'Permission "'.$permission->name.'" has been created'
+            'message' => 'Permission "'.$permission->name.'" has been created',
         ], 200);
     }
 

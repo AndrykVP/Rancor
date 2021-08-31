@@ -28,7 +28,8 @@ class BoardObserver
                         ->where('category_id', $board->category_id)
                         ->where('lineup', '>=', $board->lineup)
                         ->get()
-                        ->pluck('id');
+                        ->pluck('id')
+                        ->toArray();
 
       $this->increment_lineup($lowerBoards);
    }

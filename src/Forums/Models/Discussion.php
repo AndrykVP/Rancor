@@ -102,7 +102,12 @@ class Discussion extends Model
      */
     public function getPagesAttribute()
     {
-        return ceil($this->replies->count() / config('rancor.pagination'));
+        if(isset($this->replies_count))
+        {
+            return ceil($this->replies_count / config('rancor.pagination'));
+        }
+
+        return ceil($this->replies()->count() / config('rancor.pagination'));
     }
 
     /**

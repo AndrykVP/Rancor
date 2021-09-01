@@ -9,7 +9,7 @@
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $board->category) }}">{{ $board->category->name }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $category) }}">{{ $category->name }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
@@ -51,7 +51,7 @@
                      </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                     @foreach($category->boards as $board)
+                     @foreach($board->children as $board)
                         <x-rancor::board-row :board="$board" />
                      @endforeach
                   </tbody>
@@ -59,10 +59,10 @@
             </div>
             @endif
             @if($sticky->isNotEmpty())
-            <x-rancor::discussion-list title="{{ __('Sticky Discussions') }}" :discussions="$sticky" />
+            <x-rancor::discussion-list title="{{ __('Sticky Discussions') }}" :discussions="$sticky" :board="$board" :category="$category"/>
             @endif
             @if($normal->isNotEmpty())
-            <x-rancor::discussion-list title="{{ __('Regular Discussions') }}" :discussions="$normal" />
+            <x-rancor::discussion-list title="{{ __('Regular Discussions') }}" :discussions="$normal" :board="$board" :category="$category"/>
             @endif
          @else
          <div class="row justify-content-center">

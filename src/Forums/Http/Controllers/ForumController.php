@@ -26,7 +26,7 @@ class ForumController extends Controller
          $query->topTier()
                ->whereIn('id',$boards)
                ->withCount('discussions','replies')
-               ->with('latest_reply','children')
+               ->with('category','latest_reply.discussion.replies','children', 'moderators')
                ->orderBy('lineup');
       }])->withCount('boards')->get();
 
@@ -79,7 +79,7 @@ class ForumController extends Controller
          $query->topTier()
                ->whereIn('id',$boards)
                ->withCount('discussions','replies')
-               ->with('latest_reply','children')
+               ->with('category','latest_reply.discussion.replies','children', 'moderators')
                ->orderBy('lineup');
       }])->loadCount('boards')->get();
       
@@ -98,17 +98,19 @@ class ForumController extends Controller
       $this->authorize('view', $board);
 
       $board->load('moderators')->load(['children' => function($query) {
-         $query->withCount('discussions','replies','children')->with('latest_reply.discussion')->orderBy('lineup');
+         $query->withCount('discussions','replies','children')->with('latest_reply.discussion.replies')->orderBy('lineup');
       }]);
 
       $sticky = $board->discussions()
                  ->sticky()
                  ->withCount('replies')
+                 ->with('latest_reply.discussion.replies')
                  ->get();
 
       $normal = $board->discussions()
                  ->sticky(false)
                  ->withCount('replies')
+                 ->with('latest_reply.discussion.replies')
                  ->paginate(config('rancor.forums.pagination'));
 
       return view('rancor::forums.board',compact('category','board','sticky','normal'));

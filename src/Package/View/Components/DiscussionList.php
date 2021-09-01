@@ -7,7 +7,21 @@ use Illuminate\View\Component;
 class DiscussionList extends Component
 {
    /**
-    * The Categoy to render
+    * The Discussion's Category
+    *
+    * @var array|mixed
+    */
+   public $category;
+
+   /**
+    * The Discussion's Board
+    *
+    * @var array|mixed
+    */
+   public $board;
+
+   /**
+    * The Discussions to render
     *
     * @var array|mixed
     */
@@ -25,9 +39,11 @@ class DiscussionList extends Component
     *
     * @return void
     */
-   public function __construct($discussions, $title)
+   public function __construct($discussions, $title, $board, $category)
    {
+      $this->category = $category;
       $this->discussions = $discussions;
+      $this->board = $board;
       $this->title = $title;
    }
 

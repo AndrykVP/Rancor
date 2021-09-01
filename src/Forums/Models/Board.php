@@ -119,7 +119,12 @@ class Board extends Model
      */
     public function last_page()
     {
-        return ceil($this->replies->count()/config('rancor.pagination'));
+        if(isset($this->replies))
+        {
+            return ceil($this->replies->count()/config('rancor.pagination'));
+        }
+
+        return ceil($this->replies()->count()/config('rancor.pagination'));
     }
 
     /**

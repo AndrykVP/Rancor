@@ -9,13 +9,13 @@
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $discussion->board->category) }}">{{ $discussion->board->category->name }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $category) }}">{{ $category->name }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $discussion->board->category, 'board' => $discussion->board]) }}">{{ $discussion->board->name }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $category, 'board' => $board]) }}">{{ $board->name }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
@@ -49,7 +49,7 @@
                <div class="flex justify-between items-center px-4 py-2">
                   <div class="col small">Posted {{ $reply->created_at->diffForHumans() }}@if($reply->editor != null). Last Edited by: {{ $reply->editor->name . ' '. $reply->updated_at->diffForHumans() }}@endif</div>
                   <div class="col text-right">
-                     @can('create', [\AndrykVP\Rancor\Forums\Models\Reply::class, $reply->discussion])
+                     @can('create', [\AndrykVP\Rancor\Forums\Models\Reply::class, $discussion])
                      <a type="button" class="text-white bg-blue-600 px-2 py-1 rounded" href="{{ route('forums.replies.create',[ 'discussion' => $discussion, 'quote' => $reply ]) }}">Quote</a>
                      @endcan
                      @can('update', $reply)

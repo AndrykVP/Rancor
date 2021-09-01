@@ -16,7 +16,7 @@
          <tr>
             <td class="px-6 py-4 whitespace-nowrap">
                <div class="flex items-center">
-                  <a class="font-bold text-xl text-indigo-900 hover:text-indigo-700" href="{{ route('forums.discussion', ['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion]) }}">
+                  <a class="font-bold text-xl text-indigo-900 hover:text-indigo-700" href="{{ route('forums.discussion', ['category' => $category, 'board' => $board, 'discussion' => $discussion]) }}">
                      {{ $discussion->name }}
                   </a>
                   @if($discussion->is_locked)
@@ -29,7 +29,7 @@
                   <div class="text-sm">
                   «
                   @for($i = 1; $i <= $discussion->pages; $i++)
-                     <a class="text-sm text-indigo-700 hover:text-indigo-400" href="{{ route('forums.discussion', ['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion, 'page' => $i]) }}">{{ $i }}</a>,
+                     <a class="text-sm text-indigo-700 hover:text-indigo-400" href="{{ route('forums.discussion', ['category' => $category, 'board' => $board, 'discussion' => $discussion, 'page' => $i]) }}">{{ $i }}</a>,
                   @endfor
                   »</div>
                   @endif
@@ -37,7 +37,7 @@
             </td>
             <td class="col-3">
                @if($discussion->replies_count > 0)
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.discussion', ['category' => $discussion->board->category, 'board' => $discussion->board, 'discussion' => $discussion, 'page' => $discussion->latest_reply->page->number]).'#'.$discussion->latest_reply->page->index}}">{{ $discussion->latest_reply->created_at->diffForHumans() }}</a><br/>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.discussion', ['category' => $category, 'board' => $board, 'discussion' => $discussion, 'page' => $discussion->latest_reply->page->number]).'#'.$discussion->latest_reply->page->index}}">{{ $discussion->latest_reply->created_at->diffForHumans() }}</a><br/>
                By <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('profile.show', $discussion->latest_reply->author) }}">{{ $discussion->latest_reply->author->name }}</a>
                @else
                No Posts Yet

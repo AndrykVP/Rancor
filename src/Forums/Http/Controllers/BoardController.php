@@ -73,7 +73,10 @@ class BoardController extends Controller
         $board;
         DB::transaction(function () use(&$board, $data) {
             $board = Board::create($data);
-            $board->groups()->sync($data['groups']);
+            if(array_key_exists('groups', $data))
+            {
+                $board->groups()->sync($data['groups']);
+            }
         });
 
         return redirect()->route('admin.boards.index')->with('alert', [
@@ -148,7 +151,10 @@ class BoardController extends Controller
         }
         DB::transaction(function () use(&$board, $data) {
             $board->update($data);
-            $board->groups()->sync($data['groups']);
+            if(array_key_exists('groups', $data))
+            {
+                $board->groups()->sync($data['groups']);
+            }
         });
 
         return redirect()->route('admin.boards.index')->with('alert', [

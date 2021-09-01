@@ -21,7 +21,6 @@ class GroupResource extends JsonResource
             'description' => $this->description,
             'users' => UserResource::collection($this->whenLoaded('users')),
             'boards' => BoardResource::collection($this->whenLoaded('boards')),
-            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

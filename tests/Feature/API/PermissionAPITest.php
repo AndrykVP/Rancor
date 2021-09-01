@@ -87,10 +87,7 @@ class PermissionAPITest extends TestCase
    function guest_cannot_access_permission_api_store()
    {
       $permission = $this->permissions->random();
-      $response = $this->postJson(route('api.auth.permissions.store'), [
-         'name' => 'Example Permission',
-         'description' => 'Example description'
-      ]);
+      $response = $this->postJson(route('api.auth.permissions.store'), []);
       $response->assertUnauthorized();
    }
 
@@ -99,10 +96,7 @@ class PermissionAPITest extends TestCase
    {
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user, 'api')
-                  ->postJson(route('api.auth.permissions.store'), [
-                     'name' => 'Example Permission',
-                     'description' => 'Example description'
-                  ]);
+                  ->postJson(route('api.auth.permissions.store'), []);
       $response->assertUnauthorized();
    }
 
@@ -124,10 +118,7 @@ class PermissionAPITest extends TestCase
    function guest_cannot_access_permission_api_update()
    {
       $permission = $this->permissions->random();
-      $response = $this->patchJson(route('api.auth.permissions.update', $permission), [
-         'name' => 'Updated Permission',
-         'description' => 'Updated description'
-      ]);
+      $response = $this->patchJson(route('api.auth.permissions.update', $permission), []);
       $response->assertUnauthorized();
    }
 
@@ -136,10 +127,7 @@ class PermissionAPITest extends TestCase
    {
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user, 'api')
-                  ->patchJson(route('api.auth.permissions.update', $permission), [
-                     'name' => 'Updated Permission',
-                     'description' => 'Updated description'
-                  ]);
+                  ->patchJson(route('api.auth.permissions.update', $permission), []);
       $response->assertUnauthorized();
    }
 
@@ -149,6 +137,7 @@ class PermissionAPITest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->admin, 'api')
                   ->patchJson(route('api.auth.permissions.update', $permission), [
+                     'id' => $permission->id,
                      'name' => 'Updated Permission',
                      'description' => 'Updated description'
                   ]);

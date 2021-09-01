@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Tests;
 
 use AndrykVP\Rancor\Providers\PackageServiceProvider;
+use Mews\Purifier\PurifierServiceProvider;
 use Illuminate\Routing\Router;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -15,7 +16,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            PackageServiceProvider::class
+            PackageServiceProvider::class,
+            PurifierServiceProvider::class
         ];
     }
 

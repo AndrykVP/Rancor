@@ -49,7 +49,7 @@ class GroupController extends Controller
     public function show(Group $group)
     {
         $this->authorize('view',$group);
-        $group->load('users','boards','categories');
+        $group->load('users','boards');
 
         return new GroupResource($group);
     }

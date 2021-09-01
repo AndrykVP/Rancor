@@ -87,11 +87,7 @@ class RoleAPITest extends TestCase
    function guest_cannot_access_role_api_store()
    {
       $role = $this->roles->random();
-      $response = $this->postJson(route('api.auth.roles.store'), [
-         'name' => 'Example Role',
-         'description' => 'Example description',
-         'permissions' => [1,2,3]
-      ]);
+      $response = $this->postJson(route('api.auth.roles.store'), []);
       $response->assertUnauthorized();
    }
 
@@ -100,11 +96,7 @@ class RoleAPITest extends TestCase
    {
       $role = $this->roles->random();
       $response = $this->actingAs($this->user, 'api')
-                  ->postJson(route('api.auth.roles.store'), [
-                     'name' => 'Example Role',
-                     'description' => 'Example description',
-                     'permissions' => [1,2,3]
-                  ]);
+                  ->postJson(route('api.auth.roles.store'), []);
       $response->assertUnauthorized();
    }
 
@@ -127,11 +119,7 @@ class RoleAPITest extends TestCase
    function guest_cannot_access_role_api_update()
    {
       $role = $this->roles->random();
-      $response = $this->patchJson(route('api.auth.roles.update', $role), [
-         'name' => 'Updated Role',
-         'description' => 'Updated description',
-         'permissions' => [1,2,3]
-      ]);
+      $response = $this->patchJson(route('api.auth.roles.update', $role), []);
       $response->assertUnauthorized();
    }
 
@@ -140,11 +128,7 @@ class RoleAPITest extends TestCase
    {
       $role = $this->roles->random();
       $response = $this->actingAs($this->user, 'api')
-                  ->patchJson(route('api.auth.roles.update', $role), [
-                     'name' => 'Updated Role',
-                     'description' => 'Updated description',
-                     'permissions' => [1,2,3]
-                  ]);
+                  ->patchJson(route('api.auth.roles.update', $role), []);
       $response->assertUnauthorized();
    }
 

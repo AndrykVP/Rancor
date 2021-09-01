@@ -44,7 +44,7 @@ class BoardForm extends FormRequest
             'description' => 'nullable|string',
             'category_id' => 'nullable|required_without:parent_id|integer|exists:forum_categories,id',
             'parent_id' => 'nullable|required_without:category_id|integer|exists:forum_boards,id',
-            'groups' => 'required|array',
+            'groups' => 'sometimes|array',
             'lineup' => 'required|integer|min:1',
         ];
     }

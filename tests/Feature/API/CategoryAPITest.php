@@ -86,17 +86,15 @@ class CategoryAPITest extends TestCase
    /** @test */
    function guest_cannot_access_category_api_store()
    {
-      $category = Category::factory()->make();
-      $response = $this->postJson(route('api.forums.categories.store'), $category->toArray());
+      $response = $this->postJson(route('api.forums.categories.store'), []);
       $response->assertUnauthorized();
    }
 
    /** @test */
    function user_cannot_access_category_api_store()
    {
-      $category = Category::factory()->make();
       $response = $this->actingAs($this->user, 'api')
-                  ->postJson(route('api.forums.categories.store'), $category->toArray());
+                  ->postJson(route('api.forums.categories.store'), []);
       $response->assertUnauthorized();
    }
 
@@ -115,14 +113,7 @@ class CategoryAPITest extends TestCase
    function guest_cannot_access_category_api_update()
    {
       $category = $this->categories->random();
-      $response = $this->patchJson(route('api.forums.categories.update', $category), [
-         'name' => 'Updated Category',
-         'description' => 'Updated description',
-         'color' => '#123456',
-         'slug' => 'updated-category',
-         'lineup' => 1,
-
-      ]);
+      $response = $this->patchJson(route('api.forums.categories.update', $category), []);
       $response->assertUnauthorized();
    }
 
@@ -131,13 +122,7 @@ class CategoryAPITest extends TestCase
    {
       $category = $this->categories->random();
       $response = $this->actingAs($this->user, 'api')
-                  ->patchJson(route('api.forums.categories.update', $category), [
-                     'name' => 'Updated Category',
-                     'description' => 'Updated description',
-                     'color' => '#123456',
-                     'slug' => 'updated-category',
-                     'lineup' => 1,
-                  ]);
+                  ->patchJson(route('api.forums.categories.update', $category), []);
       $response->assertUnauthorized();
    }
 

@@ -25,6 +25,7 @@ class DiscussionFactory extends Factory
             'name' => $this->faker->sentence(5),
             'is_sticky' => $this->faker->boolean,
             'is_locked' => $this->faker->boolean,
+            'views' => $this->faker->randomNumber
         ];
     }
 

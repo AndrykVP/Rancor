@@ -34,14 +34,17 @@ class AlterUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function(Blueprint $table) {
-            $table->dropColumn('avatar');
-            $table->dropColumn('signature');
-            $table->dropColumn('nickname');
-            $table->dropColumn('quote');
-            $table->dropColumn('rank_id');
-            $table->dropColumn('is_admin');
-            $table->dropColumn('show_email');
-            $table->dropColumn('last_login');
+            $table->dropColumn([
+                'avatar',
+                'signature',
+                'nickname',
+                'quote',
+                'rank_id',
+                'is_admin',
+                'is_banned',
+                'show_email',
+                'last_login'
+            ]);
         });
     }
 }

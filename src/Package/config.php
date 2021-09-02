@@ -15,13 +15,13 @@ return [
 
     'middleware' => [
 
-        // If you request users to verify email, use ['auth', 'verified']
-        // otherwise, ['auth'] is enough, unless you have a custom middleware.
-        // Additionally, Rancor allows you to restrict user-side pages to Users
-        // that are not marked as banned. Uncomment 'unbanned' to enable this.
+        // If you request users to verify email, uncomment 'verified'.
+        // To restrict user-side pages from banned Users, uncomment 'unbanned'.
+        // If you use a custom middleware, use it here like you use it in any other route.
 
         'web' => [
             'auth',
+            // 'verified',
             // 'unbanned',
         ],
 
@@ -30,7 +30,9 @@ return [
         // For Laravel/Sanctum, use 'auth:sanctum'. Otherwise if you use
         // a custom middleware, use its alias here
 
-        'api' => ['auth:api'],
+        'api' => [
+            'auth:api'
+        ],
     ],
 
 

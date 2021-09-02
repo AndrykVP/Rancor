@@ -17,6 +17,7 @@ class FactionResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->description,
             'departments' => DepartmentResource::collection($this->whenLoaded('departments')),
             'ranks' => RankResource::collection($this->whenLoaded('ranks')),
             'created_at' => $this->created_at->diffForHumans(),

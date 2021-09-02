@@ -38,7 +38,10 @@ class ArticleController extends Controller
         $article;
         DB::transaction(function () use(&$article, $data) {
             $article = Article::create($data);
-            $article->tags()->sync($data['tags']);
+            if(array_key_exists('tags', $data))
+            {
+                $article->tags()->sync($data['tags']);
+            }
         });
 
         return response()->json([
@@ -73,7 +76,10 @@ class ArticleController extends Controller
         $data = $request->validated();
         DB::transaction(function () use(&$article, $data) {
             $article->update($data);
-            $article->tags()->sync($data['tags']);
+            if(array_key_exists('tags', $data))
+            {
+                $article->tags()->sync($data['tags']);
+            }
         });
 
         return response()->json([

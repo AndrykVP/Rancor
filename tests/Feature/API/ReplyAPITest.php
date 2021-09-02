@@ -51,7 +51,6 @@ class ReplyAPITest extends TestCase
    function admin_can_access_reply_api_index()
    {
       $response = $this->actingAs($this->admin, 'api')
-                  ->withoutExceptionHandling()
                   ->getJson(route('api.forums.replies.index'));
       $response->assertSuccessful()->assertJsonCount(3, 'data');
    }

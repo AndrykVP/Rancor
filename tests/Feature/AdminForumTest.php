@@ -119,7 +119,7 @@ class AdminForumTest extends TestCase
    /** @test */
    function admin_can_edit_uneditable_forum_reply()
    {
-      $response = $this->actingAs($this->admin)->withoutExceptionHandling()->get(route('forums.replies.edit', $this->uneditable_reply));
+      $response = $this->actingAs($this->admin)->get(route('forums.replies.edit', $this->uneditable_reply));
       $response->assertSuccessful();
       $response->assertSee('Edit Reply');
    }

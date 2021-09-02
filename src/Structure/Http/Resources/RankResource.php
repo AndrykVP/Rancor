@@ -18,6 +18,7 @@ class RankResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'color' => $this->color,
             'level' => $this->level,
             'department' => new DepartmentResource($this->whenLoaded('department')),
             'created_at' => $this->created_at->diffForHumans(),

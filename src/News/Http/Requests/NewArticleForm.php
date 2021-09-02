@@ -37,8 +37,6 @@ class NewArticleForm extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3);
-
         return [
             'name' => 'required|string',
             'body' => 'required|min:3',

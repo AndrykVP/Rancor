@@ -25,7 +25,7 @@ class TerritoryTypeForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('scanner_territory_types')->ignore($this->id)],
+            'name' => ['required', 'string', Rule::unique('scanner_territory_types')->ignore($this->id) ],
             'image' => 'required|url',
         ];
     }

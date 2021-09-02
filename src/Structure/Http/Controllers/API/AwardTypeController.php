@@ -28,7 +28,7 @@ class AwardTypeController extends Controller
      * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TypeForm $request)
+    public function store(AwardTypeForm $request)
     {
         $this->authorize('create',AwardType::class);
         
@@ -46,7 +46,7 @@ class AwardTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $awardtype)
+    public function show(AwardType $awardtype)
     {
         $this->authorize('view', $awardtype);
         $awardtype->load('awards');
@@ -61,7 +61,7 @@ class AwardTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TypeForm $request, Type $awardtype)
+    public function update(AwardTypeForm $request, AwardType $awardtype)
     {
         $this->authorize('update',$awardtype);
         
@@ -79,7 +79,7 @@ class AwardTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $awardtype)
+    public function destroy(AwardType $awardtype)
     {
         $this->authorize('delete', $awardtype);
         $awardtype->delete();

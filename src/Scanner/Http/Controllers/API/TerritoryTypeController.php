@@ -5,6 +5,8 @@ namespace AndrykVP\Rancor\Scanner\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Models\TerritoryType;
+use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeForm;
+use AndrykVP\Rancor\Scanner\Http\Resources\TerritoryTypeResource;
 
 class TerritoryTypeController extends Controller
 {
@@ -27,13 +29,13 @@ class TerritoryTypeController extends Controller
      * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryType  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TerritoryType $request)
+    public function store(TerritoryTypeForm $request)
     {
         $this->authorize('create',TerritoryType::class);
         $territorytype = TerritoryType::create($request->validated());
 
         return response()->json([
-            'message' => "Territory Type \"{$territorytype->name}\" has been created.",
+            'message' => "Territory Type \"{$territorytype->name}\" has been created",
         ],200);
     }
 
@@ -60,10 +62,10 @@ class TerritoryTypeController extends Controller
     public function update(TerritoryTypeForm $request, TerritoryType $territorytype)
     {
         $this->authorize('update', $territorytype);
-        $territorytype->update($request->validate());
+        $territorytype->update($request->validated());
         
         return response()->json([
-            'message' => "Territory Type \"{$territorytype->name}\" has been updated.",
+            'message' => "Territory Type \"{$territorytype->name}\" has been updated",
         ],200);
     }
 
@@ -79,7 +81,7 @@ class TerritoryTypeController extends Controller
         $territorytype->delete();
 
         return response()->json([
-            'message' => "Territory Type \"{$territorytype->name}\" has been deleted.",
+            'message' => "Territory Type \"{$territorytype->name}\" has been deleted",
         ],200);
     }
 

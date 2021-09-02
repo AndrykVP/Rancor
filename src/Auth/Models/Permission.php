@@ -3,10 +3,14 @@
 namespace AndrykVP\Rancor\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AndrykVP\Rancor\DB\Factories\PermissionFactory;
 use App\Models\User;
 
 class Permission extends Model
 {
+    use HasFactory;
+    
     /**
      * Defines the table name
      * 
@@ -39,5 +43,15 @@ class Permission extends Model
     public function roles()
     {
         return $this->morphedByMany(Role::class,'permissible', 'rancor_permissibles');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return PermissionFactory::new();
     }
 }

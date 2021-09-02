@@ -38,7 +38,10 @@ class NodeController extends Controller
         $node;
         DB::transaction(function () use(&$node, $data) {
             $node = Node::create($data);
-            $node->collections()->sync($data['collections']);
+            if(array_key_exists('collections', $data))
+            {
+                $node->collections()->sync($data['collections']);
+            }
         });
 
         return response()->json([
@@ -73,7 +76,10 @@ class NodeController extends Controller
         $data = $request->validated();
         DB::transaction(function () use(&$node, $data) {
             $node->update($data);
-            $node->collections()->sync($data['collections']);
+            if(array_key_exists('collections', $data))
+            {
+                $node->collections()->sync($data['collections']);
+            }
         });
 
         return response()->json([

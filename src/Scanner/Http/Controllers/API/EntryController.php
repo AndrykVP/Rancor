@@ -8,7 +8,6 @@ use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
 use AndrykVP\Rancor\Scanner\Http\Requests\EntryForm;
 use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
-use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 
 class EntryController extends Controller
 {
@@ -37,7 +36,7 @@ class EntryController extends Controller
         $entry = Entry::create($request->validated());
 
         return response()->json([
-            'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been created.",
+            'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been created",
         ],200);
     }
 
@@ -68,7 +67,7 @@ class EntryController extends Controller
         $entry->update($request->validated());
         
         return response()->json([
-            'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been updated.",
+            'message' => "Record for {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) has been updated",
         ],200);
     }
 
@@ -84,7 +83,7 @@ class EntryController extends Controller
         $entry->delete();
 
         return response()->json([
-            'message' => "All records of the {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) have been successfully deleted."
+            'message' => "All records of {$entry->type} \"{$entry->name}\" (#{$entry->entity_id}) have been deleted"
         ],200);
     }
 

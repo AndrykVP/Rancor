@@ -2,7 +2,7 @@
 
 First of all, thank you kindly for your interest in further developing this package. This is being developed as a non-profit hobby, with hopes that it has an impact in the Star Wars Combine community, and any volunteer developers are welcome to join.
 
-You can join the author's [Discord Server](http://www.swcombine.com) for help and suggestions.
+You can join the author's [Discord Server](https://discord.gg/5MP9ZwReSu) for help and suggestions.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ AndrykVP\Rancor\Providers\PackageServiceProvider::class,
 Mews\Purifier\PurifierServiceProvider::class,
 ```
 
-Rancor will now have access to Laravel's classes and no more configuration is needed. However, any update to any of Rancor's Service Providers might require you to run the following command to take effect:
+Rancor will now have access to Laravel's classes. However, any update to any of Rancor's Service Providers might require you to run the following command to take effect:
 
 ```bash
 composer dump-autoload
@@ -73,6 +73,17 @@ Check the documentation to see what else is needed in the User model class.
 
 You should now be able to run Tests without a hitch.
 
+## Additional Configuration
+
+Since Rancor includes Feature Tests for API endpoints, you need to configure Laravel to use api authentication. Laravel 8 now recommends Sanctum for this, but for the development of Rancor this might be an overkill. The easiest solution for this is to add the column `api_token` to the users table.
+
+If you're using the Nested Package setup, you can simply find the `create_users_table` migration provided by Laravel, and add the following line:
+
+```php
+$table->string('api_token', 80)->nullable()->default(null);
+```
+
+If you're using the Isolate Package setup, you'll need to create a new migration to alter the users table with the statement mentioned above. Keep in mind this migration should be used locally only, as we don't want it in the package itself, so you'll need to include the string `add_api_token` to the filename for gitignore to recognize it and not add it to the repository.
 
 ## Submitting changes
 
@@ -92,7 +103,6 @@ Always write a clear log message for your commits. One-line messages are fine fo
 Start reading our code and you'll get the hang of it. We optimize for readability and add comments where applicable:
 
   * We indent using 3 spaces (soft tabs)
-  * We use TailwindCSS for views
   * We ALWAYS put spaces after list items and method parameters (`[1, 2, 3]`, not `[1,2,3]`), around operators (`x += 1`, not `x+=1`).
   * This is open source software. Consider the people who will read your code, and make it look nice for them. It's sort of like driving a car: Perhaps you love doing donuts when you're alone, but with passengers the goal is to make the ride as smooth as possible.
 

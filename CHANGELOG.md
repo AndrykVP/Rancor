@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.1.0] - 2021-07-02
+### Added
+- `PermissionFactory` and `RoleFactory` to use in Unit Testing
+- Feature Testing for all API endpoints
+- Middleware `Auth\Http\Middleware\UserIsNotBanned` used to prevent banned users from loging in or access the non-public areas of the site
+- Scanner Models: `Quadrant`, `Territory` and `TerritoryType`
+- Forum Observers `CategoryObserver` and `BoardObserver` to keep their 'lineup' column clean
+
+### Changed
+- Renamed Structure Model `Type` to `AwardType`
+- `Alert` component now receives either a string, or an array with data from Models, to render the alert message.
+- Refactored `RancorSeeder` to separate seeders, for convention.
+- Migrations now use the `$table->foreignId()` method for foreign keys. This makes migrations incompatible with earlier versions of Laravel.
+
 ## [2.0.0] - 2021-07-02
 ### Added
 - View Components: `AdminLayout`, `MainLayout`, `Alert`, `AdminNavigation`, `Main Navigation`
@@ -33,7 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Forum Table names changed for clarity:
   - `forum_board_user` => `forum_moderators`
   - `forum_discussion_user` => `forum_unread_discussions`
-- Refactored `RancorSeeder` to separate seeders, for convention.
 
 ### Deleted
 - Gate `manage-faction` became irrelevant after the addition of the permission `view-admin-panel` used for admin middleware.

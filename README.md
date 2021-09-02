@@ -35,12 +35,7 @@ composer require andrykvp/rancor
 
 Because of the development in Laravel 8, the package is auto-discovered and you do not need to register the Service Provider.
 
-Backwards compatibility to previous versions of Laravel has not been tested and it is not recommended to use with previous versions of Laravel 7. However, if you wish to test it yourself, you may add the following lines of code at the end of your `config/app.php` file:
-
-```php
-AndrykVP\Rancor\Providers\PackageServiceProvider::class,
-Mews\Purifier\PurifierServiceProvider::class,
-```
+Backwards compatibility to previous versions of Laravel is not possible, as classes use namespacing and methods that are only available in Laravel 8 and up.
 
 ### Configuring
 

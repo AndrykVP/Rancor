@@ -35,6 +35,7 @@
             @csrf
             @method('PATCH')
             <input type="hidden" name="id" value="{{ $user->id }}">
+            @can('update', $user)
             <div class="mb-6">
                <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
                   {{ _('Handle') }}
@@ -85,6 +86,29 @@
                placeholder="Edit the User's Quote"
                value="{{ old('quote') ?: $user->quote }}" />
             </div>
+            <div class="mb-6">
+               <label for="avatar" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  {{ _('Avatar URL') }}
+               </label>
+               <input
+               type="url"
+               class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+               name="avatar"
+               id="avatar"
+               placeholder="Edit the User's Avatar URL"
+               value="{{ old('avatar') ?: $user->avatar }}" />
+            </div>
+            <div class="mb-6">
+               <label for="signature" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  {{ _('Forum Signature') }}
+               </label>
+               <textarea
+               class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+               name="signature"
+               id="signature"
+               placeholder="Edit the User's Forum Signature">{{ old('signature') ?: $user->signature }}</textarea>
+            </div>
+            @endcan
             @can('changeRank', $user)
             <div x-data='changeRank()'>
                <div class="mb-6">
@@ -142,28 +166,28 @@
             @endcan
             @can('uploadArt', $user)
             <div class="mb-6">
-               <label for="avatar" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
-                  {{ _('Avatar') }}
+               <label for="avatarFile" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  {{ _('Avatar File') }}
                </label>
                <input
                type="file"
                accept="image/png" 
                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-               name="avatar"
-               id="avatar"
-               placeholder="Upload User's Avatar">
+               name="avatarFile"
+               id="avatarFile"
+               placeholder="Upload User's Avatar File">
             </div>
             <div class="mb-6">
-               <label for="signature" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
-                  {{ _('Signature') }}
+               <label for="signatureFile" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  {{ _('Signature File') }}
                </label>
                <input
                type="file"
                accept="image/png" 
                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-               name="signature"
-               id="signature"
-               placeholder="Upload User's Signature">
+               name="signatureFile"
+               id="signatureFile"
+               placeholder="Upload User's Signature File">
             </div>
             @endcan
             @can('changeRoles', $user)

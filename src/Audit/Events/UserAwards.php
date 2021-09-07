@@ -2,32 +2,34 @@
 
 namespace AndrykVP\Rancor\Audit\Events;
 
-use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 use AndrykVP\Rancor\Structure\Models\Award;
 
-class UserAward
+class UserAwards
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Class Variables
      * 
+     * @var \App\Models\User
      * @var \AndrykVP\Rancor\Structure\Models\Award
-     * @var int  $change
+     * @var integer
      */
-    public $award;
-    public $action;
+    public $user;
+    public $awards;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Award $award)
+    public function __construct(User $user, Array $awards)
     {
-        $this->award = $award;
+        $this->user = $user->load('awards');
+        $this->awards = $awards;
     }
 }

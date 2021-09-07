@@ -2,7 +2,6 @@
 
 namespace AndrykVP\Rancor\Audit\Events;
 
-use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

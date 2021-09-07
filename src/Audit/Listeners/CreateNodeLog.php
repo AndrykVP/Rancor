@@ -6,7 +6,7 @@ use AndrykVP\Rancor\Audit\Events\NodeUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SetNodeEditor
+class CreateNodeLog
 {
     /**
      * Class variables
@@ -34,11 +34,16 @@ class SetNodeEditor
      */
     public function handle(NodeUpdate $event)
     {
-        DB::table('changelog_nodes')->insert([
-            'node_id' => $event->node->id,
-            'updated_by' => $this->user->id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        if($event->node->isDirty('name') || $event->node->isDirty('body'))
+        {
+            DB::table('changelog_nodes')->insert([
+                'node_id' => $event->node->id,
+                'updated_by' => $this->user->id,
+                'old_name' => $event->node->isDirty('name') ? $event->node->name : null,
+                'old_body' => $event->node->isDirty('body') ? $event->node->body : null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

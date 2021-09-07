@@ -7,9 +7,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Login;
 use AndrykVP\Rancor\Audit\Events\EntryUpdate;
 use AndrykVP\Rancor\Audit\Events\NodeUpdate;
-use AndrykVP\Rancor\Audit\Events\UserAward;
+use AndrykVP\Rancor\Audit\Events\UserAwards;
 use AndrykVP\Rancor\Audit\Events\UserUpdate;
-use AndrykVP\Rancor\Audit\Listeners\SetNodeEditor;
+use AndrykVP\Rancor\Audit\Listeners\CreateNodeLog;
 use AndrykVP\Rancor\Audit\Listeners\UpdateUserAwards;
 use AndrykVP\Rancor\Audit\Listeners\UserLoginIP;
 use AndrykVP\Rancor\Audit\Listeners\UserRank;
@@ -53,9 +53,9 @@ class EventServiceProvider extends ServiceProvider
             CreateScanLog::class,
         ],
         NodeUpdate::class => [
-            SetNodeEditor::class,
+            CreateNodeLog::class,
         ],
-        UserAward::class => [
+        UserAwards::class => [
             UpdateUserAwards::class,
         ]
     ];

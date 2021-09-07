@@ -17,6 +17,8 @@ class CreateNodeLogsTable extends Migration
             $table->id();
             $table->foreignId('node_id')->constrained('holocron_nodes')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
+            $table->string('old_name')->nullable()->default(null);
+            $table->longText('old_body')->nullable()->default(null);
             $table->timestamps();
         });
     }

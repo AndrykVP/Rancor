@@ -99,6 +99,6 @@ class TerritoryTypeController extends Controller
         $territorytypes = TerritoryType::where($search['attribute'], 'like', '%' . $search['value'] . '%')
                         ->paginate(config('rancor.pagination'));
         
-        return TerritoryTypeResource::collection($query);
+        return TerritoryTypeResource::collection($territorytypes);
     }
 }

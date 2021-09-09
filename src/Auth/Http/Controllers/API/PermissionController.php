@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Resources\PermissionResource;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
-use AndrykVP\Rancor\Package\Http\Requests\SearchForm;
+use AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch;
 
 class PermissionController extends Controller
 {    
@@ -96,10 +96,10 @@ class PermissionController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Package\Http\Requests\SearchForm  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(SearchForm $request)
+    public function search(PermissionSearch $request)
     {
         $this->authorize('viewAny',Permission::class);
         $search = $request->validated();

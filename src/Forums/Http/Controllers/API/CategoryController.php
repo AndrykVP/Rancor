@@ -92,7 +92,7 @@ class CategoryController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategorySearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(CategorySearch $request)
     {
         $this->authorize('viewAny', Category::class);
         $search = $request->validated();

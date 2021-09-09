@@ -190,6 +190,7 @@ class TerritoryTypeAPITest extends TestCase
    {
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->admin, 'api')
+      ->withoutExceptionHandling()
                   ->postJson(route('api.scanner.territorytypes.search', [
                      'attribute' => 'name',
                      'value' => $territorytype->name,

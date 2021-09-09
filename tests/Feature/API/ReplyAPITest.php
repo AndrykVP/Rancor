@@ -171,31 +171,4 @@ class ReplyAPITest extends TestCase
          'message' => 'Reply #'. $reply->id .' has been deleted'
       ]);
    }
-
-   /** @test */
-   function guest_cannot_access_reply_api_search()
-   {
-      $response = $this->postJson(route('api.forums.replies.search', []));
-      $response->assertUnauthorized();
-   }
-
-   /** @test */
-   function user_cannot_access_reply_api_search()
-   {
-      $response = $this->actingAs($this->user, 'api')
-                  ->postJson(route('api.forums.replies.search', []));
-      $response->assertUnauthorized();
-   }
-
-   /** @test */
-   function admin_can_access_reply_api_search()
-   {
-      $reply = $this->replies->random();
-      $response = $this->actingAs($this->admin, 'api')
-                  ->postJson(route('api.forums.replies.search', [
-                     'attribute' => 'name',
-                     'value' => $reply->name,
-                  ]));
-      $response->assertSuccessful()->assertJsonFragment(['id' => $reply->id]);
-   }
 }

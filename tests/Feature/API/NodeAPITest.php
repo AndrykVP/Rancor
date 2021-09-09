@@ -21,8 +21,9 @@ class NodeAPITest extends TestCase
       $this->assertDatabaseCount('holocron_nodes', 0);
 
       // Initialize Test DB
-      $this->nodes = Node::factory()
+      $this->nodes = Node::factory() 
                      ->forAuthor()
+                     ->public()
                      ->count(3)
                      ->create();
       $this->user = User::factory()->create();

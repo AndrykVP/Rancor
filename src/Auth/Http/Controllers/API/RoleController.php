@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Http\Resources\RoleResource;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
-use AndrykVP\Rancor\Package\Http\Requests\SearchForm;
+use AndrykVP\Rancor\Auth\Http\Requests\RoleSearch;
 
 class RoleController extends Controller
 {    
@@ -107,14 +107,14 @@ class RoleController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Package\Http\Requests\SearchForm  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(SearchForm $request)
+    public function search(RoleSearch $request)
     {
         $this->authorize('viewAny',Role::class);
         $search = $request->validated();
-        $roles = Role::where($search['name'], 'like', '%' . $search['value'] . '%')
+        $roles = Role::where($search['attribute'], 'like', '%' . $search['value'] . '%')
                 ->paginate(config('rancor.pagination'));
 
         return RoleResource::collection($roles);

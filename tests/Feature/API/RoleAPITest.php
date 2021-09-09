@@ -108,7 +108,7 @@ class RoleAPITest extends TestCase
                   ->postJson(route('api.auth.roles.store'), [
                      'name' => 'Example Role',
                      'description' => 'Example description',
-                     'roles' => [1,2,3]
+                     'permissions' => [1,2,3]
                   ]);
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Role "Example Role" has been created'
@@ -140,7 +140,7 @@ class RoleAPITest extends TestCase
                   ->patchJson(route('api.auth.roles.update', $role), [
                      'name' => 'Updated Role',
                      'description' => 'Updated description',
-                     'roles' => [1,2,3]
+                     'permissions' => [1,2,3]
                   ]);
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Role "Updated Role" has been updated'
@@ -195,6 +195,8 @@ class RoleAPITest extends TestCase
    {
       $role = $this->roles->random();
       $response = $this->actingAs($this->admin, 'api')
+
+      ->withoutExceptionHandling()
                   ->postJson(route('api.auth.roles.search', [
                      'attribute' => 'name',
                      'value' => $role->name,

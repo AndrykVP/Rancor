@@ -100,7 +100,7 @@ class FactionController extends Controller
     public function search(FactionSearch $request)
     {
         $this->authorize('viewAny',Faction::class);
-        $search = $request->valiated();
+        $search = $request->validated();
         $factions = Faction::where($search['attribute'], 'like', '%' . $search['value'] . '%')
                     ->paginate(config('rancor.pagination'));
 

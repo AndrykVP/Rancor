@@ -31,7 +31,7 @@
 
          <x-auth-validation-errors class="mb-4" :errors="$errors" />
          
-         <form action="{{ route('admin.users.update', $user)}}" method="POST">
+         <form action="{{ route('admin.users.update', $user)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <input type="hidden" name="id" value="{{ $user->id }}">

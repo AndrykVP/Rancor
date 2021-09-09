@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
+use AndrykVP\Rancor\Auth\Http\Requests\PemissionSearch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,16 +19,6 @@ class PermissionController extends Controller
         'name' => 'Permission',
         'route' => 'permissions'
     ];
-
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.web'));
-    }
 
     /**
      * Display a listing of the resource.
@@ -62,15 +53,19 @@ class PermissionController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(PermissionSearch $request)
     {
         $this->authorize('viewAny', Permission::class);
         
         $resource = $this->resource;
-        $models = Permission::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Permission::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
+        
+        session()->flashInput($request->input());
 
         return view('rancor::resources.index', compact('models','resource'));
     }

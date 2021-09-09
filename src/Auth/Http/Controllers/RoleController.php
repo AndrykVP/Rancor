@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
+use AndrykVP\Rancor\Auth\Http\Requests\RoleSearch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -20,16 +21,6 @@ class RoleController extends Controller
         'name' => 'Role',
         'route' => 'roles'
     ];
-
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.web'));
-    }
 
     /**
      * Display a listing of the resource.
@@ -64,16 +55,19 @@ class RoleController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(RoleSearch $request)
     {
         $this->authorize('viewAny', Role::class);
         
         $resource = $this->resource;
-        $models = Role::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
-
+        $search = $request->validated();
+        $models = Role::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
+        
+        session()->flashInput($request->input());
         return view('rancor::resources.index', compact('models','resource'));
     }
 

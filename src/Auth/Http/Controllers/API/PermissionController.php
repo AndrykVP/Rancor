@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Resources\PermissionResource;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
+use AndrykVP\Rancor\Package\Http\Requests\SearchForm;
 
 class PermissionController extends Controller
 {    
@@ -95,14 +96,15 @@ class PermissionController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Package\Http\Requests\SearchForm  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(SearchForm $request)
     {
         $this->authorize('viewAny',Permission::class);
-        
-        $permissions = Permission::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $permissions = Permission::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return PermissionResource::collection($permissions);
     }

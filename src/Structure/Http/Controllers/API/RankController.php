@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
 use AndrykVP\Rancor\Structure\Http\Requests\RankForm;
+use AndrykVP\Rancor\Structure\Http\Requests\RankSearch;
 
 class RankController extends Controller
 {    
@@ -17,7 +18,7 @@ class RankController extends Controller
      */
     public function index()
     {
-        $query = Rank::with('department.faction')->get();
+        $query = Rank::paginate(config('rancor.pagination'));
 
         return RankResource::collection($query);
     }
@@ -92,14 +93,15 @@ class RankController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(RankSearch $request)
     {
         $this->authorize('viewAny',Rank::class);
-        
-        $ranks = Rank::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $ranks = Rank::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return RankResource::collection($ranks);
     }

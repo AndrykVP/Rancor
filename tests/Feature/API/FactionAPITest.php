@@ -140,6 +140,7 @@ class FactionAPITest extends TestCase
          'message' => 'Faction "Updated Faction" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_faction_api_destroy()
    {
@@ -166,5 +167,32 @@ class FactionAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Faction "'. $faction->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_faction_api_search()
+   {
+      $response = $this->postJson(route('api.structure.factions.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_faction_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.structure.factions.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_faction_api_search()
+   {
+      $faction = $this->factions->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.structure.factions.search', [
+                     'attribute' => 'name',
+                     'value' => $faction->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $faction->id]);
    }
 }

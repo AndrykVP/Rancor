@@ -150,6 +150,7 @@ class DiscussionAPITest extends TestCase
          'message' => 'Discussion "Updated Discussion" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_discussion_api_destroy()
    {
@@ -176,5 +177,32 @@ class DiscussionAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Discussion "'. $discussion->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_discussion_api_search()
+   {
+      $response = $this->postJson(route('api.forums.discussions.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_discussion_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.forums.discussions.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_discussion_api_search()
+   {
+      $discussion = $this->discussions->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.forums.discussions.search', [
+                     'attribute' => 'name',
+                     'value' => $discussion->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $discussion->id]);
    }
 }

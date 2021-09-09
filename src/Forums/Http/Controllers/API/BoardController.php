@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Http\Resources\BoardResource;
 use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
+use AndrykVP\Rancor\Forums\Http\Requests\BoardSearch;
 
 class BoardController extends Controller
 {    
@@ -18,7 +19,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        $boards = Board::with('category','parent','children','moderators','latest_reply')->paginate(config('rancor.pagination'));
+        $boards = Board::paginate(config('rancor.pagination'));
 
         return BoardResource::collection($boards);
     }
@@ -63,7 +64,7 @@ class BoardController extends Controller
     {
         $this->authorize('view',$board);
 
-        return new BoardResource($board->load('category','parent','children','discussions','moderators','latest_reply'));
+        return new BoardResource($board->load('category', 'parent', 'children', 'moderators', 'latest_reply'));
     }
 
     /**
@@ -119,14 +120,15 @@ class BoardController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(BoardSearch $request)
     {
         $this->authorize('viewAny',Board::class);
-        
-        $boards = Board::with('category','parent','children','moderators','latest_reply')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $boards = Board::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
 
         return BoardResource::collection($boards);
     }

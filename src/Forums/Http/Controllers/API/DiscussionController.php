@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Http\Resources\DiscussionResource;
-use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
+use AndrykVP\Rancor\Forums\Http\Requests\DiscussionSearch;
 use AndrykVP\Rancor\Forums\Http\Requests\EditDiscussionForm;
+use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
 
 class DiscussionController extends Controller
 {    
@@ -18,7 +19,8 @@ class DiscussionController extends Controller
      */
     public function index()
     {
-        $discussions = Discussion::with('author','board','latest_reply')->paginate(config('rancor.pagination'));
+        $discussions = Discussion::with('author', 'board', 'latest_reply')
+                    ->paginate(config('rancor.pagination'));
 
         return DiscussionResource::collection($discussions);
     }
@@ -31,13 +33,13 @@ class DiscussionController extends Controller
      */
     public function store(NewDiscussionForm $request)
     {
-        $this->authorize('create',Discussion::class);
+        $this->authorize('create', Discussion::class);
         
         $data = $request->validated();
         $discussion = Discussion::create($data);
 
         return response()->json([
-            'message' => 'Discussion "'.$discussion->name.'" has been created'
+            'message' => 'Discussion "' . $discussion->name . '" has been created'
         ], 200);
     }
 
@@ -49,9 +51,9 @@ class DiscussionController extends Controller
      */
     public function show(Discussion $discussion)
     {
-        $this->authorize('view',$discussion);
+        $this->authorize('view', $discussion);
 
-        return new DiscussionResource($discussion->load('author','board', 'latest_reply'));
+        return new DiscussionResource($discussion->load('author', 'board', 'latest_reply'));
     }
 
     /**
@@ -69,7 +71,7 @@ class DiscussionController extends Controller
         $discussion->update($data);
 
         return response()->json([
-            'message' => 'Discussion "'.$discussion->name.'" has been updated'
+            'message' => 'Discussion "' . $discussion->name . '" has been updated'
         ], 200);
     }
 
@@ -81,26 +83,28 @@ class DiscussionController extends Controller
      */
     public function destroy(Discussion $discussion)
     {
-        $this->authorize('delete',$discussion);
+        $this->authorize('delete', $discussion);
         
         $discussion->delete();
 
         return response()->json([
-            'message' => 'Discussion "'.$discussion->name.'" has been deleted'
+            'message' => 'Discussion "' . $discussion->name . '" has been deleted'
         ], 200);        
     }
 
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(DiscussionSearch $request)
     {
-        $this->authorize('viewAny',Discussion::class);
-        
-        $discussions = Discussion::with('author','board','latest_reply')->where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $this->authorize('viewAny', Discussion::class);
+        $search = $request->validated();
+        $discussions = Discussion::with('author', 'board', 'latest_reply')
+                    ->where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return DiscussionResource::collection($discussions);
     }

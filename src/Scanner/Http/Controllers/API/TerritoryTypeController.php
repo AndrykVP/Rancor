@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Models\TerritoryType;
 use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeForm;
+use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeSearch;
 use AndrykVP\Rancor\Scanner\Http\Resources\TerritoryTypeResource;
 
 class TerritoryTypeController extends Controller
@@ -88,13 +89,15 @@ class TerritoryTypeController extends Controller
     /**
      * Search specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(TerritoryTypeSearch $request)
     {
         $this->authorize('viewAny', TerritoryType::class);
-        $query = TerritoryType::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $territorytypes = TerritoryType::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                        ->paginate(config('rancor.pagination'));
         
         return TerritoryTypeResource::collection($query);
     }

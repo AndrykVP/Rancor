@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Group;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Requests\GroupForm;
+use AndrykVP\Rancor\Forums\Http\Requests\GroupSearch;
 
 class GroupController extends Controller
 {
@@ -87,15 +88,17 @@ class GroupController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\GroupSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(GroupSearch $request)
     {
         $this->authorize('viewAny', Group::class);
         
         $resource = $this->resource;
-        $models = Group::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Group::where($search['attribute'], 'like' , '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

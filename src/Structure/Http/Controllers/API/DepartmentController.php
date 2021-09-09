@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Http\Resources\DepartmentResource;
 use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
+use AndrykVP\Rancor\Structure\Http\Requests\DepartmentSearch;
 
 class DepartmentController extends Controller
 {    
@@ -17,7 +18,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $query = Department::with('faction')->get();
+        $query = Department::paginate(config('rancor.pagination'));
 
         return DepartmentResource::collection($query);
     }
@@ -92,14 +93,15 @@ class DepartmentController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(DepartmentSearch $request)
     {
         $this->authorize('viewAny',Department::class);
-        
-        $departments = Department::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $departments = Department::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                        ->paginate(config('rancor.pagination'));
 
         return DepartmentResource::collection($departments);
     }

@@ -7,19 +7,10 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\Award;
 use AndrykVP\Rancor\Structure\Http\Resources\AwardResource;
 use AndrykVP\Rancor\Structure\Http\Requests\AwardForm;
+use AndrykVP\Rancor\Structure\Http\Requests\AwardSearch;
 
 class AwardController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +18,7 @@ class AwardController extends Controller
      */
     public function index()
     {
-        $query = Award::with('type')->paginate(config('rancor.pagination'));
+        $query = Award::paginate(config('rancor.pagination'));
 
         return AwardResource::collection($query);
     }
@@ -102,14 +93,15 @@ class AwardController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(AwardSearch $request)
     {
         $this->authorize('viewAny',Award::class);
-        
-        $awards = Award::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $awards = Award::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return AwardResource::collection($awards);
     }

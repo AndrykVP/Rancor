@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
+use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use AndrykVP\Rancor\Auth\Services\AdminUpdatesUser;
 
 class UserController extends Controller
 {
@@ -37,7 +39,7 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        $user->load('rank.department.faction','awards.type','permissions','roles','groups');
+        $user->load('rank.department.faction', 'awards.type', 'permissions', 'roles', 'groups');
 
         return new UserResource($user);
     }
@@ -52,46 +54,8 @@ class UserController extends Controller
     public function update(UserForm $request, User $user)
     {
         $this->authorize('update',$user);
-        $data = $request->validated();
-
-        DB::transaction(function () use(&$user, $data) {
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-
-            if($request->has('nickname'))
-            {
-                $user->nickname = $data['nickname'];
-            }
-            if($request->has('quote'))
-            {
-                $user->quote = $data['quote'];
-            }
-            if($request->user()->can('changeRank', $user))
-            {
-                $user->rank_id = $data['rank_id'];
-            }
-            if($request->user()->can('uploadArt', $user))
-            {
-                if($request->has('avatar'))
-                {
-                    $avatarPath = $request->file('avatar')->storeAs('ids/avatars/', $user->id . '.png');
-                }
-                if($request->has('signature'))
-                {
-                    $signaturePath = $request->file('signature')->storeAs('ids/signatures/', $user->id . '.png');
-                }
-            }
-            if($request->user()->can('changeRoles', $user))
-            {
-                $user->roles()->sync($data['roles']);
-            }
-            if($request->user()->can('changeGroups', $user))
-            {
-                $user->groups()->sync($data['groups']);
-            }
-
-            $user->save();
-        });
+        $service = new AdminUpdatesUser;
+        $service($request, $user);
 
         return response()->json([
             'message' => 'User "'.$user->name.'" has been updated'
@@ -118,14 +82,15 @@ class UserController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(UserSearch $request)
     {
         $this->authorize('viewAny',User::class);
-        
-        $users = User::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $users = User::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
 
         return UserResource::collection($users);
     }

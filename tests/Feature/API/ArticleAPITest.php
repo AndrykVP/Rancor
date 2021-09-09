@@ -144,6 +144,7 @@ class ArticleAPITest extends TestCase
          'message' => 'Article "Updated Article" has been updated'
       ]);
    }
+   
    /** @test */
    function guest_cannot_access_article_api_destroy()
    {
@@ -170,5 +171,32 @@ class ArticleAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Article "'. $article->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_article_api_search()
+   {
+      $response = $this->postJson(route('api.news.articles.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_article_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.news.articles.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_article_api_search()
+   {
+      $article = $this->articles->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.news.articles.search', [
+                     'attribute' => 'name',
+                     'value' => $article->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $article->id]);
    }
 }

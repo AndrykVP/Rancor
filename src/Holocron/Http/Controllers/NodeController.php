@@ -9,6 +9,7 @@ use AndrykVP\Rancor\Holocron\Models\Node;
 use AndrykVP\Rancor\Holocron\Models\Collection;
 use AndrykVP\Rancor\Holocron\Http\Requests\NewNodeForm;
 use AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm;
+use AndrykVP\Rancor\Holocron\Http\Requests\NodeSearch;
 
 class NodeController extends Controller
 {
@@ -91,15 +92,17 @@ class NodeController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\NodeSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(NodeSearch $request)
     {
         $this->authorize('viewAny', Node::class);
         
         $resource = $this->resource;
-        $models = Node::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Node::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

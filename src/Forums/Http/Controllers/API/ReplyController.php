@@ -4,31 +4,25 @@ namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use AndrykVP\Rancor\Forums\Models\Reply;
 use AndrykVP\Rancor\Forums\Http\Resources\ReplyResource;
 use AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm;
 use AndrykVP\Rancor\Forums\Http\Requests\NewReplyForm;
 
 class ReplyController extends Controller
-{
-    /**
-     * Construct Controller
-     * 
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(config('rancor.middleware.api'));
-    }
-    
+{    
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        $replies = Reply::with('author','discussion')->paginate(config('rancor.pagination'));
+        $replies = $user->replies()
+                        ->with('discussion.board.category')
+                        ->paginate(config('rancor.pagination'));
 
         return ReplyResource::collection($replies);
     }

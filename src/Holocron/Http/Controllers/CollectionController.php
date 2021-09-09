@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Holocron\Models\Collection;
 use AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm;
+use AndrykVP\Rancor\Holocron\Http\Requests\CollectionSearch;
 
 class CollectionController extends Controller
 {
@@ -84,15 +85,17 @@ class CollectionController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\CollectionSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(CollectionSearch $request)
     {
         $this->authorize('viewAny', Collection::class);
         
         $resource = $this->resource;
-        $models = Collection::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Collection::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                        ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

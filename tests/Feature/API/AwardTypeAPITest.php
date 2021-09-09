@@ -140,6 +140,7 @@ class AwardTypeAPITest extends TestCase
          'message' => 'Award Type "Updated Award Type" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_award_type_api_destroy()
    {
@@ -166,5 +167,32 @@ class AwardTypeAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Award Type "'. $awardtype->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_award_type_api_search()
+   {
+      $response = $this->postJson(route('api.structure.awardtypes.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_award_type_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.structure.awardtypes.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_award_type_api_search()
+   {
+      $awardtype = $this->awardtypes->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.structure.awardtypes.search', [
+                     'attribute' => 'name',
+                     'value' => $awardtype->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $awardtype->id]);
    }
 }

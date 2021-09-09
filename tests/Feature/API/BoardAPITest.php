@@ -146,6 +146,7 @@ class BoardAPITest extends TestCase
          'message' => 'Board "Updated Board" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_board_api_destroy()
    {
@@ -172,5 +173,32 @@ class BoardAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Board "'. $board->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_board_api_search()
+   {
+      $response = $this->postJson(route('api.forums.boards.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_board_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.forums.boards.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_board_api_search()
+   {
+      $board = $this->boards->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.forums.boards.search', [
+                     'attribute' => 'name',
+                     'value' => $board->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $board->id]);
    }
 }

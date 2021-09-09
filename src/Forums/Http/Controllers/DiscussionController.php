@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
+use AndrykVP\Rancor\Forums\Http\Requests\DiscussionSearch;
 use AndrykVP\Rancor\Forums\Http\Requests\EditDiscussionForm;
+use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
 
 class DiscussionController extends Controller
 {
@@ -56,15 +57,17 @@ class DiscussionController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(DiscussionSearch $request)
     {
         $this->authorize('viewAny', Discussion::class);
         
         $resource = $this->resource;
-        $models = Discussion::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Discussion::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

@@ -9,6 +9,7 @@ use AndrykVP\Rancor\News\Models\Article;
 use AndrykVP\Rancor\News\Models\Tag;
 use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
 use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
+use AndrykVP\Rancor\News\Http\Requests\ArticleSearch;
 
 class ArticleController extends Controller
 {
@@ -91,15 +92,17 @@ class ArticleController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\News\Http\Requests\ArticleSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(ArticleSearch $request)
     {
         $this->authorize('viewAny', Article::class);
         
         $resource = $this->resource;
-        $models = Article::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Article::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

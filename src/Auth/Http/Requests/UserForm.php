@@ -24,18 +24,24 @@ class UserForm extends FormRequest
      */
     protected function prepareForValidation()
     {
-        $awards = [];
-        foreach($this->awards as $award => $level)
-        {
-            if($level > 0)
-            {
-                $awards[$award] = ['level' => $level];
-            }
-        }
         $this->merge([
             'rank_id' => $this->rank_id ?: null,
-            'awards' => $awards ?: null,
         ]);
+
+        if($this->awards != null)
+        {
+            $awards = [];
+            foreach($this->awards as $award => $level)
+            {
+                if($level > 0)
+                {
+                    $awards[$award] = ['level' => $level];
+                }
+            }
+            $this->merge([
+                'awards' => $awards,
+            ]);
+        }
     }
 
     /**

@@ -156,6 +156,7 @@ class EntryAPITest extends TestCase
          'message' => 'Record for Some Type "Updated Entry" (#123456) has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_entry_api_destroy()
    {
@@ -182,5 +183,32 @@ class EntryAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'All records of '.$entry->type.' "'.$entry->name.'" (#'.$entry->entity_id.') have been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_entry_api_search()
+   {
+      $response = $this->postJson(route('api.scanner.entries.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_entry_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.scanner.entries.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_entry_api_search()
+   {
+      $entry = $this->entries->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.scanner.entries.search', [
+                     'attribute' => 'name',
+                     'value' => $entry->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $entry->id]);
    }
 }

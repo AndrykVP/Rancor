@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\AwardType;
 use AndrykVP\Rancor\Structure\Http\Resources\AwardTypeResource;
 use AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm;
+use AndrykVP\Rancor\Structure\Http\Requests\AwardTypeSearch;
 
 class AwardTypeController extends Controller
 {    
@@ -92,13 +93,15 @@ class AwardTypeController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(AwardTypeSearch $request)
     {
         $this->authorize('viewAny',AwardType::class);
-        $awardtypes = AwardType::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $awardtypes = AwardType::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                        ->paginate(config('rancor.pagination'));
 
         return AwardTypeResource::collection($awardtypes);
     }

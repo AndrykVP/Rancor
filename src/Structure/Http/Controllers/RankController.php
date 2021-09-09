@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Structure\Http\Requests\RankForm;
+use AndrykVP\Rancor\Structure\Http\Requests\RankSearch;
 
 class RankController extends Controller
 {
@@ -85,15 +86,17 @@ class RankController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(RankSearch $request)
     {
         $this->authorize('viewAny', Rank::class);
         
         $resource = $this->resource;
-        $models = Rank::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = Rank::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

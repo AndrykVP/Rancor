@@ -85,15 +85,16 @@ class CategoryController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategorySearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
         $this->authorize('viewAny', Category::class);
-        
         $resource = $this->resource;
-        $models = Category::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $categories = Category::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

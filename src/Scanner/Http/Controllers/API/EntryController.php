@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
 use AndrykVP\Rancor\Scanner\Http\Requests\EntryForm;
-use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
+use AndrykVP\Rancor\Scanner\Http\Requests\EntrySearch;
 
 class EntryController extends Controller
 {
@@ -90,10 +90,10 @@ class EntryController extends Controller
     /**
      * Search specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry  $request
+     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EntrySearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(SearchEntry $request)
+    public function search(EntrySearch $request)
     {
         $this->authorize('viewAny', Entry::class);
         $param = $request->validated();

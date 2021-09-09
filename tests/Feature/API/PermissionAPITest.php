@@ -145,6 +145,7 @@ class PermissionAPITest extends TestCase
          'message' => 'Permission "updated-permission" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_permission_api_destroy()
    {
@@ -171,5 +172,32 @@ class PermissionAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Permission "'. $permission->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_permission_api_search()
+   {
+      $response = $this->postJson(route('api.auth.permissions.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_permission_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.auth.permissions.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_permission_api_search()
+   {
+      $permission = $this->permissions->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.auth.permissions.search', [
+                     'attribute' => 'name',
+                     'value' => $permission->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $permission->id]);
    }
 }

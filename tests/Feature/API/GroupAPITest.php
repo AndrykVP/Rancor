@@ -138,6 +138,7 @@ class GroupAPITest extends TestCase
          'message' => 'Group "Updated Group" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_group_api_destroy()
    {
@@ -164,5 +165,32 @@ class GroupAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Group "'. $group->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_group_api_search()
+   {
+      $response = $this->postJson(route('api.forums.groups.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_group_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.forums.groups.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_group_api_search()
+   {
+      $group = $this->groups->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.forums.groups.search', [
+                     'attribute' => 'name',
+                     'value' => $group->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $group->id]);
    }
 }

@@ -5,7 +5,7 @@ namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Http\Requests\EntryForm;
-use AndrykVP\Rancor\Scanner\Http\Requests\SearchEntry;
+use AndrykVP\Rancor\Scanner\Http\Requests\EntrySearch;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class EntryController extends Controller
@@ -51,10 +51,10 @@ class EntryController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\SearchEntry  $request
+     * @param  \Illuminate\Http\EntrySearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(SearchEntry $request)
+    public function search(EntrySearch $request)
     {
         $this->authorize('viewAny', Entry::class);
         

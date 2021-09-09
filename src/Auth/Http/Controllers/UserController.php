@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
+use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
 use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Services\AdminUpdatesUser;
 use AndrykVP\Rancor\Structure\Models\Department;
@@ -58,16 +59,19 @@ class UserController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(UserSearch $request)
     {
         $this->authorize('viewAny', User::class);
         
         $resource = $this->resource;
-        $models = User::where('name', 'like', '%' . $request->search . '%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $models = User::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
 
+        session()->flashInput($request->input());
         return view('rancor::resources.index', compact('models', 'resource'));
     }
 

@@ -144,6 +144,7 @@ class DepartmentAPITest extends TestCase
          'message' => 'Department "Updated Department" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_department_api_destroy()
    {
@@ -170,5 +171,32 @@ class DepartmentAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Department "'. $department->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_department_api_search()
+   {
+      $response = $this->postJson(route('api.structure.departments.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_department_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.structure.departments.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_department_api_search()
+   {
+      $department = $this->departments->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.structure.departments.search', [
+                     'attribute' => 'name',
+                     'value' => $department->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $department->id]);
    }
 }

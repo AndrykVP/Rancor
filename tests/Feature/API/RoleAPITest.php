@@ -108,7 +108,7 @@ class RoleAPITest extends TestCase
                   ->postJson(route('api.auth.roles.store'), [
                      'name' => 'Example Role',
                      'description' => 'Example description',
-                     'permissions' => [1,2,3]
+                     'roles' => [1,2,3]
                   ]);
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Role "Example Role" has been created'
@@ -140,12 +140,13 @@ class RoleAPITest extends TestCase
                   ->patchJson(route('api.auth.roles.update', $role), [
                      'name' => 'Updated Role',
                      'description' => 'Updated description',
-                     'permissions' => [1,2,3]
+                     'roles' => [1,2,3]
                   ]);
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Role "Updated Role" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_role_api_destroy()
    {
@@ -172,5 +173,32 @@ class RoleAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Role "'. $role->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_role_api_search()
+   {
+      $response = $this->postJson(route('api.auth.roles.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_role_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.auth.roles.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_role_api_search()
+   {
+      $role = $this->roles->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.auth.roles.search', [
+                     'attribute' => 'name',
+                     'value' => $role->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $role->id]);
    }
 }

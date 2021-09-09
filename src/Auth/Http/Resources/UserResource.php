@@ -26,19 +26,18 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'nickname' => $this->nickname,
             'quote' => $this->quote,
-            'is_admin' => $this->is_admin,
             'rank' => new RankResource($this->whenLoaded('rank')),
-            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
-            'roles' => RoleResource::collection($this->whenLoaded('roles')),
             $this->mergeWhen(Auth::check() && Auth::user()->can('viewAny',User::class), [
-                'joined' => $this->created_at->diffForHumans(),
-                ]),
-            'groups' => GroupResource::collection($this->whenLoaded('groups')),
-            'last_login' => $this->when($this->last_login != null, function() {
-                return $this->last_login->diffForHumans();
-            }),
-            'created_at' => $this->created_at->diffForHumans(),
-            'updated_at' => $this->updated_at->diffForHumans(),
+                'is_admin' => $this->is_admin,
+                'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+                'roles' => RoleResource::collection($this->whenLoaded('roles')),
+                'groups' => GroupResource::collection($this->whenLoaded('groups')),
+                'created_at' => $this->created_at->diffForHumans(),
+                'updated_at' => $this->updated_at->diffForHumans(),
+                'last_login' => $this->when($this->last_login != null, function() {
+                    return $this->last_login->diffForHumans();
+                }),
+            ]),
         ];;
     }
 }

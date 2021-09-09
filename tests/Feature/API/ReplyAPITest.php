@@ -32,28 +32,28 @@ class ReplyAPITest extends TestCase
       $this->admin = User::factory()->create(['is_admin' => true]);
    }
 
-   /** @test */
-   function guest_cannot_access_reply_api_index()
-   {
-      $response = $this->getJson(route('api.forums.replies.index'));
-      $response->assertUnauthorized();
-   }
+   // /** @test */
+   // function guest_cannot_access_reply_api_index()
+   // {
+   //    $response = $this->getJson(route('api.forums.replies.index'));
+   //    $response->assertUnauthorized();
+   // }
 
-   /** @test */
-   function user_cannot_access_reply_api_index()
-   {
-      $response = $this->actingAs($this->user, 'api')
-                  ->getJson(route('api.forums.replies.index'));
-      $response->assertUnauthorized();
-   }
+   // /** @test */
+   // function user_cannot_access_reply_api_index()
+   // {
+   //    $response = $this->actingAs($this->user, 'api')
+   //                ->getJson(route('api.forums.replies.index'));
+   //    $response->assertUnauthorized();
+   // }
 
-   /** @test */
-   function admin_can_access_reply_api_index()
-   {
-      $response = $this->actingAs($this->admin, 'api')
-                  ->getJson(route('api.forums.replies.index'));
-      $response->assertSuccessful()->assertJsonCount(3, 'data');
-   }
+   // /** @test */
+   // function admin_can_access_reply_api_index()
+   // {
+   //    $response = $this->actingAs($this->admin, 'api')
+   //                ->getJson(route('api.forums.replies.index'));
+   //    $response->assertSuccessful()->assertJsonCount(3, 'data');
+   // }
 
    /** @test */
    function guest_cannot_access_reply_api_show()
@@ -143,6 +143,7 @@ class ReplyAPITest extends TestCase
          'message' => 'Reply #'. $reply->id .' has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_reply_api_destroy()
    {
@@ -169,5 +170,32 @@ class ReplyAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Reply #'. $reply->id .' has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_reply_api_search()
+   {
+      $response = $this->postJson(route('api.forums.replies.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_reply_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.forums.replies.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_reply_api_search()
+   {
+      $reply = $this->replies->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.forums.replies.search', [
+                     'attribute' => 'name',
+                     'value' => $reply->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $reply->id]);
    }
 }

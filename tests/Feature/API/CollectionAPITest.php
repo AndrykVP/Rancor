@@ -140,6 +140,7 @@ class CollectionAPITest extends TestCase
          'message' => 'Collection "Updated Collection" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_collection_api_destroy()
    {
@@ -166,5 +167,32 @@ class CollectionAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Collection "'. $collection->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_collection_api_search()
+   {
+      $response = $this->postJson(route('api.holocron.collections.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_collection_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.holocron.collections.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_collection_api_search()
+   {
+      $collection = $this->collections->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.holocron.collections.search', [
+                     'attribute' => 'name',
+                     'value' => $collection->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $collection->id]);
    }
 }

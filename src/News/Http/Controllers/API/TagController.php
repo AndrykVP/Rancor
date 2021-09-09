@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\News\Models\Tag;
 use AndrykVP\Rancor\News\Http\Resources\TagResource;
 use AndrykVP\Rancor\News\Http\Requests\TagForm;
+use AndrykVP\Rancor\News\Http\Requests\TagSearch;
 
 class TagController extends Controller
 {
@@ -92,14 +93,15 @@ class TagController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\News\Http\Requests\TagSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(TagSearch $request)
     {
         $this->authorize('viewAny',Tag::class);
-        
-        $tags = Tag::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->validated();
+        $tags = Tag::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return TagResource::collection($tags);
     }

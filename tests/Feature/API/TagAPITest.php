@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\News\Models\Tag;
+use AndrykVP\Rancor\news\Models\Tag;
 use App\Models\User;
 
 class TagAPITest extends TestCase
@@ -138,6 +138,7 @@ class TagAPITest extends TestCase
          'message' => 'Tag "Updated Tag" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_tag_api_destroy()
    {
@@ -164,5 +165,32 @@ class TagAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Tag "'. $tag->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_tag_api_search()
+   {
+      $response = $this->postJson(route('api.news.tags.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_tag_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.news.tags.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_tag_api_search()
+   {
+      $tag = $this->tags->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.news.tags.search', [
+                     'attribute' => 'name',
+                     'value' => $tag->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $tag->id]);
    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Structure\Http\Resources\FactionResource;
 use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
+use AndrykVP\Rancor\Structure\Http\Requests\FactionSearch;
 
 class FactionController extends Controller
 {    
@@ -17,7 +18,7 @@ class FactionController extends Controller
      */
     public function index()
     {
-        $query = Faction::all();
+        $query = Faction::paginate(config('rancor.pagination'));
 
         return FactionResource::collection($query);
     }
@@ -93,14 +94,15 @@ class FactionController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(FactionSearch $request)
     {
         $this->authorize('viewAny',Faction::class);
-        
-        $factions = Faction::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->valiated();
+        $factions = Faction::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return FactionResource::collection($factions);
     }

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf;
 use App\Models\User;
-use Auth;
 
 class ProfileController extends Controller
 {
@@ -15,10 +14,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        return $this->show($user);
+        return $this->show($request->user());
     }
 
     /**
@@ -41,10 +39,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request)
     {
-        $user = Auth::user();
-        $this->authorize('update', $user);
+        $this->authorize('update', $request->user());
         
         $user->load('rank.department.faction');
 
@@ -59,16 +56,12 @@ class ProfileController extends Controller
      */
     public function update(UserFormSelf $request)
     {
-        $user = Auth::user();
-        $this->authorize('update', $user);
-
-        $data = $request->validated();
+        $this->authorize('update', $request->user());
         
-        $user->update($data);
-
+        $user->update($request->validated());
 
         return redirect(route('profile.index'))->with('alert', [
-            'message' => ['model' => 'User', 'name' => $user->name, 'action' => 'created']
+            'message' => ['model' => 'User', 'name' => $user->name, 'action' => 'updated']
         ]);
     }
 

@@ -141,6 +141,7 @@ class TerritoryTypeAPITest extends TestCase
          'message' => 'Territory Type "Updated Type" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_territory_type_api_destroy()
    {
@@ -167,5 +168,32 @@ class TerritoryTypeAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Territory Type "'. $territorytype->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_territory_type_api_search()
+   {
+      $response = $this->postJson(route('api.scanner.territorytypes.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_territory_type_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.scanner.territorytypes.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_territory_type_api_search()
+   {
+      $territorytype = $this->territorytypes->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.scanner.territorytypes.search', [
+                     'attribute' => 'name',
+                     'value' => $territorytype->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $territorytype->id]);
    }
 }

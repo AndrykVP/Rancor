@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Http\Requests;
+namespace AndrykVP\Rancor\Forums\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SearchEntry extends FormRequest
+class DiscussionSearch extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class SearchEntry extends FormRequest
         return [
             'attribute' => [
                 'required',
-                Rule::in(['entity_id','type','owner','name']),
+                Rule::in(['id', 'name', 'is_sticky', 'is_locked']),
             ],
             'value' => 'required'
         ];
@@ -41,7 +41,7 @@ class SearchEntry extends FormRequest
     public function messages()
     {
         return [
-            'attribute.in' => 'The selected :attribute is invalid. Acceptable options are: "entity id", "type", "owner" and "name"'
+            'attribute.in' => 'The selected :attribute is invalid. Acceptable options are: "id", "name", "is_sticky" and "is_locked"'
         ];
     }
 }

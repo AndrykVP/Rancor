@@ -143,6 +143,7 @@ class NodeAPITest extends TestCase
          'message' => 'Node "Updated Node" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_node_api_destroy()
    {
@@ -169,5 +170,32 @@ class NodeAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Node "'. $node->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_node_api_search()
+   {
+      $response = $this->postJson(route('api.holocron.nodes.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_node_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.holocron.nodes.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_node_api_search()
+   {
+      $node = $this->nodes->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.holocron.nodes.search', [
+                     'attribute' => 'name',
+                     'value' => $node->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $node->id]);
    }
 }

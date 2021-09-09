@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Resources\CategoryResource;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
+use AndrykVP\Rancor\Forums\Http\Requests\CategorySearch;
 
 class CategoryController extends Controller
 {    
@@ -88,14 +89,15 @@ class CategoryController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategorySearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request)
     {
-        $this->authorize('viewAny',Category::class);
-        
-        $categories = Category::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $this->authorize('viewAny', Category::class);
+        $search = $request->validated();
+        $categories = Category::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                    ->paginate(config('rancor.pagination'));
 
         return CategoryResource::collection($categories);
     }

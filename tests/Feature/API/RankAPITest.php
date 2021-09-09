@@ -147,6 +147,7 @@ class RankAPITest extends TestCase
          'message' => 'Rank "Updated Rank" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_rank_api_destroy()
    {
@@ -173,5 +174,32 @@ class RankAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Rank "'. $rank->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_rank_api_search()
+   {
+      $response = $this->postJson(route('api.structure.ranks.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_rank_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.structure.ranks.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_rank_api_search()
+   {
+      $rank = $this->ranks->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.structure.ranks.search', [
+                     'attribute' => 'name',
+                     'value' => $rank->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $rank->id]);
    }
 }

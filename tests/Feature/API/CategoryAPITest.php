@@ -143,6 +143,7 @@ class CategoryAPITest extends TestCase
          'message' => 'Category "Updated Category" has been updated'
       ]);
    }
+
    /** @test */
    function guest_cannot_access_category_api_destroy()
    {
@@ -169,5 +170,32 @@ class CategoryAPITest extends TestCase
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Category "'. $category->name .'" has been deleted'
       ]);
+   }
+
+   /** @test */
+   function guest_cannot_access_category_api_search()
+   {
+      $response = $this->postJson(route('api.forums.categories.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_category_api_search()
+   {
+      $response = $this->actingAs($this->user, 'api')
+                  ->postJson(route('api.forums.categories.search', []));
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function admin_can_access_category_api_search()
+   {
+      $category = $this->categories->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->postJson(route('api.forums.categories.search', [
+                     'attribute' => 'name',
+                     'value' => $category->name,
+                  ]));
+      $response->assertSuccessful()->assertJsonFragment(['id' => $category->id]);
    }
 }

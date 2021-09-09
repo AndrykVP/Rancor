@@ -9,6 +9,7 @@ use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Group;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
+use AndrykVP\Rancor\Forums\Http\Requests\BoardSearch;
 
 class BoardController extends Controller
 {
@@ -102,15 +103,17 @@ class BoardController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardSearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(BoardSearch $request)
     {
         $this->authorize('viewAny', Board::class);
         
         $resource = $this->resource;
-        $models = Board::where('name','like','%'.$request->search.'%')->paginate(config('rancor.pagination'));
+        $search = $request->valiated();
+        $models = Board::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+                ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));
     }

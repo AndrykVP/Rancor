@@ -67,7 +67,10 @@ class ArticleController extends Controller
         $article;
         DB::transaction(function () use(&$article,$data) {
             $article = Article::create($data);
-            $article->tags()->sync($data['tags']);
+            if(array_key_exists('tags', $data))
+            {
+                $article->tags()->sync($data['tags']);
+            }
         });
 
         return redirect(route('admin.articles.index'))->with('alert', [
@@ -138,7 +141,10 @@ class ArticleController extends Controller
         $data = $request->validated();
         DB::transaction(function () use(&$article, $data) {
             $article->update($data);
-            $article->tags()->sync($data['tags']);
+            if(array_key_exists('tags', $data))
+            {
+                $article->tags()->sync($data['tags']);
+            }
         });
 
         return redirect(route('admin.articles.index'))->with('alert', [
@@ -158,7 +164,7 @@ class ArticleController extends Controller
 
         $article->delete();
          
-        return redirect(route('articles.index'))->with('alert', [
+        return redirect(route('admin.articles.index'))->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $article->name,'action' => 'deleted']
         ]);
     }

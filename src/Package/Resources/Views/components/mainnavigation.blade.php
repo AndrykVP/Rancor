@@ -32,6 +32,7 @@ $mobile_inactive_classes = 'border-transparent text-gray-600 hover:text-gray-800
                      {{ __('Press') }}
                   </a>
                   @auth
+                  @if(!Auth::user()->is_banned)
                      <a class="{{ $base_classes }} {{ request()->routeIs('forums.*') ? $active_classes : $inactive_classes }}"
                      href="{{ route('forums.index') }}">
                         {{ __('Forums') }}
@@ -48,6 +49,7 @@ $mobile_inactive_classes = 'border-transparent text-gray-600 hover:text-gray-800
                         {{ __('Admin Panel') }}
                      </a>
                      @endif
+                  @endif
                   @endauth
                   </div>
                </div>

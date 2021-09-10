@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function(){
       Route::get('{category:slug}/{board:slug}', [ForumController::class, 'board'])->name('board');
       Route::get('{category:slug}/{board:slug}/{discussion}', [ForumController::class, 'discussion'])->name('discussion');
    });
-   Route::get('profile/{user}/replies', [ReplyController::class, 'index'])->name('forums.replies.index');
+
+   Route::get('profile/{user}/replies', [ReplyController::class, 'index'])->name('profile.replies');
 });
 

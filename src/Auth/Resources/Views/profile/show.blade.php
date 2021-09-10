@@ -13,9 +13,12 @@
             </li>
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
-            @if(Auth::id() === $user->id)
-            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2" href="{{ route('profile.edit', $user) }}">{{ __('Update Profile') }}</a>
+            @if(Auth::id() === $user->id && $user->can('update', $user))
+            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2" href="{{ route('profile.edit', $user) }}">{{ __('Update Profile') }}</a>
             @endif
+            @can('viewReplies', $user)
+            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2 ml-2" href="{{ route('profile.replies', $user) }}">{{ __('View Forum Replies') }}</a>
+            @endcan
          </div>
       </div>
    </x-slot>
@@ -84,9 +87,17 @@
                      <div class="grid grid-cols-4 gap-4 items-center mb-2">
                         <div class="col-span-1 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Awards') }}:</div>
                         <div class="col-span-3 inline-flex">
-                           @foreach($user->awars as $award)
+                           @foreach($user->awards as $award)
                               <img src="{{ asset('storge/awards/'.$award->code.'.png') }}" />
                            @endforeach
+                        </div>
+                     </div>
+                     @endif
+                     @if($user->is_banned)
+                     <div class="grid grid-cols-4 gap-4 items-center mb-2">
+                        <div class="col-span-1 text-right text-red-600 text-xs uppercase font-medium tracking-wider">{{ __('Banned') }}:</div>
+                        <div class="col-span-3 inline-flex text-red-800">
+                           {{ $user->ban_reason }}
                         </div>
                      </div>
                      @endif
@@ -96,13 +107,13 @@
                <div class="row-span-1 bg-white rounded border">
                   <div class="w-full bg-gray-200 text-sm text-gray-500 font-bold tracking-wider uppercase px-4 py-2">{{ __('Forum Activity') }}</div>
                   <div class="flex flex-col px-4 py-2">
-                     <div class="grid grid-cols-4 gap-4 items-end mb-2">
-                        <div class="col-span-3 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Started Discussions') }}:</div>
-                        <div class="col-span-1">{{ number_format($user->discussions_count) }}</div>
+                     <div class="grid grid-cols-4 gap-4 items-center mb-2">
+                        <div class="col-span-2 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Started Discussions') }}:</div>
+                        <div class="col-span-2">{{ number_format($user->discussions_count) }}</div>
                      </div>
                      <div class="grid grid-cols-4 gap-4 items-center mb-2">
-                        <div class="col-span-3 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Total Replies') }}:</div>
-                        <div class="col-span-1">{{ number_format($user->replies_count) }}</div>
+                        <div class="col-span-2 text-right text-gray-600 text-xs uppercase font-medium tracking-wider">{{ __('Total Replies') }}:</div>
+                        <div class="col-span-2">{{ number_format($user->replies_count) }}</div>
                      </div>
                   </div>
                </div>

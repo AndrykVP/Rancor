@@ -20,9 +20,8 @@ class NodePolicy
      */
     public function before(User $user, $ability)
     {
-        if ($user->is_admin) {
-            return true;
-        }
+        if($user->is_banned) return false;
+        if($user->is_admin) return true;
     }
 
     /**

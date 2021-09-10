@@ -19,13 +19,10 @@ class UserIsNotBanned
       // Log user out if banned, and redirect to index
       if ($request->user()->is_banned)
       {
-         Auth::logout();
- 
-         $request->session()->invalidate();
- 
-         $request->session()->regenerateToken();
-
-         return redirect('/')->with('alert', 'This account has been banned. Contact administration for clarification.');
+         return redirect(route('profile.index'))->with('alert', [
+            'color' => 'red',
+            'message' => 'This account has been banned. Contact administration for clarification.'
+         ]);
       }
 
       return $next($request);

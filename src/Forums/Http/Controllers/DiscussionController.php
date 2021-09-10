@@ -79,7 +79,7 @@ class DiscussionController extends Controller
      */
     public function create(Request $request)
     {
-        if(!$request->has('board')) abort (400, 'Board ID needed to create a Discussion');
+        if(!$request->has('board')) abort (422, 'Board ID needed to create a Discussion');
 
         $board = Board::with('category')->findOrFail($request->board);
 
@@ -96,10 +96,10 @@ class DiscussionController extends Controller
      */
     public function store(NewDiscussionForm $request)
     {
-        $board = Board::with('moderators')->find($request->board_id);
+        $data = $request->validated();
+        $board = Board::with('category', 'moderators')->findOrFail($data['board_id']);
         $this->authorize('create', [Discussion::class, $board]);
 
-        $data = $request->validated();
         $discussion;
         
         DB::transaction(function () use(&$discussion, $data) {
@@ -107,11 +107,9 @@ class DiscussionController extends Controller
             $discussion->replies()->create($data);
         });
 
-        $discussion->load('board.category');
-
         return redirect()->route('forums.discussion', [
-            'category' => $discussion->board->category,
-            'board' => $discussion->board,
+            'category' => $board->category,
+            'board' => $board,
             'discussion' => $discussion,
         ],)->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $discussion->name,'action' => 'created']

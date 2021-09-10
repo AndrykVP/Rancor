@@ -46,7 +46,7 @@ class ReplyController extends Controller
      */
     public function create(Request $request)
     {
-        if(!$request->has('discussion')) abort (400, 'Discussion ID needed to create a Reply');
+        if(!$request->has('discussion')) abort (422, 'Discussion ID needed to create a Reply');
 
         $discussion = Discussion::with('board.category')->findOrFail($request->discussion);
 
@@ -69,21 +69,18 @@ class ReplyController extends Controller
      */
     public function store(NewReplyForm $request)
     {
-        $discussion = Discussion::with('board.moderators')->find($request->discussion_id);
+        $data = $request->validated();
+        $discussion = Discussion::with('board.moderators', 'board.category')->findOrFail($data['discussion_id']);
         $this->authorize('create', [Reply::class, $discussion]);
         
-        $data = $request->validated();
         $reply = Reply::create($data);
-
-        $reply->load('discussion.board.category');
         
-        $page = $reply->discussion()->withCount('replies')->pluck('replies_count')->first();
-        $page = $page > 0 ? ceil($page / config('rancor.pagination')) : 1;
+        $page = $discussion->pages;
         
         return redirect()->route('forums.discussion',[
-            'category' => $reply->discussion->board->category->slug,
-            'board' => $reply->discussion->board->slug,
-            'discussion' => $reply->discussion->id,
+            'category' => $discussion->board->category,
+            'board' => $discussion->board,
+            'discussion' => $discussion,
             'page' => $page
         ])->with('alert', [
             'message' => ['model' => $this->resource['name'], 'id' => $reply->id, 'action' => 'created']

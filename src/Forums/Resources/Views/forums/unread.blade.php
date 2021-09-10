@@ -12,13 +12,15 @@
                {{ __('Unread Discussions') }}
             </li>
          </ul>
-         <form id="markread" action="{{ route('forums.unread.mark') }}" method="POST" class="text-right">
-            @csrf
-            <x-button>
-               {{ __('Mark All Read') }}
-            </x-button>
-         </form>
-      <div>
+         <div class="inline-flex mt-4 md:mt-0">
+            <form id="markread" action="{{ route('forums.unread.mark') }}" method="POST">
+               @csrf
+               <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                  {{ __('Mark All Read') }}
+               </button>
+            </form>
+         </div>
+      </div>
    </x-slot>
    @if($unread->count() > config('rancor.pagination'))
    <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
@@ -28,7 +30,7 @@
 
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         <x-rancor::discussion-list title="{{ __('Unread Discussions') }}" :discussions="$unread" />
+         <x-rancor::unread-list :discussions="$unread"/>
          </div>
       </div>
    </div>

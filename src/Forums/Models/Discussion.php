@@ -104,10 +104,14 @@ class Discussion extends Model
     {
         if(isset($this->replies_count))
         {
-            return ceil($this->replies_count / config('rancor.pagination'));
+            $pages = ceil($this->replies_count / config('rancor.pagination'));
+        }
+        else 
+        {
+            $pages = ceil($this->replies()->count() / config('rancor.pagination'));
         }
 
-        return ceil($this->replies()->count() / config('rancor.pagination'));
+        return $pages > 0 ? $pages : 1;
     }
 
     /**

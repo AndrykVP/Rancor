@@ -15,7 +15,21 @@
       </div>
    </x-slot>
 
-   <x-auth-validation-errors class="mb-4" :errors="$errors" />
+   
+   @if ($errors->any())
+   <div class="mb-4">
+      <div class="font-medium text-red-600">
+         {{ __('Whoops! Something went wrong.') }}
+      </div>
+
+      <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+         @foreach ($errors->all() as $error)
+               <li>{{ $error }}</li>
+         @endforeach
+      </ul>
+   </div>
+   @endif
+   
    <div class="py-12">
       <form action="{{ route('scanner.store') }}" method="POST" enctype="multipart/form-data" x-data="{ files: null, active: false }" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          @csrf

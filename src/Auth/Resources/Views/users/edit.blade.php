@@ -28,8 +28,20 @@
 
    <div class="flex justify-center">
       <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
+         
+         @if ($errors->any())
+         <div class="mb-4">
+            <div class="font-medium text-red-600">
+               {{ __('Whoops! Something went wrong.') }}
+            </div>
 
-         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+               @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+               @endforeach
+            </ul>
+         </div>
+         @endif
          
          <form action="{{ route('admin.users.update', $user)}}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -237,7 +249,9 @@
                @endforeach
             </div>
             @endcan
-            <x-button type="submit">Apply Changes</x-button>
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+               {{ __('Apply Changes') }}
+           </button>
          </form>
       </div>
    </div>

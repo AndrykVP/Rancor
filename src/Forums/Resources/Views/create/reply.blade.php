@@ -53,7 +53,9 @@
                   placeholder="Enter the Content"
                   autofocus required rows="7">{!! old('body') ?: $quote !!}</textarea>
                </div>
-               <x-button type="submit" class="ml-3">{{ __('Post') }}</x-button>
+               <button type="submit" class="inline-flex items-center ml-3 px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                  {{ __('Post') }}
+              </button>
             </form>
          </div>
       </div>

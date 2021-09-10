@@ -32,29 +32,6 @@ class ReplyAPITest extends TestCase
       $this->admin = User::factory()->create(['is_admin' => true]);
    }
 
-   // /** @test */
-   // function guest_cannot_access_reply_api_index()
-   // {
-   //    $response = $this->getJson(route('api.forums.replies.index'));
-   //    $response->assertUnauthorized();
-   // }
-
-   // /** @test */
-   // function user_cannot_access_reply_api_index()
-   // {
-   //    $response = $this->actingAs($this->user, 'api')
-   //                ->getJson(route('api.forums.replies.index'));
-   //    $response->assertUnauthorized();
-   // }
-
-   // /** @test */
-   // function admin_can_access_reply_api_index()
-   // {
-   //    $response = $this->actingAs($this->admin, 'api')
-   //                ->getJson(route('api.forums.replies.index'));
-   //    $response->assertSuccessful()->assertJsonCount(3, 'data');
-   // }
-
    /** @test */
    function guest_cannot_access_reply_api_show()
    {

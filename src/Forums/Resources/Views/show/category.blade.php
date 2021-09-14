@@ -64,18 +64,6 @@
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Total Discussions:</div>
             <div class="col-span-3">{{ number_format($category->discussions_count) }}</div>
          </div>
-         @if($category->groups->isNotEmpty())
-         <div class="grid grid-cols-4 mb-2 gap-4 items-start">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Groups:</div>
-            <div class="col-span-3">
-               <ul>
-                  @foreach($category->groups as $group)
-                  <li>{{ $group->name }}</li>
-                  @endforeach
-               </ul>
-            </div>
-         </div>
-         @endif
       </div>
    </div>
 </x-rancor::admin-layout>

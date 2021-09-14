@@ -43,18 +43,6 @@
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Description:</div>
             <div class="col-span-3">{{ $group->description }}</div>
          </div>
-         @if($group->categories->isNotEmpty())
-         <div class="grid grid-cols-4 mb-2 gap-4 items-start">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Categories:</div>
-            <div class="col-span-3">
-               <ul>
-                  @foreach($group->categories as $category)
-                  <li>{{ $category->name }}</li>
-                  @endforeach
-               </ul>
-            </div>
-         </div>
-         @endif
          @if($group->boards->isNotEmpty())
          <div class="grid grid-cols-4 mb-2 gap-4 items-start">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Boards:</div>

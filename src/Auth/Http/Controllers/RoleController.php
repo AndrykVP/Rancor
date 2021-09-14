@@ -159,8 +159,10 @@ class RoleController extends Controller
     {
         $this->authorize('delete', $role);
         
-        $roles->permissions()->detach();
-        $role->delete();
+        DB::transaction(function() use($role) {
+            $role->permissions()->detach();
+            $role->delete();
+        });
 
         return redirect(route('admin.roles.index'))->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $role->name,'action' => 'deleted']

@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
-use AndrykVP\Rancor\Auth\Http\Requests\PemissionSearch;
+use AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

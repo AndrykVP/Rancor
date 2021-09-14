@@ -60,7 +60,7 @@ trait ForumUser
     {
         if($this->hasPermission('view-forum-boards'))
         {
-            return Board::all()->pluck('id');
+            return Board::select('id')->get()->pluck('id')->sort()->values();
         }
 
         return $this->visibleBoards()->pluck('id')->unique()->sort()->values();

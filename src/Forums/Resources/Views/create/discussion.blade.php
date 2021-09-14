@@ -34,41 +34,51 @@
             <form action="{{ route('forums.discussions.store')}}" method="POST">
                @csrf
                <input type="hidden" name="board_id" value="{{ $board->id }}">
-               <div>
-                  <x-label for="name" :value="__('Title')" />
-                  <x-input
+               <div class="mb-6">
+                  <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                     {{ __('Title') }}
+                  </label>
+                  <input
                   type="text"
+                  class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   name="name"
                   id="name"
-                  class="w-full"
                   aria-describedby="nameHelp"
+                  placeholder="Enter a new Title"
                   autofocus required
-                  :value="old('name')" />
-                  @error('name')
-                  <small id="nameHelp" class="form-text text-danger">{{ $message }}</small>
-                  @enderror
+                  value="{{ old('name') }}">
                </div>
-               <div class="mt-4">
-                  <x-label for="body" :value="__('Content')" />
+               <div class="mb-6">
+                  <label for="body" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                     {{ __('Content') }}
+                  </label>
                   <textarea
-                  class="rounded-md w-full shadow-sm border-gray-300 @error('body') border-red-600 @enderror focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   name="body"
                   id="body"
                   aria-describedby="bodyHelp"
-                  placeholder="Enter the Content"
-                  required rows="7">{!! old('body') !!}</textarea>
-                  @error('body')
-                  <small id="bodyHelp" class="form-text text-danger">{{ $message }}</small>
-                  @enderror
+                  placeholder="Enter your Reply"
+                  required rows=7>{!! old('body') !!}</textarea>
                </div>
-
-               <div class="block mt-4">
+               <div class="mb-6">
                   <label for="is_sticky" class="inline-flex items-center">
-                     <input id="is_sticky" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="is_sticky">
+                     <input
+                     type="checkbox"
+                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                     name="is_sticky"
+                     id="is_sticky"
+                     aria-describedby="is_stickyHelp"
+                     {{ old('is_sticky') ? 'checked' : ''}}>
                      <span class="ml-2 text-sm text-gray-600">{{ __('Make Sticky') }}</span>
                   </label>
-                  <label for="is_locked" class="inline-flex items-center">
-                     <input id="is_locked" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="is_locked">
+                  <label for="is_locked" class="inline-flex items-center ml-6">
+                     <input
+                     type="checkbox"
+                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                     name="is_locked"
+                     id="is_locked"
+                     aria-describedby="is_lockedHelp"
+                     {{ old('is_locked') ? 'checked' : ''}}>
                      <span class="ml-2 text-sm text-gray-600">{{ __('Locked') }}</span>
                   </label>
                </div>

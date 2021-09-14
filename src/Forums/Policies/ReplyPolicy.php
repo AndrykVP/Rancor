@@ -61,7 +61,8 @@ class ReplyPolicy
      */
     public function create(User $user, Discussion $discussion)
     {
-        return !$discussion->is_locked
+        return ($user->topics()->contains($discussion->board->id)
+                && !$discussion->is_locked)
                 || $discussion->author->is($user)
                 || $discussion->board->moderators->contains($user)
                 || $user->hasPermission('create-forum-replies')

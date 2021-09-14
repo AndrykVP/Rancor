@@ -40,18 +40,17 @@
             <form action="{{ route('forums.replies.store')}}" method="POST">
                @csrf
                <input type="hidden" name="discussion_id" value="{{ $discussion->id }}">
-               <div>
-                  <x-label for="body" :value="__('Content')" />
-                  @error('body')
-                  <small id="bodyHelp" class="text-red-600">{{ 'Error' }}</small>
-                  @enderror
+               <div class="mb-6">
+                  <label for="body" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                     {{ __('Content') }}
+                  </label>
                   <textarea
-                  class="rounded-md w-full shadow-sm border-gray-300 @error('body') border-red-600 @enderror focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   name="body"
                   id="body"
                   aria-describedby="bodyHelp"
-                  placeholder="Enter the Content"
-                  autofocus required rows="7">{!! old('body') ?: $quote !!}</textarea>
+                  placeholder="Enter your Reply"
+                  required rows=7>{!! old('body') !!}</textarea>
                </div>
                <button type="submit" class="inline-flex items-center ml-3 px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                   {{ __('Post') }}

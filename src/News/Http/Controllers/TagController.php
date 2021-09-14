@@ -114,7 +114,7 @@ class TagController extends Controller
         $form = array_merge($this->form(),['method' => 'PATCH']);
         $model = $tag;
         
-        return view('rancor::resources.edit',compact('resource','form','tag'));
+        return view('rancor::resources.edit',compact('resource','form','model'));
     }
 
     /**
@@ -131,7 +131,7 @@ class TagController extends Controller
         $data = $request->validated();
         $tag->update($data);
         
-        return redirect(route('tags.index'))->with('alert', [
+        return redirect(route('admin.tags.index'))->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $tag->name,'action' => 'updated']
         ]);
     }
@@ -147,7 +147,7 @@ class TagController extends Controller
         $this->authorize('delete', $tag);
         $tag->delete();
 
-        return redirect(route('tags.index'))->with('alert', [
+        return redirect(route('admin.tags.index'))->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $tag->name,'action' => 'deleted']
         ]);
     }
@@ -166,11 +166,6 @@ class TagController extends Controller
                     'label' => 'Name',
                     'type' => 'text',
                     'attributes' => 'autofocus required'
-                ],
-                [
-                    'name' => 'color',
-                    'label' => 'Color',
-                    'type' => 'color',
                 ],
             ],
         ];

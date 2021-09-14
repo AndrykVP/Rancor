@@ -28,7 +28,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Group::class);
+        $this->authorize('viewAny', Group::class);
 
         $resource = $this->resource;
         $models = Group::paginate(config('rancor.pagination'));
@@ -43,12 +43,12 @@ class GroupController extends Controller
      */
     public function create(Request $request)
     {
-        $this->authorize('create',Group::class);
+        $this->authorize('create', Group::class);
         
         $resource = $this->resource;
         $form = $this->form();
 
-        return view('rancor::resources.create',compact('resource','form'));
+        return view('rancor::resources.create',compact('resource', 'form'));
     }
 
     /**
@@ -77,12 +77,12 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        $this->authorize('view',$group);
+        $this->authorize('view', $group);
         
         $resource = $this->resource;
-        $group->load('users','categories','boards');
+        $group->load('users', 'boards');
    
-         return view('rancor::show.group',compact('resource','group'));
+         return view('rancor::show.group',compact('resource', 'group'));
     }
 
     /**
@@ -100,7 +100,7 @@ class GroupController extends Controller
         $models = Group::where($search['attribute'], 'like' , '%' . $search['value'] . '%')
                     ->paginate(config('rancor.pagination'));
 
-        return view('rancor::resources.index', compact('models','resource'));
+        return view('rancor::resources.index', compact('models', 'resource'));
     }
 
     /**
@@ -117,7 +117,7 @@ class GroupController extends Controller
         $form = $this->form();
         $model = $group;
 
-        return view('rancor::resources.edit',compact('resource','form','model'));
+        return view('rancor::resources.edit',compact('resource', 'form', 'model'));
     }
 
     /**
@@ -129,7 +129,7 @@ class GroupController extends Controller
      */
     public function update(GroupForm $request, Group $group)
     {
-        $this->authorize('update',$group);
+        $this->authorize('update', $group);
         
         $data = $request->validated();
         $group->update($data);
@@ -147,7 +147,7 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        $this->authorize('delete',$group);
+        $this->authorize('delete', $group);
         
         $group->delete();
 

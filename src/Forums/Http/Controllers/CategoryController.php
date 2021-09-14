@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
+use AndrykVP\Rancor\Forums\Http\Requests\CategorySearch;
 use Auth;
 
 class CategoryController extends Controller
@@ -77,7 +78,7 @@ class CategoryController extends Controller
     {
         $this->authorize('view',$category);
   
-        $category->loadCount('boards','discussions')->load('groups');
+        $category->loadCount('boards','discussions');
   
         return view('rancor::show.category', compact('category'));
     }
@@ -88,12 +89,12 @@ class CategoryController extends Controller
      * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategorySearch  $request
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function search(CategorySearch $request)
     {
         $this->authorize('viewAny', Category::class);
         $resource = $this->resource;
         $search = $request->validated();
-        $categories = Category::where($search['attribute'], 'like', '%' . $search['value'] . '%')
+        $models = Category::where($search['attribute'], 'like', '%' . $search['value'] . '%')
                     ->paginate(config('rancor.pagination'));
 
         return view('rancor::resources.index', compact('models','resource'));

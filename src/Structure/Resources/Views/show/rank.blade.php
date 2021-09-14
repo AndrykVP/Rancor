@@ -40,6 +40,19 @@
             <div class="col-span-3">{{ $rank->name }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Level:</div>
+            <div class="col-span-3">{{ $rank->level }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Color:</div>
+            <div class="col-span-3 inline-flex items-center">
+               <span class="mr-2">{{ strtoupper($rank->color) }}</span>
+               <svg fill="{{ $rank->color }}" height="20" width="20" class="bi bi-bootstrap-fill">
+                  <circle cx="10" cy="10" r="10" fill-rule="evenodd" />
+               </svg>
+            </div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Description:</div>
             <div class="col-span-3">{{ $rank->description }}</div>
          </div>

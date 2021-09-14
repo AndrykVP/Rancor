@@ -111,7 +111,7 @@ class BoardController extends Controller
         $this->authorize('viewAny', Board::class);
         
         $resource = $this->resource;
-        $search = $request->valiated();
+        $search = $request->validated();
         $models = Board::where($search['attribute'], 'like', '%' . $search['value'] . '%')
                 ->paginate(config('rancor.pagination'));
 

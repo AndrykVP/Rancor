@@ -16,7 +16,7 @@ class TerritoryTypeController extends Controller
      * @var array
      */
     protected $resource = [
-        'name' => 'TerritoryType',
+        'name' => 'Territory Type',
         'route' => 'territorytypes'
     ];
 

@@ -42,7 +42,7 @@ class UserAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.auth.users.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -67,7 +67,7 @@ class UserAPITest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.auth.users.show', $user));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -103,7 +103,7 @@ class UserAPITest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.auth.users.update', $user), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -148,7 +148,7 @@ class UserAPITest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.auth.users.destroy', $user));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -174,7 +174,7 @@ class UserAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.auth.users.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

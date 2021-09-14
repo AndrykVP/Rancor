@@ -47,7 +47,7 @@ class DiscussionWebTest extends TestCase
       $response = $this->actingAs($this->user)
       // ->withoutExceptionHandling()
                   ->get(route('admin.discussions.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -76,7 +76,7 @@ class DiscussionWebTest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.discussions.show', $discussion));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -205,7 +205,7 @@ class DiscussionWebTest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.discussions.edit', $discussion));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -234,7 +234,7 @@ class DiscussionWebTest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.discussions.update', $discussion), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -273,7 +273,7 @@ class DiscussionWebTest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.discussions.destroy', $discussion));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -304,7 +304,7 @@ class DiscussionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.discussions.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

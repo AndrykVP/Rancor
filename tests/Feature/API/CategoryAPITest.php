@@ -38,7 +38,7 @@ class CategoryAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.categories.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -63,7 +63,7 @@ class CategoryAPITest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.categories.show', $category));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -95,7 +95,7 @@ class CategoryAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.categories.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -123,7 +123,7 @@ class CategoryAPITest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.forums.categories.update', $category), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -158,7 +158,7 @@ class CategoryAPITest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.forums.categories.destroy', $category));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -184,7 +184,7 @@ class CategoryAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.categories.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

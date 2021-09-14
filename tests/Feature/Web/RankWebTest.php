@@ -42,7 +42,7 @@ class RankWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.ranks.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -71,7 +71,7 @@ class RankWebTest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.ranks.show', $rank));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -102,7 +102,7 @@ class RankWebTest extends TestCase
    function user_cannot_access_rank_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.ranks.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -126,7 +126,7 @@ class RankWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.ranks.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -159,7 +159,7 @@ class RankWebTest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.ranks.edit', $rank));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -191,7 +191,7 @@ class RankWebTest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.ranks.update', $rank), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -231,7 +231,7 @@ class RankWebTest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.ranks.destroy', $rank));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -262,7 +262,7 @@ class RankWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.ranks.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

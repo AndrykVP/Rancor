@@ -41,7 +41,7 @@ class EntryAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.scanner.entries.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -66,7 +66,7 @@ class EntryAPITest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.scanner.entries.show', $entry));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -99,7 +99,7 @@ class EntryAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.scanner.entries.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -127,7 +127,7 @@ class EntryAPITest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.scanner.entries.update', $entry), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -171,7 +171,7 @@ class EntryAPITest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.scanner.entries.destroy', $entry));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -197,7 +197,7 @@ class EntryAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.scanner.entries.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

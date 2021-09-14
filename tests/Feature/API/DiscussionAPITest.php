@@ -43,7 +43,7 @@ class DiscussionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.discussions.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -68,7 +68,7 @@ class DiscussionAPITest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.discussions.show', $discussion));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -100,7 +100,7 @@ class DiscussionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.discussions.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -130,7 +130,7 @@ class DiscussionAPITest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.forums.discussions.update', $discussion), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -165,7 +165,7 @@ class DiscussionAPITest extends TestCase
       $discussion = $this->discussions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.forums.discussions.destroy', $discussion));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -191,7 +191,7 @@ class DiscussionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.discussions.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

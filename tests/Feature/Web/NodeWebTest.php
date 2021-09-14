@@ -43,7 +43,7 @@ class NodeWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.nodes.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -72,7 +72,7 @@ class NodeWebTest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.nodes.show', $node));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -99,7 +99,7 @@ class NodeWebTest extends TestCase
    function user_cannot_access_node_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.nodes.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -123,7 +123,7 @@ class NodeWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.nodes.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -156,7 +156,7 @@ class NodeWebTest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.nodes.edit', $node));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -186,7 +186,7 @@ class NodeWebTest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.nodes.update', $node), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -224,7 +224,7 @@ class NodeWebTest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.nodes.destroy', $node));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -255,7 +255,7 @@ class NodeWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.nodes.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

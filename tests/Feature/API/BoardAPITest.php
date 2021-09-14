@@ -41,7 +41,7 @@ class BoardAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.boards.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -66,7 +66,7 @@ class BoardAPITest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.boards.show', $board));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class BoardAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.boards.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -125,7 +125,7 @@ class BoardAPITest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.forums.boards.update', $board), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -161,7 +161,7 @@ class BoardAPITest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.forums.boards.destroy', $board));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -187,7 +187,7 @@ class BoardAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.boards.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

@@ -40,7 +40,7 @@ class CategoryWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.categories.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class CategoryWebTest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.categories.show', $category));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -98,7 +98,7 @@ class CategoryWebTest extends TestCase
    function user_cannot_access_category_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.categories.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -122,7 +122,7 @@ class CategoryWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.categories.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -155,7 +155,7 @@ class CategoryWebTest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.categories.edit', $category));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -188,7 +188,7 @@ class CategoryWebTest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.categories.update', $category), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -228,7 +228,7 @@ class CategoryWebTest extends TestCase
       $category = $this->categories->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.categories.destroy', $category));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -259,7 +259,7 @@ class CategoryWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.categories.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

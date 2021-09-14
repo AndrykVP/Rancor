@@ -42,7 +42,7 @@ class NodeAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.holocron.nodes.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -67,7 +67,7 @@ class NodeAPITest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.holocron.nodes.show', $node));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -98,7 +98,7 @@ class NodeAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.holocron.nodes.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -126,7 +126,7 @@ class NodeAPITest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.holocron.nodes.update', $node), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -159,7 +159,7 @@ class NodeAPITest extends TestCase
       $node = $this->nodes->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.holocron.nodes.destroy', $node));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -185,7 +185,7 @@ class NodeAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.holocron.nodes.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

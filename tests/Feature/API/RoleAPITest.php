@@ -40,7 +40,7 @@ class RoleAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.auth.roles.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -65,7 +65,7 @@ class RoleAPITest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.auth.roles.show', $role));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class RoleAPITest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.auth.roles.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -129,7 +129,7 @@ class RoleAPITest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.auth.roles.update', $role), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -161,7 +161,7 @@ class RoleAPITest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.auth.roles.destroy', $role));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -187,7 +187,7 @@ class RoleAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.auth.roles.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

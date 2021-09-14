@@ -40,7 +40,7 @@ class TerritoryTypeWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.territorytypes.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class TerritoryTypeWebTest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.territorytypes.show', $territorytype));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -96,7 +96,7 @@ class TerritoryTypeWebTest extends TestCase
    function user_cannot_access_territory_type_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.territorytypes.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -120,7 +120,7 @@ class TerritoryTypeWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.territorytypes.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -153,7 +153,7 @@ class TerritoryTypeWebTest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.territorytypes.edit', $territorytype));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -183,7 +183,7 @@ class TerritoryTypeWebTest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.territorytypes.update', $territorytype), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -220,7 +220,7 @@ class TerritoryTypeWebTest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.territorytypes.destroy', $territorytype));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -251,7 +251,7 @@ class TerritoryTypeWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.territorytypes.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

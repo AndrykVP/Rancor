@@ -41,7 +41,7 @@ class DepartmentAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.departments.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -66,7 +66,7 @@ class DepartmentAPITest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.departments.show', $department));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class DepartmentAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.departments.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -125,7 +125,7 @@ class DepartmentAPITest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.structure.departments.update', $department), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -159,7 +159,7 @@ class DepartmentAPITest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.structure.departments.destroy', $department));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -185,7 +185,7 @@ class DepartmentAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.departments.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

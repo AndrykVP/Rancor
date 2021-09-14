@@ -42,7 +42,7 @@ class RankAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.ranks.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -67,7 +67,7 @@ class RankAPITest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.ranks.show', $rank));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -99,7 +99,7 @@ class RankAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.ranks.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -127,7 +127,7 @@ class RankAPITest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.structure.ranks.update', $rank), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -162,7 +162,7 @@ class RankAPITest extends TestCase
       $rank = $this->ranks->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.structure.ranks.destroy', $rank));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -188,7 +188,7 @@ class RankAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.ranks.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

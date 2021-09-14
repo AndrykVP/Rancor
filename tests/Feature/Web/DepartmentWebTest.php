@@ -41,7 +41,7 @@ class DepartmentWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.departments.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -70,7 +70,7 @@ class DepartmentWebTest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.departments.show', $department));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -99,7 +99,7 @@ class DepartmentWebTest extends TestCase
    function user_cannot_access_department_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.departments.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -123,7 +123,7 @@ class DepartmentWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.departments.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -156,7 +156,7 @@ class DepartmentWebTest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.departments.edit', $department));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -187,7 +187,7 @@ class DepartmentWebTest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.departments.update', $department), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -226,7 +226,7 @@ class DepartmentWebTest extends TestCase
       $department = $this->departments->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.departments.destroy', $department));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -257,7 +257,7 @@ class DepartmentWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.departments.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

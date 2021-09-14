@@ -41,7 +41,7 @@ class EntryWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.entries.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -70,7 +70,7 @@ class EntryWebTest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.entries.show', $entry));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -100,7 +100,7 @@ class EntryWebTest extends TestCase
    function user_cannot_access_entry_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.entries.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -124,7 +124,7 @@ class EntryWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.entries.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -158,7 +158,7 @@ class EntryWebTest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.entries.edit', $entry));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -190,7 +190,7 @@ class EntryWebTest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.entries.update', $entry), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -230,7 +230,7 @@ class EntryWebTest extends TestCase
       $entry = $this->entries->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.entries.destroy', $entry));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -262,7 +262,7 @@ class EntryWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.entries.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

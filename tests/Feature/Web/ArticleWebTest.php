@@ -42,7 +42,7 @@ class ArticleWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.articles.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -71,7 +71,7 @@ class ArticleWebTest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.articles.show', $article));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -98,7 +98,7 @@ class ArticleWebTest extends TestCase
    function user_cannot_access_article_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.articles.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -122,7 +122,7 @@ class ArticleWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.articles.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -155,7 +155,7 @@ class ArticleWebTest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.articles.edit', $article));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -186,7 +186,7 @@ class ArticleWebTest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.articles.update', $article), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -225,7 +225,7 @@ class ArticleWebTest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.articles.destroy', $article));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -256,7 +256,7 @@ class ArticleWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.articles.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

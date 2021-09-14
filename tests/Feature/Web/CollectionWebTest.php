@@ -40,7 +40,7 @@ class CollectionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.collections.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class CollectionWebTest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.collections.show', $collection));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class CollectionWebTest extends TestCase
    function user_cannot_access_collection_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.collections.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -121,7 +121,7 @@ class CollectionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.collections.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -154,7 +154,7 @@ class CollectionWebTest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.collections.edit', $collection));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -185,7 +185,7 @@ class CollectionWebTest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.collections.update', $collection), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -223,7 +223,7 @@ class CollectionWebTest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.collections.destroy', $collection));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -254,7 +254,7 @@ class CollectionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.collections.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

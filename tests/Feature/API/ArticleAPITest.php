@@ -42,7 +42,7 @@ class ArticleAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.news.articles.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -67,7 +67,7 @@ class ArticleAPITest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.news.articles.show', $article));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class ArticleAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.news.articles.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -125,7 +125,7 @@ class ArticleAPITest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.news.articles.update', $article), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -159,7 +159,7 @@ class ArticleAPITest extends TestCase
       $article = $this->articles->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.news.articles.destroy', $article));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -185,7 +185,7 @@ class ArticleAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.news.articles.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

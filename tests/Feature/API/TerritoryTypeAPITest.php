@@ -40,7 +40,7 @@ class TerritoryTypeAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.scanner.territorytypes.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -65,7 +65,7 @@ class TerritoryTypeAPITest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.scanner.territorytypes.show', $territorytype));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -95,7 +95,7 @@ class TerritoryTypeAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.scanner.territorytypes.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -123,7 +123,7 @@ class TerritoryTypeAPITest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.scanner.territorytypes.update', $territorytype), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -156,7 +156,7 @@ class TerritoryTypeAPITest extends TestCase
       $territorytype = $this->territorytypes->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.scanner.territorytypes.destroy', $territorytype));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -182,7 +182,7 @@ class TerritoryTypeAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.scanner.territorytypes.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

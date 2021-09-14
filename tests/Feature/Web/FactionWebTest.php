@@ -40,7 +40,7 @@ class FactionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.factions.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class FactionWebTest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.factions.show', $faction));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -96,7 +96,7 @@ class FactionWebTest extends TestCase
    function user_cannot_access_faction_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.factions.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -120,7 +120,7 @@ class FactionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.factions.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -153,7 +153,7 @@ class FactionWebTest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.factions.edit', $faction));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -183,7 +183,7 @@ class FactionWebTest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.factions.update', $faction), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -220,7 +220,7 @@ class FactionWebTest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.factions.destroy', $faction));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -251,7 +251,7 @@ class FactionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.factions.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

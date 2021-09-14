@@ -41,7 +41,7 @@ class AwardWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.awards.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -70,7 +70,7 @@ class AwardWebTest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.awards.show', $award));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -101,7 +101,7 @@ class AwardWebTest extends TestCase
    function user_cannot_access_award_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.awards.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -125,7 +125,7 @@ class AwardWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.awards.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -158,7 +158,7 @@ class AwardWebTest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.awards.edit', $award));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -191,7 +191,7 @@ class AwardWebTest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.awards.update', $award), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -232,7 +232,7 @@ class AwardWebTest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.awards.destroy', $award));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -263,7 +263,7 @@ class AwardWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.awards.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

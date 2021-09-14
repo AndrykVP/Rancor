@@ -41,7 +41,7 @@ class AwardAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.awards.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -66,7 +66,7 @@ class AwardAPITest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.awards.show', $award));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -99,7 +99,7 @@ class AwardAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.awards.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -127,7 +127,7 @@ class AwardAPITest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.structure.awards.update', $award), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -163,7 +163,7 @@ class AwardAPITest extends TestCase
       $award = $this->awards->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.structure.awards.destroy', $award));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -189,7 +189,7 @@ class AwardAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.awards.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

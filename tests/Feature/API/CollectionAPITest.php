@@ -40,7 +40,7 @@ class CollectionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.holocron.collections.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -65,7 +65,7 @@ class CollectionAPITest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.holocron.collections.show', $collection));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -94,7 +94,7 @@ class CollectionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.holocron.collections.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -122,7 +122,7 @@ class CollectionAPITest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.holocron.collections.update', $collection), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -155,7 +155,7 @@ class CollectionAPITest extends TestCase
       $collection = $this->collections->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.holocron.collections.destroy', $collection));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -181,7 +181,7 @@ class CollectionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.holocron.collections.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

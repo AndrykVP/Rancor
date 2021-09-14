@@ -40,7 +40,7 @@ class PermissionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.auth.permissions.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -65,7 +65,7 @@ class PermissionAPITest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.auth.permissions.show', $permission));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class PermissionAPITest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.auth.permissions.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -128,7 +128,7 @@ class PermissionAPITest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.auth.permissions.update', $permission), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -160,7 +160,7 @@ class PermissionAPITest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.auth.permissions.destroy', $permission));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -186,7 +186,7 @@ class PermissionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.auth.permissions.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

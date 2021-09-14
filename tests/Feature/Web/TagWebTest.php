@@ -40,7 +40,7 @@ class TagWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.tags.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class TagWebTest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.tags.show', $tag));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -95,7 +95,7 @@ class TagWebTest extends TestCase
    function user_cannot_access_tag_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.tags.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -119,7 +119,7 @@ class TagWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.tags.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -152,7 +152,7 @@ class TagWebTest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.tags.edit', $tag));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -181,7 +181,7 @@ class TagWebTest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.tags.update', $tag), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -217,7 +217,7 @@ class TagWebTest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.tags.destroy', $tag));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -249,7 +249,7 @@ class TagWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.tags.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

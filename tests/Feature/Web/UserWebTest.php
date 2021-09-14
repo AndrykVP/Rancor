@@ -42,7 +42,7 @@ class UserWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.users.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -71,7 +71,7 @@ class UserWebTest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.users.show', $user));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -104,7 +104,7 @@ class UserWebTest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.users.edit', $user));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -138,7 +138,7 @@ class UserWebTest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.users.update', $user), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -179,7 +179,7 @@ class UserWebTest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.users.destroy', $user));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -210,7 +210,7 @@ class UserWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.users.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

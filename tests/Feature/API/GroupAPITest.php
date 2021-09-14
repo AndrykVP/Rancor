@@ -38,7 +38,7 @@ class GroupAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.groups.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -63,7 +63,7 @@ class GroupAPITest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.groups.show', $group));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -93,7 +93,7 @@ class GroupAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.groups.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -121,7 +121,7 @@ class GroupAPITest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.forums.groups.update', $group), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -153,7 +153,7 @@ class GroupAPITest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.forums.groups.destroy', $group));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -179,7 +179,7 @@ class GroupAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.groups.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

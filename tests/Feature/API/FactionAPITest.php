@@ -40,7 +40,7 @@ class FactionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.factions.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -65,7 +65,7 @@ class FactionAPITest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.structure.factions.show', $faction));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -95,7 +95,7 @@ class FactionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.factions.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -123,7 +123,7 @@ class FactionAPITest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.structure.factions.update', $faction), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -155,7 +155,7 @@ class FactionAPITest extends TestCase
       $faction = $this->factions->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.structure.factions.destroy', $faction));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -181,7 +181,7 @@ class FactionAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.structure.factions.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

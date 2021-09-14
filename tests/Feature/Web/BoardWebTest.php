@@ -42,7 +42,7 @@ class BoardWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.boards.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -71,7 +71,7 @@ class BoardWebTest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.boards.show', $board));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -100,7 +100,7 @@ class BoardWebTest extends TestCase
    function user_cannot_access_board_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.boards.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -124,7 +124,7 @@ class BoardWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.boards.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -157,7 +157,7 @@ class BoardWebTest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.boards.edit', $board));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -189,7 +189,7 @@ class BoardWebTest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.boards.update', $board), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -229,7 +229,7 @@ class BoardWebTest extends TestCase
       $board = $this->boards->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.boards.destroy', $board));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -260,7 +260,7 @@ class BoardWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.boards.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

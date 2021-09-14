@@ -40,7 +40,7 @@ class GroupWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.groups.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class GroupWebTest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.groups.show', $group));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class GroupWebTest extends TestCase
    function user_cannot_access_group_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.groups.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -121,7 +121,7 @@ class GroupWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.groups.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -154,7 +154,7 @@ class GroupWebTest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.groups.edit', $group));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -184,7 +184,7 @@ class GroupWebTest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.groups.update', $group), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -221,7 +221,7 @@ class GroupWebTest extends TestCase
       $group = $this->groups->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.groups.destroy', $group));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -252,7 +252,7 @@ class GroupWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.groups.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

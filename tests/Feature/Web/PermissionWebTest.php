@@ -41,7 +41,7 @@ class PermissionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.permissions.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -70,7 +70,7 @@ class PermissionWebTest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.permissions.show', $permission));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -97,7 +97,7 @@ class PermissionWebTest extends TestCase
    function user_cannot_access_permission_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.permissions.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -121,7 +121,7 @@ class PermissionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.permissions.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -154,7 +154,7 @@ class PermissionWebTest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.permissions.edit', $permission));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -184,7 +184,7 @@ class PermissionWebTest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.permissions.update', $permission), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -221,7 +221,7 @@ class PermissionWebTest extends TestCase
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.permissions.destroy', $permission));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -252,7 +252,7 @@ class PermissionWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.permissions.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

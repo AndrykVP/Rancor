@@ -40,7 +40,7 @@ class TagAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.news.tags.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -65,7 +65,7 @@ class TagAPITest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.news.tags.show', $tag));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -94,7 +94,7 @@ class TagAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.news.tags.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -122,7 +122,7 @@ class TagAPITest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.news.tags.update', $tag), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -153,7 +153,7 @@ class TagAPITest extends TestCase
       $tag = $this->tags->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.news.tags.destroy', $tag));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -179,7 +179,7 @@ class TagAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.news.tags.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

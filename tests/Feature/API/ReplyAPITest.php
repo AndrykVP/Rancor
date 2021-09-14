@@ -46,7 +46,7 @@ class ReplyAPITest extends TestCase
       $reply = $this->replies->random();
       $response = $this->actingAs($this->user, 'api')
                   ->getJson(route('api.forums.replies.show', $reply));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -75,7 +75,7 @@ class ReplyAPITest extends TestCase
    {
       $response = $this->actingAs($this->user, 'api')
                   ->postJson(route('api.forums.replies.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -103,7 +103,7 @@ class ReplyAPITest extends TestCase
       $reply = $this->replies->random();
       $response = $this->actingAs($this->user, 'api')
                   ->patchJson(route('api.forums.replies.update', $reply), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -135,7 +135,7 @@ class ReplyAPITest extends TestCase
       $reply = $this->replies->random();
       $response = $this->actingAs($this->user, 'api')
                   ->deleteJson(route('api.forums.replies.destroy', $reply));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

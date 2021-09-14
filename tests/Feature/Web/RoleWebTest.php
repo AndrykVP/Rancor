@@ -40,7 +40,7 @@ class RoleWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->get(route('admin.roles.index'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -69,7 +69,7 @@ class RoleWebTest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.roles.show', $role));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -96,7 +96,7 @@ class RoleWebTest extends TestCase
    function user_cannot_access_role_create()
    {
       $response = $this->actingAs($this->user)->get(route('admin.roles.create'));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -120,7 +120,7 @@ class RoleWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.roles.store'), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -153,7 +153,7 @@ class RoleWebTest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user)
                   ->get(route('admin.roles.edit', $role));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -183,7 +183,7 @@ class RoleWebTest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user)
                   ->patch(route('admin.roles.update', $role), []);
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -221,7 +221,7 @@ class RoleWebTest extends TestCase
       $role = $this->roles->random();
       $response = $this->actingAs($this->user)
                   ->delete(route('admin.roles.destroy', $role));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */
@@ -252,7 +252,7 @@ class RoleWebTest extends TestCase
    {
       $response = $this->actingAs($this->user)
                   ->post(route('admin.roles.search', []));
-      $response->assertUnauthorized();
+      $response->assertStatus(403);
    }
 
    /** @test */

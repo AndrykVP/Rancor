@@ -15,6 +15,10 @@ class CreateQuadrantsTable extends Migration
     {
         Schema::create('scanner_quadrants', function (Blueprint $table) {
             $table->id();
+            $table->integer('x_min');
+            $table->integer('x_max');
+            $table->integer('y_min');
+            $table->integer('y_max');
             $table->timestamps();
         });
     }

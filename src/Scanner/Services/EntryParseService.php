@@ -4,6 +4,7 @@ namespace AndrykVP\Rancor\Scanner\Services;
 
 use Illuminate\Support\Facades\File;
 use AndrykVP\Rancor\Scanner\Models\Entry;
+use AndrykVP\Rancor\Scanner\Models\Territory;
 use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
 use Carbon\Carbon;
 
@@ -56,8 +57,12 @@ class EntryParseService {
   
       $date = $scan->channel->cgt;
       $date = ($date->years*365*24*60*60) + ($date->days*24*60*60) + ($date->hours*60*60) + ($date->minutes*60) + $date->seconds + 912668400;
-  
+      
       $location = $scan->channel->location;
+      $territory = Territory::where([
+         ['x_coordinate', $location->galX],
+         ['y_coordinate', $location->galY],
+      ])->firstOrFail();
   
       foreach($scan->channel->item as $ship)
       {
@@ -68,7 +73,7 @@ class EntryParseService {
                ['type',$ship->typeName],
             ])->first();
 
-            $new_data = $this->parseModel($ship,$location,$date);
+            $new_data = $this->parseModel($ship, $location, $date, $territory);
 
             if($model == null)
             {
@@ -92,6 +97,7 @@ class EntryParseService {
             $model->position = $new_data['position'];
             $model->last_seen = $new_data['last_seen'];
             $model->updated_by = $this->contributor->id;
+            $model->territory_id = $territory->id;
             $model->save();
          }
       }
@@ -105,17 +111,13 @@ class EntryParseService {
     * @param int  $date
     * @return array
     */
-   private function parseModel($data, $location, $date)
+   private function parseModel($data, $location, $date, $territory)
    {
       return [
          'type' => $data->typeName,
          'name' => isset($data->name) ?  $data->name : NULL,
          'owner' => $data->ownerName,
          'position' => [
-               'galaxy' => [
-                  'x' => $location->galX,
-                  'y' => $location->galY,
-               ],
                'system' => [
                   'x' => isset($location->surfX) ? $location->sysX : ( isset($data->x) ? $data->x : $location->sysX ),
                   'y' => isset($location->surfY) ? $location->sysY : ( isset($data->y) ? $data->y : $location->sysY ),

@@ -39,7 +39,7 @@ class TerritoryForm extends FormRequest
         return [
             'name' => 'nullable|string',
             'type_id' => 'nullable|integer|exists:scanner_territory_types,id',
-            'patrolled_by' => 'nullable|integer|exists:users,id',
+            'patrolled_by' => 'required|integer|exists:users,id',
             'last_patrol' => 'required|date',
         ];
     }

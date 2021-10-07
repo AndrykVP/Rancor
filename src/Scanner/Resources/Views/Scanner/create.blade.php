@@ -31,9 +31,9 @@
    @endif
    
    <div class="py-12">
-      <form action="{{ route('scanner.store') }}" method="POST" enctype="multipart/form-data" x-data="{ files: null, active: false }" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <form action="{{ route('scanner.store') }}" method="POST" enctype="multipart/form-data" x-data="{ files: null, active: false }" class="max-w-7xl mx-auto sm:px-6 lg:px-8 cursor-pointer">
          @csrf
-         <div class="block w-full py-2 px-3 relative bg-white appearance-none border border-solid rounded-md hover:shadow-outline-blue" :class="active ? 'text-blue-700 border-blue-300' : 'text-gray-700 border-gray-300'">
+         <div class="cursor-pointer block w-full py-3 px-4 relative bg-white appearance-none border border-solid rounded-md hover:shadow-outline-blue" :class="active ? 'text-blue-700 border-blue-300' : 'text-gray-700 border-gray-300'">
             <input type="file" name="scans[]" accept="text/xml" multiple
                   class="absolute inset-0 z-50 m-0 p-0 w-full h-full outline-none opacity-0"
                   x-on:change="files = $event.target.files; console.log(files);"
@@ -79,6 +79,6 @@ function filesize(size) {
    if(size > 1000000) {
       return Math.ceil(size / 1000000) + ' MB'
    }
-   return '1 KB'
+   return '< 1 KB'
 }
 </script>

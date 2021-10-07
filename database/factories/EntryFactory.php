@@ -29,6 +29,7 @@ class EntryFactory extends Factory
                 'galaxy' => $this->coordinates(),
                 'system' => $this->coordinates()
             ],
+            'territory_id' => $this->faker->numberBetween(1, 5929),
             'last_seen' => now(),
         ];
     }

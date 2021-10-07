@@ -15,7 +15,8 @@ Route::group(['middleware' => $middleware], function() {
 		Route::post('upload', [ScannerController::class, 'store'])->name('store');
 		Route::post('search', [ScannerController::class, 'search'])->name('search');
 		Route::get('{quadrant}', [ScannerController::class, 'quadrant'])->name('quadrants');
-		Route::get('territories/{territory}', [ScannerController::class, 'territories'])->name('territories');
+		Route::get('territories/{territory}', [ScannerController::class, 'territory'])->name('territories');
+		Route::post('territories/{territory}/update', [ScannerController::class, 'update'])->name('update');
 	});
 
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function() {

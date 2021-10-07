@@ -79,4 +79,12 @@ class EntryTest extends TestCase
     {
         $this->assertNotNull($this->entry->updated_by);
     }
+
+    /**
+     * @test
+     */
+    function entry_has_territory()
+    {
+        $this->assertNotNull($this->entry->territory_id);
+    }
 }

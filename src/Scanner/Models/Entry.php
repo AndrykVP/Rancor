@@ -42,21 +42,13 @@ class Entry extends Model
     ];
 
     /**
-     * The attributes that should be cast to date format.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'last_seen'
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
         'position' => 'array',
+        'last_seen' => 'datetime',
     ];
 
     /**
@@ -93,5 +85,15 @@ class Entry extends Model
     public function contributor()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * Relationship to Territory model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function territory()
+    {
+        return $this->belongsTo(Territory::class);
     }
 }

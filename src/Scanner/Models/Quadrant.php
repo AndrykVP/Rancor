@@ -20,7 +20,7 @@ class Quadrant extends Model
      */
     public function territories()
     {
-        return $this->hasMany(Territory::class)->orderBy('x_coordinate', 'desc')->orderBy('y_coordinate', 'asc');
+        return $this->hasMany(Territory::class)->orderBy('y_coordinate', 'desc')->orderBy('x_coordinate', 'asc');
     }
 
     /**

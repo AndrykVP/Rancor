@@ -13,7 +13,9 @@
             </li>
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
-            <a href="{{ route('scanner.create') }}" class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2">{{ __('Upload XML Scan')}} </a>
+            @can('create', \AndrykVP\Rancor\Scanner\Models\Entry::class)
+            <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('scanner.create') }}">{{ __('Upload XML Scan') }}</a>
+            @endcan
          </div>
       </div>
    </x-slot>

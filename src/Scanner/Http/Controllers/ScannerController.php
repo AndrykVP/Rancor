@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Scanner\Models\Quadrant;
 use AndrykVP\Rancor\Scanner\Models\Territory;
@@ -25,6 +26,29 @@ class ScannerController extends Controller
         
         return $this->quadrant($quadrant);
     }
+
+    /**
+     * Display the resource specified in the rancor configuration.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $coordinates = $request->validate(['coordinates' => 'required|string'])['coordinates'];
+        $coordinates = preg_replace('/\(|\)\s+/', '', $coordinates);
+        $coordinates = explode(',', $coordinates);
+        
+        $quadrant = Quadrant::whereHas('territories', function(Builder $query) use($coordinates) {
+            $query->where([
+                ['x_coordinate', $coordinates[0]],
+                ['y_coordinate', $coordinates[1]],
+            ]);
+        })->firstOrFail();
+        
+        session()->flashInput($request->input());
+        return $this->quadrant($quadrant);
+    }
     
     /**
      * Display the specified quadrant.
@@ -36,7 +60,7 @@ class ScannerController extends Controller
     {
         $this->authorize('view', $quadrant);
 
-        $quadrant->load('territories.type');
+        $quadrant->load('territories.type', 'territories.patroller');
         $types = TerritoryType::all();
 
         return view('rancor::scanner.quadrant', compact('quadrant', 'types'));

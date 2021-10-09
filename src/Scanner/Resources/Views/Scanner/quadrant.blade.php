@@ -106,7 +106,7 @@
                   <template x-for="(group, index) in territories" :key="index">
                      <div class="flex flex-row flex-nowrap w-full">
                         <template x-for="territory in JSON.parse(JSON.stringify(group))" :key="territory.id">
-                           <div class="border" style="width:30px; height:30px;" @click="setTerritory(territory)" @mouseover="getCoordinates(territory)" :class="(selectedTerritory != null && selectedTerritory.id == territory.id) ? 'border-opacity-100 border-green-600' : 'border-opacity-10 border-gray-100'">
+                           <div class="border" :style="'width:30px; height:30px; background: ' + territory.background_color" @click="setTerritory(territory)" @mouseover="getCoordinates(territory)" :class="(selectedTerritory != null && selectedTerritory.id == territory.id) ? 'border-opacity-100 border-green-600' : 'border-opacity-10 border-gray-100'">
                               <img :src="territory.type ? territory.type.image : ''" />
                            </div>
                         </template>

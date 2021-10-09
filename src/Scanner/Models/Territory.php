@@ -41,6 +41,13 @@ class Territory extends Model
     protected $touches = ['quadrant'];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['background_color'];
+
+    /**
      * Relationship to Quadrant model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -78,5 +85,30 @@ class Territory extends Model
     public function patroller()
     {
         return $this->belongsTo(User::class, 'patrolled_by');
+    }
+
+    /**
+     * Set Color attribute based on the model's last_patrol field
+     * 
+     * @return string|null
+     */
+    public function getBackgroundColorAttribute()
+    {
+        if($this->last_patrol != null)
+        {
+            if($this->last_patrol->lte(now()->subMonths(3)))
+            {
+                return 'rgba(255, 0, 0, 0.2)';
+            }
+
+            if($this->last_patrol->lte(now()->subMonth()))
+            {
+                return 'rgba(255, 255, 0, 0.2)';
+            }
+
+            return 'rgba(0, 255, 0, 0.2)';
+        }
+
+        return null;
     }
 }

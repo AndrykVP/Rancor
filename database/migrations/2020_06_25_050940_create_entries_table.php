@@ -20,10 +20,13 @@ class CreateEntriesTable extends Migration
             $table->string('name')->nullable()->default(null);
             $table->string('owner')->nullable()->default(null);
             $table->json('position')->nullable()->default(null);
+            $table->tinyInteger('alliance');
             $table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->foreignId('territory_id')->nullable()->default(null)->constrained('scanner_territories')->onDelete('set null');
             $table->timestamp('last_seen')->nullable()->default(null);
             $table->timestamps();
+
+            $table->index('alliance');
         });
     }
 

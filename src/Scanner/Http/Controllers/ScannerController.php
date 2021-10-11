@@ -5,10 +5,12 @@ namespace AndrykVP\Rancor\Scanner\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Models\Quadrant;
 use AndrykVP\Rancor\Scanner\Models\Territory;
 use AndrykVP\Rancor\Scanner\Models\TerritoryType;
 use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
+use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryFilter;
 use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryForm;
 use AndrykVP\Rancor\Scanner\Services\EntryParseService;
 
@@ -69,14 +71,22 @@ class ScannerController extends Controller
     /**
      * Display the specified territory.
      *
+     * @param \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryFilter  $request
      * @param  \AndrykVP\Rancor\Scanner\Models\Territory  $territory
      * @return \Illuminate\Http\Response
      */
-    public function territory(Territory $territory)
+    public function territory(TerritoryFilter $request, Territory $territory)
     {
         $this->authorize('view', $territory);
 
-        $entries = $territory->entries()->paginate(config('rancor.pagination'));
+        $data = $request->validated();
+
+        $entries = Entry::where('territory_id', $territory->id)
+                ->whereIn('alliance', $data['filter'])
+                ->paginate(config('rancor.pagination'))
+                ->withQueryString();
+
+        session()->flashInput($request->input());
 
         return view('rancor::scanner.territory', compact('territory', 'entries'));
     }
@@ -100,6 +110,7 @@ class ScannerController extends Controller
                 'type_id' => null,
                 'patrolled_by' => null,
                 'last_patrol' => null,
+                'subscription' => false,
             ]);
             $action = 'reset';
         }

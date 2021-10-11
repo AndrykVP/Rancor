@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Scanner\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TerritoryForm extends FormRequest
+class TerritoryFilter extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,13 @@ class TerritoryForm extends FormRequest
      */
     protected function prepareForValidation()
     {
+        $filter = [];
+        if($this->has('neutral')) $filter[] = 0;
+        if($this->has('ally')) $filter[] = 1;
+        if($this->has('enemy')) $filter[] = -1;
+
         $this->merge([
-            'patrolled_by' => $this->user()->id,
-            'last_patrol' => now(),
-            'subscription' => $this->subscription ? true : false,
+            'filter' => $filter != null ? $filter : [-1, 0, 1],
         ]);
     }
 
@@ -38,11 +41,8 @@ class TerritoryForm extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'nullable|string',
-            'type_id' => 'nullable|integer|exists:scanner_territory_types,id',
-            'patrolled_by' => 'required|integer|exists:users,id',
-            'last_patrol' => 'required|date',
-            'subscription' => 'required|boolean',
+            'filter' => 'required|array',
+            'filter.*' => 'integer|min:-1|max:1',
         ];
     }
 }

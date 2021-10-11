@@ -173,6 +173,20 @@
                         </select>
                      </div>
                   </div>
+                  <div class="md:flex md:items-center mb-6">
+                     <div class="md:w-1/3">
+                        <label class="block text-xs font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-type">
+                           Notify Patrol
+                        </label>
+                     </div>
+                     <div class="md:w-2/3"> 
+                        <input class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        name="subscription"
+                        id="subscription"
+                        type="checkbox"
+                        :checked="selectedTerritory.subscription">
+                     </div>
+                  </div>
                   <div class="flex items-center mb-6">
                      <div class="w-1/3 px-4">
                         <button class="w-full py-1 px-2 text-white text-xs text-center font-medium border border-transparent rounded-md outline-none bg-green-700 hover:bg-green-500" type="submit">

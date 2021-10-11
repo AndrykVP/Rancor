@@ -20,11 +20,13 @@ class CreateTerritoriesTable extends Migration
             $table->foreignId('quadrant_id')->constrained('scanner_quadrants')->onDelete('cascade');
             $table->integer('x_coordinate');
             $table->integer('y_coordinate');
+            $table->boolean('subscription');
             $table->foreignId('patrolled_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
             $table->timestamp('last_patrol')->nullable()->default(null);
             $table->timestamps();
             
             $table->index(['x_coordinate', 'y_coordinate']);
+            $table->index('subscription');
         });
     }
 

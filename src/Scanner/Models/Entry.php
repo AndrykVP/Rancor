@@ -29,7 +29,7 @@ class Entry extends Model
      * @var array
      */
     protected $fillable = [
-        'entity_id', 'type', 'name', 'owner', 'position', 'last_seen', 'updated_by'
+        'entity_id', 'type', 'name', 'owner', 'position', 'alliance', 'last_seen', 'updated_by'
     ];
 
     /**
@@ -68,6 +68,15 @@ class Entry extends Model
     ];
 
     /**
+     * Attributes to append in JSON.
+     * 
+     * @var array
+     */
+    protected $appends = [
+        'alliance_text',
+    ];
+
+    /**
      * Relationship to Log model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -95,5 +104,15 @@ class Entry extends Model
     public function territory()
     {
         return $this->belongsTo(Territory::class);
+    }
+
+    /**
+     * Textual representation of Alliance column
+     */
+    public function getAllianceTextAttribute()
+    {
+        if($this->alliance < 0) return 'Enemy';
+        if($this->alliance == 0) return 'Neutral';
+        if($this->alliance > 0) return 'Ally';
     }
 }

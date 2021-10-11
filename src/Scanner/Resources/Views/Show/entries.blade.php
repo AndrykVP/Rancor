@@ -51,6 +51,10 @@
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Owner:</div>
             <div class="col-span-3">{{ $entry->owner }}</div>
          </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Owner:</div>
+            <div class="col-span-3">{{ $entry->alliance_text }}</div>
+         </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-top">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Last Position:</div>
             <div class="col-span-3">

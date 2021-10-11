@@ -14,16 +14,17 @@ class Territory extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'patrolled_by', 'last_patrol', 'type_id',
+        'name', 'patrolled_by', 'last_patrol', 'type_id', 'subscription',
     ];
 
     /**
-     * The attributes that should be cast to date format.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $dates = [
-        'last_patrol'
+    protected $casts = [
+        'last_patrol' => 'datetime',
+        'subscription' => 'boolean',
     ];
 
     /**

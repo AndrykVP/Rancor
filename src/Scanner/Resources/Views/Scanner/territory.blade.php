@@ -9,7 +9,7 @@
                </svg>
             </li>
             <li class="inline-flex items-center text-gray-500">
-               {{ __('Territory') . ' ' . $territory->id }}
+               {{ $territory->name ? $territory->name : __('Deep Space') }} {{ ' (' . $territory->x_coordinate . ', ' . $territory->y_coordinate . ')' }}
             </li>
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
@@ -42,6 +42,9 @@
                         {{ __('Owner') }}
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        {{ __('IFF') }}
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         {{ __('Position') }}
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -55,12 +58,13 @@
                         <th scope="row">{{ $entry->entity_id }}</th>
                         <td>{{ $entry->name }}</td>
                         <td>{{ $entry->owner }}</td>
+                        <td class="{{ $entry->alliance > 0 ? 'text-green-600' : ($entry->alliance < 0 ? 'text-red-600' : '') }}">{{ $entry->alliance_text }}</td>
                         <td>
-                           ({{ $entry->position['system']['x'] }}, {{ $entry->position['system']['y'] }})
+                           Orbit: ({{ $entry->position['system']['x'] }}, {{ $entry->position['system']['y'] }})
                            @if(array_key_exists('atmosphere', $entry->position))
-                              <br />({{ $entry->position['atmosphere']['x'] }}, {{ $entry->position['atmosphere']['y'] }})
+                              <br />Atmosphere : ({{ $entry->position['atmosphere']['x'] }}, {{ $entry->position['atmosphere']['y'] }})
                               @if(array_key_exists('ground', $entry->position))
-                                 <br />({{ $entry->position['ground']['x'] }}, {{ $entry->position['ground']['y'] }})
+                                 <br />Gound: ({{ $entry->position['ground']['x'] }}, {{ $entry->position['ground']['y'] }})
                               @endif
                            @endif
                         </td>
@@ -98,10 +102,53 @@
                      </tr>
                      @empty
                      <tr>
-                        <td colspan="5" class="text-center p-4">No Entries Found</td>
+                        <td colspan="6" class="text-center p-4">No Entries Found</td>
                      </tr>
                      @endforelse
                   </tbody>
+                  <tfoot class="bg-gray-50">
+                     <tr>
+                        <td colspan="6">
+                           <div class="flex justify-center py-2">
+                              <form class="inline-flex" action="{{ route('scanner.territories', $territory) }}" method="GET">
+                                 <label for="filterNeutral" class="inline-flex mr-4 items-center">
+                                    <input
+                                    type="checkbox"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="neutral"
+                                    id="filterNeutral"
+                                    aria-describedby="filterNeutralHelp"
+                                    {{ old('neutral') ? 'checked' : ''}}>
+                                    <span class="ml-2 text-sm text-gray-600">Neutral</span>
+                                 </label>
+                                 <label for="filterAlly" class="inline-flex mr-4 items-center">
+                                    <input
+                                    type="checkbox"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="ally"
+                                    id="filterAlly"
+                                    aria-describedby="filterAllyHelp"
+                                    {{ old('ally') ? 'checked' : ''}}>
+                                    <span class="ml-2 text-sm text-gray-600">Ally</span>
+                                 </label>
+                                 <label for="filterEnemy" class="inline-flex mr-4 items-center">
+                                    <input
+                                    type="checkbox"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="enemy"
+                                    id="filterEnemy"
+                                    aria-describedby="filterEnemyHelp"
+                                    {{ old('enemy') ? 'checked' : ''}}>
+                                    <span class="ml-2 text-sm text-gray-600">Enemy</span>
+                                 </label>
+                                 <button type="submit" class="inline-flex items-center px-3 py-1 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                    {{ __('Apply Filter') }}
+                                 </button>
+                              </form>
+                           </div>
+                        </td>
+                     </tr>
+                  </tfoot>
                </table>
             </div>
          </div>

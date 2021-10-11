@@ -95,6 +95,7 @@ class EntryParseService {
             $model->name = strip_tags($new_data['name']);
             $model->owner = $new_data['owner'];
             $model->position = $new_data['position'];
+            $model->alliance = $new_data['iff'];
             $model->last_seen = $new_data['last_seen'];
             $model->updated_by = $this->contributor->id;
             $model->territory_id = $territory->id;
@@ -131,7 +132,22 @@ class EntryParseService {
                   'y' => isset($location->groundY) ? $data->y : NULL,
                ],
          ],
+         'iff' => $this->set_iff($data->iffStatus),
          'last_seen' => Carbon::createFromTimestamp($date)
       ];
+   }
+
+   /**
+    * Returns Integer Value for Entity IFF
+    * 
+    * @param string  $status
+    * @return int
+    */
+   public function set_iff(String $status = 'Neutral')
+   {
+      $status = strtolower($status);
+      if($status == 'neutral') return 0;
+      if($status == 'ally') return 1;
+      if($status == 'enemy') return 2;
    }
 }

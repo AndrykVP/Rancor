@@ -49,7 +49,7 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         $this->authorize('view', $entry);
-        $entry->load('contributor','changelog');
+        $entry->load('territory', 'contributor', 'changelog');
 
         return new EntryResource($entry);
     }

@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Tests\Feature\API;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Tests\TestCase;
 use AndrykVP\Rancor\Scanner\Models\Entry;
+use AndrykVP\Rancor\Scanner\Models\Territory;
 use App\Models\User;
 
 class EntryAPITest extends TestCase
@@ -22,7 +23,8 @@ class EntryAPITest extends TestCase
 
       // Initialize Test DB
       $this->entries = Entry::factory()
-                     // ->forTerritory()
+                     ->forContributor()
+                     ->for(Territory::factory()->forQuadrant())
                      ->count(3)
                      ->create();
       $this->user = User::factory()->create();
@@ -72,8 +74,9 @@ class EntryAPITest extends TestCase
    /** @test */
    function admin_can_access_entry_api_show()
    {
-      $entry = $this->entries->random();
+      $entry = $this->entries->random()->load('territory', 'contributor');
       $response = $this->actingAs($this->admin, 'api')
+      ->withoutExceptionHandling()
                   ->getJson(route('api.scanner.entries.show', $entry));
       $response->assertSuccessful()->assertJson([
          'data' => [
@@ -83,6 +86,14 @@ class EntryAPITest extends TestCase
             'name' => $entry->name,
             'owner' => $entry->owner,
             'position' => $entry->position,
+            'territory' => [
+               'id' => $entry->territory->id,
+               'name' => $entry->territory->name,
+            ],
+            'contributor' => [
+               'id' => $entry->contributor->id,
+               'name' => $entry->contributor->name,
+            ]
          ]
       ]);
    }
@@ -105,7 +116,7 @@ class EntryAPITest extends TestCase
    /** @test */
    function admin_can_access_entry_api_store()
    {
-      $entry = Entry::factory()->make();
+      $entry = Entry::factory()->make(['territory_id' => 1]);
       $response = $this->actingAs($this->admin, 'api')
                   ->postJson(route('api.scanner.entries.store'), $entry->toArray());
       $response->assertSuccessful()->assertExactJson([
@@ -141,12 +152,9 @@ class EntryAPITest extends TestCase
                      'type' => 'Some Type',
                      'name' => 'Updated Entry',
                      'owner' => 'Darth Vader',
+                     'alliance' => 1,
                      'position' => [
-                        'galaxy' => [
-                           'x' => 1,
-                           'y' => 1,
-                        ],
-                        'system' => [
+                        'orbit' => [
                            'x' => 1,
                            'y' => 1,
                         ],

@@ -26,10 +26,9 @@ class EntryFactory extends Factory
             'name' => $this->faker->name,
             'owner' => $this->faker->name,
             'position' => [
-                'galaxy' => $this->coordinates(),
-                'system' => $this->coordinates()
+                'orbit' => $this->coordinates()
             ],
-            'territory_id' => $this->faker->numberBetween(1, 5929),
+            'alliance' => $this->faker->numberBetween(-1, 1),
             'last_seen' => now(),
         ];
     }
@@ -44,7 +43,8 @@ class EntryFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'position' => [
-                    'atmosphere' => $this->coordinates()
+                    'orbit' => $this->coordinates(),
+                    'atmosphere' => $this->coordinates(),
                 ],
             ];
         });
@@ -60,7 +60,9 @@ class EntryFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'position' => [
-                    'ground' => $this->coordinates()
+                    'orbit' => $this->coordinates(),
+                    'atmosphere' => $this->coordinates(),
+                    'ground' => $this->coordinates(),
                 ],
             ];
         });

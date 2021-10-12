@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Tests\Feature\Web;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Tests\TestCase;
 use AndrykVP\Rancor\Scanner\Models\Entry;
+use AndrykVP\Rancor\Scanner\Models\Territory;
 use App\Models\User;
 
 class EntryWebTest extends TestCase
@@ -23,6 +24,7 @@ class EntryWebTest extends TestCase
       // Initialize Test DB
       $this->entries = Entry::factory()
                      ->forContributor()
+                     ->for(Territory::factory()->forQuadrant())
                      ->count(3)
                      ->create();
       $this->user = User::factory()->create();
@@ -76,7 +78,7 @@ class EntryWebTest extends TestCase
    /** @test */
    function admin_can_access_entry_show()
    {
-      $entry = $this->entries->random()->load('contributor');
+      $entry = $this->entries->random()->load('territory', 'contributor');
       $response = $this->actingAs($this->admin)
                   ->get(route('admin.entries.show', $entry));
       $response->assertSuccessful()
@@ -86,6 +88,7 @@ class EntryWebTest extends TestCase
                ->assertSee($entry->type)
                ->assertSee($entry->name)
                ->assertSee($entry->owner)
+               ->assertSee($entry->alliance_text)
                ->assertSee($entry->contributor->name);
    }
 
@@ -130,7 +133,7 @@ class EntryWebTest extends TestCase
    /** @test */
    function admin_can_access_entry_store()
    {
-      $entry = Entry::factory()->make(['category_id' => 1]);
+      $entry = Entry::factory()->make(['territory_id' => 1]);
       $response = $this->actingAs($this->admin)
                   ->post(route('admin.entries.store'), $entry->toArray());
       $response->assertRedirect(route('admin.entries.index'))
@@ -204,6 +207,7 @@ class EntryWebTest extends TestCase
                      'name' => 'Updated Entry',
                      'owner' => 'Darth Vader',
                      'type' => 'Victory Star Destroyer',
+                     'alliance' => 1,
                   ]);
       $response->assertRedirect(route('admin.entries.index'))
                ->assertSessionHas('alert', [

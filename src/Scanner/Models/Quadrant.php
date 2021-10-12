@@ -2,10 +2,14 @@
 
 namespace AndrykVP\Rancor\Scanner\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Rancor\DB\Factories\QuadrantFactory;
 
 class Quadrant extends Model
 {
+    use HasFactory;
+
     /**
      * The table associated with the model.
      *
@@ -31,5 +35,15 @@ class Quadrant extends Model
     public function entries()
     {
         return $this->hasManyThrough(Entry::class, Territory::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return QuadrantFactory::new();
     }
 }

@@ -2,12 +2,15 @@
 
 namespace AndrykVP\Rancor\Scanner\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use AndrykVP\Rancor\DB\Factories\TerritoryFactory;
 
 class Territory extends Model
 {
-    
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -111,5 +114,15 @@ class Territory extends Model
         }
 
         return null;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return TerritoryFactory::new();
     }
 }

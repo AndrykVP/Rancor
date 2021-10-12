@@ -23,11 +23,14 @@ class EntryResource extends JsonResource
             'name' => $this->name,
             'owner' => $this->owner,
             'position' => $this->position,
+            'territory' => new TerritoryResource($this->whenLoaded('territory')),
             'contributor' => new UserResource($this->whenLoaded('contributor')),
             'changelog' => EntryLogResource::collection($this->whenLoaded('changelog')),
-            'last_seen' => $this->last_seen->diffForHumans(),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
+            'last_seen' => $this->when($this->last_seen != null, function() {
+                return $this->last_seen->diffForHumans();
+            }),
         ];
     }
 }

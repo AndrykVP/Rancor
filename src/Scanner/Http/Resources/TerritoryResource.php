@@ -23,12 +23,15 @@ class TerritoryResource extends JsonResource
                 'y' => $this->y_coordinate,
             ],
             'quadrant_id' => $this->quadrant_id,
+            'subscription' => $this->subscription,
             'type' => new TerritoryTypeResource($this->whenLoaded('type')),
             'patroller' => new UserResource($this->whenLoaded('patroller')),
             'entries' => EntryResource::collection($this->whenLoaded('entries')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
-            'last_patrol' => $this->last_patrol->diffForHumans(),
+            'last_patrol' => $this->when($this->last_patrol != null, function() {
+                return $this->last_patrol->diffForHumans();
+            }),
         ];
     }
 }

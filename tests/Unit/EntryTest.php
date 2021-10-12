@@ -22,7 +22,8 @@ class EntryTest extends TestCase
             'type' => 'Star Destroyer',
             'name' => 'Fake Title',
             'owner' => 'Darth Vader',
-            'last_seen' => '2021-06-17 22:05:34'
+            'last_seen' => '2021-06-17 22:05:34',
+            'alliance' => 1,
         ]);
         
         $this->assertNotNull($entry);
@@ -53,15 +54,22 @@ class EntryTest extends TestCase
         $this->assertEquals('Darth Vader', $this->entry->owner);
     }
 
+    /** 
+     * @test
+     */
+    function entry_has_alliance()
+    {
+        $this->assertEquals(1, $this->entry->alliance);
+        $this->assertEquals('Friend', $this->entry->alliance_text);
+    }
+
     /**
      * @test
      */
     function entry_has_position()
     {
-        $this->assertNotNull($this->entry->position['galaxy']['x']);
-        $this->assertNotNull($this->entry->position['galaxy']['y']);
-        $this->assertNotNull($this->entry->position['system']['x']);
-        $this->assertNotNull($this->entry->position['system']['y']);
+        $this->assertNotNull($this->entry->position['orbit']['x']);
+        $this->assertNotNull($this->entry->position['orbit']['y']);
     }
 
     /** 

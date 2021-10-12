@@ -4,9 +4,10 @@ namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use AndrykVP\Rancor\Audit\Contracts\LogContract;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 
-class EntryLog extends Model
+class EntryLog extends Model implements LogContract
 {
     /**
      * The attributes that are mass assignable.
@@ -39,7 +40,7 @@ class EntryLog extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function contributor()
+    public function creator()
     {
         return $this->belongsTo(User::class,'user_id');
     }
@@ -52,5 +53,15 @@ class EntryLog extends Model
     public function entry()
     {
         return $this->belongsTo(Entry::class);
+    }
+
+    /**
+     * Method to render Log message in views
+     * 
+     * @return string
+     */
+    public function message()
+    {
+        return '';
     }
 }

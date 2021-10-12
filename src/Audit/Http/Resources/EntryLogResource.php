@@ -43,7 +43,7 @@ class EntryLogResource extends JsonResource
                     ];
                 }),
             ],
-            'contributor' => new UserResource($this->whenLoaded('contributor')),
+            'creator' => new UserResource($this->whenLoaded('creator')),
             'entry' => new EntryResource($this->whenLoaded('entry')),
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),

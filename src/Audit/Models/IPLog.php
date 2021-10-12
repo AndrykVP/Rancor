@@ -4,8 +4,9 @@ namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use AndrykVP\Rancor\Audit\Contracts\LogContract;
 
-class IPLog extends Model
+class IPLog extends Model implements LogContract
 {
     /**
      * Defines the table name
@@ -40,5 +41,15 @@ class IPLog extends Model
     public function creator()
     {
         return $this->belongsTo(User::class,'updated_by');
+    }
+
+    /**
+     * Method to render Log message in views
+     * 
+     * @return string
+     */
+    public function message()
+    {
+        return '';
     }
 }

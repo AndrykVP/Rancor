@@ -4,9 +4,10 @@ namespace AndrykVP\Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use AndrykVP\Rancor\Audit\Contracts\LogContract;
 use AndrykVP\Rancor\Structure\Models\Award;
 
-class AwardLog extends Model
+class AwardLog extends Model implements LogContract
 {
     /**
      * Defines the table name
@@ -43,5 +44,15 @@ class AwardLog extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * Method to render Log message in views
+     * 
+     * @return string
+     */
+    public function message()
+    {
+        return '';
     }
 }

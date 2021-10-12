@@ -141,30 +141,17 @@ class ScannerController extends Controller
      * Stores the information from uploaded XML file
      * 
      * @param  \AndrykVP\Rancor\Scanner\Http\Requests\UploadScan  $request
+     * @param  \AndrykVP\Rancor\Scanner\Services\EntryParseService  $sevice
      * @return \Illuminate\Http\Response
      */
-    public function store(UploadScan $request)
+    public function store(UploadScan $request, EntryParseService $service)
     {
         $this->authorize('create', Entry::class);
 
-        $scanner = new EntryParseService($request);
-        $scanner->start();
-        $response = 'Scanner Entries processed with: ';
-        if($scanner->new > 0)
-        {
-            $response = $response." {$scanner->new} new.";
-        }
-        if($scanner->updated > 0)
-        {
-            $response = $response." {$scanner->updated} updated.";
-        }
-        if($scanner->unchanged > 0)
-        {
-            $response = $response." {$scanner->unchanged} unchanged.";
-        }
+        $service($request->validated(), $request->user());
 
         return redirect(route('scanner.create'))->with('alert', [
-            'message' => $response,
+            'message' => $service->message(),
             'timeout' => 15000
         ]);
     }

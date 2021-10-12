@@ -25,11 +25,11 @@ class TerritoryFilter extends FormRequest
     {
         $filter = [];
         if($this->has('neutral')) $filter[] = 0;
-        if($this->has('ally')) $filter[] = 1;
+        if($this->has('friend')) $filter[] = 1;
         if($this->has('enemy')) $filter[] = -1;
 
         $this->merge([
-            'filter' => $filter != null ? $filter : [-1, 0, 1],
+            'filter' => empty($filter) ? [-1, 0, 1] : $filter,
         ]);
     }
 

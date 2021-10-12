@@ -5,41 +5,29 @@ namespace AndrykVP\Rancor\Scanner\Services;
 use Illuminate\Support\Facades\File;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Scanner\Models\Territory;
-use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
+use App\Models\User;
 use Carbon\Carbon;
 
 class EntryParseService {
 
-   public $updated = 0;
-   public $new = 0;
-   public $unchanged = 0;
-   private $contributor;
-   private $files;
+   public int $updated;
+   public int $new;
+   public int $unchanged;
+   private User $contributor;
 
    /**
-    * Construct Service
+    * Loops over the uploaded files and inserts the XML data into the database
     * 
     * @return void
     */
-   public function __construct(UploadScan $request)
+   public function __invoke(Array $upload, User $user)
    {
-      $this->contributor = $request->user();
-      $validated = $request->validated();
-      $this->files = $validated['scans'];
-   }
+      $this->updated = 0;
+      $this->new = 0;
+      $this->unchanged = 0;
+      $this->contributor = $user;
 
-   /**
-    * Checks if the uploaded files are an array or a file object
-    * and inserts the XML data into the database.
-    *
-    * @return void
-    */
-   public function start()
-   {
-      foreach($this->files as $file)
-      {
-         $scan = $this->fileParse($file);
-      }
+      foreach($upload['scans'] as $file) $this->fileParse($file);
    }
 
    /**
@@ -55,22 +43,23 @@ class EntryParseService {
       $scan = simplexml_load_string($xml);
       $scan = json_decode(json_encode($scan));
   
-      $date = $scan->channel->cgt;
-      $date = ($date->years*365*24*60*60) + ($date->days*24*60*60) + ($date->hours*60*60) + ($date->minutes*60) + $date->seconds + 912668400;
-      
       $location = $scan->channel->location;
       $territory = Territory::where([
          ['x_coordinate', $location->galX],
          ['y_coordinate', $location->galY],
       ])->firstOrFail();
+
+      $date = $scan->channel->cgt;
+      $date = ($date->years*365*24*60*60) + ($date->days*24*60*60) + ($date->hours*60*60) + ($date->minutes*60) + $date->seconds + 912668400;
+      
   
       foreach($scan->channel->item as $ship)
       {
          if(property_exists($ship,'entityID'))
          {
             $model = Entry::where([
-               ['entity_id',$ship->entityID],
-               ['type',$ship->typeName],
+               ['entity_id', $ship->entityID],
+               ['type', $ship->typeName],
             ])->first();
 
             $new_data = $this->parseModel($ship, $location, $date, $territory);
@@ -95,7 +84,7 @@ class EntryParseService {
             $model->name = strip_tags($new_data['name']);
             $model->owner = $new_data['owner'];
             $model->position = $new_data['position'];
-            $model->alliance = $new_data['iff'];
+            $model->alliance = $new_data['alliance'];
             $model->last_seen = $new_data['last_seen'];
             $model->updated_by = $this->contributor->id;
             $model->territory_id = $territory->id;
@@ -118,21 +107,8 @@ class EntryParseService {
          'type' => $data->typeName,
          'name' => isset($data->name) ?  $data->name : NULL,
          'owner' => $data->ownerName,
-         'position' => [
-               'system' => [
-                  'x' => isset($location->surfX) ? $location->sysX : ( isset($data->x) ? $data->x : $location->sysX ),
-                  'y' => isset($location->surfY) ? $location->sysY : ( isset($data->y) ? $data->y : $location->sysY ),
-               ],
-               'surface' => [
-                  'x' => isset($location->surfX) ? ( isset($location->groundX) ? $location->surfX : $data->x ) : NULL,
-                  'y' => isset($location->surfY) ? ( isset($location->groundY) ? $location->surfY : $data->y ) : NULL,
-               ],
-               'ground' => [
-                  'x' => isset($location->groundX) ? $data->x : NULL,
-                  'y' => isset($location->groundY) ? $data->y : NULL,
-               ],
-         ],
-         'iff' => $this->set_iff($data->iffStatus),
+         'position' => $this->set_position($data, $location),
+         'alliance' => $this->set_iff($data->iffStatus),
          'last_seen' => Carbon::createFromTimestamp($date)
       ];
    }
@@ -143,11 +119,79 @@ class EntryParseService {
     * @param string  $status
     * @return int
     */
-   public function set_iff(String $status = 'Neutral')
+   private function set_iff(String $status = 'Neutral')
    {
       $status = strtolower($status);
       if($status == 'neutral') return 0;
-      if($status == 'ally') return 1;
-      if($status == 'enemy') return 2;
+      if($status == 'friend') return 1;
+      if($status == 'enemy') return -1;
+   }
+
+   /**
+    * Returns the position array for JSON column
+    *
+    * @param \stdClass  $data
+    * @param \stdClass  $location
+    * @return array
+    */
+   private function set_position($data, $location)
+   {
+      $location = [];
+      if(isset($location->surfX) && isset($location->surfY))
+      {
+         $location['orbit'] = [
+            'x' => $location->sysX,
+            'y' => $location->sysY,
+         ];
+         if(isset($location->groundX) && isset($location->groundY))
+         {
+            $location['atmosphere'] = [
+               'x' => $location->surfX,
+               'y' => $location->surfY,
+            ];
+            $location['ground'] = [
+               'x' => $data->x,
+               'y' => $data->y,
+            ];            
+         } else
+         {
+            $location['atmosphere'] = [
+               'x' => $data->x,
+               'y' => $data->y,
+            ];            
+         }
+      } else
+      {
+         $location['orbit'] = [
+            'x' => isset($data->x) ? $data->x : $location->sysX,
+            'y' => isset($data->y) ? $data->y : $location->sysY,
+         ];
+      }
+
+      return $location;
+   }
+
+   /**
+    * Returns a message displaying the results from the Scanner service
+    *
+    * @return string
+    */
+   public function message()
+   {
+      $message = 'Scanner Entries processed with: ';
+      if($this->new > 0)
+      {
+         $message = $message." {$this->new} new.";
+      }
+      if($this->updated > 0)
+      {
+         $message = $message." {$this->updated} updated.";
+      }
+      if($this->unchanged > 0)
+      {
+         $message = $message." {$this->unchanged} unchanged.";
+      }
+
+      return $message;
    }
 }

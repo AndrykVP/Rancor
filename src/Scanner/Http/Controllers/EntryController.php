@@ -43,7 +43,7 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         $this->authorize('view', $entry);
-        $entry->load('contributor','changelog.contributor')->loadCount('changelog');
+        $entry->load('territory', 'contributor', 'changelog.contributor');
 
         return view('rancor::show.entries', compact('entry'));
     }

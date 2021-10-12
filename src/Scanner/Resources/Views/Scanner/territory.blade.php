@@ -60,13 +60,17 @@
                         <td>{{ $entry->owner }}</td>
                         <td class="{{ $entry->alliance > 0 ? 'text-green-600' : ($entry->alliance < 0 ? 'text-red-600' : '') }}">{{ $entry->alliance_text }}</td>
                         <td>
-                           Orbit: ({{ $entry->position['system']['x'] }}, {{ $entry->position['system']['y'] }})
+                           @if($entry->position != null)
+                           Orbit: ({{ $entry->position['orbit']['x'] }}, {{ $entry->position['orbit']['y'] }})
                            @if(array_key_exists('atmosphere', $entry->position))
                               <br />Atmosphere : ({{ $entry->position['atmosphere']['x'] }}, {{ $entry->position['atmosphere']['y'] }})
                               @if(array_key_exists('ground', $entry->position))
                                  <br />Gound: ({{ $entry->position['ground']['x'] }}, {{ $entry->position['ground']['y'] }})
                               @endif
                            @endif
+                           @else
+                           -
+                           @endif                           
                         </td>
                         <td class="py-2">
                            @can('view', $entry)
@@ -118,18 +122,18 @@
                                     name="neutral"
                                     id="filterNeutral"
                                     aria-describedby="filterNeutralHelp"
-                                    {{ old('neutral') ? 'checked' : ''}}>
+                                    {{ in_array(0, old('filter')) ? 'checked' : ''}}>
                                     <span class="ml-2 text-sm text-gray-600">Neutral</span>
                                  </label>
-                                 <label for="filterAlly" class="inline-flex mr-4 items-center">
+                                 <label for="filterFriend" class="inline-flex mr-4 items-center">
                                     <input
                                     type="checkbox"
                                     class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                    name="ally"
-                                    id="filterAlly"
-                                    aria-describedby="filterAllyHelp"
-                                    {{ old('ally') ? 'checked' : ''}}>
-                                    <span class="ml-2 text-sm text-gray-600">Ally</span>
+                                    name="friend"
+                                    id="filterFriend"
+                                    aria-describedby="filterFriendHelp"
+                                    {{ in_array(1, old('filter')) ? 'checked' : ''}}>
+                                    <span class="ml-2 text-sm text-gray-600">Friend</span>
                                  </label>
                                  <label for="filterEnemy" class="inline-flex mr-4 items-center">
                                     <input
@@ -138,7 +142,7 @@
                                     name="enemy"
                                     id="filterEnemy"
                                     aria-describedby="filterEnemyHelp"
-                                    {{ old('enemy') ? 'checked' : ''}}>
+                                    {{ in_array(-1, old('filter')) ? 'checked' : ''}}>
                                     <span class="ml-2 text-sm text-gray-600">Enemy</span>
                                  </label>
                                  <button type="submit" class="inline-flex items-center px-3 py-1 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">

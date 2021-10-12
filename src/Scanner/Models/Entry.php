@@ -113,6 +113,6 @@ class Entry extends Model
     {
         if($this->alliance < 0) return 'Enemy';
         if($this->alliance == 0) return 'Neutral';
-        if($this->alliance > 0) return 'Ally';
+        if($this->alliance > 0) return 'Friend';
     }
 }

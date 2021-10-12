@@ -1,4 +1,4 @@
-<x-rancor::main-layout>
+<x-rancor::admin-layout>
    <x-slot name="header">
       <div class="flex flex-col md:flex-row justify-between">
          <ul class="flex text-sm lg:text-base">
@@ -52,24 +52,27 @@
             <div class="col-span-3">{{ $entry->owner }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Owner:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">IFF:</div>
             <div class="col-span-3">{{ $entry->alliance_text }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">System:</div>
+            <div class="col-span-3">{{ $entry->territory->name != null ? $entry->territory->name : 'Deep Space' }} ({{ $entry->territory->x_coordinate}}, {{ $entry->territory->y_coordinate }})</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-top">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Last Position:</div>
             <div class="col-span-3">
-               @if($entry->position != null)
-               <strong>System:</strong> ({{ $entry->position['galaxy']['x'] }}, {{ $entry->position['galaxy']['y'] }})<br />
-               <strong>Orbit:</strong> ({{ $entry->position['system']['x'] }}, {{ $entry->position['system']['y'] }})
-               @if(array_key_exists('surface', $entry->position))
-               <br/><strong>Surface:</strong> ({{ $entry->position['surface']['x'] }}, {{ $entry->position['surface']['y'] }})
+            @if($entry->position != null)
+               <strong>Orbit:</strong> ({{ $entry->position['orbit']['x'] }}, {{ $entry->position['orbit']['y'] }})
+               @if(array_key_exists('atmosphere', $entry->position))
+               <br/><strong>Atmosphere:</strong> ({{ $entry->position['atmosphere']['x'] }}, {{ $entry->position['atmosphere']['y'] }})
                @endif
                @if(array_key_exists('ground', $entry->position))
                <br/><strong>Ground:</strong> ({{ $entry->position['ground']['x'] }}, {{ $entry->position['ground']['y'] }})
                @endif
                @else
                None
-               @endif
+            @endif
             </div>
 
          </div>
@@ -94,8 +97,8 @@
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Changes:</div>
-            <div class="col-span-3">{{ number_format($entry->changelog_count) }}</div>
+            <div class="col-span-3">{{ number_format($entry->changelog->count()) }}</div>
          </div>
       </div>
    </div>
-</x-rancor::main-layout>
+</x-rancor::admin-layout>

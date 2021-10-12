@@ -1,4 +1,4 @@
-<x-rancor::main-layout>
+<x-rancor::admin-layout>
    <x-slot name="header">
       <div class="flex flex-col md:flex-row justify-between">
          <ul class="flex text-sm lg:text-base">
@@ -49,4 +49,4 @@
          </div>
       </div>
    </div>
-</x-rancor::main-layout>
+</x-rancor::admin-layout>

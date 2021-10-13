@@ -62,6 +62,6 @@ class EntryLog extends Model implements LogContract
      */
     public function message()
     {
-        return '';
+        return 'Entry #' . $this->entry->entity_id . ' has been modified by ' . $this->creator->name;
     }
 }

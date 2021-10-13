@@ -43,6 +43,6 @@ class NodeLog extends Model implements LogContract
      */
     public function message()
     {
-        return '';
+        return 'Node "' . $this->entry->entity_id . '" has been modified by ' . $this->creator->name;
     }
 }

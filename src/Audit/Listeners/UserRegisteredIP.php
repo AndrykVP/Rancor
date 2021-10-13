@@ -49,7 +49,7 @@ class UserRegisteredIP
 
         DB::table('changelog_users')->insert([
             'user_id' => $user_id,
-            'action' => 'Registered a new account',
+            'action' => 'registered a new account',
             'color' => 'yellow',
             'created_at' => now(),
             'updated_at' => now(),

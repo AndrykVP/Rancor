@@ -50,6 +50,11 @@ class UserLog extends Model implements LogContract
      */
     public function message()
     {
-        return '';
+        $message = $this->user->name . ' ' . $this->action;
+        if($this->upated_by != null)
+        {
+            $message = $message . ' by ' . $this->creator->name;
+        }
+        return $message;
     }
 }

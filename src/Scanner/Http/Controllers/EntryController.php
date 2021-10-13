@@ -179,6 +179,28 @@ class EntryController extends Controller
                     'attributes' => 'required'
                 ],
             ],
+            'selects' => [
+                [
+                    'name' => 'alliance',
+                    'label' => 'IFF Status',
+                    'attributes' => 'required',
+                    'multiple' => false,
+                    'options' => [
+                        (object)[
+                            'id' => 1,
+                            'name' => 'Friend'
+                        ],
+                        (object)[
+                            'id' => 0,
+                            'name' => 'Neutral'
+                        ],
+                        (object)[
+                            'id' => -1,
+                            'name' => 'Enemy'
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }

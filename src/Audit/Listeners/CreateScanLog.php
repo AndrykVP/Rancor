@@ -28,7 +28,11 @@ class CreateScanLog
      */
 public function handle(EntryUpdate $event)
 {
-    if($event->entry->isDirty('type') || $event->entry->isDirty('name') || $event->entry->isDirty('owner') || $event->entry->isDirty('position'))
+    if($event->entry->isDirty('type')
+    || $event->entry->isDirty('name')
+    || $event->entry->isDirty('owner') 
+    || $event->entry->isDirty('alliance')
+    || $event->entry->isDirty('territory_id'))
     {
         $log = new EntryLog;
         $log->entry_id = $event->entry->id;
@@ -48,10 +52,15 @@ public function handle(EntryUpdate $event)
             $log->new_owner = $event->entry->owner;
             $log->old_owner = $event->entry->getOriginal('owner');
         }
-        if($event->entry->isDirty('position'))
+        if($event->entry->isDirty('alliance'))
         {
-            $log->new_position = $event->entry->position;
-            $log->old_position = $event->entry->getOriginal('position');
+            $log->new_alliance = $event->entry->alliance;
+            $log->old_alliance = $event->entry->getOriginal('alliance');
+        }
+        if($event->entry->isDirty('territory_id'))
+        {
+            $log->new_territory_id = $event->entry->territory_id;
+            $log->old_territory_id = $event->entry->getOriginal('territory_id');
         }
         $log->save();
     }

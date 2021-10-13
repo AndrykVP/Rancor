@@ -23,8 +23,10 @@ class CreateEntryLogsTable extends Migration
             $table->string('new_name')->nullable();
             $table->string('old_owner')->nullable();
             $table->string('new_owner')->nullable();
-            $table->json('old_position')->nullable();
-            $table->json('new_position')->nullable();
+            $table->foreignId('new_territory_id')->nullable()->default(null)->constrained('scanner_territories')->onDelete('cascade');
+            $table->foreignId('old_territory_id')->nullable()->default(null)->constrained('scanner_territories')->onDelete('cascade');
+            $table->tinyInteger('new_alliance')->nullable();
+            $table->tinyInteger('old_alliance')->nullable();
             $table->timestamps();
         });
     }

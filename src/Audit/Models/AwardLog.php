@@ -53,6 +53,6 @@ class AwardLog extends Model implements LogContract
      */
     public function message()
     {
-        return '';
+        return $this->user->name . 'has received the award "' . $this->award->name . '" from ' . $this->creator->name;
     }
 }

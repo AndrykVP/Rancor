@@ -51,7 +51,7 @@ class UserRank
         {
             if($event->user->rank_id == null)
             {
-                $this->createEntry($event->user->id, 'Removed from service', $this->alert);   
+                $this->createEntry($event->user->id, 'removed from service', $this->alert);   
             }
             else
             {
@@ -66,11 +66,11 @@ class UserRank
                     {
                         if($old_rank->level > $new_rank->level)
                         {
-                            $message = 'Demotion';
+                            $message = 'was demoted';
                         }
                         else if($old_rank->level < $new_rank->level)
                         {
-                            $message = 'Promotion';
+                            $message = 'was promoted';
                         }
         
                         $message = $message . ' from ' . $old_rank->name . '(' . $old_rank->level . ') to ' . $new_rank->name . '(' . $new_rank->level . ')';
@@ -80,23 +80,23 @@ class UserRank
         
                     if($old_rank->department->name != $new_rank->department->name)
                     {
-                        $message = 'Reassigned to the ' . $new_rank->department->name . ' department';
+                        $message = 'was reassigned to the ' . $new_rank->department->name . ' department';
         
                         $this->createEntry($event->user->id, $message, $this->info);
                     }
         
                     if($old_rank->department->faction->id != $new_rank->department->faction->id)
                     {
-                        $message = 'Reassigned to the ' . $new_rank->department->faction->name . ' faction';
+                        $message = 'was reassigned to the ' . $new_rank->department->faction->name . ' faction';
         
                         $this->createEntry($event->user->id, $message, $this->info);
                     }
                 }
                 else
                 {
-                    $this->createEntry($event->user->id, 'Assigned the ' . $new_rank->name . ' rank', $this->info);
-                    $this->createEntry($event->user->id, 'Assigned to the ' . $new_rank->department->name . ' department', $this->info);
-                    $this->createEntry($event->user->id, 'Assigned to the ' . $new_rank->department->faction->name . ' faction', $this->info);
+                    $this->createEntry($event->user->id, 'was assigned the ' . $new_rank->name . ' rank', $this->info);
+                    $this->createEntry($event->user->id, 'was assigned to the ' . $new_rank->department->name . ' department', $this->info);
+                    $this->createEntry($event->user->id, 'was assigned to the ' . $new_rank->department->faction->name . ' faction', $this->info);
                 }
             }
         }

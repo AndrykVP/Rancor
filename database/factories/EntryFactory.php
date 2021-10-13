@@ -29,6 +29,7 @@ class EntryFactory extends Factory
                 'orbit' => $this->coordinates()
             ],
             'alliance' => $this->faker->numberBetween(-1, 1),
+            'territory_id' => $this->faker->numberBetween(1, 1002001),
             'last_seen' => now(),
         ];
     }

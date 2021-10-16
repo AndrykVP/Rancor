@@ -27,7 +27,7 @@ class UserSearch extends FormRequest
         return [
             'attribute' => [
                 'required',
-                Rule::in(['id', 'name', 'email']),
+                Rule::in(['id', 'first_name', 'last_name', 'email']),
             ],
             'value' => 'required'
         ];
@@ -41,7 +41,7 @@ class UserSearch extends FormRequest
     public function messages()
     {
         return [
-            'attribute.in' => 'The selected :attribute is invalid. Acceptable options are: "id", "name" and "email"'
+            'attribute.in' => 'The selected :attribute is invalid. Acceptable options are: "id", "first_name", "last_name" and "email"'
         ];
     }
 }

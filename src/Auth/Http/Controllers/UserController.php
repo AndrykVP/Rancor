@@ -100,12 +100,12 @@ class UserController extends Controller
      *
      * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
      * @param  \App\Models\User  $user
+     * @param  \AndrykVP\Rancor\Auth\Services\AdminUpdatesUser  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(UserForm $request, User $user)
+    public function update(UserForm $request, User $user, AdminUpdatesUser $service)
     {
         $this->authorize('update', $user);
-        $service = new AdminUpdatesUser;
         $service($request, $user);
 
         return redirect(route('admin.users.index'))->with('alert', [

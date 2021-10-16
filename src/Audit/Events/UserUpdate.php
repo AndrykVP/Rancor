@@ -19,12 +19,20 @@ class UserUpdate
     public $user;
 
     /**
+     * Class Variable GenerateI
+     * 
+     * @var boolean
+     */
+    public $generateId;
+
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, Bool $generateId)
     {
         $this->user = $user;
+        $this->generateId = $generateId;
     }
 }

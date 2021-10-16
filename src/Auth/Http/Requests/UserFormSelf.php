@@ -25,10 +25,11 @@ class UserFormSelf extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', Rule::unique('users')->ignore($this->id)],
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->id)],
-            'nickname' => 'nullable|string',
-            'quote' => 'nullable|string',
+            'nickname' => 'nullable|string|max:255',
+            'quote' => 'nullable|string|max:500',
         ];
     }
 }

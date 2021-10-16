@@ -65,6 +65,8 @@ class ProfileController extends Controller
         $this->authorize('update', $user);
         $user->update($request->validated());
 
+        UserUpdate::dispatch($user, $user->wasChanged());
+
         return redirect(route('profile.index'))->with('alert', [
             'message' => ['model' => 'User', 'name' => $user->name, 'action' => 'updated']
         ]);

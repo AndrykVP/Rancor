@@ -14,7 +14,9 @@ class AlterUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->nullable()->default(null)->after('name');
+            $table->string('first_name')->after('name');
+            $table->string('last_name')->after('first_name');
+            $table->string('avatar')->nullable()->default(null)->after('last_name');
             $table->string('signature')->nullable()->default(null)->after('avatar');
             $table->string('nickname')->nullable()->default(null)->after('email');
             $table->text('quote')->nullable()->default(null)->after('nickname');

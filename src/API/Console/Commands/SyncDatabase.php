@@ -25,7 +25,7 @@ class SyncDatabase extends Command
      *
      * @var string
      */
-    protected $description = 'Syncs the galaxy information from Combine\'s Web Service to the database';
+    protected $description = 'Syncs the information from Combine\'s Web Service to the database';
 
     /**
      * The resources available from Combine's Web Services
@@ -33,8 +33,8 @@ class SyncDatabase extends Command
      * @var array
      */
     protected $resources = [
-        'galaxy' => ['sector','system','planet'],
-        //'entity' => ['ship', 'vehicle'],
+        'galaxy' => ['sector', 'system', 'planet'],
+        // 'entity' => ['ship', 'vehicle', 'facility'],
     ];
 
     /**
@@ -58,22 +58,22 @@ class SyncDatabase extends Command
         $resources = $this->option('resource');
         $confirmation = $this->option('skip');
 
-        if(!in_array($type,array_keys($this->resources)))
+        if(!in_array($type, array_keys($this->resources)))
         {
-            $this->error('['.now().'] The type "'.$type.'" is not a valid argument. Check the the documentation for valid arguments');
+            $this->error('['.now().'] The type "' . $type . '" is not a valid argument. Check the the documentation for valid arguments');
             return;
         }
 
-        if($resources)
+        if($resources != null)
         {
-            $this->info('['.now().'] Sync of "'.$type.'" type will begin for the specified resources');
+            $this->info('['.now().'] Sync of "' . $type . '" type will begin for the specified resources');
         }
         else
         {
             $this->warn('['.now().'] Running the command with no parameters will retrieve all resources of the specified type. This operation might take several minutes');
             if($confirmation || $this->confirm('Do you wish to continue?'))
             {
-                $this->info('['.now().'] Sync of all resources from "'.$type.'" will begin');
+                $this->info('['.now().'] Sync of all resources from "' . $type . '" will begin');
                 $resources = $this->resources[$type];
             }
             else
@@ -98,27 +98,8 @@ class SyncDatabase extends Command
             }
         }
         
-        $this->info('['.now().'] The jobs have been added to the queue. Running the queue will take several minutes');
-
-        if($confirmation || $this->confirm('Do you wish to continue?'))
-        {
-            Log::channel('rancor')->warning('The queued jobs to sync galaxy have begun to run. This process might take several minutes');
-
-            // Run jobs for each argument
-            $this->comment('Queued jobs will begin running now');
-            $this->call('queue:work',['--stop-when-empty' => 1, '--queue' => implode(',',$resources)]);
-            
-    
-            // Log end of command
-            Log::channel('rancor')->info('Sync has completed successfully');
-            return;
-        }
-        else
-        {
-            Log::channel('rancor')->warning('The sync was incomplete because the queue was not run. If you wish to complete the sync, run the artisan commands.');
-            $this->warn('The jobs were not dispatched therefore the database was not synced. In order to complete the sync run the artisan commands');
-            return;
-        }
+        $this->info('['.now().'] The jobs have been added to the queue.');
+        Log::channel('rancor')->info('Sync has been successfully added to the queue');
     }
 
     /**
@@ -189,9 +170,10 @@ class SyncDatabase extends Command
      */
     private function sendQuery($uri, $type, $resource, $index)
     {
+        $uri = 'https://www.swcombine.com/ws/v2.0/'.$uri.'/';
         $response = Http::withHeaders([
             'Accept' => 'application/json'
-        ])->get(`https://www.swcombine.com/ws/v2.0/{$uri}/`, [
+        ])->get($uri, [
             'start_index' => $index
         ]);
 
@@ -199,28 +181,16 @@ class SyncDatabase extends Command
         {
             $query = $response->json();
     
-            switch($type)
-            {
-                case 'galaxy':
-                    $result = [
-                        'array' => $query['swcapi'][Str::plural($resource)][$resource],
-                        'total' => $query['swcapi'][Str::plural($resource)]['attributes']['total']
-                    ];
-                break;
-                case 'entity':
-                    $result = [
-                        'array' => $query['swcapi'][$res.'types'][$res.'type'],
-                        'total' => $query['swcapi'][$res.'types']['attributes']['total']
-                    ];
-                break;
-            }
+            $result = [
+                'array' => $query['swcapi'][Str::plural($resource)][$resource],
+                'total' => $query['swcapi'][Str::plural($resource)]['attributes']['total']
+            ];
     
             return $result;
         }
         else
         {
-            $timestamp = now();
-            Log::channel('rancor')->warning(`[{$timestamp}] The request to https://www.swcombine.com/ws/v2.0/{$uri}/?start_index={$i} returned an error.`);
+            Log::channel('rancor')->warning('['.now().'] The request to '.$uri.'/?start_index='.$i.' returned an error.');
             return false;
         }
     }

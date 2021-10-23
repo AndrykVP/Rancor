@@ -44,7 +44,7 @@ return [
     | Here you may specify the colors you want to use for the Rank Change
     | user logs. This is particularly useful with CSS Frameworks like
     | Bootstrap, Bulma and Tailwind that use color names in their syntax
-    | or simply use hexadecimal codes.
+    | or simply use hexadecimal codes and modify the views accordingly.
     |
     */
 
@@ -85,4 +85,28 @@ return [
         // the dev team of the Rancor package for help
         'index' => 24
     ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Discord
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for communication to Discord servers related to your faction.
+    | It is recommended to use Webhooks rather than Bots, since bots need to be
+    | self-hosted while webhooks are http requests to specific channels. However,
+    | if you require more functionality than a webhook, or you have a functional bot
+    | in your server, you may define your bot's key here.
+    |
+    */
+
+    'discord' => [
+
+        // Webhook to a specific channel to remind patrol groups
+        // of territories that have not been scanned in a long time
+        'patrol' => env('RANCOR_DISCORD_PATROL', NULL),
+        
+        // Webhook to a specific channel for admin related notifications
+        'admin' => env('RANCOR_DISCORD_ADMIN', NULL),
+    ]
 ];

@@ -3,57 +3,75 @@
 namespace AndrykVP\Rancor\Scanner\Notifications;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\File;
 use AndrykVP\Rancor\Scanner\Models\Territory;
 
 class PatrolReminder
 {
+   /**
+    * Webhook uri to send notification
+    */
+   public $webhook = null;
+
+   /**
+    * Selects all applicable Territories from database for the Discord message
+    *
+    * @return void
+    */
    public function __invoke()
    {
-      $webhook = config('rancor.discord.patrol');
+      $this->webhook = config('rancor.discord.patrol');
       
-      if($webhook != null)
+      if($this->webhook == null) return;
+
+      foreach([true, false] as $filter)
       {
-         $urgent = Territory::where([
-            ['subscription', true],
-            ['last_patrol', '<', now()->subMonths(3)],
-         ])->get();
+         $territories = $this->query($filter);
 
-         $expired = Territory::where([
-            ['subscription', true],
-            ['last_patrol', '>=', now()->subMonths(3)],
-            ['last_patrol', '<', now()->subMonth()],
-         ])->get();
+         if($territories->count() <= 0) return;
 
-         $urgent_description = $this->buildMessage($urgent);
-         $expired_description = $this->buildMessage($expired);
+         $message = $this->buildMessage($territories);
 
-         return Http::post($webhook, [
-            'content' => "Patrol Reminder!",
-            'embeds' => [
-               [
-                  'title' => "Coordinates that require immediate attention",
-                  'footer' => [
-                     'text' => 'Last scanned over 3 months ago'
-                  ],
-                  'description' => $urgent_description,
-                  'color' => '15158332',
-               ],
-               [
-                  'title' => "Coordinates that should be patrolled soon",
-                  'footer' => [
-                     'text' => 'Last scanned between 1 and 3 months ago'
-                  ],
-                  'description' => $expired_description,
-                  'color' => '15844367',
-               ]
-            ],
-         ]);
+         $file = tmpfile();
+         if(fwrite($file, $message) === false) return;
+         fseek($file, 0);
+         
+         $this->notifyDiscord($file, $territories->count(), $filter);
+         fclose($file);
       }
    }
 
+   /**
+    * Queries the appropriate Territories to notify via Discord
+    *
+    * @param bool  $old
+    * @return  void
+    */
+   private function query(Bool $old=false)
+   {
+      return Territory::select(['x_coordinate', 'y_coordinate'])
+               ->where('subscription', true)
+               ->when($old, function($query) {
+                  return $query->where('last_patrol', '<', now()->subMonths(3));
+               }, function($query) {
+                  return $query->where([
+                     ['last_patrol', '>=', now()->subMonths(3)],
+                     ['last_patrol', '<', now()->subMonth()],
+                  ]);
+               })
+               ->get();
+   }
+
+
+   /**
+    * Creates the String Message to attach to the Discord message
+    *
+    * @param Illuminate\Support\Collection  $territories
+    * @return string
+    */
    private function buildMessage($territories)
    {
-      $message = "";
+      $message = '';
 
       foreach($territories as $territory)
       {
@@ -61,5 +79,56 @@ class PatrolReminder
       }
 
       return $message;
+   }
+
+   /**
+    * Sends the HTTP Request to the Discord Webhook
+    *
+    * @param TmpFile  $file
+    * @param int  $count
+    * @param bool  $old
+    * @return void
+    */
+   private function notifyDiscord($file, Int $count, Bool $old)
+   {   
+      $embed = $this->buildEmbed($count, $old);
+      $filename = $old ? 'urgent.txt' : 'expired.txt';
+      $payload = json_encode([
+         'embeds' => [$embed],
+      ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+
+      // dd($message);
+      
+      Http::attach('file', $file, $filename)
+      ->post($this->webhook, ['payload_json' => $payload]);
+   }
+
+   /**
+    * Creates Embeds array to send via Discord Webhook
+    *
+    * @param int  $count
+    * @param bool  $old
+    * @return array
+    */
+   private function buildEmbed(Int $count, Bool $old)
+   {
+      return [
+         'title' => 'Patrol Reminder',
+         'description' => $old ? 'Coordinates that require immediate attention' : 'Coordinates that should be patrolled soon',
+         'color' => $old ? '15158332' : '15844367',
+         'timestamp' => now()->toDateTimeString(),
+         'fields' => [
+            [
+               'name' => 'Total Systems',
+               'value' => $count,
+               'inline' => true,
+            ],
+            [
+               'name' => 'Last Scanned',
+               'value' => $old ? 'Over 3 months ago' : '1-3 months ago',
+               'inline' => true,
+            ],
+         ]
+      ];
    }
 }

@@ -92,12 +92,10 @@ class PatrolReminder
    private function notifyDiscord($file, Int $count, Bool $old)
    {   
       $embed = $this->buildEmbed($count, $old);
-      $filename = $old ? 'urgent.txt' : 'expired.txt';
+      $filename = ($old ? 'urgent' : 'expired') . '_patrols_' . now()->toDateString() . '.txt';
       $payload = json_encode([
          'embeds' => [$embed],
       ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-
-      // dd($message);
       
       Http::attach('file', $file, $filename)
       ->post($this->webhook, ['payload_json' => $payload]);

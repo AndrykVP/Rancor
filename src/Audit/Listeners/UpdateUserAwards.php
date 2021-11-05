@@ -92,9 +92,9 @@ class UpdateUserAwards
     * @param null|object  $award
     * @param integer  $level
     */
-   private function getAction(Null|Object $award, Int $level)
+   private function getAction(?Object $award, Int $level)
    {
-      if($award == null) return $level;
+      if(!isset($award)) return $level;
 
       return $level - $award->pivot->level;
    }

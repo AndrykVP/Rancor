@@ -16,7 +16,6 @@ class UserIsNotBanned
     */
    public function handle($request, Closure $next)
    {
-      // Log user out if banned, and redirect to index
       if ($request->user()->is_banned)
       {
          return redirect(route('profile.index'))->with('alert', [

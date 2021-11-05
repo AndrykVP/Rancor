@@ -32,34 +32,34 @@
    <div class="flex flex-col items-center">
       <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">ID:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('ID') }}:</div>
             <div class="col-span-3">{{ $user->id }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Handle:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Handle') }}:</div>
             <div class="col-span-3">{{ $user->name }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">E-mail:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('E-mail') }}:</div>
             <div class="col-span-3">{{ $user->email }}</div>
          </div>
          @if($user->rank_id != null)
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Faction:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Faction') }}:</div>
             <div class="col-span-3">{{ $user->rank->department->faction->name }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Department:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Department') }}:</div>
             <div class="col-span-3">{{ $user->rank->department->name }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Rank:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Rank') }}:</div>
             <div class="col-span-3">{{ $user->rank->name }}</div>
          </div>
          @endif
          @if($user->roles->isNotEmpty())
          <div class="grid grid-cols-4 mb-2 gap-4 items-start">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Roles:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Roles') }}:</div>
             <div class="col-span-3">
                <ul>
                   @foreach($user->roles as $role)
@@ -71,7 +71,7 @@
          @endif
          @if($user->permissions->isNotEmpty())
          <div class="grid grid-cols-4 mb-2 gap-4 items-start">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Permissions:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Permissions') }}:</div>
             <div class="col-span-3">
                <ul>
                   @foreach($user->permissions as $permission)
@@ -83,7 +83,7 @@
          @endif
          @if($user->awards->isNotEmpty())
          <div class="grid grid-cols-4 mb-2 gap-4 items-start">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Awards:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Awards') }}:</div>
             <div class="col-span-3">
                <ul>
                   @foreach($user->awards as $award)
@@ -94,7 +94,7 @@
          </div>
          @endif
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
-            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Joined:</div>
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">{{ __('Joined') }}:</div>
             <div class="col-span-3">{{ $user->created_at->diffForHumans() }}</div>
          </div>
       </div>

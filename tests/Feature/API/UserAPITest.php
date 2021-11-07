@@ -183,9 +183,39 @@ class UserAPITest extends TestCase
       $user = $this->users->random();
       $response = $this->actingAs($this->admin, 'api')
                   ->postJson(route('api.auth.users.search', [
-                     'attribute' => 'name',
-                     'value' => $user->name,
+                     'attribute' => 'first_name',
+                     'value' => $user->first_name,
                   ]));
       $response->assertSuccessful()->assertJsonFragment(['id' => $user->id]);
+   }
+   /** @test */
+   function guest_cannot_access_user_api_ban()
+   {
+      $user = $this->users->random();
+      $response = $this->patchJson(route('api.auth.users.ban', $user), []);
+      $response->assertUnauthorized();
+   }
+
+   /** @test */
+   function user_cannot_access_user_api_ban()
+   {
+      $user = $this->users->random();
+      $response = $this->actingAs($this->user, 'api')
+                  ->patchJson(route('api.auth.users.ban', $user), []);
+      $response->assertStatus(403);
+   }
+
+   /** @test */
+   function admin_can_access_user_api_ban()
+   {
+      $user = $this->users->random();
+      $response = $this->actingAs($this->admin, 'api')
+                  ->patchJson(route('api.auth.users.ban', $user), [
+                     'status' => 1,
+                     'reason' => 'Some Reason',
+                  ]);
+      $response->assertSuccessful()->assertExactJson([
+         'message' => 'User ' . $user->name . ' has been updated'
+      ]);
    }
 }

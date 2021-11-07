@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Auth\Http\Requests\BanForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
@@ -51,10 +52,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserForm $request, User $user)
+    public function update(UserForm $request, User $user, AdminUpdatesUser $service)
     {
         $this->authorize('update',$user);
-        $service = new AdminUpdatesUser;
         $service($request, $user);
 
         return response()->json([
@@ -76,7 +76,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User "'.$user->name.'" has been deleted'
-        ], 200);        
+        ], 200);
     }
 
     /**
@@ -93,5 +93,30 @@ class UserController extends Controller
                 ->paginate(config('rancor.pagination'));
 
         return UserResource::collection($users);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\BanForm  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function ban(BanForm $request, User $user)
+    {
+        $this->authorize('ban', $user);
+
+        $data = $request->validated();
+        $user->is_banned = $data['status'];
+        $user->is_admin = false;
+
+        DB::transaction(function () use($user, $data) {
+            $user->save();
+            $user->bans()->create($data);
+        });
+
+        return response()->json([
+            'message' => 'User "'.$user->name.'" has been ' . ($data['status'] ? 'banned' : 'unbanned')
+        ], 200);
     }
 }

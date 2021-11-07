@@ -116,7 +116,8 @@ class UserWebTest extends TestCase
       $response->assertSuccessful()
                ->assertViewIs('rancor::users.edit')
                ->assertSee($user->id)
-               ->assertSee($user->name)
+               ->assertSee($user->first_name)
+               ->assertSee($user->last_name)
                ->assertSee($user->email)
                ->assertSee($user->nickname)
                ->assertSee($user->quote)
@@ -148,7 +149,8 @@ class UserWebTest extends TestCase
       $response = $this->actingAs($this->admin)
                   ->patch(route('admin.users.update', $user), [
                      'id' => $user->id,
-                     'name' => 'Updated User',
+                     'first_name' => 'Updated',
+                     'last_name' => 'User',
                      'email' => 'example@example.com',
                      'nickname' => 'UwU',
                      'quote' => 'Lorem ipsum dolot',
@@ -220,12 +222,49 @@ class UserWebTest extends TestCase
       $response = $this->actingAs($this->admin)
                   ->withoutExceptionHandling()
                   ->post(route('admin.users.search', [
-                     'attribute' => 'name',
-                     'value' => $user->name,
+                     'attribute' => 'first_name',
+                     'value' => $user->first_name,
                   ]));
       $response->assertSuccessful()
                ->assertViewIs('rancor::resources.index')
                ->assertSee($user->id)
                ->assertSee($user->name);
+   }
+
+   /** @test */
+   function guest_cannot_ban_users()
+   {
+      $user = $this->users->random();
+      $response = $this->patch(route('admin.users.ban', $user));
+      $response->assertRedirect(route('login'));
+   }
+
+   /** @test */
+   function user_cannot_ban_users()
+   {
+      $user = $this->users->random();
+      $response = $this->actingAs($this->user)
+                  ->patch(route('admin.users.ban', $user));
+      $response->assertStatus(403);
+   }
+
+   /** @test */
+   function admin_can_ban_users()
+   {
+      $user = $this->users->random();
+      $response = $this->actingAs($this->admin)
+                  ->withoutExceptionHandling()
+                  ->patch(route('admin.users.ban', $user), [
+                     'status' => 1,
+                     'reason' => 'Some reason',
+                  ]);
+      $response->assertRedirect(route('admin.users.index'))
+               ->assertSessionHas('alert', [
+                  'message' => [
+                     'model' => 'User',
+                     'name' => $user->name,
+                     'action' => 'banned',
+                  ]
+               ]);
    }
 }

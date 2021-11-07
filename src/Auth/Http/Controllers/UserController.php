@@ -4,7 +4,9 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use AndrykVP\Rancor\Auth\Http\Requests\BanForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
 use AndrykVP\Rancor\Auth\Models\Role;
@@ -128,6 +130,31 @@ class UserController extends Controller
 
         return redirect(route('admin.users.index'))->with('alert', [
             'message' => ['model' => $this->resource['name'], 'name' => $user->name, 'action' => 'deleted']
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \AndrykVP\Rancor\Auth\Http\Requests\BanForm  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function ban(BanForm $request, User $user)
+    {
+        $this->authorize('ban', $user);
+
+        $data = $request->validated();
+        $user->is_banned = $data['status'];
+        $user->is_admin = false;
+
+        DB::transaction(function () use($user, $data) {
+            $user->save();
+            $user->bans()->create($data);
+        });
+
+        return redirect(route('admin.users.index'))->with('alert', [
+            'message' => ['model' => $this->resource['name'], 'name' => $user->name, 'action' => ($request->status ? 'banned' : 'unbanned')]
         ]);
     }
 }

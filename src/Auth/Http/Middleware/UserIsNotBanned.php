@@ -18,10 +18,12 @@ class UserIsNotBanned
    {
       if ($request->user()->is_banned)
       {
-         return redirect(route('profile.index'))->with('alert', [
-            'color' => 'red',
-            'message' => 'This account has been banned. Contact administration for clarification.'
-         ]);
+         Auth::logout();
+
+         $request->session()->invalidate();
+         $request->session()->regenerateToken();
+
+         abort(403, 'Your account has been banned.');
       }
 
       return $next($request);

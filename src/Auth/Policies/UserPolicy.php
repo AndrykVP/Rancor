@@ -148,9 +148,23 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, User $model)
     {
         return $user->hasPermission('delete-users')
+                && $user->isNot($model)
+                ? Response::allow()
+                : Response::deny('You do not have permissions to delete this user.');
+    }
+
+    /**
+     * Determine whether the user can ban the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function ban(User $user, User $model)
+    {
+        return $user->hasPermission('ban-users')
                 && $user->isNot($model)
                 ? Response::allow()
                 : Response::deny('You do not have permissions to delete this user.');

@@ -26,7 +26,7 @@
       </div>
    </x-slot>
 
-   <div class="flex justify-center">
+   <div class="flex flex-col items-center justify-center">
       <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
          
          @if ($errors->any())
@@ -34,10 +34,10 @@
             <div class="font-medium text-red-600">
                {{ __('Whoops! Something went wrong.') }}
             </div>
-
+            
             <ul class="mt-3 list-disc list-inside text-sm text-red-600">
                @foreach ($errors->all() as $error)
-                     <li>{{ $error }}</li>
+               <li>{{ $error }}</li>
                @endforeach
             </ul>
          </div>
@@ -266,7 +266,31 @@
                {{ __('Apply Changes') }}
            </button>
          </form>
+
       </div>
+
+      @can('ban', $user)
+      <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
+         <form action="{{ route('admin.users.ban', $user)}}" method="POST">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="status" value="{{ !$user->is_banned }}">
+            <div class="mb-6">
+               <label for="reason" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  {{ _($user->is_banned ? 'Unban' : 'Ban' .' Reason') }}
+               </label>
+               <textarea
+               class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+               name="reason"
+               id="reason"
+               placeholder="{{ 'Reason to ' . ($user->is_banned ? 'Unban ' : 'Ban ' . $user->name) }}">{{ old('reason') ?: '' }}</textarea>
+            </div>
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+               {{ __($user->is_banned ? 'Unban' : 'Ban') }}
+            </button>
+         </form>
+      </div>
+      @endcan
    </div>
 
    <script lang="text/js">

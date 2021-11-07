@@ -16,6 +16,7 @@ Route::group(['middleware' => ['web']], function(){
 	});
 
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => array_merge(config('rancor.middleware.web'), ['admin'])], function() {
+		Route::patch('users/{user}/ban', [UserController::class, 'ban'])->name('users.ban');
 		Route::post('users/search', [UserController::class, 'search'])->name('users.search');
 		Route::post('roles/search', [RoleController::class, 'search'])->name('roles.search');
 		Route::post('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');

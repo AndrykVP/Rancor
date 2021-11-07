@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
+use App\Models\User;
 
 class PackageServiceProvider extends ServiceProvider
 {
@@ -57,6 +58,7 @@ class PackageServiceProvider extends ServiceProvider
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
         Blade::componentNamespace('AndrykVP\\Rancor\\Package\\View\\Components', 'rancor');
+        view()->share('online_users', User::select('id', 'first_name', 'last_name')->where('last_seen_at', '>', now()->subMinutes(15))->get());
         
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Package/Routes/web.php');

@@ -35,6 +35,17 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <footer class="px-2 py-4 bg-white dark:bg-gray-800 dark:text-gray-400 border-t">
+                <div class="container flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
+                    <p class="text-xs">
+                        <span class="text-gray-500">Online Users:</span>
+                        @foreach($online_users as $user)
+                        <a href="{{ route('profile.show', $user) }}" class="text-indigo-800 hover:text-indigo-600">{{ $user->name }}</a>,
+                        @endforeach
+                    </p>
+                </div>
+            </footer>
         </div>
     </body>
 </html>

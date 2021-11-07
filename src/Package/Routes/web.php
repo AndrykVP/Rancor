@@ -9,6 +9,9 @@ use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Models\Reply;
+use AndrykVP\Rancor\Holocron\Models\Node;
+use AndrykVP\Rancor\Holocron\Models\Collection;
+use AndrykVP\Rancor\Scanner\Models\Entry;
 
 Route::group(['middleware' => array_merge(['web'], config('rancor.middleware.web'), ['admin'])], function(){
 
@@ -18,42 +21,57 @@ Route::group(['middleware' => array_merge(['web'], config('rancor.middleware.web
          [
             'title' => 'Users',
             'value' => User::count(),
+            'icon' => 'users'
+         ],
+         [
+            'title' => 'Forum Groups',
+            'value' => Group::count(),
             'icon' => 'user-group'
          ],
          [
-            'title' => 'Articles',
-            'value' => Article::count(),
-            'icon' => 'newspaper'
-         ],
-         [
-            'title' => 'Tags',
-            'value' => Tag::count(),
-            'icon' => 'tag'
-         ],
-         [
-            'title' => 'Groups',
-            'value' => Group::count(),
-            'icon' => 'key'
-         ],
-         [
-            'title' => 'Categories',
+            'title' => 'Forum Categories',
             'value' => Category::count(),
-            'icon' => 'collection'
+            'icon' => 'folder-open'
          ],
          [
-            'title' => 'Boards',
+            'title' => 'Forum Boards',
             'value' => Board::count(),
             'icon' => 'table'
          ],
          [
-            'title' => 'Discussions',
+            'title' => 'Forum Discussions',
             'value' => Discussion::count(),
             'icon' => 'chat-alt-2'
          ],
          [
-            'title' => 'Replies',
+            'title' => 'Forum Replies',
             'value' => Reply::count(),
             'icon' => 'chat'
+         ],
+         [
+            'title' => 'Holocron Nodes',
+            'value' => Node::count(),
+            'icon' => 'book-open'
+         ],
+         [
+            'title' => 'Holocron Collections',
+            'value' => Collection::count(),
+            'icon' => 'collection'
+         ],
+         [
+            'title' => 'News Articles',
+            'value' => Article::count(),
+            'icon' => 'newspaper'
+         ],
+         [
+            'title' => 'News Tags',
+            'value' => Tag::count(),
+            'icon' => 'tag'
+         ],
+         [
+            'title' => 'Scanner Entries',
+            'value' => Entry::count(),
+            'icon' => 'status-online'
          ],
       ];
 

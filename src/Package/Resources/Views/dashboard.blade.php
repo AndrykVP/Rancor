@@ -9,19 +9,13 @@
       </div>
    </x-slot>
 
-   <div class="row">
+   <div class="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 gap-4">
       @foreach($cards as $card)
-      <div class="col-6 col-md-4">
-         <div class="card bg-primary text-white text-center mb-4">
-            <div class="card-body">
-               <div class="row">
-                  <div class="col"><img src="https://s2.svgbox.net/hero-solid.svg?ic={{ $card['icon'] }}&color=ffffff" width="64" height="64"></div>
-                  <div class="col">
-                     <h2 class="lead">{{ $card['title'] }}</h2>
-                     <h3>{{ number_format($card['value']) }}</h3>
-                  </div>
-               </div>
-            </div>
+      <div class="grid grid-cols-3 place-content-center border shadow-md rounded-md">
+         <div class="col-span-1 flex justify-center px-4 py-2"><img src="https://s2.svgbox.net/hero-solid.svg?ic={{ $card['icon'] }}&color=000000" width="64" height="64"></div>
+         <div class="col-span-2 flex flex-col justify-center px-4 py-2">
+            <h2 class="uppercase text-xs text-gray-400 font-bold tracking-widest">{{ $card['title'] }}</h2>
+            <h3 class="font-thin">{{ number_format($card['value']) }}</h3>
          </div>
       </div>
       @endforeach

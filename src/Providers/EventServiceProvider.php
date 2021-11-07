@@ -15,7 +15,6 @@ use AndrykVP\Rancor\Audit\Listeners\UserLoginIP;
 use AndrykVP\Rancor\Audit\Listeners\UserRank;
 use AndrykVP\Rancor\Audit\Listeners\UserRegisteredIP;
 use AndrykVP\Rancor\Audit\Listeners\CreateScanLog;
-use AndrykVP\Rancor\Auth\Listeners\UserLastLogin;
 use AndrykVP\Rancor\Forums\Events\CreateReply;
 use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
 use AndrykVP\Rancor\Forums\Models\Board;
@@ -37,7 +36,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         Login::class => [
             UserLoginIP::class,
-            UserLastLogin::class,
         ],
         UserUpdate::class => [
             UserRank::class,

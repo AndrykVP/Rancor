@@ -24,8 +24,8 @@ class AlterUsersTable extends Migration
             $table->boolean('show_email')->default(1)->after('rank_id');
             $table->boolean('is_admin')->default(0)->after('show_email');
             $table->boolean('is_banned')->default(0)->after('is_admin');
-            $table->string('ban_reason')->nullable()->default(null)->after('is_banned');
-            $table->timestamp('last_login')->nullable()->default(null);
+            $table->unsignedBigInteger('online_time')->default(0)->after('is_banned')->comment('In Minutes');
+            $table->timestamp('last_seen_at')->nullable()->default(null);
         });
     }
 
@@ -46,8 +46,8 @@ class AlterUsersTable extends Migration
                 'show_email',
                 'is_admin',
                 'is_banned',
-                'ban_reason',
-                'last_login'
+                'online_time',
+                'last_seen_at'
             ]);
         });
     }

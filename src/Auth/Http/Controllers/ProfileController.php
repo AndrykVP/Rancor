@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Auth\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf;
+use AndrykVP\Rancor\Audit\Events\UserUpdate;
 use App\Models\User;
 
 class ProfileController extends Controller

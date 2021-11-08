@@ -21,7 +21,7 @@
       </div>
    </x-slot>
 
-   <div class="flex justify-center mb-4">
+   <div class="flex justify-center">
       <div class="w-full sm:max-w-lg mt-6 px-6 py-4 bg-white border shadow-md overflow-hidden sm:rounded-lg">
 
          @if ($errors->any())

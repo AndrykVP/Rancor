@@ -38,8 +38,10 @@
             </div>
          </div>
          @empty
-         <div class="border bg-white w-full md:rounded overflow-hidden mb-4">
-            No Replies by this User
+         <div class="border bg-white w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="p-4">
+               No Replies by this User
+            </div>
          </div>
          @endforelse
       </div>

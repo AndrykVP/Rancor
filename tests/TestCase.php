@@ -23,26 +23,19 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        //
+        $app['config']->set('auth.guards.api', [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ]);
     }
-    
-    /**
-     * Define database migrations.
-     *
-     * @return void
-     */
+
     protected function defineDatabaseMigrations()
     {
         $this->loadLaravelMigrations();
+        $this->loadMigrationsFrom(__DIR__ . '/../app/database');
     }
-
-    /**
-    * Define routes setup.
-    *
-    * @param  \Illuminate\Routing\Router  $router
-    *
-    * @return void
-    */
+    
     protected function defineRoutes($router)
     {
         $router->get('/login')->name('login');

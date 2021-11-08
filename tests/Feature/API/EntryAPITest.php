@@ -92,8 +92,9 @@ class EntryAPITest extends TestCase
             ],
             'contributor' => [
                'id' => $entry->contributor->id,
-               'name' => $entry->contributor->name,
-            ]
+               'first_name' => $entry->contributor->first_name,
+               'last_name' => $entry->contributor->last_name,
+            ],
          ]
       ]);
    }

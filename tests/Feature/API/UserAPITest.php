@@ -79,12 +79,14 @@ class UserAPITest extends TestCase
       $response->assertSuccessful()->assertJson([
          'data' => [
             'id' => $user->id,
-            'name' => $user->name,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
             'avatar' => $user->avatar,
             'signature' => $user->signature,
             'email' => $user->email,
             'nickname' => $user->nickname,
             'quote' => $user->quote,
+            'is_admin' => $user->is_admin,
          ]
       ]);
    }
@@ -117,7 +119,8 @@ class UserAPITest extends TestCase
       $response = $this->actingAs($this->admin, 'api')
                   ->withoutExceptionHandling()
                   ->patchJson(route('api.auth.users.update', $user), [
-                     'name' => 'Updated User',
+                     'first_name' => 'Updated',
+                     'last_name' => 'User',
                      'email' => 'example@example.com',
                      'nickname' => 'Nick',
                      'quote' => 'Some random quote',
@@ -215,7 +218,7 @@ class UserAPITest extends TestCase
                      'reason' => 'Some Reason',
                   ]);
       $response->assertSuccessful()->assertExactJson([
-         'message' => 'User ' . $user->name . ' has been updated'
+         'message' => 'User "' . $user->name . '" has been banned'
       ]);
    }
 }

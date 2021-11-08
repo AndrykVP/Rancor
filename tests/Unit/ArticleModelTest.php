@@ -7,7 +7,7 @@ use AndrykVP\Rancor\News\Models\Article;
 use AndrykVP\Rancor\News\Models\Tag;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class ArticleTest extends TestCase
+class ArticleModelTest extends TestCase
 {
     use RefreshDatabase;
 

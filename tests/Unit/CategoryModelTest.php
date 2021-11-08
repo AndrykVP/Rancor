@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class CategoryTest extends TestCase
+class CategoryModelTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class DepartmentTest extends TestCase
+class DepartmentModelTest extends TestCase
 {
     use RefreshDatabase;
 

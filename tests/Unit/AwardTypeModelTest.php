@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Structure\Models\AwardType;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class AwardTypeTest extends TestCase
+class AwardTypeModelTest extends TestCase
 {
     use RefreshDatabase;
 

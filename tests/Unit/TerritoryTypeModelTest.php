@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Scanner\Models\TerritoryType;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class TerritoryTypeTest extends TestCase
+class TerritoryTypeModelTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Tests\TestCase;
 use App\Models\User;
 
-class UserTest extends TestCase
+class UserModelTest extends TestCase
 {
     use RefreshDatabase;
 

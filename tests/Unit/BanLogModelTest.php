@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Audit\Models\BanLog;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class BanLogTest extends TestCase
+class BanLogModelTest extends TestCase
 {
     use RefreshDatabase;
 

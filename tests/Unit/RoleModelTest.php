@@ -8,7 +8,7 @@ use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\DB\Seeders\RancorSeeder;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class RoleTest extends TestCase
+class RoleModelTest extends TestCase
 {
     use RefreshDatabase;
 

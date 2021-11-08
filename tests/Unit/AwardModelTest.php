@@ -7,7 +7,7 @@ use AndrykVP\Rancor\Structure\Models\Award;
 use AndrykVP\Rancor\Tests\TestCase;
 use App\Models\User;
 
-class AwardTest extends TestCase
+class AwardModelTest extends TestCase
 {
     use RefreshDatabase;
 

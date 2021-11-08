@@ -7,7 +7,7 @@ use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\DB\Seeders\RancorSeeder;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class PermissionTest extends TestCase
+class PermissionModelTest extends TestCase
 {
     use RefreshDatabase;
 

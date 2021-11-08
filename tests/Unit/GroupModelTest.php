@@ -7,7 +7,7 @@ use AndrykVP\Rancor\Forums\Models\Group;
 use AndrykVP\Rancor\Forums\Models\Board;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class GroupTest extends TestCase
+class GroupModelTest extends TestCase
 {
     use RefreshDatabase;
 

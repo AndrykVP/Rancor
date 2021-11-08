@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class EntryTest extends TestCase
+class EntryModelTest extends TestCase
 {
     use RefreshDatabase;
 

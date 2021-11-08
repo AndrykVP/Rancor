@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class FactionTest extends TestCase
+class FactionModelTest extends TestCase
 {
     use RefreshDatabase;
 

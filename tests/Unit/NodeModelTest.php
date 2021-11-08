@@ -7,7 +7,7 @@ use AndrykVP\Rancor\Holocron\Models\Collection;
 use AndrykVP\Rancor\Holocron\Models\Node;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class NodeTest extends TestCase
+class NodeModelTest extends TestCase
 {
     use RefreshDatabase;
 

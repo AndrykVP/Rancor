@@ -7,7 +7,7 @@ use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class RankTest extends TestCase
+class RankModelTest extends TestCase
 {
     use RefreshDatabase;
 

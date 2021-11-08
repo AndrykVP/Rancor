@@ -8,7 +8,7 @@ use AndrykVP\Rancor\Forums\Models\Discussion;
 use AndrykVP\Rancor\Forums\Models\Reply;
 use AndrykVP\Rancor\Tests\TestCase;
 
-class DiscussionTest extends TestCase
+class DiscussionModelTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -4,6 +4,27 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Inactivity
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify how many MONTHS until a specific resource is considered
+    | inactive. This is necessary for cronjobs that cleanup relationships or logs
+    | that are no longer relevant, to decrease the number of rows in database
+    |
+    */
+
+    'inactivity' => [
+
+        'users' => 3,
+
+        // This is used to cleanup the 'forum_unread_discussions' table
+        'forums' => 3,
+        
+    ],
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Auth Middleware
     |--------------------------------------------------------------------------
     |

@@ -38,7 +38,10 @@ trait ForumUser
     {
         return $this->belongsToMany(Discussion::class, 'forum_unread_discussions')->whereHas('board', function($query) {
             $query->whereIn('id', $this->topics());
-      })->withTimestamps()->orderByDesc('updated_at');
+        })->withTimestamps()
+        ->withPivot('reply_count')
+        ->wherePivot('reply_count', '>', 0)
+        ->orderByDesc('updated_at');
     }
 
     /**
@@ -75,7 +78,7 @@ trait ForumUser
     {
         if($this->hasPermission('view-forum-categories'))
         {
-            return Category::all()->pluck('id');
+            return Category::select('id')->get()->pluck('id')->sort()->values();
         }
 
         return $this->visibleBoards()->pluck('category_id')->unique()->sort()->values();

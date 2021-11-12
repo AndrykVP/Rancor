@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Forums\Models\Category;
 use AndrykVP\Rancor\Forums\Models\Board;
@@ -57,7 +58,12 @@ class ForumController extends Controller
     */
    public function markread(Request $request)
    {
-      $unread = $request->user()->unreadDiscussions()->detach();
+      $unread = DB::table('forum_unread_discussions')
+      ->where('user_id', $request->user()->id)
+      ->update([
+         'updated_at' => now(),
+         'reply_count' => 0,
+      ]);
 
       return redirect()->route('forums.unread.index')->with('alert', [
          'message' => 'All Discussions have been marked as read'

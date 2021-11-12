@@ -56,16 +56,6 @@ class Discussion extends Model
     }
 
     /**
-     * Relationship to User model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function pending_visitors()
-    {
-        return $this->belongsToMany(User::class, 'forum_unread_discussions')->withTimestamps();
-    }
-
-    /**
      * Relationship to Categories model
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -104,14 +94,10 @@ class Discussion extends Model
     {
         if(isset($this->replies_count))
         {
-            $pages = ceil($this->replies_count / config('rancor.pagination'));
+            return $pages = ceil($this->replies_count / config('rancor.pagination'));
         }
-        else 
-        {
-            $pages = ceil($this->replies()->count() / config('rancor.pagination'));
-        }
-
-        return $pages > 0 ? $pages : 1;
+        
+        $pages = ceil($this->replies()->count() / config('rancor.pagination'));
     }
 
     /**

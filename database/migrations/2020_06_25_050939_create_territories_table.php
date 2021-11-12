@@ -25,7 +25,7 @@ class CreateTerritoriesTable extends Migration
             $table->timestamp('last_patrol')->nullable()->default(null);
             $table->timestamps();
             
-            $table->index(['x_coordinate', 'y_coordinate']);
+            $table->unique(['x_coordinate', 'y_coordinate']);
             $table->index('subscription');
         });
     }

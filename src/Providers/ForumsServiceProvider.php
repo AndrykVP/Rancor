@@ -60,8 +60,8 @@ class ForumsServiceProvider extends ServiceProvider
 
         // Publish Assets   
         $this->publishes([
-            __DIR__.'/../Forums/Resources/Views' => resource_path('views/rancor'),
-        ], 'views');        
+            __DIR__.'/../Forums/Resources/Views' => resource_path('views/vendor/rancor'),
+        ], 'rancor-views');        
     }
 
     /**

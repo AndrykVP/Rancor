@@ -34,16 +34,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Automatically publish database Seeds and UserPolicy
-        $this->publishes([
-            __DIR__.'/../../database/seeds/PermissionSeeder.php' => database_path('seeds/PermissionSeeder.php'),
-            __DIR__.'/../../database/seeds/RoleSeeder.php' => database_path('seeds/RoleSeeder.php'),
-        ], 'seeders');
-
-        // Publish Policies
-        $this->publishes([
-            __DIR__.'/../Auth/Policies/UserPolicy.php' => app_path('Policies/UserPolicy.php')
-        ], 'policies');
+        //
     }
 
     /**
@@ -67,6 +58,11 @@ class AuthServiceProvider extends ServiceProvider
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('admin', AdminAccess::class);
         $router->aliasMiddleware('unbanned', UserIsNotBanned::class);
+
+        // Publish Views
+        $this->publishes([
+            __DIR__.'/../Auth/Resources/Views' => resource_path('views/vendor/rancor')
+        ], 'rancor-views');
     }
 
     /**

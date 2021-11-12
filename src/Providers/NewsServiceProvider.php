@@ -43,6 +43,11 @@ class NewsServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../News/Resources/Views','rancor');
+
+        // Publish Views
+        $this->publishes([
+            __DIR__.'/../News/Resources/Views' => resource_path('views/vendor/rancor')
+        ], 'rancor-views');
         
         // Register policies
         $this->registerPolicies();

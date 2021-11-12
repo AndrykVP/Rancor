@@ -54,6 +54,11 @@ class StructureServiceProvider extends ServiceProvider
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Structure/Resources/Views','rancor');
 
+        // Publish Views
+        $this->publishes([
+            __DIR__.'/../Structure/Resources/Views' => resource_path('views/vendor/rancor')
+        ], 'rancor-views');
+
         // Register policies
         $this->registerPolicies();       
     }

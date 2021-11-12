@@ -57,6 +57,11 @@ class PackageServiceProvider extends ServiceProvider
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
         Blade::componentNamespace('AndrykVP\\Rancor\\Package\\View\\Components', 'rancor');
+
+        // Publish Views
+        $this->publishes([
+            __DIR__.'/../Package/Resources/Views' => resource_path('views/vendor/rancor')
+        ], 'rancor-views');
         
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../Package/Routes/web.php');
@@ -67,6 +72,6 @@ class PackageServiceProvider extends ServiceProvider
         // Publishes config files
         $this->publishes([
             __DIR__.'/../../config/app.php' => config_path('rancor.php'),
-        ],'config');
+        ],'rancor-config');
     }
 }

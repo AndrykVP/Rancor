@@ -50,6 +50,11 @@ class ScannerServiceProvider extends ServiceProvider
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Scanner/Resources/Views', 'rancor');
+
+        // Publish Views
+        $this->publishes([
+            __DIR__.'/../Scanner/Resources/Views' => resource_path('views/vendor/rancor')
+        ], 'rancor-views');
         
         // Register policies
         $this->registerPolicies();

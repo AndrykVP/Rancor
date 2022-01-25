@@ -57,6 +57,7 @@ class UserForm extends FormRequest
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($this->id)],
             'nickname' => 'nullable|string|max:255',
             'quote' => 'nullable|string|max:500',
+            'duty' => 'nullable|string|max:40',
             'rank_id' => 'nullable|integer|exists:structure_ranks,id',
             'avatar' => 'nullable|url',
             'signature' => 'nullable|string',

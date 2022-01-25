@@ -40,6 +40,10 @@
             <div class="col-span-3">{{ $faction->name }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
+            <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Initials:</div>
+            <div class="col-span-3">{{ $faction->initials }}</div>
+         </div>
+         <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">Description:</div>
             <div class="col-span-3">{{ $faction->description }}</div>
          </div>

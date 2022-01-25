@@ -24,6 +24,7 @@ class DepartmentFactory extends Factory
         return [
             'name' => $this->faker->company,
             'description' => $this->faker->catchPhrase,
+            'logo' => $this->faker->word . '.png',
             'color' => $this->faker->hexcolor,
         ];
     }

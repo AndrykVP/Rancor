@@ -82,6 +82,7 @@ class FactionWebTest extends TestCase
                ->assertViewIs('rancor::show.faction')
                ->assertSee($faction->id)
                ->assertSee($faction->name)
+               ->assertSee($faction->initials)
                ->assertSee($faction->description);
    }
 
@@ -126,7 +127,7 @@ class FactionWebTest extends TestCase
    /** @test */
    function admin_can_access_faction_store()
    {
-      $faction = Faction::factory()->make(['type_id' => 1]);
+      $faction = Faction::factory()->make();
       $response = $this->actingAs($this->admin)
                   ->post(route('admin.factions.store'), $faction->toArray());
       $response->assertRedirect(route('admin.factions.index'))
@@ -166,6 +167,7 @@ class FactionWebTest extends TestCase
                ->assertViewIs('rancor::resources.edit')
                ->assertSee($faction->id)
                ->assertSee($faction->name)
+               ->assertSee($faction->initials)
                ->assertSee($faction->description);
    }
 
@@ -194,6 +196,7 @@ class FactionWebTest extends TestCase
                   ->patch(route('admin.factions.update', $faction), [
                      'id' => $faction->id,
                      'name' => 'Updated Faction',
+                     'initials' => 'ABC',
                      'description' => 'Updated Faction Description',
                   ]);
       $response->assertRedirect(route('admin.factions.index'))

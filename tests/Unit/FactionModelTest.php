@@ -20,6 +20,7 @@ class FactionModelTest extends TestCase
         ->hasDepartments(3)
         ->create([
             'name' => 'Fake Title',
+            'initials' => 'ABC',
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
         ]);
         
@@ -33,6 +34,14 @@ class FactionModelTest extends TestCase
     function faction_has_name()
     {
         $this->assertEquals('Fake Title', $this->faction->name);
+    }
+
+    /** 
+     * @test
+     */
+    function faction_has_initials()
+    {
+        $this->assertEquals('ABC', $this->faction->initials);
     }
 
     /**

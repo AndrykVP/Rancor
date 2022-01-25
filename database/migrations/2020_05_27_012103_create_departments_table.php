@@ -17,7 +17,8 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable()->default(null);
-            $table->string('color')->nullable()->default(null);
+            $table->string('logo', 20)->nullable()->default(null);
+            $table->string('color', 7)->nullable()->default(null);
             $table->foreignId('faction_id')->constrained('structure_factions')->onDelete('cascade');
             $table->timestamps();
         });

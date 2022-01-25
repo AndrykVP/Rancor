@@ -30,6 +30,7 @@ class UserFormSelf extends FormRequest
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->id)],
             'nickname' => 'nullable|string|max:255',
             'quote' => 'nullable|string|max:500',
+            'homeplanet_id' => 'nullable|integer|exists:swc_planets,id',
         ];
     }
 }

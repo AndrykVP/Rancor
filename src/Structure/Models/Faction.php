@@ -32,7 +32,7 @@ class Faction extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description' ];
+    protected $fillable = [ 'name', 'initials', 'description' ];
 
     /**
      * Relationship to Department model

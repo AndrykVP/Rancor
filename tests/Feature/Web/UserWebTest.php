@@ -3,6 +3,8 @@
 namespace AndrykVP\Rancor\Tests\Feature\Web;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use AndrykVP\Rancor\Tests\TestCase;
 use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Rank;
@@ -87,7 +89,8 @@ class UserWebTest extends TestCase
                ->assertSee($user->email)
                ->assertSee($user->rank->department->faction->name)
                ->assertSee($user->rank->department->name)
-               ->assertSee($user->rank->name);
+               ->assertSee($user->rank->name)
+               ->assertSee($user->duty);
    }
 
    /** @test */
@@ -121,6 +124,7 @@ class UserWebTest extends TestCase
                ->assertSee($user->email)
                ->assertSee($user->nickname)
                ->assertSee($user->quote)
+               ->assertSee($user->duty)
                ->assertSee($user->avatar)
                ->assertSee($user->signature);
    }
@@ -145,7 +149,11 @@ class UserWebTest extends TestCase
    /** @test */
    function admin_can_access_user_update()
    {
+      Storage::fake('idgen');
+
       $user = $this->users->random();
+      $avatar = UploadedFile::fake()->image($user->id . '.png', 150, 150)->size(100);
+      $signature = UploadedFile::fake()->image($user->id . '.png', 50, 50)->size(100);
       $response = $this->actingAs($this->admin)
                   ->patch(route('admin.users.update', $user), [
                      'id' => $user->id,
@@ -154,8 +162,11 @@ class UserWebTest extends TestCase
                      'email' => 'example@example.com',
                      'nickname' => 'UwU',
                      'quote' => 'Lorem ipsum dolot',
+                     'duty' => 'Cookie Monster',
                      'avatar' => 'http://www.example.com/image.png',
                      'signature' => '<center><img src="http://www.example.com/image.png" /></center>',
+                     'avatarFile' => $avatar,
+                     'signatureFile' => $signature,
                   ]);
       $response->assertRedirect(route('admin.users.index'))
                ->assertSessionHas('alert', [
@@ -165,6 +176,9 @@ class UserWebTest extends TestCase
                      'action' => 'updated',
                   ]
                ]);
+      
+      Storage::disk('idgen')->assertExists('images/avatars/' . $avatar->name);
+      Storage::disk('idgen')->assertExists('images/signatures/' . $signature->name);
    }
    
    /** @test */

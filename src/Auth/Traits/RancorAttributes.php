@@ -2,8 +2,20 @@
 
 namespace AndrykVP\Rancor\Auth\Traits;
 
+use AndrykVP\Rancor\API\Models\Planet;
+
 trait RancorAttributes
 {
+    /**
+     * Relationship to Planet model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function homeplanet()
+    {
+        return $this->belongsTo(Planet::class, 'homeplanet_id');
+    }
+
     /**
      * Get Name attribute from first_name and last_name columns
      * 
@@ -11,7 +23,21 @@ trait RancorAttributes
      */
     public function getNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Attribute getter
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        if($this->show_nickname)
+        {
+            return "{$this->first_name} '{$this->nickname}' {$this->last_name}";
+        }
+        return $this->name;
     }
 
     /**

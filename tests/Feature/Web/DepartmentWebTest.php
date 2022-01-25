@@ -83,6 +83,7 @@ class DepartmentWebTest extends TestCase
                ->assertViewIs('rancor::show.department')
                ->assertSee($department->id)
                ->assertSee($department->name)
+               ->assertSee($department->logo)
                ->assertSee($department->description)
                ->assertSee($department->color)
                ->assertSee($department->faction->name);
@@ -169,6 +170,7 @@ class DepartmentWebTest extends TestCase
                ->assertViewIs('rancor::resources.edit')
                ->assertSee($department->id)
                ->assertSee($department->name)
+               ->assertSee($department->logo)
                ->assertSee($department->description)
                ->assertSee($department->color);
    }
@@ -198,6 +200,7 @@ class DepartmentWebTest extends TestCase
                   ->patch(route('admin.departments.update', $department), [
                      'id' => $department->id,
                      'name' => 'Updated Department',
+                     'logo' => 'example.png',
                      'description' => 'Updated Department Description',
                      'color' => '#123456',
                      'faction_id' => 1,

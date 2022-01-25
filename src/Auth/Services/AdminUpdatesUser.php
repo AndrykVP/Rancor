@@ -29,17 +29,18 @@ class AdminUpdatesUser
             $user->last_name = $data['last_name'];
             $user->email = $data['email'];
             $user->nickname = $data['nickname'];
-            if($user->isDirty()) $generateId = true;
+            if($user->isDirty('first_name') || $user->isDirty('last_name') || $user->isDirty('nickname')) $generateId = true;
             $user->quote = $data['quote'];
             $user->avatar = $data['avatar'];
             $user->signature = $data['signature'];
          }
-
+         
          // Change User Rank
          if($request->user()->can('changeRank', $user))
          {
             $user->rank_id = $data['rank_id'];
-            if($user->isDirty('rank_id')) $generateId = true;
+            $user->duty = $data['duty'];
+            if($user->isDirty('rank_id') || $user->isDirty('duty')) $generateId = true;
          }
 
          // Upload Artwork
@@ -47,12 +48,12 @@ class AdminUpdatesUser
          {
             if($request->hasFile('avatarFile'))
             {
-               $avatarPath = $request->file('avatarFile')->storePubliclyAs('ids/avatars/', $user->id . '.png', 'public');
+               $avatarPath = $request->file('avatarFile')->storeAs('images/avatars/', $user->id . '.png', 'idgen');
                $generateId = true;
             }
             if($request->hasFile('signatureFile'))
             {
-               $signaturePath = $request->file('signatureFile')->storePubliclyAs('ids/signatures/', $user->id . '.png', 'public');
+               $signaturePath = $request->file('signatureFile')->storeAs('images/signatures/', $user->id . '.png', 'idgen');
                $generateId = true;
             }
          }

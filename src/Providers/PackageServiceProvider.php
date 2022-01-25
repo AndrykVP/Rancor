@@ -37,6 +37,13 @@ class PackageServiceProvider extends ServiceProvider
             'path' => storage_path('logs/rancor.log'),
             'level' => 'debug',
         ]); 
+        
+        // Add storage disk to stack
+        $this->app->make('config')->set('filesystems.disks.idgen', [
+            'driver' => 'local',
+            'root' => storage_path('idgen'),
+            'visibility' => 'private',
+        ]); 
     }
 
     /**

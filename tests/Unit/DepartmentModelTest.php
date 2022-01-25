@@ -20,6 +20,7 @@ class DepartmentModelTest extends TestCase
         ->forFaction()->hasRanks(7)
         ->create([
             'name' => 'Fake Title',
+            'logo' => 'example.png',
             'description' => 'Voluptate dolor cupidatat sit sint ea Lorem excepteur sunt quis ipsum anim ipsum. Do ullamco sit velit commodo magna sint est labore enim sint. Non incididunt deserunt deserunt tempor minim velit id duis proident nostrud ad ad exercitation.',
             'color' => '#123456'
         ]);
@@ -34,6 +35,14 @@ class DepartmentModelTest extends TestCase
     function department_has_name()
     {
         $this->assertEquals('Fake Title', $this->department->name);
+    }
+
+    /** 
+     * @test
+     */
+    function department_has_logo()
+    {
+        $this->assertEquals('example.png', $this->department->logo);
     }
 
     /**

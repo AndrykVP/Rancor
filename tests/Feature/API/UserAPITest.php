@@ -86,6 +86,7 @@ class UserAPITest extends TestCase
             'email' => $user->email,
             'nickname' => $user->nickname,
             'quote' => $user->quote,
+            'duty' => $user->duty,
             'is_admin' => $user->is_admin,
          ]
       ]);
@@ -111,7 +112,7 @@ class UserAPITest extends TestCase
    /** @test */
    function admin_can_access_user_api_update()
    {
-      Storage::fake('public');
+      Storage::fake('idgen');
 
       $user = $this->users->random();
       $avatar = UploadedFile::fake()->image($user->id . '.png', 150, 150)->size(100);
@@ -123,7 +124,8 @@ class UserAPITest extends TestCase
                      'last_name' => 'User',
                      'email' => 'example@example.com',
                      'nickname' => 'Nick',
-                     'quote' => 'Some random quote',
+                     'quote' => 'Lorem Ipsum',
+                     'duty' => 'Cookie Monster',
                      'avatar' => 'http://www.example.com/image.png',
                      'signature' => '<center><img>http://www.example.com/image.png</img></center',
                      'avatarFile' => $avatar,
@@ -133,8 +135,8 @@ class UserAPITest extends TestCase
          'message' => 'User "Updated User" has been updated'
       ]);
 
-      Storage::disk('public')->assertExists('ids/avatars/' . $avatar->name);
-      Storage::disk('public')->assertExists('ids/signatures/' . $signature->name);
+      Storage::disk('idgen')->assertExists('images/avatars/' . $avatar->name);
+      Storage::disk('idgen')->assertExists('images/signatures/' . $signature->name);
    }
 
    /** @test */

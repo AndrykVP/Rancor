@@ -79,6 +79,7 @@ class DepartmentAPITest extends TestCase
          'data' => [
             'id' => $department->id,
             'name' => $department->name,
+            'logo' => $department->logo,
             'description' => $department->description,
             'color' => $department->color,
          ]
@@ -136,6 +137,7 @@ class DepartmentAPITest extends TestCase
                   ->patchJson(route('api.structure.departments.update', $department), [
                      'id' => $department->id,
                      'name' => 'Updated Department',
+                     'logo' => 'example.png',
                      'description' => 'Updated Department Description',
                      'color' => '#123456',
                      'faction_id' => $department->faction_id,

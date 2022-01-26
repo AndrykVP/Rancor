@@ -114,8 +114,10 @@ class ForumController extends Controller
       })->get()
       ->groupBy('board_id')
       ->transform(function($item, $key) {
-         $pivot = $item->pluck('pivot');
-         return $pivot->reduce(function ($carry, $item) {
+         $unread = $item->pluck('unread');
+         if($unread->isEmpty()) return 0;
+         
+         return $unread->reduce(function ($carry, $item) {
             return $carry + $item['reply_count'];
          });
       });

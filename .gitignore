@@ -1,4 +1,3 @@
 app/
 vendor/
-database/migrations/*add_api_token*
 .phpunit.result.cache

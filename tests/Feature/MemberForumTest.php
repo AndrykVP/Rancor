@@ -105,8 +105,8 @@ class MemberForumTest extends TestCase
    function member_can_edit_editable_forum_reply()
    {
       $response = $this->actingAs($this->member)->get(route('forums.replies.edit', $this->editable_reply));
-      // $response->assertSee('Edit Reply');
       $response->assertSuccessful();
+      $response->assertSee('Edit Reply');
    }
 
    /** @test */

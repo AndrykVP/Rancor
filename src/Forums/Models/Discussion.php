@@ -86,6 +86,21 @@ class Discussion extends Model
     }
 
     /**
+     * Relationhip to User model
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function visitors()
+    {
+        return $this->belongsToMany(User::class, 'forum_unread_discussions')
+                ->withTimestamps()
+                ->as('unread')
+                ->withPivot('reply_count')
+                ->wherePivot('reply_count', '>', 0)
+                ->latest('updated_at');
+    }
+
+    /**
      * Returns the number of pages in Reply relationship
      * 
      * @return int

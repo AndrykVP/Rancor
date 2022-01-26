@@ -18,7 +18,7 @@
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          @forelse ($categories as $category)
-            <x-rancor::category-card :category="$category"/>
+            <x-rancor::category-card :category="$category" :unread-discussions="$unread_discussions"/>
          @empty
          <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
             <div class="p-4">

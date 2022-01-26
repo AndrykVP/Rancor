@@ -9,13 +9,13 @@
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $category) }}">{{ $category->name }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $category) }}">{{ Str::limit($category->name, 15) }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
             </li>
             <li class="inline-flex items-center text-gray-500">
-               {{ $board->name }}
+               {{ Str::limit($board->name, 15) }}
             </li>
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
@@ -34,6 +34,11 @@
          </div>
       </div>
    </x-slot>
+   @if($normal->total() >= config('rancor.pagination'))
+   <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
+      {{ $normal->links() }}
+   </div>
+   @endif
    
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -65,11 +70,9 @@
             <x-rancor::discussion-list title="{{ __('Regular Discussions') }}" :discussions="$normal" :board="$board" :category="$category"/>
             @endif
          @else
-         <div class="row justify-content-center">
-            <div class="col">
-               <div class="card mb-4">
-                  <div class="card-body">No Child Boards or Discussions found in this Board</div>
-               </div>
+         <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="p-4">
+               No Child Boards or Discussions found in this Board
             </div>
          </div>
          @endif

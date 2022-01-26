@@ -15,7 +15,14 @@
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
          @foreach($category->boards as $board)
-            <x-rancor::board-row :board="$board" />
+            @php
+            $unread_replies = 0;
+            if(array_key_exists($board->id, $unread_discussions->toArray()))
+            {
+               $unread_replies = $unread_discussions[$board->id];
+            }
+            @endphp
+            <x-rancor::board-row :board="$board" :unread_replies="$unread_replies"/>
          @endforeach
       </tbody>
    </table>

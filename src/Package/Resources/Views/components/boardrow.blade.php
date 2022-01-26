@@ -1,8 +1,11 @@
 <tr>
    <td class="px-6 py-4 whitespace-nowrap">
       <div class="flex items-center">
-         <a class="font-bold text-xl text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $board->category, 'board' => $board]) }}">
+         <a class="relative font-bold text-xl text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $board->category, 'board' => $board]) }}">
             {{ $board->name }}
+            @if($unread_replies > 0)
+            <span class="absolute items-center justify-center px-2 py-1 -ml-3 -mt-3 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ number_format($unread_replies) }}</span>
+            @endif
          </a><span class="text-xs text-gray-700 ml-4">({{ number_format($board->discussions_count) }} {{ __('Topics') }}. {{ number_format($board->replies_count) }} {{ __('Replies') }})</span>
       </div>
       <div>

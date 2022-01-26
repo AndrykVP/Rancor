@@ -15,13 +15,21 @@ class CategoryCard extends Component
    public $category;
 
    /**
+    * The Collection of Unread Discussions
+    *
+    * @var  \Illuminate\Support\Collection
+    */
+   public $unread_discussions;
+
+   /**
     * Create a new component instance.
     *
     * @return void
     */
-   public function __construct(Category $category)
+   public function __construct(Category $category, $unreadDiscussions)
    {
       $this->category = $category;
+      $this->unread_discussions = $unreadDiscussions;
    }
 
    /**

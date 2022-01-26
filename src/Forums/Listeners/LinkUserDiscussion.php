@@ -34,7 +34,7 @@ class LinkUserDiscussion
       ->transform(function ($item, $key) use($discussion_id){
          return [
             'discussion_id' => $discussion_id,
-            'user_id' => $item['id'],
+            'user_id' => $item->id,
             'created_at' => now(),
             'updated_at' => now(),
          ];

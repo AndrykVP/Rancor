@@ -34,14 +34,14 @@ trait ForumUser
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function unreadDiscussions()
+    public function discussions()
     {
-        return $this->belongsToMany(Discussion::class, 'forum_unread_discussions')->whereHas('board', function($query) {
-            $query->whereIn('id', $this->topics());
-        })->withTimestamps()
-        ->withPivot('reply_count')
-        ->wherePivot('reply_count', '>', 0)
-        ->orderByDesc('updated_at');
+        return $this->belongsToMany(Discussion::class, 'forum_unread_discussions')
+                ->withTimestamps()
+                ->as('unread')
+                ->withPivot('reply_count')
+                ->wherePivot('reply_count', '>', 0)
+                ->latest('updated_at');
     }
 
     /**

@@ -9,7 +9,7 @@
                </svg>
             </li>
             <li class="inline-flex items-center text-gray-500">
-               {{ $category->name }}
+               {{ Str::limit($category->name, 15) }}
             </li>
           </ul>
           <div class="inline-flex mt-4 md:mt-0">
@@ -28,7 +28,7 @@
    
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-         <x-rancor::category-card :category="$category" />
+         <x-rancor::category-card :category="$category" :unread_discussions="$unread_discussions"/>
       </div>
    </div>
 </x-rancor::main-layout>

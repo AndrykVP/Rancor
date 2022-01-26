@@ -15,13 +15,21 @@ class BoardRow extends Component
    public $board;
 
    /**
+    * The Total number of Unread Replies
+    *
+    * @var int
+    */
+    public $unread_replies;
+
+   /**
     * Create a new component instance.
     *
     * @return void
     */
-   public function __construct(Board $board)
+   public function __construct(Board $board, Int $unreadReplies)
    {
       $this->board = $board;
+      $this->unread_replies = $unreadReplies;
    }
 
    /**

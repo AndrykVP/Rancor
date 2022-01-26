@@ -9,19 +9,19 @@
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $category) }}">{{ $category->name }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.category', $category) }}">{{ Str::limit($category->name, 15) }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
             </li>
             <li class="inline-flex items-center">
-               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $category, 'board' => $board]) }}">{{ $board->name }}</a>
+               <a class="text-indigo-900 hover:text-indigo-700" href="{{ route('forums.board', ['category' => $category, 'board' => $board]) }}">{{ Str::limit($board->name, 15) }}</a>
                <svg class="h-5 w-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                </svg>
             </li>
             <li class="inline-flex items-center text-gray-500">
-               {{ $discussion->name }}
+               {{ Str::limit($discussion->name, 15) }}
             </li>
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
@@ -37,9 +37,11 @@
          </div>
       </div>
    </x-slot>
+   @if($replies->total() >= config('rancor.pagination'))
    <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
       {{ $replies->links() }}
    </div>
+   @endif
    
    <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -91,14 +93,12 @@
             </div>
          </div>
          @empty
-         <div class="border w-full md:w-3/4 md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
-            No Replies in this Discussion
+         <div class="border bg-white w-full md:rounded overflow-hidden md:shadow-lg mb-4 md:mb-0">
+            <div class="p-4">
+               No Replies by this User
+            </div>
          </div>
          @endforelse
-      </div>
-
-      <div class="bg-white px-4 py-3 border-b border-t border-gray-200 sm:px-6">
-         {{ $replies->links() }}
       </div>
    </div>
 </x-rancor::main-layout>

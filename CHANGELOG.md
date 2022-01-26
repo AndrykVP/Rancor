@@ -11,14 +11,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `PermissionFactory` and `RoleFactory` to use in Unit Testing
 - Feature Testing for all API endpoints
 - Middleware `Auth\Http\Middleware\UserIsNotBanned` used to prevent banned users from loging in or access the non-public areas of the site
-- Scanner Models: `Quadrant`, `Territory` and `TerritoryType`
+- Scanner models: `Quadrant`, `Territory` and `TerritoryType`
+- Scanner factories: `Quadrant`, `Territory` and `TerritoryType` for testing.
+- Scanner model `Entry` now has a relationship to the new `Territory` model.
+- Scanner model `Entry` now has a column named `alliance` for rendering IFF.
 - Forum Observers `CategoryObserver` and `BoardObserver` to keep their 'lineup' column clean
+- Public scanner routes that allow to navigate quadrants, view the entries of a single territory and upload XML files.
+- `Audit\Contracts\LogContract` interface to unify all Log models.
+- `PatrolReminder` task for scheduled notification of scanner territories in need of update.
+- `CleanEntryLogs` task for scheduled cleanup of old scanner entry logs.
+- `TrackUserActivity` middleware to Auth module.
+- Column `online_time` to Users table to track user activity.
+- Audit model `BanLog` to keep track of bans/unbans of users. UnitTest has also been included.
+- View Component `OnlineUsers` to display users based on the User Activity middleware.
 
 ### Changed
 - Renamed Structure Model `Type` to `AwardType`
 - `Alert` component now receives either a string, or an array with data from Models, to render the alert message.
 - Refactored `RancorSeeder` to separate seeders, for convention.
 - Migrations now use the `$table->foreignId()` method for foreign keys. This makes migrations incompatible with earlier versions of Laravel.
+- Scanner service `EntryParseService` has been refactored into a callable object that can be injected into the Controller method.
+- `User` model now uses `first_name` and `last_name` columns instead of `name`
+- UserUpdate event is now dispatched individually through Controllers rather than on model event.
+- Coulumn `last_login` changed to `last_seen_at` for usage with the new Track User Activity feature.
+- `SplitName` trait was renamed to `RancorAttributes` to include the render of `online_time` column to a human-readable format.
+- `HasPrivs` trait was renamed to `AuthRelations` to include the relationship to the new BanLog model.
+- Web and API tests for `User` model to include the new `ban` method on their respective controllers.
+- All tests in `Tests/Units` have been renamed to `*ModelTest` for naming convention, which helps when filtering tests.
+- `Faction` model now has a `initials` column for the IDGen feature.
+- `Department` model now has a `logo` column for the IDGen feature.
+- `User` model now has a `homeplanet` and `duty` columns for the IDGen feature. It also has a `homeplanet` relationship to the `API\Planet` model.
+
+### Deleted
+- `UserTraitLogin` Listener as it's become obsolete with the implementation of Track User Activity feature.
 
 ## [2.0.0] - 2021-07-02
 ### Added

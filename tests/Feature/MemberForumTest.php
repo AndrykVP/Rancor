@@ -54,6 +54,22 @@ class MemberForumTest extends TestCase
    }
 
    /** @test */
+   function member_can_access_unread_discussions()
+   {
+      $response = $this->actingAs($this->member)->get(route('forums.unread.index'));
+      $response->assertSuccessful();
+      $this->assertNotEmpty($response['unread']);
+   }
+
+   /** @test */
+   function member_can_mark_unread_discussions_as_read()
+   {
+      $response = $this->actingAs($this->member)->post(route('forums.unread.mark'));
+      $response->assertRedirect(route('forums.unread.index'));
+      $response->assertSessionHas('alert', ['message' => 'All Discussions have been marked as read']);
+   }
+
+   /** @test */
    function member_can_access_visible_forum_category()
    {
       $response = $this->actingAs($this->member)->get(route('forums.category', $this->categories->first()));

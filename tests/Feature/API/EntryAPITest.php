@@ -76,7 +76,6 @@ class EntryAPITest extends TestCase
    {
       $entry = $this->entries->random()->load('territory', 'contributor');
       $response = $this->actingAs($this->admin, 'api')
-      ->withoutExceptionHandling()
                   ->getJson(route('api.scanner.entries.show', $entry));
       $response->assertSuccessful()->assertJson([
          'data' => [

@@ -260,7 +260,6 @@ class PermissionWebTest extends TestCase
    {
       $permission = $this->permissions->random();
       $response = $this->actingAs($this->admin)
-                  ->withoutExceptionHandling()
                   ->post(route('admin.permissions.search', [
                      'attribute' => 'name',
                      'value' => Str::slug($permission->name),

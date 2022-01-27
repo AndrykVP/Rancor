@@ -118,7 +118,6 @@ class UserAPITest extends TestCase
       $avatar = UploadedFile::fake()->image($user->id . '.png', 150, 150)->size(100);
       $signature = UploadedFile::fake()->image($user->id . '.png', 50, 50)->size(100);
       $response = $this->actingAs($this->admin, 'api')
-                  ->withoutExceptionHandling()
                   ->patchJson(route('api.auth.users.update', $user), [
                      'first_name' => 'Updated',
                      'last_name' => 'User',

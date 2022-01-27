@@ -195,8 +195,6 @@ class RoleAPITest extends TestCase
    {
       $role = $this->roles->random();
       $response = $this->actingAs($this->admin, 'api')
-
-      ->withoutExceptionHandling()
                   ->postJson(route('api.auth.roles.search', [
                      'attribute' => 'name',
                      'value' => $role->name,

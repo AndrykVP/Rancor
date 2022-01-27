@@ -99,7 +99,6 @@ class ReplyWebTest extends TestCase
          'category' => $reply->discussion->board->category->slug,
          'board' => $reply->discussion->board->slug,
          'discussion' => $reply->discussion,
-         'page' => 1,
       ]))
                ->assertSessionHas('alert', [
                   'message' => [

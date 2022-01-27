@@ -234,7 +234,6 @@ class UserWebTest extends TestCase
    {
       $user = $this->users->random();
       $response = $this->actingAs($this->admin)
-                  ->withoutExceptionHandling()
                   ->post(route('admin.users.search', [
                      'attribute' => 'first_name',
                      'value' => $user->first_name,
@@ -267,7 +266,6 @@ class UserWebTest extends TestCase
    {
       $user = $this->users->random();
       $response = $this->actingAs($this->admin)
-                  ->withoutExceptionHandling()
                   ->patch(route('admin.users.ban', $user), [
                      'status' => 1,
                      'reason' => 'Some reason',

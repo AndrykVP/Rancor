@@ -77,7 +77,6 @@ class GroupWebTest extends TestCase
    {
       $group = $this->groups->random();
       $response = $this->actingAs($this->admin)
-                  ->withoutExceptionHandling()
                   ->get(route('admin.groups.show', $group));
       $response->assertSuccessful()
                ->assertViewIs('rancor::show.group')

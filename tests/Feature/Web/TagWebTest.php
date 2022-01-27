@@ -225,7 +225,6 @@ class TagWebTest extends TestCase
    {
       $tag = $this->tags->random();
       $response = $this->actingAs($this->admin)
-      ->withoutExceptionHandling()
                   ->delete(route('admin.tags.destroy', $tag));
       $response->assertRedirect(route('admin.tags.index'))
                ->assertSessionHas('alert', [

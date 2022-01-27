@@ -45,7 +45,6 @@ class DiscussionWebTest extends TestCase
    function user_cannot_access_discussion_index()
    {
       $response = $this->actingAs($this->user)
-      // ->withoutExceptionHandling()
                   ->get(route('admin.discussions.index'));
       $response->assertStatus(403);
    }
@@ -120,7 +119,6 @@ class DiscussionWebTest extends TestCase
    function admin_can_access_discussion_create()
    {
       $response = $this->actingAs($this->admin)
-      ->withoutExceptionHandling()
                   ->get(route('forums.discussions.create', ['board' => 1]));
       $response->assertSuccessful()
                ->assertViewIs('rancor::create.discussion');

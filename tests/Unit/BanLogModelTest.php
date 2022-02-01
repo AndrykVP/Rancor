@@ -50,7 +50,7 @@ class BanLogModelTest extends TestCase
     function ban_has_user()
     {
         $this->assertNotEmpty($this->ban->user);
-        $this->assertEquals(1, $this->ban->user_id);
+        $this->assertEquals(1, $this->ban->user->id);
     }
     
     /**
@@ -59,6 +59,6 @@ class BanLogModelTest extends TestCase
     function ban_has_creator()
     {
         $this->assertNotEmpty($this->ban->creator);
-        $this->assertEquals(2, $this->ban->updated_by);
+        $this->assertEquals(2, $this->ban->creator->id);
     }
 }

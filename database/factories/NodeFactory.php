@@ -25,8 +25,6 @@ class NodeFactory extends Factory
             'name' => $this->faker->sentence(5),
             'body' => $this->faker->paragraph(true),
             'is_public' => $this->faker->boolean,
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 

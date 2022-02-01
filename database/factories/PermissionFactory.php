@@ -24,8 +24,6 @@ class PermissionFactory extends Factory
         return [
             'name' => $this->faker->slug,
             'description' => $this->faker->sentence(),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }

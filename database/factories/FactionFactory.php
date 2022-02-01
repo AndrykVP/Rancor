@@ -24,7 +24,6 @@ class FactionFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'initials' => $this->faker->unique()->stateAbbr,
             'description' => $this->faker->catchPhrase,
         ];
     }

@@ -168,12 +168,6 @@ class FactionController extends Controller
                     'attributes' => 'autofocus required'
                 ],
                 [
-                    'name' => 'initials',
-                    'label' => 'Initials',
-                    'type' => 'text',
-                    'attributes' => 'required maxlength="4" minlength="2"'
-                ],
-                [
                     'name' => 'description',
                     'label' => 'Description',
                     'type' => 'text',

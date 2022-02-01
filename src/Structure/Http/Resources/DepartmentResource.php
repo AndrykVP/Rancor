@@ -18,7 +18,6 @@ class DepartmentResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'logo' => $this->logo,
             'color' => $this->color,
             'faction' => new FactionResource($this->whenLoaded('faction')),
             'ranks' => RankResource::collection($this->whenLoaded('ranks')),

@@ -175,11 +175,6 @@ class DepartmentController extends Controller
                     'attributes' => 'required'
                 ],
                 [
-                    'name' => 'logo',
-                    'label' => 'Logo',
-                    'type' => 'text',
-                ],
-                [
                     'name' => 'color',
                     'label' => 'Color',
                     'type' => 'color',

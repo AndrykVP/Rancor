@@ -78,7 +78,6 @@ class FactionAPITest extends TestCase
          'data' => [
             'id' => $faction->id,
             'name' => $faction->name,
-            'initials' => $faction->initials,
             'description' => $faction->description,
          ]
       ]);
@@ -135,7 +134,6 @@ class FactionAPITest extends TestCase
                   ->patchJson(route('api.structure.factions.update', $faction), [
                      'id' => $faction->id,
                      'name' => 'Updated Faction',
-                     'initials' => 'ABC',
                      'description' => 'Updated Faction Description',
                   ]);
       $response->assertSuccessful()->assertExactJson([

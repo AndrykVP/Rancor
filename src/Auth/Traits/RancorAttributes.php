@@ -27,20 +27,6 @@ trait RancorAttributes
     }
 
     /**
-     * Attribute getter
-     *
-     * @return string
-     */
-    public function getFullNameAttribute()
-    {
-        if($this->show_nickname)
-        {
-            return "{$this->first_name} '{$this->nickname}' {$this->last_name}";
-        }
-        return $this->name;
-    }
-
-    /**
      * Get value of online_time column into readable format
      * 
      * @param int  $value

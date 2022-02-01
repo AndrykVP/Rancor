@@ -82,7 +82,6 @@ class FactionWebTest extends TestCase
                ->assertViewIs('rancor::show.faction')
                ->assertSee($faction->id)
                ->assertSee($faction->name)
-               ->assertSee($faction->initials)
                ->assertSee($faction->description);
    }
 
@@ -167,7 +166,6 @@ class FactionWebTest extends TestCase
                ->assertViewIs('rancor::resources.edit')
                ->assertSee($faction->id)
                ->assertSee($faction->name)
-               ->assertSee($faction->initials)
                ->assertSee($faction->description);
    }
 
@@ -196,7 +194,6 @@ class FactionWebTest extends TestCase
                   ->patch(route('admin.factions.update', $faction), [
                      'id' => $faction->id,
                      'name' => 'Updated Faction',
-                     'initials' => 'ABC',
                      'description' => 'Updated Faction Description',
                   ]);
       $response->assertRedirect(route('admin.factions.index'))

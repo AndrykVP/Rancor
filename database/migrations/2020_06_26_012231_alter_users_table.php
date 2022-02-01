@@ -22,9 +22,7 @@ class AlterUsersTable extends Migration
             $table->string('nickname')->nullable()->default(null)->after('email');
             $table->text('quote')->nullable()->default(null)->after('nickname');
             $table->foreignId('rank_id')->nullable()->default(null)->after('quote')->constrained('structure_ranks')->onDelete('set null');
-            $table->string('duty', 40)->nullable()->default(null)->after('rank_id');
-            $table->boolean('show_email')->default(1)->after('duty');
-            $table->boolean('show_nickname')->default(1)->after('show_email');
+            $table->boolean('show_email')->default(1)->after('rank_id');
             $table->boolean('is_admin')->default(0)->after('show_email');
             $table->boolean('is_banned')->default(0)->after('is_admin');
             $table->unsignedBigInteger('online_time')->default(0)->after('is_banned')->comment('In Minutes');
@@ -41,6 +39,9 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function(Blueprint $table) {
             $table->dropColumn([
+                'first_name',
+                'last_name',
+                'homeplanet',
                 'avatar',
                 'signature',
                 'nickname',

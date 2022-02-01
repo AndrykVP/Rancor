@@ -33,7 +33,7 @@ class Department extends Model
      * 
      * @var array
      */
-    protected $fillable = [ 'name', 'description', 'logo', 'color', 'faction_id' ];
+    protected $fillable = [ 'name', 'description', 'color', 'faction_id' ];
 
     /**
      * Relationship to Rank model

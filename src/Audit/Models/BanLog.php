@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use AndrykVP\Rancor\Audit\Contracts\LogContract;
-use AndrykVP\Rancor\DB\Factories\BanFactory;
+use AndrykVP\Rancor\DB\Factories\BanLogFactory;
 use App\Models\User;
 
 class BanLog extends Model implements LogContract
@@ -72,6 +72,6 @@ class BanLog extends Model implements LogContract
      */
     protected static function newFactory()
     {
-        return BanFactory::new();
+        return BanLogFactory::new();
     }
 }

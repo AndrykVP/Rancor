@@ -2,11 +2,15 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use AndrykVP\Rancor\DB\Factories\IPLogFactory;
 use App\Models\User;
 
 class IPLog extends Model
 {
+    use HasFactory;
+
     /**
      * Defines the table name
      * 
@@ -40,5 +44,15 @@ class IPLog extends Model
     public function creator()
     {
         return $this->belongsTo(User::class,'updated_by');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return IPLogFactory::new();
     }
 }

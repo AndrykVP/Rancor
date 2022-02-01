@@ -2,13 +2,17 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Contracts\LogContract;
+use AndrykVP\Rancor\DB\Factories\NodeLogFactory;
 use AndrykVP\Rancor\Holocron\Models\Node;
 
 class NodeLog extends Model implements LogContract
 {
+    use HasFactory;
+
     /**
      * Defines the table name
      * 
@@ -44,5 +48,15 @@ class NodeLog extends Model implements LogContract
     public function message()
     {
         return 'Node "' . $this->entry->entity_id . '" has been modified by ' . $this->creator->name;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return NodeLogFactory::new();
     }
 }

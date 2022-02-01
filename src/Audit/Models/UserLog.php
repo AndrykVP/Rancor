@@ -2,12 +2,16 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use AndrykVP\Rancor\Audit\Contracts\LogContract;
+use AndrykVP\Rancor\DB\Factories\UserLogFactory;
+use App\Models\User;
 
 class UserLog extends Model implements LogContract
 {
+    use HasFactory;
+
     /**
      * Defines the table name
      * 
@@ -56,5 +60,15 @@ class UserLog extends Model implements LogContract
             $message = $message . ' by ' . $this->creator->name;
         }
         return $message;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return UserLogFactory::new();
     }
 }

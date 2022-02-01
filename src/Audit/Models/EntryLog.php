@@ -2,20 +2,25 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Contracts\LogContract;
+use AndrykVP\Rancor\DB\Factories\EntryLogFactory;
+use AndrykVP\Rancor\Scanner\Enums\Alliance;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class EntryLog extends Model implements LogContract
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'entry_id', 'old_type', 'new_type', 'old_name', 'new_name', 'old_owner', 'new_owner', 'old_position', 'new_position'
+        'updated_by', 'entry_id', 'old_type', 'old_name', 'old_owner', 'old_teritory_id', 'old_alliance',
     ];
 
     /**
@@ -24,8 +29,7 @@ class EntryLog extends Model implements LogContract
      * @var array
      */
     protected $casts = [
-        'old_position' => 'array',
-        'new_position' => 'array',
+        'old_alliance' => Alliance::class,
     ];
 
     /**
@@ -42,7 +46,7 @@ class EntryLog extends Model implements LogContract
      */
     public function creator()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'updated_by');
     }
 
     /**
@@ -63,5 +67,15 @@ class EntryLog extends Model implements LogContract
     public function message()
     {
         return 'Entry #' . $this->entry->entity_id . ' has been modified by ' . $this->creator->name;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return EntryLogFactory::new();
     }
 }

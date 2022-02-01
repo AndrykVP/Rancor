@@ -2,13 +2,17 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Contracts\LogContract;
+use AndrykVP\Rancor\DB\Factories\AwardLogFactory;
 use AndrykVP\Rancor\Structure\Models\Award;
 
 class AwardLog extends Model implements LogContract
 {
+    use HasFactory;
+
     /**
      * Defines the table name
      * 
@@ -54,5 +58,15 @@ class AwardLog extends Model implements LogContract
     public function message()
     {
         return $this->user->name . 'has received the award "' . $this->award->name . '" from ' . $this->creator->name;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return AwardLogFactory::new();
     }
 }

@@ -3,9 +3,9 @@
 namespace AndrykVP\Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use AndrykVP\Rancor\API\Console\Commands\SyncDatabase;
+use AndrykVP\Rancor\SWC\Console\Commands\SyncDatabase;
 
-class APIServiceProvider extends ServiceProvider
+class SWCServiceProvider extends ServiceProvider
 {
     /**
      * Register services.

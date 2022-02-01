@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\API\Console\Commands;
+namespace AndrykVP\Rancor\SWC\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -12,8 +12,6 @@ class SyncDatabase extends Command
 {
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
     protected $signature = 'rancor:sync
                             {type : The type of resource to consume. Such as "galaxy" or "entities"}
@@ -22,26 +20,17 @@ class SyncDatabase extends Command
 
     /**
      * The console command description.
-     *
-     * @var string
      */
     protected $description = 'Syncs the information from Combine\'s Web Service to the database';
 
     /**
      * The resources available from Combine's Web Services
-     * 
-     * @var array
      */
     protected $resources = [
         'galaxy' => ['sector', 'system', 'planet'],
         // 'entity' => ['ship', 'vehicle', 'facility'],
     ];
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
@@ -49,10 +38,8 @@ class SyncDatabase extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $type = $this->argument('type');
         $resources = $this->option('resource');
@@ -103,12 +90,9 @@ class SyncDatabase extends Command
     }
 
     /**
-     * Consume Combine's Web Services for Sectors
-     * 
-     * @param string
-     * @return void
+     * Consume Combine's Web Services for the specified resource type
      */
-    private function apiCall($resource, $type)
+    private function apiCall(String $resource, String $type): void
     {
         $parameter = $this->parseParamaters($resource, $type);
         $i = 1;
@@ -116,7 +100,7 @@ class SyncDatabase extends Command
 
         while($running)
         {
-            $query = $this->sendQuery($parameter['uri'], $type, $resource, $i);
+            $query = $this->sendQuery($parameter['uri'], $resource, $i);
 
             if($query)
             {
@@ -138,10 +122,8 @@ class SyncDatabase extends Command
     /**
      * Returns stringified parameters to use for XML attributes
      * based on the type of resource, and the resource itself
-     * 
-     * @return array
      */
-    private function parseParamaters($resource, $type)
+    private function parseParamaters($resource, $type): array
     {
         $result = [
             'uri' => null,
@@ -158,19 +140,17 @@ class SyncDatabase extends Command
             break;
         }
 
-        $result['class'] = 'AndrykVP\Rancor\API\Jobs\Process'.ucfirst($resource);
+        $result['class'] = 'AndrykVP\Rancor\SWC\Jobs\Process'.ucfirst($resource);
 
         return $result;
     }
 
     /** 
      * Returns queried array from json file
-     * 
-     * @return mixed array|boolean
      */
-    private function sendQuery($uri, $type, $resource, $index)
+    private function sendQuery($uri, $resource, $index): array|bool
     {
-        $uri = 'https://www.swcombine.com/ws/v2.0/'.$uri.'/';
+        $uri = "https://www.swcombine.com/ws/v2.0/{$uri}";
         $response = Http::withHeaders([
             'Accept' => 'application/json'
         ])->get($uri, [
@@ -190,7 +170,7 @@ class SyncDatabase extends Command
         }
         else
         {
-            Log::channel('rancor')->warning('['.now().'] The request to '.$uri.'/?start_index='.$i.' returned an error.');
+            Log::channel('rancor')->warning('['.now().'] The request to '.$uri.'/?start_index='.$index.' returned an error.');
             return false;
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\API\Jobs;
+namespace AndrykVP\Rancor\SWC\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -10,9 +10,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Throwable;
-use AndrykVP\Rancor\API\Models\System;
+use AndrykVP\Rancor\SWC\Models\Sector;
 
-class ProcessSystem implements ShouldQueue
+class ProcessSector implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -38,21 +38,16 @@ class ProcessSystem implements ShouldQueue
         $id = (int)explode(':',$this->uid)[1];
         $response = Http::withHeaders([
             'Accept' => 'application/json'
-        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/systems/{$this->uid}`);
+        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/sectors/{$this->uid}`);
 
         if($response->successful())
         {
             $query = $response->json();
-            $query = $query['swcapi']['system'];
+            $query = query['swcapi']['sector'];
     
-            $model = System::firstOrNew(['id' => $id]);
-            $sector_id = $query['location']['sector']['attributes']['uid'];
-    
+            $model = Sector::firstOrNew(['id' => $id]);
             $model->name = $query['name'];
-            $model->x_coordinate = $query['location']['coordinates']['galaxy']['attributes']['x'];
-            $model->y_coordinate = $query['location']['coordinates']['galaxy']['attributes']['y'];
-            $model->sector_id = $sector_id ? (int)explode(':',$sector_id)[1] : null;
-    
+            $model->color = sprintf("#%02x%02x%02x", $query['colour']['r'], $query['colour']['g'], $query['colour']['b']);
             $model->save();
         }
     }
@@ -60,7 +55,7 @@ class ProcessSystem implements ShouldQueue
     /**
      * The job failed to process.
      *
-     * @param  Exception  $exception
+     * @param  Throwable  $exception
      * @return void
      */
     public function failed(Throwable $exception)

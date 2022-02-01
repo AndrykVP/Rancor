@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\API\Models;
+namespace AndrykVP\Rancor\SWC\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Rancor\API\Models\Planet;
-use AndrykVP\Rancor\API\Models\System;
+use AndrykVP\Rancor\SWC\Models\Planet;
+use AndrykVP\Rancor\SWC\Models\System;
 
 class Sector extends Model
 {

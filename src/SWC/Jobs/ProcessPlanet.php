@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\API\Jobs;
+namespace AndrykVP\Rancor\SWC\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -10,8 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Throwable;
-use AndrykVP\Rancor\API\Models\Planet;
-// use AndrykVP\Rancor\API\Models\BlackHole;
+use AndrykVP\Rancor\SWC\Models\Planet;
+// use AndrykVP\Rancor\SWC\Models\BlackHole;
 
 class ProcessPlanet implements ShouldQueue
 {

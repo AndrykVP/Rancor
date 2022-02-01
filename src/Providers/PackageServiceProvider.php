@@ -22,7 +22,6 @@ class PackageServiceProvider extends ServiceProvider
 
         // Register all the Package's Service Providers
         $this->app->register(EventServiceProvider::class);  
-        $this->app->register(APIServiceProvider::class);  
         $this->app->register(AuditServiceProvider::class);  
         $this->app->register(AuthServiceProvider::class);  
         $this->app->register(StructureServiceProvider::class); 
@@ -30,6 +29,7 @@ class PackageServiceProvider extends ServiceProvider
         $this->app->register(NewsServiceProvider::class); 
         $this->app->register(ScannerServiceProvider::class);  
         $this->app->register(HolocronServiceProvider::class);  
+        $this->app->register(SWCServiceProvider::class);  
         
         // Add log channel to stack
         $this->app->make('config')->set('logging.channels.rancor', [

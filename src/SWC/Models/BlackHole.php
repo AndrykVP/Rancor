@@ -1,25 +1,25 @@
 <?php
 
-namespace AndrykVP\Rancor\API\Models;
+namespace AndrykVP\Rancor\SWC\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Rancor\API\Models\System;
+use AndrykVP\Rancor\SWC\Models\System;
 
-class Planet extends Model
+class BlackHole extends Model
 {
     /**
      * Defines the table name
      * 
      * @var string
      */
-    protected $table = 'swc_planets';
+    protected $table = 'swc_blackholes';
 
     /**
      * Attributes available for mass assignment
      * 
      * @var array
      */
-    protected $fillable = [ 'id', 'population', 'civilisation', 'morale', 'crime', 'tax' ];
+    protected $fillable = [ 'id' ];
     
     /**
      * Disable auto-increments on 'id' column of the Model

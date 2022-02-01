@@ -2,7 +2,7 @@
 
 namespace AndrykVP\Rancor\Auth\Traits;
 
-use AndrykVP\Rancor\API\Models\Planet;
+use AndrykVP\Rancor\SWC\Models\Planet;
 
 trait RancorAttributes
 {

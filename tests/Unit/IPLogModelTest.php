@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use AndrykVP\Rancor\Audit\Enums\Access;
 use AndrykVP\Rancor\Audit\Models\IPLog;
 use AndrykVP\Rancor\Tests\TestCase;
 
@@ -20,7 +21,7 @@ class IPLogModelTest extends TestCase
       ->create([
          'ip_address' => '127.0.0.1',
          'user_agent' => 'Mozilla',
-         'type' => 'login'
+         'type' => Access::LOGIN
       ]);
       
       $this->assertNotNull($log);
@@ -42,7 +43,9 @@ class IPLogModelTest extends TestCase
    /** @test */
    function ip_log_has_type()
    {
-      $this->assertEquals('login', $this->log->type);
+      $this->assertEquals(Access::LOGIN, $this->log->type);
+      $this->assertEquals('login', $this->log->type->value);
+      $this->assertEquals('has logged in', $this->log->type->message());
    }
 
    /** 

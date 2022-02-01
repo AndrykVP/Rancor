@@ -4,7 +4,7 @@ namespace AndrykVP\Rancor\Audit\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use AndrykVP\Rancor\Audit\Enums\Access;
 use AndrykVP\Rancor\Audit\Models\IPLog as Log;
 
 class UserLoginIP
@@ -42,7 +42,7 @@ class UserLoginIP
         $log = Log::where([
                     ['user_id', $user_id],
                     ['ip_address', $ip],
-                    ['type', 'login']
+                    ['type', Access::LOGIN]
                 ])->first();
 
         if($log != null)
@@ -57,7 +57,7 @@ class UserLoginIP
                 'user_id' => $user_id,
                 'ip_address' => $ip,
                 'user_agent' => $ua,
-                'type' => 'login',
+                'type' => Access::LOGIN,
             ]);
         }
     }

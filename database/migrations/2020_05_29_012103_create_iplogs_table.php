@@ -18,7 +18,7 @@ class CreateIPLogsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->ipAddress('ip_address');
             $table->text('user_agent');
-            $table->string('type');
+            $table->enum('type', ['login', 'registration']);
             $table->timestamps();
         });
     }

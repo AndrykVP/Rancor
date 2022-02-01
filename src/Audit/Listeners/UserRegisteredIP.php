@@ -5,6 +5,7 @@ namespace AndrykVP\Rancor\Audit\Listeners;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use AndrykVP\Rancor\Audit\Enums\Access;
 
 class UserRegisteredIP
 {
@@ -42,7 +43,7 @@ class UserRegisteredIP
             'user_id' => $user_id,
             'ip_address' => $ip,
             'user_agent' => $ua,
-            'type' => 'registration',
+            'type' => Access::REGISTRATION,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

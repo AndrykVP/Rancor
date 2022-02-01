@@ -207,7 +207,7 @@ class EntryWebTest extends TestCase
                      'name' => 'Updated Entry',
                      'owner' => 'Darth Vader',
                      'type' => 'Victory Star Destroyer',
-                     'alliance' => 1,
+                     'alliance' => 'Friend',
                   ]);
       $response->assertRedirect(route('admin.entries.index'))
                ->assertSessionHas('alert', [

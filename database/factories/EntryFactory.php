@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use AndrykVP\Rancor\Scanner\Enums\Alliance;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class EntryFactory extends Factory
@@ -28,7 +29,7 @@ class EntryFactory extends Factory
             'position' => [
                 'orbit' => $this->coordinates()
             ],
-            'alliance' => $this->faker->numberBetween(-1, 1),
+            'alliance' => $this->faker->randomElement(Alliance::cases()),
             'territory_id' => $this->faker->numberBetween(1, 1002001),
             'last_seen' => now(),
         ];

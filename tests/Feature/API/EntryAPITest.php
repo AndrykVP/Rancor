@@ -152,7 +152,7 @@ class EntryAPITest extends TestCase
                      'type' => 'Some Type',
                      'name' => 'Updated Entry',
                      'owner' => 'Darth Vader',
-                     'alliance' => 1,
+                     'alliance' => 'Friend',
                      'position' => [
                         'orbit' => [
                            'x' => 1,

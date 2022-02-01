@@ -23,6 +23,7 @@ class EntryResource extends JsonResource
             'name' => $this->name,
             'owner' => $this->owner,
             'position' => $this->position,
+            'alliance' => $this->alliance->value,
             'territory' => new TerritoryResource($this->whenLoaded('territory')),
             'contributor' => new UserResource($this->whenLoaded('contributor')),
             'changelog' => EntryLogResource::collection($this->whenLoaded('changelog')),

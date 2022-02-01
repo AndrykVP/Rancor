@@ -3,6 +3,7 @@
 namespace AndrykVP\Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use AndrykVP\Rancor\Scanner\Enums\Alliance;
 use AndrykVP\Rancor\Scanner\Models\Entry;
 use AndrykVP\Rancor\Tests\TestCase;
 
@@ -23,7 +24,7 @@ class EntryModelTest extends TestCase
             'name' => 'Fake Title',
             'owner' => 'Darth Vader',
             'last_seen' => '2021-06-17 22:05:34',
-            'alliance' => 1,
+            'alliance' => Alliance::NEUTRAL,
         ]);
         
         $this->assertNotNull($entry);
@@ -59,8 +60,8 @@ class EntryModelTest extends TestCase
      */
     function entry_has_alliance()
     {
-        $this->assertEquals(1, $this->entry->alliance);
-        $this->assertEquals('Friend', $this->entry->alliance_text);
+        $this->assertEquals(Alliance::NEUTRAL, $this->entry->alliance);
+        $this->assertEquals('Neutral', $this->entry->alliance->value);
     }
 
     /**

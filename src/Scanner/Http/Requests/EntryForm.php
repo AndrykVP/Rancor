@@ -40,7 +40,7 @@ class EntryForm extends FormRequest
             'type' => 'required|string',
             'name' => 'required|string',
             'owner' => 'required|string',
-            'alliance' => 'required|integer|min:-1|max:1',
+            'alliance' => 'required|string|in:Neutral,Enemy,Friend',
             'updated_by' => 'required|exists:users,id',
         ];
     }

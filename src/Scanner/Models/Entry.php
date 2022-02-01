@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AndrykVP\Rancor\Audit\Events\EntryUpdate;
 use AndrykVP\Rancor\Audit\Models\EntryLog;
 use AndrykVP\Rancor\DB\Factories\EntryFactory;
+use AndrykVP\Rancor\Scanner\Enums\Alliance;
 use App\Models\User;
 
 class Entry extends Model
@@ -49,6 +50,7 @@ class Entry extends Model
     protected $casts = [
         'position' => 'array',
         'last_seen' => 'datetime',
+        'alliance' => Alliance::class,
     ];
 
     /**
@@ -65,15 +67,6 @@ class Entry extends Model
      */
     protected $dispatchesEvents = [
         'updating' => EntryUpdate::class,
-    ];
-
-    /**
-     * Attributes to append in JSON.
-     * 
-     * @var array
-     */
-    protected $appends = [
-        'alliance_text',
     ];
 
     /**
@@ -104,15 +97,5 @@ class Entry extends Model
     public function territory()
     {
         return $this->belongsTo(Territory::class);
-    }
-
-    /**
-     * Textual representation of Alliance column
-     */
-    public function getAllianceTextAttribute()
-    {
-        if($this->alliance < 0) return 'Enemy';
-        if($this->alliance == 0) return 'Neutral';
-        if($this->alliance > 0) return 'Friend';
     }
 }

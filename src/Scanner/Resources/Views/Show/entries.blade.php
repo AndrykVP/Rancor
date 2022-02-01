@@ -53,7 +53,7 @@
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">IFF:</div>
-            <div class="col-span-3">{{ $entry->alliance_text }}</div>
+            <div class="col-span-3">{{ $entry->alliance->value }}</div>
          </div>
          <div class="grid grid-cols-4 mb-2 gap-4 items-center">
             <div class="col-span-1 text-right uppercase text-xs tracking-wider text-gray-600">System:</div>

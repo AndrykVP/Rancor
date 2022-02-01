@@ -53,21 +53,4 @@ class IPLogModelTest extends TestCase
       $this->assertNotEmpty($this->log->user);
       $this->assertEquals(1, $this->log->user->id);
    }
-
-   /** 
-    * @test
-    */
-   function ip_log_has_creator()
-   {
-      $this->assertNotEmpty($this->log->creator);
-      $this->assertEquals(2, $this->log->crreator->id);
-   }
-
-   /** 
-    * @test
-    */
-   function ip_log_has_message()
-   {
-      $this->assertNotNull($this->log->message());
-   }
 }

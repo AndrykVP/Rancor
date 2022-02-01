@@ -24,9 +24,9 @@ class AwardLogFactory extends Factory
    public function definition()
    {
       return [
-         'award_id' => Award::factory(),
+         'award_id' => Award::factory()->forType(),
          'user_id' => User::factory(),
-         'action' => $this->faker->randomBetween(-2, 2),
+         'action' => $this->faker->numberBetween(-2, 2),
          'updated_by' => User::factory(),
       ];
    }

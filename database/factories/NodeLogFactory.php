@@ -24,7 +24,7 @@ class NodeLogFactory extends Factory
    public function definition()
    {
       return [
-         'node_id' => Node::factory(),
+         'node_id' => Node::factory()->forAuthor(),
          'updated_by' => User::factory(),
          'old_name' => $this->faker->word,
          'old_body' => $this->faker->text,

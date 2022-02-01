@@ -22,7 +22,7 @@ class EntryLogModelTest extends TestCase
          'old_type' => 'Esse do esse',
          'old_name' => 'Millenium Falcon',
          'old_owner' => 'Han Solo',
-         'old_alliance' => 'friend',
+         'old_alliance' => Alliance::FRIEND,
       ]);
       
       $this->assertNotNull($log);
@@ -57,6 +57,7 @@ class EntryLogModelTest extends TestCase
    function entry_log_has_old_alliance()
    {
       $this->assertEquals(Alliance::FRIEND, $this->log->old_alliance);
+      $this->assertEquals('Friend', $this->log->old_alliance->value);
    }
 
    /** 

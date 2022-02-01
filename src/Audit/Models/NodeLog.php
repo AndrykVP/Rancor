@@ -31,13 +31,13 @@ class NodeLog extends Model implements LogContract
     }
 
     /**
-     * Relationship to Award model
+     * Relationship to Node model
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function node()
     {
-        return $this->belongsTo(Node::class);
+        return $this->belongsTo(Node::class)->withoutGlobalScope('access');
     }
 
     /**
@@ -47,7 +47,7 @@ class NodeLog extends Model implements LogContract
      */
     public function message()
     {
-        return 'Node "' . $this->entry->entity_id . '" has been modified by ' . $this->creator->name;
+        return 'Node "' . $this->node->name . '" has been modified by ' . $this->creator->name;
     }
 
     /**

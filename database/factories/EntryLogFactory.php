@@ -28,12 +28,12 @@ class EntryLogFactory extends Factory
    {
       return [
          'entry_id' => Entry::factory(),
-         'user_id' => User::factory(),
+         'updated_by' => User::factory(),
          'old_type' => $this->faker->word,
          'old_name' => $this->faker->unique()->firstName,
          'old_owner' => $this->faker->name,
-         'old_alliance' => $this->faker->randomElement(array_column(Alliance::cases(), 'values')),
-         'old_territory_id' => Territory::factory(),
+         'old_alliance' => $this->faker->randomElement(Alliance::cases()),
+         'old_territory_id' => Territory::factory()->forQuadrant(),
       ];
    }
 }

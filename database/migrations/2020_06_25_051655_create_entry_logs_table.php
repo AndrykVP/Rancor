@@ -19,7 +19,7 @@ class CreateEntryLogsTable extends Migration
             $table->string('old_type')->nullable();
             $table->string('old_name')->nullable();
             $table->string('old_owner')->nullable();
-            $table->tinyInteger('old_alliance')->nullable();
+            $table->enum('old_alliance', ['Neutral', 'Enemy', 'Friend'])->nullable();
             $table->foreignId('old_territory_id')->nullable()->default(null)->constrained('scanner_territories')->onDelete('cascade');
             $table->foreignId('updated_by')->constrained()->onDelete('cascade');
             $table->timestamps();

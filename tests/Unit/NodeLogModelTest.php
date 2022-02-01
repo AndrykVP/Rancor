@@ -23,7 +23,7 @@ class NodeLogModelTest extends TestCase
       ]);
       
       $this->assertNotNull($log);
-      $this->log = $log->load('Node', 'user', 'creator');
+      $this->log = $log->load('node', 'creator');
    }
 
    /** 
@@ -56,7 +56,7 @@ class NodeLogModelTest extends TestCase
    function node_log_has_creator()
    {
       $this->assertNotEmpty($this->log->creator);
-      $this->assertEquals(1, $this->log->creator->id);
+      $this->assertEquals(2, $this->log->creator->id);
    }
 
    /** 

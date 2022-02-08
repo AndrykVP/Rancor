@@ -2,8 +2,10 @@
 
 namespace AndrykVP\Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Contracts\LogContract;
 use AndrykVP\Rancor\DB\Factories\NodeLogFactory;
@@ -11,52 +13,27 @@ use AndrykVP\Rancor\Holocron\Models\Node;
 
 class NodeLog extends Model implements LogContract
 {
-    use HasFactory;
+   use HasFactory;
 
-    /**
-     * Defines the table name
-     * 
-     * @var string
-     */
-    protected $table = 'changelog_nodes';
+   protected $table = 'changelog_nodes';
 
-    /**
-     * Relationship to User model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
+   public function creator(): BelongsTo
+   {
+      return $this->belongsTo(User::class, 'updated_by');
+   }
 
-    /**
-     * Relationship to Node model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function node()
-    {
-        return $this->belongsTo(Node::class)->withoutGlobalScope('access');
-    }
+   public function node(): BelongsTo
+   {
+      return $this->belongsTo(Node::class)->withoutGlobalScope('access');
+   }
 
-    /**
-     * Method to render Log message in views
-     * 
-     * @return string
-     */
-    public function message()
-    {
-        return 'Node "' . $this->node->name . '" has been modified by ' . $this->creator->name;
-    }
+   public function message(): string
+   {
+      return 'Node "' . $this->node->name . '" has been modified by ' . $this->creator->name;
+   }
 
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
-    {
-        return NodeLogFactory::new();
-    }
+   protected static function newFactory(): Factory
+   {
+      return NodeLogFactory::new();
+   }
 }

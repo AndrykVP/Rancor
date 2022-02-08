@@ -3,37 +3,30 @@
 namespace AndrykVP\Rancor\Audit\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 
 class UserLogController extends Controller
 {
     /**
      * Display a listing of user changelogs.
-     *
-     * @param \Illuminate\Http\Response  $response
-     * @param \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function users(Request $request, User $user)
+    public function users(User $user): View
     {
+        $this->authorize('viewLogs', $user);
         $logs = $user->userLog()->with('creator')->get();
 
-        return response()->json($logs, 200);
+        return view('rancor.logs', compact($logs));
     }
 
     /**
      * Display a listing of ip logs.
-     *
-     * @param \Illuminate\Http\Response $response
-     * @param \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function ips(Request $request, User $user)
+    public function ips(User $user): View
     {
-        $ips = $user->ipLog()->with('creator')->get();
+        $this->authorize('viewLogs', $user);
+        $logs = $user->ipLog()->with('creator')->get();
 
-        return response()->json($ips, 200);
+        return view('rancor.logs', compact($logs));
     }
 }

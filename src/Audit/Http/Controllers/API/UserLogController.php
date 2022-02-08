@@ -3,51 +3,30 @@
 namespace AndrykVP\Rancor\Audit\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Audit\Http\Resources\LogResource;
+use Illuminate\Http\JsonResponse;
 use App\Models\User;
 
 class UserLogController extends Controller
 {
     /**
      * Display a listing of user changelogs.
-     *
-     * @param \Illuminate\Http\Response  $response
-     * @param \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function users(Request $request, User $user)
+    public function users(User $user): JsonResponse
     {
-        $query = DB::table('changelog_users')
-                    ->where('user_id',$user->id)
-                    ->latest()
-                    ->leftJoin('users','changelog_users.updated_by','=','users.id')
-                    ->select('changelog_users.action','users.id','users.name','changelog_users.created_at','changelog_users.color')
-                    ->latest()
-                    ->get();
+        $this->authorize('viewLogs', $user);
+        $logs = $user->userLog()->with('creator')->paginate(config('rancor.pagination'));
 
-        return [
-            'data' => $query
-        ];
+        return response()->json($logs, 200);
     }
 
     /**
      * Display a listing of ip logs.
-     *
-     * @param \Illuminate\Http\Response $response
-     * @param \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function ips(Request $request, User $user)
+    public function ips(User $user): JsonResponse
     {
-        $query = DB::table('changelog_ips')
-                    ->where('user_id',$user->id)
-                    ->latest()
-                    ->get();
+        $this->authorize('viewLogs', $user);
+        $logs = $user->ipLog()->with('creator')->paginate(config('rancor.pagination'));
 
-        return [
-            'data' => $query
-        ];
+        return response()->json($logs, 200);
     }
 }

@@ -9,30 +9,14 @@ use App\Models\User;
 
 class UserUpdate
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Class Variable User
-     * 
-     * @var App\Models\User
-     */
-    public $user;
+   public $user;
+   public $generateId;
 
-    /**
-     * Class Variable GenerateI
-     * 
-     * @var boolean
-     */
-    public $generateId;
-
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(User $user, Bool $generateId)
-    {
-        $this->user = $user;
-        $this->generateId = $generateId;
-    }
+   public function __construct(User $user, Bool $generateId)
+   {
+      $this->user = $user;
+      $this->generateId = $generateId;
+   }
 }

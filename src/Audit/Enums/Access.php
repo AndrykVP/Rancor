@@ -6,6 +6,9 @@ enum Access: string
    case LOGIN = 'login';
    case REGISTRATION = 'registration';
 
+   /**
+    * Method to create a message to render the Log in views
+    */
    public function message(): string
    {
       return match($this)

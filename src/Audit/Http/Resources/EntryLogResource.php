@@ -2,45 +2,31 @@
 
 namespace AndrykVP\Rancor\Audit\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
 
 class EntryLogResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'changes' => [
-                'type' => $this->when($this->old_type != null && $this->new_type != null, function() {
-                    return [
-                        'old' => $this->old_type,
-                        'new' => $this->new_type,
-                    ];
+                'type' => $this->when($this->old_type != null, function() {
+                    return $this->old_type;
                 }),
-                'name' => $this->when($this->old_name != null && $this->new_name != null, function() {
-                    return [
-                        'old' => $this->old_name,
-                        'new' => $this->new_name,
-                    ];
+                'name' => $this->when($this->old_name != null, function() {
+                    return $this->old_name;
                 }),
-                'owner' => $this->when($this->old_owner != null && $this->new_owner != null, function() {
-                    return [
-                        'old' => $this->old_owner,
-                        'new' => $this->new_owner,
-                    ];
+                'owner' => $this->when($this->old_owner != null, function() {
+                    return $this->old_owner;
                 }),
-                'position' => $this->when($this->old_position != null && $this->new_position != null, function() {
-                    return [
-                        'old' => $this->old_position,
-                        'new' => $this->new_position,
-                    ];
+                'territory_id' => $this->when($this->old_territory_id != null, function() {
+                    return $this->old_territory_id;
+                }),
+                'alliance' => $this->when($this->old_alliance != null, function() {
+                    return $this->old_alliance->value;
                 }),
             ],
             'creator' => new UserResource($this->whenLoaded('creator')),

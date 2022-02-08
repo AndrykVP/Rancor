@@ -3,37 +3,21 @@
 namespace AndrykVP\Rancor\Audit\Listeners;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use AndrykVP\Rancor\Audit\Events\UserAwards;
 
 class UpdateUserAwards
 {
-   /**
-    * Class variables
-    * 
-    * @var App\Models\User  $admin
-    */
    protected $admin;
 
-   /**
-    * Create the event listener.
-    *
-    * @param  Request  $request
-    * @return void
-    */
    public function __construct(Request $request)
    {
       $this->admin = $request->user();
    }
 
-   /**
-    * Handle the event.
-    *
-    * @param  UserAward  $event
-    * @return void
-    */
-   public function handle(UserAwards $event)
+   public function handle(UserAwards $event): void
    {
       $data = $this->makeLogTable($event->user, $event->awards);
       if($data->isNotEmpty())
@@ -42,13 +26,7 @@ class UpdateUserAwards
       }
    }
 
-   /**
-    * Create Array to Insert to Database
-    * 
-    * @param App\Modes\User $event
-    * @return array
-    */
-   private function makeLogTable(User $user, Array $awards)
+   private function makeLogTable(User $user, Array $awards): Collection
    {
       $data = collect([]);
       foreach($awards as $awardId => $level)
@@ -87,12 +65,9 @@ class UpdateUserAwards
    }
 
    /**
-    * Return Integer difference between new Award and Old Award
-    * 
-    * @param null|object  $award
-    * @param integer  $level
+    * Return difference between new Award and Old Award
     */
-   private function getAction(?Object $award, Int $level)
+   private function getAction(?Object $award, Int $level): Int
    {
       if(!isset($award)) return $level;
 

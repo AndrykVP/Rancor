@@ -9,22 +9,12 @@ use AndrykVP\Rancor\Holocron\Models\Node;
 
 class NodeUpdate
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Class Variable User
-     * 
-     * @var \AndrykVP\Rancor\Holocron\Models\Node
-     */
-    public $node;
+   public $node;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(Node $node)
-    {
-        $this->node = $node;
-    }
+   public function __construct(Node $node)
+   {
+      $this->node = $node;
+   }
 }

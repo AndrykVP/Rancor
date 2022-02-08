@@ -10,26 +10,14 @@ use AndrykVP\Rancor\Structure\Models\Award;
 
 class UserAwards
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Class Variables
-     * 
-     * @var \App\Models\User
-     * @var \AndrykVP\Rancor\Structure\Models\Award
-     * @var integer
-     */
-    public $user;
-    public $awards;
+   public $user;
+   public $awards;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(User $user, Array $awards)
-    {
-        $this->user = $user->load('awards');
-        $this->awards = $awards;
-    }
+   public function __construct(User $user, Array $awards)
+   {
+      $this->user = $user->load('awards');
+      $this->awards = $awards;
+   }
 }

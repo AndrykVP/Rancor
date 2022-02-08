@@ -2,10 +2,9 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use AndrykVP\Rancor\Auth\Http\Requests\BanForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
@@ -15,25 +14,17 @@ use AndrykVP\Rancor\Structure\Models\Department;
 use AndrykVP\Rancor\Structure\Models\Faction;
 use AndrykVP\Rancor\Structure\Models\Rank;
 use AndrykVP\Rancor\Structure\Models\AwardType;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Variable used in View rendering
-     * 
-     * @var array
-     */
     protected $resource = [
         'name' => 'User',
         'route' => 'users'
     ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         $this->authorize('viewAny', User::class);
 
@@ -43,13 +34,7 @@ class UserController extends Controller
         return view('rancor::resources.index', compact('models', 'resource'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
+    public function show(User $user): View
     {
         $this->authorize('view', $user);
 
@@ -58,13 +43,7 @@ class UserController extends Controller
         return view('rancor::show.user', compact('user'));
     }
 
-    /**
-     * Display the resources that match the search query.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserSearch  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(UserSearch $request)
+    public function search(UserSearch $request): View
     {
         $this->authorize('viewAny', User::class);
         
@@ -77,13 +56,7 @@ class UserController extends Controller
         return view('rancor::resources.index', compact('models', 'resource'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         $this->authorize('update', $user);
         
@@ -97,15 +70,7 @@ class UserController extends Controller
         return view('rancor::users.edit', compact('user', 'factions', 'departments', 'ranks', 'roles', 'award_types'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
-     * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Auth\Services\AdminUpdatesUser  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UserForm $request, User $user, AdminUpdatesUser $service)
+    public function update(UserForm $request, User $user, AdminUpdatesUser $service): RedirectResponse
     {
         $this->authorize('update', $user);
         $service($request, $user);
@@ -116,13 +81,7 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         $this->authorize('delete', $user);
 
@@ -133,14 +92,7 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\BanForm  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function ban(BanForm $request, User $user)
+    public function ban(BanForm $request, User $user): RedirectResponse
     {
         $this->authorize('ban', $user);
 

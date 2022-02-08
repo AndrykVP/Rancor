@@ -3,20 +3,13 @@
 namespace AndrykVP\Rancor\Auth\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Auth;
 use App\Models\User;
 use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
 use AndrykVP\Rancor\Forums\Http\Resources\GroupResource;
 
 class UserResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
@@ -29,7 +22,7 @@ class UserResource extends JsonResource
             'quote' => $this->quote,
             'rank' => new RankResource($this->whenLoaded('rank')),
             'duty' => $this->duty,
-            $this->mergeWhen(Auth::check() && Auth::user()->can('viewAny',User::class), [
+            $this->mergeWhen(auth()->check() && auth()->user()->can('viewAny',User::class), [
                 'is_admin' => $this->is_admin,
                 'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
                 'roles' => RoleResource::collection($this->whenLoaded('roles')),

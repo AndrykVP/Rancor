@@ -8,11 +8,11 @@ use AndrykVP\Rancor\Auth\Http\Controllers\ProfileController;
 
 Route::group(['middleware' => ['web']], function(){
 
-	Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => 'auth'], function() {
-		Route::get('/', [ProfileController::class, 'index'])->name('index');
-		Route::get('edit', [ProfileController::class, 'edit'])->name('edit');
-		Route::patch('edit', [ProfileController::class, 'update'])->name('update');
-		Route::get('{user}', [ProfileController::class, 'show'])->name('show');
+	Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => 'auth', 'controller' => ProfileController::class], function() {
+		Route::get('/', 'index')->name('index');
+		Route::get('edit', 'edit')->name('edit');
+		Route::patch('edit', 'update')->name('update');
+		Route::get('{user}', 'show')->name('show');
 	});
 
 	Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => array_merge(config('rancor.middleware.web'), ['admin'])], function() {

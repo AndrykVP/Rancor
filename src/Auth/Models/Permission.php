@@ -2,8 +2,10 @@
 
 namespace AndrykVP\Rancor\Auth\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use AndrykVP\Rancor\DB\Factories\PermissionFactory;
 use App\Models\User;
 
@@ -11,46 +13,24 @@ class Permission extends Model
 {
     use HasFactory;
     
-    /**
-     * Defines the table name
-     * 
-     * @var string
-     */
     protected $table = 'rancor_permissions';
 
-    /**
-     * Attributes available for mass assignment
-     * 
-     * @var array
-     */
-    protected $fillable = [ 'name', 'description' ];
+    protected $fillable = [
+        'name',
+        'description'
+    ];
 
-    /**
-     * Relationship to User model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
+    public function users(): MorphToMany
     {
         return $this->morphedByMany(User::class,'permissible', 'rancor_permissibles');
     }
 
-    /**
-     * Relationship to Role model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
+    public function roles(): MorphToMany
     {
         return $this->morphedByMany(Role::class,'permissible', 'rancor_permissibles');
     }
 
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
+    protected static function newFactory(): Factory
     {
         return PermissionFactory::new();
     }

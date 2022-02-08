@@ -10,13 +10,7 @@ use App\Models\User;
 
 class AdminUpdatesUser
 {
-   /**
-    * Updates the given User model based on Permissions
-    *
-    * @param \AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
-    * @param \App\Models\User  $user
-    */
-   public function __invoke(UserForm $request, User &$user)
+   public function __invoke(UserForm $request, User &$user): void
    {           
       $data = $request->validated();
       $generateId = false;

@@ -2,20 +2,17 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
 use AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf;
 use AndrykVP\Rancor\Audit\Events\UserUpdate;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $user = $request->user();
         $user->load('rank.department.faction')->loadCount('boards','replies');
@@ -23,14 +20,7 @@ class ProfileController extends Controller
         return view('rancor::profile.show', compact('user'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, User $user)
+    public function show(Request $request, User $user): View
     {
         if($request->user()->is($user)) return redirect(route('profile.index'));
         
@@ -40,13 +30,7 @@ class ProfileController extends Controller
         return view('rancor::profile.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request)
+    public function edit(Request $request): View
     {
         $user = $request->user();
         $this->authorize('update', $user);
@@ -54,13 +38,7 @@ class ProfileController extends Controller
         return view('rancor::profile.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UserFormSelf $request)
+    public function update(UserFormSelf $request): RedirectResponse
     {
         $user = $request->user();
         $this->authorize('update', $user);
@@ -73,13 +51,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Show the replies posted by the specified user.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function replies(User $user)
+    public function replies(User $user): View
     {
         $this->authorize('viewReplies', $user);
         $replies = $user->replies()->with('discussion.board.category');

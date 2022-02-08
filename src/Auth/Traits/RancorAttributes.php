@@ -3,36 +3,21 @@
 namespace AndrykVP\Rancor\Auth\Traits;
 
 use AndrykVP\Rancor\SWC\Models\Planet;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 trait RancorAttributes
 {
-    /**
-     * Relationship to Planet model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function homeplanet()
+    public function homeplanet(): BelongsTo
     {
         return $this->belongsTo(Planet::class, 'homeplanet_id');
     }
 
-    /**
-     * Get Name attribute from first_name and last_name columns
-     * 
-     * @return string
-     */
-    public function getNameAttribute()
+    public function getNameAttribute(): string
     {
         return "{$this->first_name} {$this->last_name}";
     }
 
-    /**
-     * Get value of online_time column into readable format
-     * 
-     * @param int  $value
-     * @return string
-     */
-    public function getOnlineTimeAttribute($value)
+    public function getOnlineTimeAttribute(Int $value): string
     {
         $string = '';
 

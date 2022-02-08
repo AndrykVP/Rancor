@@ -2,32 +2,23 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use AndrykVP\Rancor\Auth\Models\Role;
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleSearch;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-    /**
-     * Variable used in View rendering
-     * 
-     * @var array
-     */
     protected $resource = [
         'name' => 'Role',
         'route' => 'roles'
     ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         $this->authorize('viewAny', Role::class);
 
@@ -37,13 +28,7 @@ class RoleController extends Controller
         return view('rancor::resources.index', compact('models','resource'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
+    public function show(Role $role): View
     {
         $this->authorize('view', $role);
 
@@ -52,13 +37,7 @@ class RoleController extends Controller
         return view('rancor::show.role', compact('role'));
     }
 
-    /**
-     * Display the resources that match the search query.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleSearch  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(RoleSearch $request)
+    public function search(RoleSearch $request): View
     {
         $this->authorize('viewAny', Role::class);
         
@@ -71,12 +50,7 @@ class RoleController extends Controller
         return view('rancor::resources.index', compact('models','resource'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         $this->authorize('create', Role::class);
 
@@ -86,13 +60,7 @@ class RoleController extends Controller
         return view('rancor::resources.create', compact('resource','form'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleForm  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(RoleForm $request)
+    public function store(RoleForm $request): RedirectResponse
     {
         $this->authorize('create', Role::class);
 
@@ -109,13 +77,7 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
+    public function edit(Role $role): View
     {
         $this->authorize('update', $role);
 
@@ -126,14 +88,7 @@ class RoleController extends Controller
         return view('rancor::resources.edit', compact('resource','model','form'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleForm  $request
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(RoleForm $request, Role $role)
+    public function update(RoleForm $request, Role $role): RedirectResponse
     {
         $this->authorize('update', $role);
 
@@ -149,13 +104,7 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
+    public function destroy(Role $role): RedirectResponse
     {
         $this->authorize('delete', $role);
         
@@ -169,12 +118,7 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * Variable for Form fields used in Create and Edit Views
-     * 
-     * @var array
-     */
-    protected function form()
+    protected function form(): array
     {
         return [
             'inputs' => [

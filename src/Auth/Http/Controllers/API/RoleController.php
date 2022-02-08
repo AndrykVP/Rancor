@@ -2,7 +2,8 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Models\Role;
@@ -11,13 +12,8 @@ use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
 use AndrykVP\Rancor\Auth\Http\Requests\RoleSearch;
 
 class RoleController extends Controller
-{    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+{
+    public function index(): AnonymousResourceCollection
     {
         $this->authorize('viewAny',Role::class);
 
@@ -26,18 +22,12 @@ class RoleController extends Controller
         return RoleResource::collection($query);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(RoleForm $request)
+    public function store(RoleForm $request): JsonResponse
     {
         $this->authorize('create',Role::class);
         
         $data = $request->validated();
-        $role;
+        $role = null;
         DB::transaction(function () use(&$role, $data) {
             $role = Role::create($data);
             $role->permissions()->sync($data['permissions']);
@@ -48,13 +38,7 @@ class RoleController extends Controller
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
+    public function show(Role $role): RoleResource
     {
         $this->authorize('view',Role::class);
         $role->load('users','permissions');
@@ -62,14 +46,7 @@ class RoleController extends Controller
         return new RoleResource($role);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(RoleForm $request, Role $role)
+    public function update(RoleForm $request, Role $role): JsonResponse
     {
         $this->authorize('update', Role::class);
         
@@ -84,13 +61,7 @@ class RoleController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
+    public function destroy(Role $role): JsonResponse
     {
         $this->authorize('delete',$role);
         
@@ -104,13 +75,7 @@ class RoleController extends Controller
         ], 200);        
     }
 
-    /**
-     * Display the results that match the search query.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleSearch  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(RoleSearch $request)
+    public function search(RoleSearch $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny',Role::class);
         $search = $request->validated();

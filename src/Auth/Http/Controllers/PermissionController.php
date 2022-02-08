@@ -2,30 +2,21 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {
-    /**
-     * Variable used in View rendering
-     * 
-     * @var array
-     */
     protected $resource = [
         'name' => 'Permission',
         'route' => 'permissions'
     ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         $this->authorize('viewAny', Permission::class);
         
@@ -35,13 +26,7 @@ class PermissionController extends Controller
         return view('rancor::resources.index', compact('models','resource'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
+    public function show(Permission $permission): View
     {
         $this->authorize('view', $permission);
 
@@ -50,13 +35,7 @@ class PermissionController extends Controller
         return view('rancor::show.permission', compact('permission'));
     }
 
-    /**
-     * Display the resources that match the search query.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(PermissionSearch $request)
+    public function search(PermissionSearch $request): View
     {
         $this->authorize('viewAny', Permission::class);
         
@@ -70,12 +49,7 @@ class PermissionController extends Controller
         return view('rancor::resources.index', compact('models','resource'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         $this->authorize('create', Permission::class);
 
@@ -85,13 +59,7 @@ class PermissionController extends Controller
         return view('rancor::resources.create', compact('form','resource'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionForm  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(PermissionForm $request)
+    public function store(PermissionForm $request): RedirectResponse
     {
         $this->authorize('create', Permission::class);
 
@@ -103,13 +71,7 @@ class PermissionController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
+    public function edit(Permission $permission): View
     {
         $this->authorize('update', $permission);
 
@@ -120,14 +82,7 @@ class PermissionController extends Controller
         return view('rancor::resources.edit', compact('resource','form','model'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionForm  $request
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PermissionForm $request, Permission $permission)
+    public function update(PermissionForm $request, Permission $permission): RedirectResponse
     {
         $this->authorize('update', $permission);
 
@@ -139,13 +94,7 @@ class PermissionController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission): RedirectResponse
     {
         $this->authorize('delete', $permission);
         
@@ -156,12 +105,7 @@ class PermissionController extends Controller
         ]);
     }
 
-    /**
-     * Variable for Form fields used in Create and Edit Views
-     * 
-     * @var array
-     */
-    protected function form()
+    protected function form(): array
     {
         return [
             'inputs' => [

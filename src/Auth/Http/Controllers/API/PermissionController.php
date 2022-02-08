@@ -2,7 +2,8 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Models\Permission;
 use AndrykVP\Rancor\Auth\Http\Resources\PermissionResource;
@@ -10,13 +11,8 @@ use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
 use AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch;
 
 class PermissionController extends Controller
-{    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+{
+    public function index(): AnonymousResourceCollection
     {
         $this->authorize('viewAny',Permission::class);
 
@@ -25,13 +21,7 @@ class PermissionController extends Controller
         return PermissionResource::collection($query);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(PermissionForm $request)
+    public function store(PermissionForm $request): JsonResponse
     {
         $this->authorize('create',Permission::class);
         
@@ -43,13 +33,7 @@ class PermissionController extends Controller
         ], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
+    public function show(Permission $permission): PermissionResource
     {
         $this->authorize('view',Permission::class);
         $permission->load('users','roles');
@@ -57,14 +41,7 @@ class PermissionController extends Controller
         return new PermissionResource($permission);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \AndrykVP\Rancor\Auth\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PermissionForm $request, Permission $permission)
+    public function update(PermissionForm $request, Permission $permission): JsonResponse
     {
         $this->authorize('update', Permission::class);
         
@@ -76,13 +53,7 @@ class PermissionController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Models\Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission): JsonResponse
     {
         $this->authorize('delete',$permission);
         
@@ -93,13 +64,7 @@ class PermissionController extends Controller
         ], 200);        
     }
 
-    /**
-     * Display the results that match the search query.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(PermissionSearch $request)
+    public function search(PermissionSearch $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny',Permission::class);
         $search = $request->validated();

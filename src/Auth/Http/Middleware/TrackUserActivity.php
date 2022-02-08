@@ -10,14 +10,7 @@ use App\Models\User;
 
 class TrackUserActivity
 {
-   /**
-    * Handle an incoming request.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \Closure  $next
-    * @return mixed
-    */
-   public function handle(Request $request, Closure $next)
+   public function handle(Request $request, Closure $next): Request|Closure
    {
       $user = $request->user();
 
@@ -26,13 +19,7 @@ class TrackUserActivity
       return $next($request);
    }
 
-   /**
-    * Handles the logic of the Cache
-    *
-    * @param App\Models\User  $user
-    * @return void
-    */
-   public function store_cache(User $user)
+   public function store_cache(User $user): void
    {
       if(Cache::has('user-is-online-' . $user->id))
       {
@@ -48,19 +35,12 @@ class TrackUserActivity
       else
       {
          Cache::add('user-is-online-' . $user->id, now(), now()->addMinutes(15));
-         $this->update_activity($user->id, 0);
+         $this->update_activity($user->id);
       }
 
    }
 
-   /**
-    * Updates the online_time column of the User
-    *
-    * @param int  $user_id
-    * @param int  $increment
-    * @return void
-    */
-   public function update_activity(Int $user_id, Int $increment=0)
+   public function update_activity(Int $user_id, Int $increment = 0): void
    {
       DB::table('users')
          ->where('id', $user_id)

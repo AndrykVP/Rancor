@@ -2,9 +2,8 @@
 
 namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use AndrykVP\Rancor\Auth\Http\Requests\BanForm;
@@ -12,15 +11,11 @@ use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
 use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
 use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
 use AndrykVP\Rancor\Auth\Services\AdminUpdatesUser;
+use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $this->authorize('viewAny',User::class);
         
@@ -29,14 +24,7 @@ class UserController extends Controller
         return UserResource::collection($query);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, User $user)
+    public function show(User $user): UserResource
     {
         $this->authorize('view', $user);
 
@@ -45,14 +33,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UserForm $request, User $user, AdminUpdatesUser $service)
+    public function update(UserForm $request, User $user, AdminUpdatesUser $service): JsonResponse
     {
         $this->authorize('update',$user);
         $service($request, $user);
@@ -62,13 +43,7 @@ class UserController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $this->authorize('delete', $user);
         
@@ -79,13 +54,7 @@ class UserController extends Controller
         ], 200);
     }
 
-    /**
-     * Display the results that match the search query.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserSearch  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function search(UserSearch $request)
+    public function search(UserSearch $request): AnonymousResourceCollection
     {
         $this->authorize('viewAny',User::class);
         $search = $request->validated();
@@ -95,14 +64,7 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\BanForm  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function ban(BanForm $request, User $user)
+    public function ban(BanForm $request, User $user): JsonResponse
     {
         $this->authorize('ban', $user);
 

@@ -2,10 +2,10 @@
 
 namespace AndrykVP\Rancor\Auth\Policies;
 
-use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use AndrykVP\Rancor\Auth\Models\Role;
+use App\Models\User;
 
 class RolePolicy
 {

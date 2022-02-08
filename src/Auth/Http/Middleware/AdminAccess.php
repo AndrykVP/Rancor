@@ -3,17 +3,11 @@
 namespace AndrykVP\Rancor\Auth\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
 class AdminAccess
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Request|Closure
     {
         if ($request->user()->hasPermission('view-admin-panel'))
         {

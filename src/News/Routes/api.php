@@ -1,8 +1,8 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\News\Http\Controllers\API\ArticleController;
-use AndrykVP\Rancor\News\Http\Controllers\API\TagController;
+use Rancor\News\Http\Controllers\API\ArticleController;
+use Rancor\News\Http\Controllers\API\TagController;
 
 $middleware = array_merge(['api'],config('rancor.middleware.api'),['admin']);
 

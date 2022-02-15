@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Audit\Models\AwardLog;
-use AndrykVP\Rancor\Structure\Models\Award;
+use Rancor\Audit\Models\AwardLog;
+use Rancor\Structure\Models\Award;
 use App\Models\User;
 
 class AwardLogFactory extends Factory

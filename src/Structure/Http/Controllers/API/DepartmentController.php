@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
+namespace Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\Department;
-use AndrykVP\Rancor\Structure\Http\Resources\DepartmentResource;
-use AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm;
-use AndrykVP\Rancor\Structure\Http\Requests\DepartmentSearch;
+use Rancor\Structure\Models\Department;
+use Rancor\Structure\Http\Resources\DepartmentResource;
+use Rancor\Structure\Http\Requests\DepartmentForm;
+use Rancor\Structure\Http\Requests\DepartmentSearch;
 
 class DepartmentController extends Controller
 {    
@@ -26,7 +26,7 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
+     * @param  \Rancor\Structure\Http\Requests\DepartmentForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DepartmentForm $request)
@@ -44,7 +44,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
+     * @param  \Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function show(Department $department)
@@ -57,8 +57,8 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
+     * @param  \Rancor\Structure\Http\Requests\DepartmentForm  $request
+     * @param  \Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function update(DepartmentForm $request, Department $department)
@@ -76,7 +76,7 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Department  $department
+     * @param  \Rancor\Structure\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
     public function destroy(Department $department)
@@ -93,7 +93,7 @@ class DepartmentController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\DepartmentSearch  $request
+     * @param  \Rancor\Structure\Http\Requests\DepartmentSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(DepartmentSearch $request)

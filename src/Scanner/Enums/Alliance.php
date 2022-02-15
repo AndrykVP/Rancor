@@ -1,5 +1,5 @@
 <?php
-namespace AndrykVP\Rancor\Scanner\Enums;
+namespace Rancor\Scanner\Enums;
 
 enum Alliance: string
 {

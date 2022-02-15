@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
+namespace Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Http\Resources\BoardResource;
-use AndrykVP\Rancor\Forums\Http\Requests\BoardForm;
-use AndrykVP\Rancor\Forums\Http\Requests\BoardSearch;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Http\Resources\BoardResource;
+use Rancor\Forums\Http\Requests\BoardForm;
+use Rancor\Forums\Http\Requests\BoardSearch;
 
 class BoardController extends Controller
 {    
@@ -27,7 +27,7 @@ class BoardController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardForm  $request
+     * @param  \Rancor\Forums\Http\Requests\BoardForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(BoardForm $request)
@@ -57,7 +57,7 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
+     * @param  \Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function show(Board $board)
@@ -70,8 +70,8 @@ class BoardController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
+     * @param  \Rancor\Forums\Http\Requests\BoardForm  $request
+     * @param  \Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function update(BoardForm $request, Board $board)
@@ -100,7 +100,7 @@ class BoardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
+     * @param  \Rancor\Forums\Models\Board  $board
      * @return \Illuminate\Http\Response
      */
     public function destroy(Board $board)
@@ -120,7 +120,7 @@ class BoardController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\BoardSearch  $request
+     * @param  \Rancor\Forums\Http\Requests\BoardSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(BoardSearch $request)

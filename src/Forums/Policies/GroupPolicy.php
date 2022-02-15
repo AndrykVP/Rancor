@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Policies;
+namespace Rancor\Forums\Policies;
 
 use App\Models\User;
-use AndrykVP\Rancor\Forums\Models\Group;
+use Rancor\Forums\Models\Group;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -41,7 +41,7 @@ class GroupPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return mixed
      */
     public function view(User $user, Group $group)
@@ -68,7 +68,7 @@ class GroupPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return mixed
      */
     public function update(User $user)
@@ -82,7 +82,7 @@ class GroupPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return mixed
      */
     public function delete(User $user)

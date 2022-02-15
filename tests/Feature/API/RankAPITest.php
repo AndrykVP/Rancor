@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Structure\Models\Department;
-use AndrykVP\Rancor\Structure\Models\Rank;
+use Rancor\Tests\TestCase;
+use Rancor\Structure\Models\Department;
+use Rancor\Structure\Models\Rank;
 use App\Models\User;
 
 class RankAPITest extends TestCase

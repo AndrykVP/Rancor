@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Models;
+namespace Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\DB\Factories\CategoryFactory;
+use Rancor\DB\Factories\CategoryFactory;
 
 class Category extends Model
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\SWC\Console\Commands;
+namespace Rancor\SWC\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -140,7 +140,7 @@ class SyncDatabase extends Command
             break;
         }
 
-        $result['class'] = 'AndrykVP\Rancor\SWC\Jobs\Process'.ucfirst($resource);
+        $result['class'] = 'Rancor\SWC\Jobs\Process'.ucfirst($resource);
 
         return $result;
     }

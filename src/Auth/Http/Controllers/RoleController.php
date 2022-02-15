@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Controllers;
+namespace Rancor\Auth\Http\Controllers;
 
-use AndrykVP\Rancor\Auth\Models\Role;
-use AndrykVP\Rancor\Auth\Models\Permission;
-use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
-use AndrykVP\Rancor\Auth\Http\Requests\RoleSearch;
+use Rancor\Auth\Models\Role;
+use Rancor\Auth\Models\Permission;
+use Rancor\Auth\Http\Requests\RoleForm;
+use Rancor\Auth\Http\Requests\RoleSearch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -40,7 +40,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Models\Role  $role
+     * @param  \Rancor\Auth\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
@@ -55,7 +55,7 @@ class RoleController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleSearch  $request
+     * @param  \Rancor\Auth\Http\Requests\RoleSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(RoleSearch $request)
@@ -89,7 +89,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleForm  $request
+     * @param  \Rancor\Auth\Http\Requests\RoleForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(RoleForm $request)
@@ -129,7 +129,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleForm  $request
+     * @param  \Rancor\Auth\Http\Requests\RoleForm  $request
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */

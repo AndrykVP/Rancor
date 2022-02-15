@@ -16,7 +16,7 @@
              @can('update',$category)
              <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2" href="{{ route('admin.categories.edit', $category) }}">{{ __('Edit Category') }}</a>
              @endcan
-             @can('create', AndrykVP\Rancor\Forums\Models\Board::class)
+             @can('create', Rancor\Forums\Models\Board::class)
              <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-green-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('admin.boards.create', ['category' => $category]) }}">{{ __('New Board') }}</a>
              @endcan
              @can('delete',$category)

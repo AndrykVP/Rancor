@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Auth\Models\Permission;
+use Rancor\Auth\Models\Permission;
 
 class PermissionFactory extends Factory
 {

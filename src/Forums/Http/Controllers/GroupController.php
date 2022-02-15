@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers;
+namespace Rancor\Forums\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Models\Group;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Http\Requests\GroupForm;
-use AndrykVP\Rancor\Forums\Http\Requests\GroupSearch;
+use Rancor\Forums\Models\Group;
+use Rancor\Forums\Models\Category;
+use Rancor\Forums\Http\Requests\GroupForm;
+use Rancor\Forums\Http\Requests\GroupSearch;
 
 class GroupController extends Controller
 {
@@ -54,7 +54,7 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\GroupForm  $request
+     * @param  \Rancor\Forums\Http\Requests\GroupForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(GroupForm $request)
@@ -72,7 +72,7 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function show(Group $group)
@@ -88,7 +88,7 @@ class GroupController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\GroupSearch  $request
+     * @param  \Rancor\Forums\Http\Requests\GroupSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(GroupSearch $request)
@@ -106,7 +106,7 @@ class GroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function edit(Group $group)
@@ -123,8 +123,8 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\GroupForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Http\Requests\GroupForm  $request
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function update(GroupForm $request, Group $group)
@@ -142,7 +142,7 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Group  $group
+     * @param  \Rancor\Forums\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function destroy(Group $group)

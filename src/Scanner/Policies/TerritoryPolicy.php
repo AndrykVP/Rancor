@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Policies;
+namespace Rancor\Scanner\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AndrykVP\Rancor\Scanner\Models\Territory;
+use Rancor\Scanner\Models\Territory;
 
 class TerritoryPolicy
 {
@@ -28,7 +28,7 @@ class TerritoryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Scanner\Models\Territory  $Territory
+     * @param  \Rancor\Scanner\Models\Territory  $Territory
      * @return mixed
      */
     public function viewAny(User $user)
@@ -42,7 +42,7 @@ class TerritoryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Scanner\Models\Territory  $Territory
+     * @param  \Rancor\Scanner\Models\Territory  $Territory
      * @return mixed
      */
     public function view(User $user, Territory $Territory)

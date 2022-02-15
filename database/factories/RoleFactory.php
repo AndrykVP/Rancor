@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Auth\Models\Role;
+use Rancor\Auth\Models\Role;
 
 class RoleFactory extends Factory
 {

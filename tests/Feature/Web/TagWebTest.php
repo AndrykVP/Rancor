@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\Web;
+namespace Rancor\Tests\Feature\Web;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\News\Models\Tag;
+use Rancor\Tests\TestCase;
+use Rancor\News\Models\Tag;
 use App\Models\User;
 
 class TagWebTest extends TestCase

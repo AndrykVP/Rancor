@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Models\Node;
 
 class NodeFactory extends Factory
 {

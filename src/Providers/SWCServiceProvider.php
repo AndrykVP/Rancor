@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use AndrykVP\Rancor\SWC\Console\Commands\SyncDatabase;
+use Rancor\SWC\Console\Commands\SyncDatabase;
 
 class SWCServiceProvider extends ServiceProvider
 {

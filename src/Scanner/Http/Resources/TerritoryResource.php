@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Http\Resources;
+namespace Rancor\Scanner\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Auth\Http\Resources\UserResource;
 
 class TerritoryResource extends JsonResource
 {

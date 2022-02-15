@@ -1,16 +1,16 @@
 <?php
 
-namespace AndrykVP\Rancor\Package\View\Components;
+namespace Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
-use AndrykVP\Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Board;
 
 class BoardRow extends Component
 {
    /**
     * The Categoy to render
     *
-    * @var  \AndrykVP\Rancor\Forums\Models\Board
+    * @var  \Rancor\Forums\Models\Board
     */
    public $board;
 

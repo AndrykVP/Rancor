@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\News\Models\Article;
-use AndrykVP\Rancor\News\Models\Tag;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\News\Models\Article;
+use Rancor\News\Models\Tag;
+use Rancor\Tests\TestCase;
 
 class ArticleModelTest extends TestCase
 {

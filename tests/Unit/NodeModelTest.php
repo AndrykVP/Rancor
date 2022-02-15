@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Holocron\Models\Collection;
-use AndrykVP\Rancor\Holocron\Models\Node;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Holocron\Models\Collection;
+use Rancor\Holocron\Models\Node;
+use Rancor\Tests\TestCase;
 
 class NodeModelTest extends TestCase
 {

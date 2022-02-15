@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Discussion;
+use Rancor\Tests\TestCase;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Discussion;
 use App\Models\User;
 
 class DiscussionAPITest extends TestCase

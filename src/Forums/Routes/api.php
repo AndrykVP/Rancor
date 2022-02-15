@@ -1,11 +1,11 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Forums\Http\Controllers\API\BoardController;
-use AndrykVP\Rancor\Forums\Http\Controllers\API\CategoryController;
-use AndrykVP\Rancor\Forums\Http\Controllers\API\DiscussionController;
-use AndrykVP\Rancor\Forums\Http\Controllers\API\GroupController;
-use AndrykVP\Rancor\Forums\Http\Controllers\API\ReplyController;
+use Rancor\Forums\Http\Controllers\API\BoardController;
+use Rancor\Forums\Http\Controllers\API\CategoryController;
+use Rancor\Forums\Http\Controllers\API\DiscussionController;
+use Rancor\Forums\Http\Controllers\API\GroupController;
+use Rancor\Forums\Http\Controllers\API\ReplyController;
 
 $middleware = array_merge(['api'],config('rancor.middleware.api'),['admin']);
 

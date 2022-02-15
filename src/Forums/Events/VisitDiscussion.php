@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Events;
+namespace Rancor\Forums\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use AndrykVP\Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Models\Discussion;
 
 class VisitDiscussion
 {
@@ -15,7 +15,7 @@ class VisitDiscussion
     /**
      * Class Variable Discussion
      * 
-     * @var AndrykVP\Rancor\Forums\Models\Discussion
+     * @var Rancor\Forums\Models\Discussion
      */
     public $discussion;
 

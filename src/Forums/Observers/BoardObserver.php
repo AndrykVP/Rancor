@@ -1,16 +1,16 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Observers;
+namespace Rancor\Forums\Observers;
 
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Board;
 
 class BoardObserver
 {
    /**
     * Handle the Board "creating" event
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Board  $board
+    * @param \Rancor\Forums\Models\Board  $board
     * @return void
     */
    public function creating(Board $board)
@@ -37,7 +37,7 @@ class BoardObserver
    /**
     * Handle the Board "updating" event
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Board  $board
+    * @param \Rancor\Forums\Models\Board  $board
     * @return void
     */
    public function updating(Board $board)
@@ -105,7 +105,7 @@ class BoardObserver
    /**
     * Handle the Board "deleted" event
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Board  $board
+    * @param \Rancor\Forums\Models\Board  $board
     * @return void
     */
    public function deleted(Board $board)

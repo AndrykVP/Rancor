@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Audit\Enums\Access;
-use AndrykVP\Rancor\Audit\Models\IPLog;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Audit\Enums\Access;
+use Rancor\Audit\Models\IPLog;
+use Rancor\Tests\TestCase;
 
 class IPLogModelTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Models;
+namespace Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Rancor\DB\Factories\QuadrantFactory;
+use Rancor\DB\Factories\QuadrantFactory;
 
 class Quadrant extends Model
 {

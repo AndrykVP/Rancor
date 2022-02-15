@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Tests\TestCase;
 use App\Models\User;
 
 class UserModelTest extends TestCase

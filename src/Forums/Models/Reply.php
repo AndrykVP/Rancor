@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Models;
+namespace Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\Forums\Events\CreateReply;
-use AndrykVP\Rancor\DB\Factories\ReplyFactory;
+use Rancor\Forums\Events\CreateReply;
+use Rancor\DB\Factories\ReplyFactory;
 
 class Reply extends Model
 {

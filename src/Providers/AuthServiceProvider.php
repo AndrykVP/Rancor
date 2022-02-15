@@ -1,18 +1,18 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Routing\Router;
 use App\Models\User;
-use AndrykVP\Rancor\Auth\Models\Permission;
-use AndrykVP\Rancor\Auth\Models\Role;
-use AndrykVP\Rancor\Auth\Policies\PermissionPolicy;
-use AndrykVP\Rancor\Auth\Policies\RolePolicy;
-use AndrykVP\Rancor\Auth\Policies\UserPolicy;
-use AndrykVP\Rancor\Auth\Http\Middleware\AdminAccess;
-use AndrykVP\Rancor\Auth\Http\Middleware\UserIsNotBanned;
+use Rancor\Auth\Models\Permission;
+use Rancor\Auth\Models\Role;
+use Rancor\Auth\Policies\PermissionPolicy;
+use Rancor\Auth\Policies\RolePolicy;
+use Rancor\Auth\Policies\UserPolicy;
+use Rancor\Auth\Http\Middleware\AdminAccess;
+use Rancor\Auth\Http\Middleware\UserIsNotBanned;
 
 class AuthServiceProvider extends ServiceProvider
 {

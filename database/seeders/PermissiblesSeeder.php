@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Seeders;
+namespace Rancor\DB\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

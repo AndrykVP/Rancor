@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Auth\Models\Permission;
-use AndrykVP\Rancor\DB\Seeders\RancorSeeder;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Auth\Models\Permission;
+use Rancor\DB\Seeders\RancorSeeder;
+use Rancor\Tests\TestCase;
 
 class PermissionModelTest extends TestCase
 {

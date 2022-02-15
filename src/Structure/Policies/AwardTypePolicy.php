@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Policies;
+namespace Rancor\Structure\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AndrykVP\Rancor\Structure\Models\AwardType;
+use Rancor\Structure\Models\AwardType;
 
 class AwardTypePolicy
 {
@@ -41,7 +41,7 @@ class AwardTypePolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\AwardType  $type
+     * @param \Rancor\Structure\Models\AwardType  $type
      * @return mixed
      */
     public function view(User $user, Tpye $type)
@@ -68,7 +68,7 @@ class AwardTypePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\Rank  $rank
+     * @param \Rancor\Structure\Models\Rank  $rank
      * @return mixed
      */
     public function update(User $user, Type $type)
@@ -82,7 +82,7 @@ class AwardTypePolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\Rank  $rank
+     * @param \Rancor\Structure\Models\Rank  $rank
      * @return mixed
      */
     public function delete(User $user, Type $type)

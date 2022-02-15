@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Jobs;
+namespace Rancor\Forums\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

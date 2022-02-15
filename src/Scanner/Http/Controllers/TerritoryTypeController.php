@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Http\Controllers;
+namespace Rancor\Scanner\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeForm;
-use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeSearch;
-use AndrykVP\Rancor\Scanner\Models\TerritoryType;
+use Rancor\Scanner\Http\Requests\TerritoryTypeForm;
+use Rancor\Scanner\Http\Requests\TerritoryTypeSearch;
+use Rancor\Scanner\Models\TerritoryType;
 
 class TerritoryTypeController extends Controller
 {
@@ -37,7 +37,7 @@ class TerritoryTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
+     * @param  \Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
     public function show(TerritoryType $territorytype)
@@ -51,7 +51,7 @@ class TerritoryTypeController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeSearch  $request
+     * @param  \Rancor\Scanner\Http\Requests\TerritoryTypeSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(TerritoryTypeSearch $request)
@@ -84,7 +84,7 @@ class TerritoryTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeForm  $request
+     * @param  \Rancor\Scanner\Http\Requests\TerritoryTypeForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(TerritoryTypeForm $request)
@@ -100,7 +100,7 @@ class TerritoryTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
+     * @param  \Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
     public function edit(TerritoryType $territorytype)
@@ -116,8 +116,8 @@ class TerritoryTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryTypeForm  $request
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
+     * @param  \Rancor\Scanner\Http\Requests\TerritoryTypeForm  $request
+     * @param  \Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
     public function update(TerritoryTypeForm $request, TerritoryType $territorytype)
@@ -133,7 +133,7 @@ class TerritoryTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\TerritoryType  $territorytype
+     * @param  \Rancor\Scanner\Models\TerritoryType  $territorytype
      * @return \Illuminate\Http\Response
      */
     public function destroy(TerritoryType $territorytype)

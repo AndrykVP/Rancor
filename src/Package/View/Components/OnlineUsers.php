@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Package\View\Components;
+namespace Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Cache;

@@ -1,7 +1,7 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Audit\Http\Controllers\API\UserLogController;
+use Rancor\Audit\Http\Controllers\API\UserLogController;
 
 $middleware = array_merge(['api'], config('rancor.middleware.api'), ['admin']);
 

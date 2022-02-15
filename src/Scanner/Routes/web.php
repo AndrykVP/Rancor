@@ -1,9 +1,9 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Scanner\Http\Controllers\ScannerController;
-use AndrykVP\Rancor\Scanner\Http\Controllers\EntryController;
-use AndrykVP\Rancor\Scanner\Http\Controllers\TerritoryTypeController;
+use Rancor\Scanner\Http\Controllers\ScannerController;
+use Rancor\Scanner\Http\Controllers\EntryController;
+use Rancor\Scanner\Http\Controllers\TerritoryTypeController;
 
 $middleware = array_merge(['web'], config('rancor.middleware.web'));
 

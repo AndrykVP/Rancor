@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Controllers;
+namespace Rancor\Structure\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\Department;
-use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Http\Requests\RankForm;
-use AndrykVP\Rancor\Structure\Http\Requests\RankSearch;
+use Rancor\Structure\Models\Department;
+use Rancor\Structure\Models\Rank;
+use Rancor\Structure\Http\Requests\RankForm;
+use Rancor\Structure\Http\Requests\RankSearch;
 
 class RankController extends Controller
 {
@@ -53,7 +53,7 @@ class RankController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankForm  $request
+     * @param  \Rancor\Structure\Http\Requests\RankForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(RankForm $request)
@@ -71,7 +71,7 @@ class RankController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Rank  $rank
+     * @param  \Rancor\Structure\Models\Rank  $rank
      * @return \Illuminate\Http\Response
      */
     public function show(Rank $rank)
@@ -86,7 +86,7 @@ class RankController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankSearch  $request
+     * @param  \Rancor\Structure\Http\Requests\RankSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(RankSearch $request)
@@ -104,7 +104,7 @@ class RankController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Rank  $rank
+     * @param  \Rancor\Structure\Models\Rank  $rank
      * @return \Illuminate\Http\Response
      */
     public function edit(Rank $rank)
@@ -120,8 +120,8 @@ class RankController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Models\Rank  $rank
+     * @param  \Rancor\Structure\Http\Requests\RankForm  $request
+     * @param  \Rancor\Structure\Models\Rank  $rank
      * @return \Illuminate\Http\Response
      */
     public function update(RankForm $request, Rank $rank)
@@ -139,7 +139,7 @@ class RankController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Rank  $rank
+     * @param  \Rancor\Structure\Models\Rank  $rank
      * @return \Illuminate\Http\Response
      */
     public function destroy(Rank $rank)

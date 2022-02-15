@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Holocron\Models\Collection;
+use Rancor\Tests\TestCase;
+use Rancor\Holocron\Models\Collection;
 use App\Models\User;
 
 class CollectionAPITest extends TestCase

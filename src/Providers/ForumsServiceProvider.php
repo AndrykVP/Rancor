@@ -1,20 +1,20 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Models\Group;
-use AndrykVP\Rancor\Forums\Models\Reply;
-use AndrykVP\Rancor\Forums\Policies\BoardPolicy;
-use AndrykVP\Rancor\Forums\Policies\CategoryPolicy;
-use AndrykVP\Rancor\Forums\Policies\DiscussionPolicy;
-use AndrykVP\Rancor\Forums\Policies\GroupPolicy;
-use AndrykVP\Rancor\Forums\Policies\ReplyPolicy;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Models\Group;
+use Rancor\Forums\Models\Reply;
+use Rancor\Forums\Policies\BoardPolicy;
+use Rancor\Forums\Policies\CategoryPolicy;
+use Rancor\Forums\Policies\DiscussionPolicy;
+use Rancor\Forums\Policies\GroupPolicy;
+use Rancor\Forums\Policies\ReplyPolicy;
 
 class ForumsServiceProvider extends ServiceProvider
 {

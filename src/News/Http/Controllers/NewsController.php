@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Controllers;
+namespace Rancor\News\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Models\Article;
-use AndrykVP\Rancor\News\Models\Tag;
+use Rancor\News\Models\Article;
+use Rancor\News\Models\Tag;
 
 class NewsController extends Controller
 {
@@ -73,7 +73,7 @@ class NewsController extends Controller
    /**
     * Displays all published articles
     *
-    * @param \AndrykVP\Rancor\News\Models\Article  $article
+    * @param \Rancor\News\Models\Article  $article
     * @return \Illuminate\Http\Response
     */
    public function show(Article $article)

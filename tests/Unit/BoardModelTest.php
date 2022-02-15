@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Tests\TestCase;
 
 class BoardModelTest extends TestCase
 {

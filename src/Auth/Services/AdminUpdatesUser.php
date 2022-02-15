@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Services;
+namespace Rancor\Auth\Services;
 
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Audit\Events\UserAwards;
-use AndrykVP\Rancor\Audit\Events\UserUpdate;
-use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
+use Rancor\Audit\Events\UserAwards;
+use Rancor\Audit\Events\UserUpdate;
+use Rancor\Auth\Http\Requests\UserForm;
 use App\Models\User;
 
 class AdminUpdatesUser
@@ -13,7 +13,7 @@ class AdminUpdatesUser
    /**
     * Updates the given User model based on Permissions
     *
-    * @param \AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
+    * @param \Rancor\Auth\Http\Requests\UserForm  $request
     * @param \App\Models\User  $user
     */
    public function __invoke(UserForm $request, User &$user)

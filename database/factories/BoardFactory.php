@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Board;
 
 class BoardFactory extends Factory
 {

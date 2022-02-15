@@ -1,18 +1,18 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Http\Controllers;
+namespace Rancor\Scanner\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Scanner\Models\Entry;
-use AndrykVP\Rancor\Scanner\Models\Quadrant;
-use AndrykVP\Rancor\Scanner\Models\Territory;
-use AndrykVP\Rancor\Scanner\Models\TerritoryType;
-use AndrykVP\Rancor\Scanner\Http\Requests\UploadScan;
-use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryFilter;
-use AndrykVP\Rancor\Scanner\Http\Requests\TerritoryForm;
-use AndrykVP\Rancor\Scanner\Services\EntryParseService;
+use Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Models\Quadrant;
+use Rancor\Scanner\Models\Territory;
+use Rancor\Scanner\Models\TerritoryType;
+use Rancor\Scanner\Http\Requests\UploadScan;
+use Rancor\Scanner\Http\Requests\TerritoryFilter;
+use Rancor\Scanner\Http\Requests\TerritoryForm;
+use Rancor\Scanner\Services\EntryParseService;
 
 class ScannerController extends Controller
 {
@@ -55,7 +55,7 @@ class ScannerController extends Controller
     /**
      * Display the specified quadrant.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\Quadrant  $quadrant
+     * @param  \Rancor\Scanner\Models\Quadrant  $quadrant
      * @return \Illuminate\Http\Response
      */
     public function quadrant(Quadrant $quadrant)
@@ -71,8 +71,8 @@ class ScannerController extends Controller
     /**
      * Display the specified territory.
      *
-     * @param \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryFilter  $request
-     * @param  \AndrykVP\Rancor\Scanner\Models\Territory  $territory
+     * @param \Rancor\Scanner\Http\Requests\TerritoryFilter  $request
+     * @param  \Rancor\Scanner\Models\Territory  $territory
      * @return \Illuminate\Http\Response
      */
     public function territory(TerritoryFilter $request, Territory $territory)
@@ -95,8 +95,8 @@ class ScannerController extends Controller
     /**
      * Update the specified territory in storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\TerritoryForm  $request
-     * @param  \AndrykVP\Rancor\Scanner\Models\Territory  $territory
+     * @param  \Rancor\Scanner\Http\Requests\TerritoryForm  $request
+     * @param  \Rancor\Scanner\Models\Territory  $territory
      * @return \Illuminate\Http\Response
      */
     public function update(TerritoryForm $request, Territory $territory)
@@ -140,8 +140,8 @@ class ScannerController extends Controller
     /**
      * Stores the information from uploaded XML file
      * 
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\UploadScan  $request
-     * @param  \AndrykVP\Rancor\Scanner\Services\EntryParseService  $sevice
+     * @param  \Rancor\Scanner\Http\Requests\UploadScan  $request
+     * @param  \Rancor\Scanner\Services\EntryParseService  $sevice
      * @return \Illuminate\Http\Response
      */
     public function store(UploadScan $request, EntryParseService $service)

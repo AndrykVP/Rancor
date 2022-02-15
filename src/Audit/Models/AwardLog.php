@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Models;
+namespace Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Rancor\Audit\Contracts\LogContract;
-use AndrykVP\Rancor\DB\Factories\AwardLogFactory;
-use AndrykVP\Rancor\Structure\Models\Award;
+use Rancor\Audit\Contracts\LogContract;
+use Rancor\DB\Factories\AwardLogFactory;
+use Rancor\Structure\Models\Award;
 
 class AwardLog extends Model implements LogContract
 {

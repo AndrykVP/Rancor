@@ -1,15 +1,15 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature;
+namespace Rancor\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Audit\Models\AwardLog;
-use AndrykVP\Rancor\Audit\Models\BanLog;
-use AndrykVP\Rancor\Audit\Models\EntryLog;
-use AndrykVP\Rancor\Audit\Models\IPLog;
-use AndrykVP\Rancor\Audit\Models\NodeLog;
-use AndrykVP\Rancor\Audit\Models\UserLog;
+use Rancor\Tests\TestCase;
+use Rancor\Audit\Models\AwardLog;
+use Rancor\Audit\Models\BanLog;
+use Rancor\Audit\Models\EntryLog;
+use Rancor\Audit\Models\IPLog;
+use Rancor\Audit\Models\NodeLog;
+use Rancor\Audit\Models\UserLog;
 
 class LogTest extends TestCase
 {

@@ -1,11 +1,11 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Structure\Http\Controllers\API\FactionController;
-use AndrykVP\Rancor\Structure\Http\Controllers\API\DepartmentController;
-use AndrykVP\Rancor\Structure\Http\Controllers\API\RankController;
-use AndrykVP\Rancor\Structure\Http\Controllers\API\AwardController;
-use AndrykVP\Rancor\Structure\Http\Controllers\API\AwardTypeController;
+use Rancor\Structure\Http\Controllers\API\FactionController;
+use Rancor\Structure\Http\Controllers\API\DepartmentController;
+use Rancor\Structure\Http\Controllers\API\RankController;
+use Rancor\Structure\Http\Controllers\API\AwardController;
+use Rancor\Structure\Http\Controllers\API\AwardTypeController;
 
 $middleware = array_merge(['api'],config('rancor.middleware.api'), ['admin']);
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Controllers\API;
+namespace Rancor\News\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Models\Article;
-use AndrykVP\Rancor\News\Http\Resources\ArticleResource;
-use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
-use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
-use AndrykVP\Rancor\News\Http\Requests\ArticleSearch;
+use Rancor\News\Models\Article;
+use Rancor\News\Http\Resources\ArticleResource;
+use Rancor\News\Http\Requests\EditArticleForm;
+use Rancor\News\Http\Requests\NewArticleForm;
+use Rancor\News\Http\Requests\ArticleSearch;
 
 class ArticleController extends Controller
 {
@@ -29,7 +29,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\NewArticleForm  $request
+     * @param  \Rancor\News\Http\Requests\NewArticleForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewArticleForm $request)
@@ -53,7 +53,7 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\News\Models\Article  $article
+     * @param  \Rancor\News\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
@@ -67,8 +67,8 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\EditArticleForm  $request
-     * @param  \AndrykVP\Rancor\News\Models\Article  $article
+     * @param  \Rancor\News\Http\Requests\EditArticleForm  $request
+     * @param  \Rancor\News\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function update(EditArticleForm $request, Article $article)
@@ -91,7 +91,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\News\Models\Article  $article
+     * @param  \Rancor\News\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
@@ -107,7 +107,7 @@ class ArticleController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\ArticleSearch  $request
+     * @param  \Rancor\News\Http\Requests\ArticleSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(ArticleSearch $request)

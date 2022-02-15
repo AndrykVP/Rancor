@@ -1,10 +1,10 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Auth\Http\Controllers\UserController;
-use AndrykVP\Rancor\Auth\Http\Controllers\RoleController;
-use AndrykVP\Rancor\Auth\Http\Controllers\PermissionController;
-use AndrykVP\Rancor\Auth\Http\Controllers\ProfileController;
+use Rancor\Auth\Http\Controllers\UserController;
+use Rancor\Auth\Http\Controllers\RoleController;
+use Rancor\Auth\Http\Controllers\PermissionController;
+use Rancor\Auth\Http\Controllers\ProfileController;
 
 Route::group(['middleware' => ['web']], function(){
 

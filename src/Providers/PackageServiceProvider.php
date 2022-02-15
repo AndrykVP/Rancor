@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -56,14 +56,14 @@ class PackageServiceProvider extends ServiceProvider
         // Register Morph Map
         Relation::morphMap([
             'users' => 'App\Models\User',
-            'roles' => 'AndrykVP\Rancor\Auth\Models\Role',
-            'categories' => 'AndrykVP\Rancor\Forums\Models\Category',
-            'boards' => 'AndrykVP\Rancor\Forums\Models\Board',
+            'roles' => 'Rancor\Auth\Models\Role',
+            'categories' => 'Rancor\Forums\Models\Category',
+            'boards' => 'Rancor\Forums\Models\Board',
         ]);
 
         // Load views
         $this->loadViewsFrom(__DIR__.'/../Package/Resources/Views','rancor');
-        Blade::componentNamespace('AndrykVP\\Rancor\\Package\\View\\Components', 'rancor');
+        Blade::componentNamespace('Rancor\\Package\\View\\Components', 'rancor');
 
         // Publish Views
         $this->publishes([

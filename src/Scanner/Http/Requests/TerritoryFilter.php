@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Http\Requests;
+namespace Rancor\Scanner\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

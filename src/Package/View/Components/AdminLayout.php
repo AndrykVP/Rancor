@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Package\View\Components;
+namespace Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\Http\Request;
@@ -64,7 +64,7 @@ class AdminLayout extends Component
         
         foreach($models as $model)
         {
-            if($user->can('viewAny', "\\AndrykVP\\Rancor\\".$model['namespace']."\\Models\\".$model['class']))
+            if($user->can('viewAny', "\\Rancor\\".$model['namespace']."\\Models\\".$model['class']))
             {
                 $class = Str::plural($model['class']);
                 

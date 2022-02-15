@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Forums\Models\Category;
+use Rancor\Tests\TestCase;
 
 class CategoryModelTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Scanner\Enums\Alliance;
-use AndrykVP\Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Enums\Alliance;
+use Rancor\Scanner\Models\Entry;
 
 class EntryFactory extends Factory
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Http\Resources;
+namespace Rancor\Holocron\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Auth\Http\Resources\UserResource;
 
 class CollectionResource extends JsonResource
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Login;

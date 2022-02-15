@@ -1,19 +1,19 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Structure\Models\Award;
-use AndrykVP\Rancor\Structure\Models\Faction;
-use AndrykVP\Rancor\Structure\Models\Department;
-use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Models\AwardType;
-use AndrykVP\Rancor\Structure\Policies\AwardPolicy;
-use AndrykVP\Rancor\Structure\Policies\FactionPolicy;
-use AndrykVP\Rancor\Structure\Policies\DepartmentPolicy;
-use AndrykVP\Rancor\Structure\Policies\RankPolicy;
-use AndrykVP\Rancor\Structure\Policies\AwardTypePolicy;
+use Rancor\Structure\Models\Award;
+use Rancor\Structure\Models\Faction;
+use Rancor\Structure\Models\Department;
+use Rancor\Structure\Models\Rank;
+use Rancor\Structure\Models\AwardType;
+use Rancor\Structure\Policies\AwardPolicy;
+use Rancor\Structure\Policies\FactionPolicy;
+use Rancor\Structure\Policies\DepartmentPolicy;
+use Rancor\Structure\Policies\RankPolicy;
+use Rancor\Structure\Policies\AwardTypePolicy;
 
 class StructureServiceProvider extends ServiceProvider
 {

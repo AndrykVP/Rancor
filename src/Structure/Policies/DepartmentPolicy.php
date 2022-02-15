@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Policies;
+namespace Rancor\Structure\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AndrykVP\Rancor\Structure\Models\Department;
+use Rancor\Structure\Models\Department;
 
 class DepartmentPolicy
 {
@@ -41,7 +41,7 @@ class DepartmentPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\Department  $department
+     * @param \Rancor\Structure\Models\Department  $department
      * @return mixed
      */
     public function view(User $user, Department $department)
@@ -68,7 +68,7 @@ class DepartmentPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\Department  $department
+     * @param \Rancor\Structure\Models\Department  $department
      * @return mixed
      */
     public function update(User $user, Department $department)
@@ -82,7 +82,7 @@ class DepartmentPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Structure\Models\Department  $department
+     * @param \Rancor\Structure\Models\Department  $department
      * @return mixed
      */
     public function delete(User $user, Department $department)

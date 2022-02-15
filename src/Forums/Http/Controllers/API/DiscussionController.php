@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
+namespace Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Http\Resources\DiscussionResource;
-use AndrykVP\Rancor\Forums\Http\Requests\DiscussionSearch;
-use AndrykVP\Rancor\Forums\Http\Requests\EditDiscussionForm;
-use AndrykVP\Rancor\Forums\Http\Requests\NewDiscussionForm;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Http\Resources\DiscussionResource;
+use Rancor\Forums\Http\Requests\DiscussionSearch;
+use Rancor\Forums\Http\Requests\EditDiscussionForm;
+use Rancor\Forums\Http\Requests\NewDiscussionForm;
 
 class DiscussionController extends Controller
 {    
@@ -28,7 +28,7 @@ class DiscussionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionForm  $request
+     * @param  \Rancor\Forums\Http\Requests\DiscussionForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewDiscussionForm $request)
@@ -46,7 +46,7 @@ class DiscussionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
+     * @param  \Rancor\Forums\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
     public function show(Discussion $discussion)
@@ -59,8 +59,8 @@ class DiscussionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
+     * @param  \Rancor\Forums\Http\Requests\DiscussionForm  $request
+     * @param  \Rancor\Forums\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
     public function update(EditDiscussionForm $request, Discussion $discussion)
@@ -78,7 +78,7 @@ class DiscussionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
+     * @param  \Rancor\Forums\Models\Discussion  $discussion
      * @return \Illuminate\Http\Response
      */
     public function destroy(Discussion $discussion)
@@ -95,7 +95,7 @@ class DiscussionController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\DiscussionSearch  $request
+     * @param  \Rancor\Forums\Http\Requests\DiscussionSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(DiscussionSearch $request)

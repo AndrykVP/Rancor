@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Notifications;
+namespace Rancor\Scanner\Notifications;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\File;
-use AndrykVP\Rancor\Scanner\Models\Territory;
+use Rancor\Scanner\Models\Territory;
 
 class PatrolReminder
 {

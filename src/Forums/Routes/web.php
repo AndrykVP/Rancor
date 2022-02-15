@@ -1,12 +1,12 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Forums\Http\Controllers\GroupController;
-use AndrykVP\Rancor\Forums\Http\Controllers\CategoryController;
-use AndrykVP\Rancor\Forums\Http\Controllers\BoardController;
-use AndrykVP\Rancor\Forums\Http\Controllers\DiscussionController;
-use AndrykVP\Rancor\Forums\Http\Controllers\ReplyController;
-use AndrykVP\Rancor\Forums\Http\Controllers\ForumController;
+use Rancor\Forums\Http\Controllers\GroupController;
+use Rancor\Forums\Http\Controllers\CategoryController;
+use Rancor\Forums\Http\Controllers\BoardController;
+use Rancor\Forums\Http\Controllers\DiscussionController;
+use Rancor\Forums\Http\Controllers\ReplyController;
+use Rancor\Forums\Http\Controllers\ForumController;
 
 Route::group(['middleware' => ['web']], function(){
    

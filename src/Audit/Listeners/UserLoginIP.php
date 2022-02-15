@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Listeners;
+namespace Rancor\Audit\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
-use AndrykVP\Rancor\Audit\Enums\Access;
-use AndrykVP\Rancor\Audit\Models\IPLog as Log;
+use Rancor\Audit\Enums\Access;
+use Rancor\Audit\Models\IPLog as Log;
 
 class UserLoginIP
 {

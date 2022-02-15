@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Controllers;
+namespace Rancor\Auth\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf;
-use AndrykVP\Rancor\Audit\Events\UserUpdate;
+use Rancor\Auth\Http\Requests\UserFormSelf;
+use Rancor\Audit\Events\UserUpdate;
 use App\Models\User;
 
 class ProfileController extends Controller
@@ -57,7 +57,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserFormSelf  $request
+     * @param  \Rancor\Auth\Http\Requests\UserFormSelf  $request
      * @return \Illuminate\Http\Response
      */
     public function update(UserFormSelf $request)

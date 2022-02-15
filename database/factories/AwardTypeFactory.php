@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Structure\Models\AwardType;
+use Rancor\Structure\Models\AwardType;
 
 class AwardTypeFactory extends Factory
 {

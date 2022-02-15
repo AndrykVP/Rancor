@@ -7,7 +7,7 @@
             </li>
          </ul>
          <div class="inline-flex mt-4 md:mt-0">
-            @can('create', \AndrykVP\Rancor\Forums\Models\Category::class)
+            @can('create', \Rancor\Forums\Models\Category::class)
             <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-green-600 px-3 py-2 mr-4" href="{{ route('admin.categories.create') }}">{{ __('New Category') }}</a>
             @endcan
             <a class="flex justify-center items-center font-bold text-sm text-white rounded bg-blue-600 px-3 py-2" href="{{ route('forums.unread.index') }}">{{ __('Unread Discussions') }}</a>

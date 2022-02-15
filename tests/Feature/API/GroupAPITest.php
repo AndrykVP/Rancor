@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Forums\Models\Group;
+use Rancor\Tests\TestCase;
+use Rancor\Forums\Models\Group;
 use App\Models\User;
 
 class GroupAPITest extends TestCase

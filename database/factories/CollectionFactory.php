@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Holocron\Models\Collection;
+use Rancor\Holocron\Models\Collection;
 
 class CollectionFactory extends Factory
 {

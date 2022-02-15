@@ -1,8 +1,8 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Traits;
+namespace Rancor\Scanner\Traits;
 
-use AndrykVP\Rancor\Audit\Models\EntryLog;
+use Rancor\Audit\Models\EntryLog;
 
 trait CanScan
 {

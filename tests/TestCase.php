@@ -1,8 +1,8 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests;
+namespace Rancor\Tests;
 
-use AndrykVP\Rancor\Providers\PackageServiceProvider;
+use Rancor\Providers\PackageServiceProvider;
 use Mews\Purifier\PurifierServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase

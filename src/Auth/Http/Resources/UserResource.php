@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Resources;
+namespace Rancor\Auth\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Auth;
 use App\Models\User;
-use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
-use AndrykVP\Rancor\Forums\Http\Resources\GroupResource;
+use Rancor\Structure\Http\Resources\RankResource;
+use Rancor\Forums\Http\Resources\GroupResource;
 
 class UserResource extends JsonResource
 {

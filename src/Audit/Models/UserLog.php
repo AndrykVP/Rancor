@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Models;
+namespace Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Rancor\Audit\Contracts\LogContract;
-use AndrykVP\Rancor\DB\Factories\UserLogFactory;
+use Rancor\Audit\Contracts\LogContract;
+use Rancor\DB\Factories\UserLogFactory;
 use App\Models\User;
 
 class UserLog extends Model implements LogContract

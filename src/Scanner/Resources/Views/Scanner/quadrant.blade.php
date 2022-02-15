@@ -24,7 +24,7 @@
                   </button>
                </div>
             </form>
-            @can('create', \AndrykVP\Rancor\Scanner\Models\Entry::class)
+            @can('create', \Rancor\Scanner\Models\Entry::class)
             <a class="flex justify-center items-center font-bold text-xs md:text-sm text-white rounded bg-blue-600 p-2 md:px-3 md:py-2 ml-2 md:ml-3" href="{{ route('scanner.create') }}">{{ __('Upload Scan') }}</a>
             @endcan
          </div>

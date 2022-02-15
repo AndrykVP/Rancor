@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Listeners;
+namespace Rancor\Audit\Listeners;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Audit\Events\UserUpdate;
-use AndrykVP\Rancor\Structure\Models\Rank;
+use Rancor\Audit\Events\UserUpdate;
+use Rancor\Structure\Models\Rank;
 
 class UserRank
 {

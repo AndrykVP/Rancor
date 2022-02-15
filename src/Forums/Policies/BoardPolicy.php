@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Policies;
+namespace Rancor\Forums\Policies;
 
 use App\Models\User;
-use AndrykVP\Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Board;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -41,7 +41,7 @@ class BoardPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
+     * @param  \Rancor\Forums\Models\Board  $board
      * @return mixed
      */
     public function view(User $user, Board $board)
@@ -70,7 +70,7 @@ class BoardPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
+     * @param  \Rancor\Forums\Models\Board  $board
      * @return mixed
      */
     public function update(User $user, Board $board)
@@ -85,7 +85,7 @@ class BoardPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Board  $board
+     * @param  \Rancor\Forums\Models\Board  $board
      * @return mixed
      */
     public function delete(User $user, Board $board)

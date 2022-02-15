@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Models;
+namespace Rancor\Forums\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\DB\Factories\BoardFactory;
+use Rancor\DB\Factories\BoardFactory;
 
 class Board extends Model
 {

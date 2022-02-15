@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
+namespace Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\AwardType;
-use AndrykVP\Rancor\Structure\Http\Resources\AwardTypeResource;
-use AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm;
-use AndrykVP\Rancor\Structure\Http\Requests\AwardTypeSearch;
+use Rancor\Structure\Models\AwardType;
+use Rancor\Structure\Http\Resources\AwardTypeResource;
+use Rancor\Structure\Http\Requests\AwardTypeForm;
+use Rancor\Structure\Http\Requests\AwardTypeSearch;
 
 class AwardTypeController extends Controller
 {    
@@ -26,7 +26,7 @@ class AwardTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm  $request
+     * @param  \Rancor\Structure\Http\Requests\AwardTypeForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AwardTypeForm $request)
@@ -58,7 +58,7 @@ class AwardTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeForm  $request
+     * @param  \Rancor\Structure\Http\Requests\AwardTypeForm  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -93,7 +93,7 @@ class AwardTypeController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardTypeSearch  $request
+     * @param  \Rancor\Structure\Http\Requests\AwardTypeSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(AwardTypeSearch $request)

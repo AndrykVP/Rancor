@@ -1,8 +1,8 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Traits;
+namespace Rancor\Holocron\Traits;
 
-use AndrykVP\Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Models\Node;
 
 trait HoloRecorder
 {

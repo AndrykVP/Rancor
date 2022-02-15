@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\News\Models\Article;
-use AndrykVP\Rancor\News\Models\Tag;
-use AndrykVP\Rancor\News\Policies\ArticlePolicy;
-use AndrykVP\Rancor\News\Policies\TagPolicy;
+use Rancor\News\Models\Article;
+use Rancor\News\Models\Tag;
+use Rancor\News\Policies\ArticlePolicy;
+use Rancor\News\Policies\TagPolicy;
 
 class NewsServiceProvider extends ServiceProvider
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Http\Controllers\API;
+namespace Rancor\Scanner\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Scanner\Models\Entry;
-use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
-use AndrykVP\Rancor\Scanner\Http\Requests\EntryForm;
-use AndrykVP\Rancor\Scanner\Http\Requests\EntrySearch;
+use Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Http\Resources\EntryResource;
+use Rancor\Scanner\Http\Requests\EntryForm;
+use Rancor\Scanner\Http\Requests\EntrySearch;
 
 class EntryController extends Controller
 {
@@ -27,7 +27,7 @@ class EntryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EntryForm  $request
+     * @param  \Rancor\Scanner\Http\Requests\EntryForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(EntryForm $request)
@@ -43,7 +43,7 @@ class EntryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
+     * @param  \Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function show(Entry $entry)
@@ -57,8 +57,8 @@ class EntryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EditEntry  $request
-     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
+     * @param  \Rancor\Scanner\Http\Requests\EditEntry  $request
+     * @param  \Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function update(EntryForm $request, Entry $entry)
@@ -74,7 +74,7 @@ class EntryController extends Controller
     /**
      * Remove the specified Usergroup resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Models\Entry  $entry
+     * @param  \Rancor\Scanner\Models\Entry  $entry
      * @return \Illuminate\Http\Response
      */
     public function destroy(Entry $entry)
@@ -90,7 +90,7 @@ class EntryController extends Controller
     /**
      * Search specified resource.
      *
-     * @param  \AndrykVP\Rancor\Scanner\Http\Requests\EntrySearch  $request
+     * @param  \Rancor\Scanner\Http\Requests\EntrySearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(EntrySearch $request)

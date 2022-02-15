@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Models;
+namespace Rancor\Holocron\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Auth;
 use App\Models\User;
-use AndrykVP\Rancor\Audit\Events\NodeUpdate;
-use AndrykVP\Rancor\DB\Factories\NodeFactory;
+use Rancor\Audit\Events\NodeUpdate;
+use Rancor\DB\Factories\NodeFactory;
 
 class Node extends Model
 {

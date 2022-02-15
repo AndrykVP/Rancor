@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Jobs;
+namespace Rancor\Audit\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use AndrykVP\Rancor\Audit\Models\EntryLog;
+use Rancor\Audit\Models\EntryLog;
 use Throwable;
 
 class CleanEntryLogs implements ShouldQueue, ShouldBeUnique

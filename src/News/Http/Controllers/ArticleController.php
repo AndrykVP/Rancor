@@ -1,15 +1,15 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Controllers;
+namespace Rancor\News\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Models\Article;
-use AndrykVP\Rancor\News\Models\Tag;
-use AndrykVP\Rancor\News\Http\Requests\NewArticleForm;
-use AndrykVP\Rancor\News\Http\Requests\EditArticleForm;
-use AndrykVP\Rancor\News\Http\Requests\ArticleSearch;
+use Rancor\News\Models\Article;
+use Rancor\News\Models\Tag;
+use Rancor\News\Http\Requests\NewArticleForm;
+use Rancor\News\Http\Requests\EditArticleForm;
+use Rancor\News\Http\Requests\ArticleSearch;
 
 class ArticleController extends Controller
 {
@@ -56,7 +56,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\NewArticleForm  $request
+     * @param  \Rancor\News\Http\Requests\NewArticleForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewArticleForm $request)
@@ -95,7 +95,7 @@ class ArticleController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\ArticleSearch  $request
+     * @param  \Rancor\News\Http\Requests\ArticleSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(ArticleSearch $request)
@@ -130,7 +130,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\ArticleForm  $request
+     * @param  \Rancor\News\Http\Requests\ArticleForm  $request
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */

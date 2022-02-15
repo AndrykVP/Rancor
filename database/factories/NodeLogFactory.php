@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Audit\Models\NodeLog;
-use AndrykVP\Rancor\Holocron\Models\Node;
+use Rancor\Audit\Models\NodeLog;
+use Rancor\Holocron\Models\Node;
 use App\Models\User;
 
 class NodeLogFactory extends Factory

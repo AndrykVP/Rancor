@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Audit\Models\EntryLog;
-use AndrykVP\Rancor\Scanner\Enums\Alliance;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Audit\Models\EntryLog;
+use Rancor\Scanner\Enums\Alliance;
+use Rancor\Tests\TestCase;
 
 class EntryLogModelTest extends TestCase
 {

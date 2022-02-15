@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Listeners;
+namespace Rancor\Forums\Listeners;
 
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Forums\Events\CreateReply;
+use Rancor\Forums\Events\CreateReply;
 
 class LinkUserDiscussion
 {

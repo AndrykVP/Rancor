@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Unit;
+namespace Rancor\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Structure\Models\AwardType;
-use AndrykVP\Rancor\Tests\TestCase;
+use Rancor\Structure\Models\AwardType;
+use Rancor\Tests\TestCase;
 
 class AwardTypeModelTest extends TestCase
 {

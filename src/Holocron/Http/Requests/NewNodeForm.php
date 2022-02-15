@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Http\Requests;
+namespace Rancor\Holocron\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

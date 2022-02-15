@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Resources;
+namespace Rancor\News\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Auth\Http\Resources\UserResource;
 
 class ArticleResource extends JsonResource
 {

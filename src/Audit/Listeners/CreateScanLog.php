@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Listeners;
+namespace Rancor\Audit\Listeners;
 
-use AndrykVP\Rancor\Audit\Events\EntryUpdate;
-use AndrykVP\Rancor\Audit\Models\EntryLog;
+use Rancor\Audit\Events\EntryUpdate;
+use Rancor\Audit\Models\EntryLog;
 use Illuminate\Http\Request;
 
 class CreateScanLog

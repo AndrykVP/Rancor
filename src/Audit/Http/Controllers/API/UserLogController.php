@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Http\Controllers\API;
+namespace Rancor\Audit\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;

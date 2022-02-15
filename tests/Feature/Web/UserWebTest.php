@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\Web;
+namespace Rancor\Tests\Feature\Web;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Structure\Models\Department;
-use AndrykVP\Rancor\Structure\Models\Rank;
+use Rancor\Tests\TestCase;
+use Rancor\Structure\Models\Department;
+use Rancor\Structure\Models\Rank;
 use App\Models\User;
 
 class UserWebTest extends TestCase

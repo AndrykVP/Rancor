@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Listeners;
+namespace Rancor\Forums\Listeners;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;

@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Scanner\Models\TerritoryType;
+use Rancor\Scanner\Models\TerritoryType;
 
 class TerritoryTypeFactory extends Factory
 {

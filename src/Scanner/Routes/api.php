@@ -1,8 +1,8 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Scanner\Http\Controllers\API\EntryController;
-use AndrykVP\Rancor\Scanner\Http\Controllers\API\TerritoryTypeController;
+use Rancor\Scanner\Http\Controllers\API\EntryController;
+use Rancor\Scanner\Http\Controllers\API\TerritoryTypeController;
 
 $middleware = array_merge(['api'],config('rancor.middleware.api'),['admin']);
 

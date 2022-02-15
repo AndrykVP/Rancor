@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Holocron\Models\Collection;
-use AndrykVP\Rancor\Holocron\Models\Node;
-use AndrykVP\Rancor\Holocron\Policies\CollectionPolicy;
-use AndrykVP\Rancor\Holocron\Policies\NodePolicy;
+use Rancor\Holocron\Models\Collection;
+use Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Policies\CollectionPolicy;
+use Rancor\Holocron\Policies\NodePolicy;
 
 class HolocronServiceProvider extends ServiceProvider
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Resources;
+namespace Rancor\Structure\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Auth\Http\Resources\UserResource;
 
 class AwardResource extends JsonResource
 {

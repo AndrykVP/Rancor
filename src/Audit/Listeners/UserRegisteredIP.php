@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Listeners;
+namespace Rancor\Audit\Listeners;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Audit\Enums\Access;
+use Rancor\Audit\Enums\Access;
 
 class UserRegisteredIP
 {

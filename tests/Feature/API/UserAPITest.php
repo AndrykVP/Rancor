@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\DB\Seeders\RancorSeeder;
+use Rancor\Tests\TestCase;
+use Rancor\DB\Seeders\RancorSeeder;
 use App\Models\User;
 
 class UserAPITest extends TestCase

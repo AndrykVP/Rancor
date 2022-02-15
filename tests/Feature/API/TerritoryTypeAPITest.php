@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Scanner\Models\TerritoryType;
+use Rancor\Tests\TestCase;
+use Rancor\Scanner\Models\TerritoryType;
 use App\Models\User;
 
 class TerritoryTypeAPITest extends TestCase

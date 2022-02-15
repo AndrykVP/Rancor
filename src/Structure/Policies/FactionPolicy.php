@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Policies;
+namespace Rancor\Structure\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AndrykVP\Rancor\Structure\Models\Faction;
+use Rancor\Structure\Models\Faction;
 
 class FactionPolicy
 {

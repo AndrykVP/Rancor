@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Models;
+namespace Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\Audit\Events\EntryUpdate;
-use AndrykVP\Rancor\Audit\Models\EntryLog;
-use AndrykVP\Rancor\DB\Factories\EntryFactory;
-use AndrykVP\Rancor\Scanner\Enums\Alliance;
+use Rancor\Audit\Events\EntryUpdate;
+use Rancor\Audit\Models\EntryLog;
+use Rancor\DB\Factories\EntryFactory;
+use Rancor\Scanner\Enums\Alliance;
 use App\Models\User;
 
 class Entry extends Model

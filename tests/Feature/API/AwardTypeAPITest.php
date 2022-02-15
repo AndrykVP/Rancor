@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Structure\Models\AwardType;
+use Rancor\Tests\TestCase;
+use Rancor\Structure\Models\AwardType;
 use App\Models\User;
 
 class AwardTypeAPITest extends TestCase

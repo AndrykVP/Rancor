@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Middleware;
+namespace Rancor\Auth\Http\Middleware;
 
 use Closure;
 

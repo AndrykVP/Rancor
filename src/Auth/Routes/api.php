@@ -1,9 +1,9 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Auth\Http\Controllers\API\UserController;
-use AndrykVP\Rancor\Auth\Http\Controllers\API\RoleController;
-use AndrykVP\Rancor\Auth\Http\Controllers\API\PermissionController;
+use Rancor\Auth\Http\Controllers\API\UserController;
+use Rancor\Auth\Http\Controllers\API\RoleController;
+use Rancor\Auth\Http\Controllers\API\PermissionController;
 
 $middleware = array_merge(['api'],config('rancor.middleware.api'),['admin']);
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Observers;
+namespace Rancor\Forums\Observers;
 
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Category;
 
 class CategoryObserver
 {
    /**
     * Handle the Category "creating" event
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Category  $category
+    * @param \Rancor\Forums\Models\Category  $category
     * @return void
     */
    public function creating(Category $category)
@@ -34,7 +34,7 @@ class CategoryObserver
    /**
     * Handle the Category "updating" event
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Category  $category
+    * @param \Rancor\Forums\Models\Category  $category
     * @return void
     */
    public function updating(Category $category)
@@ -72,7 +72,7 @@ class CategoryObserver
    /**
     * Handle the Category "deleted" event
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Category  $category
+    * @param \Rancor\Forums\Models\Category  $category
     * @return void
     */
    public function deleted(Category $category)

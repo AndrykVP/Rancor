@@ -1,9 +1,9 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\News\Http\Controllers\ArticleController;
-use AndrykVP\Rancor\News\Http\Controllers\TagController;
-use AndrykVP\Rancor\News\Http\Controllers\NewsController;
+use Rancor\News\Http\Controllers\ArticleController;
+use Rancor\News\Http\Controllers\TagController;
+use Rancor\News\Http\Controllers\NewsController;
 
 $middleware = array_merge(['web'],config('rancor.middleware.web'), ['admin']);
 

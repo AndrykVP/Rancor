@@ -1,9 +1,9 @@
 <?php 
 
 use Illuminate\Support\Facades\Route;
-use AndrykVP\Rancor\Holocron\Http\Controllers\NodeController;
-use AndrykVP\Rancor\Holocron\Http\Controllers\CollectionController;
-use AndrykVP\Rancor\Holocron\Http\Controllers\HolocronController;
+use Rancor\Holocron\Http\Controllers\NodeController;
+use Rancor\Holocron\Http\Controllers\CollectionController;
+use Rancor\Holocron\Http\Controllers\HolocronController;
 
 $middleware = array_merge(['web'],config('rancor.middleware.web'), ['admin']);
 

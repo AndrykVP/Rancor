@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Controllers;
+namespace Rancor\Structure\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\Faction;
-use AndrykVP\Rancor\Structure\Http\Requests\FactionForm;
-use AndrykVP\Rancor\Structure\Http\Requests\FactionSearch;
+use Rancor\Structure\Models\Faction;
+use Rancor\Structure\Http\Requests\FactionForm;
+use Rancor\Structure\Http\Requests\FactionSearch;
 
 class FactionController extends Controller
 {
@@ -52,7 +52,7 @@ class FactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
+     * @param  \Rancor\Structure\Http\Requests\FactionForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(FactionForm $request)
@@ -70,7 +70,7 @@ class FactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
+     * @param  \Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function show(Faction $faction)
@@ -85,7 +85,7 @@ class FactionController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionSearch  $request
+     * @param  \Rancor\Structure\Http\Requests\FactionSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(FactionSearch $request)
@@ -103,7 +103,7 @@ class FactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
+     * @param  \Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function edit(Faction $faction)
@@ -119,8 +119,8 @@ class FactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\FactionForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
+     * @param  \Rancor\Structure\Http\Requests\FactionForm  $request
+     * @param  \Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function update(FactionForm $request, Faction $faction)
@@ -138,7 +138,7 @@ class FactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Faction  $faction
+     * @param  \Rancor\Structure\Models\Faction  $faction
      * @return \Illuminate\Http\Response
      */
     public function destroy(Faction $faction)

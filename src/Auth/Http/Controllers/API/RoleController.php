@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
+namespace Rancor\Auth\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Auth\Models\Role;
-use AndrykVP\Rancor\Auth\Http\Resources\RoleResource;
-use AndrykVP\Rancor\Auth\Http\Requests\RoleForm;
-use AndrykVP\Rancor\Auth\Http\Requests\RoleSearch;
+use Rancor\Auth\Models\Role;
+use Rancor\Auth\Http\Resources\RoleResource;
+use Rancor\Auth\Http\Requests\RoleForm;
+use Rancor\Auth\Http\Requests\RoleSearch;
 
 class RoleController extends Controller
 {    
@@ -51,7 +51,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
+     * @param  \Rancor\Auth\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
@@ -66,7 +66,7 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
+     * @param  \Rancor\Auth\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function update(RoleForm $request, Role $role)
@@ -87,7 +87,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Models\Role $role
+     * @param  \Rancor\Auth\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)
@@ -107,7 +107,7 @@ class RoleController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\RoleSearch  $request
+     * @param  \Rancor\Auth\Http\Requests\RoleSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(RoleSearch $request)

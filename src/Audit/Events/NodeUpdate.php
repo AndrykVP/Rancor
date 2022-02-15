@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Events;
+namespace Rancor\Audit\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use AndrykVP\Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Models\Node;
 
 class NodeUpdate
 {
@@ -14,7 +14,7 @@ class NodeUpdate
 	/**
 	 * Node model to audit
 	 * 
-	 * @var \AndrykVP\Rancor\Holocron\Models\Node
+	 * @var \Rancor\Holocron\Models\Node
 	 */
 	public $node;
 

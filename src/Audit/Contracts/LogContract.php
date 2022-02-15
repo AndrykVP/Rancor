@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Contracts;
+namespace Rancor\Audit\Contracts;
 
 interface LogContract
 {

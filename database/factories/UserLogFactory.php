@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Audit\Models\UserLog;
+use Rancor\Audit\Models\UserLog;
 use App\Models\User;
 
 class UserLogFactory extends Factory

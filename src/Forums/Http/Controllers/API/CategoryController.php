@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
+namespace Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Http\Resources\CategoryResource;
-use AndrykVP\Rancor\Forums\Http\Requests\CategoryForm;
-use AndrykVP\Rancor\Forums\Http\Requests\CategorySearch;
+use Rancor\Forums\Models\Category;
+use Rancor\Forums\Http\Resources\CategoryResource;
+use Rancor\Forums\Http\Requests\CategoryForm;
+use Rancor\Forums\Http\Requests\CategorySearch;
 
 class CategoryController extends Controller
 {    
@@ -27,7 +27,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategoryForm  $request
+     * @param  \Rancor\Forums\Http\Requests\CategoryForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryForm $request)
@@ -43,7 +43,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
+     * @param  \Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -56,8 +56,8 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategoryForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
+     * @param  \Rancor\Forums\Http\Requests\CategoryForm  $request
+     * @param  \Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryForm $request, Category $category)
@@ -73,7 +73,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
+     * @param  \Rancor\Forums\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
@@ -89,7 +89,7 @@ class CategoryController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\CategorySearch  $request
+     * @param  \Rancor\Forums\Http\Requests\CategorySearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(CategorySearch $request)

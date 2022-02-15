@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Events;
+namespace Rancor\Forums\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use AndrykVP\Rancor\Forums\Models\Reply;
+use Rancor\Forums\Models\Reply;
 
 class CreateReply
 {
@@ -15,7 +15,7 @@ class CreateReply
     /**
      * Class Variable Reply
      * 
-     * @var AndrykVP\Rancor\Forums\Models\Reply
+     * @var Rancor\Forums\Models\Reply
      */
     public $reply;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Models;
+namespace Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\DB\Factories\AwardTypeFactory;
+use Rancor\DB\Factories\AwardTypeFactory;
 
 class AwardType extends Model
 {

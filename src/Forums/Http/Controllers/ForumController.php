@@ -1,15 +1,15 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers;
+namespace Rancor\Forums\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
+use Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Events\VisitDiscussion;
 
 class ForumController extends Controller
 {   
@@ -99,7 +99,7 @@ class ForumController extends Controller
     * Display the specified Category.
     *
     * @param \Illuminate\Http\Request  $request
-    * @param \AndrykVP\Rancor\Forums\Models\Category  $category;
+    * @param \Rancor\Forums\Models\Category  $category;
     * @return \Illuminate\Http\Response
     */
    public function category(Request $request, Category $category)
@@ -137,8 +137,8 @@ class ForumController extends Controller
     * Display the specified Board.
     *
     * @param \Illuminate\Http\Request  $request
-    * @param \AndrykVP\Rancor\Forums\Models\Category  $category;
-    * @param \AndrykVP\Rancor\Forums\Models\Board  $board;
+    * @param \Rancor\Forums\Models\Category  $category;
+    * @param \Rancor\Forums\Models\Board  $board;
     * @return \Illuminate\Http\Response
     */
    public function board(Request $request, Category $category, Board $board)
@@ -173,9 +173,9 @@ class ForumController extends Controller
    /**
     * Display the specified Discussion.
     *
-    * @param \AndrykVP\Rancor\Forums\Models\Category  $category;
-    * @param \AndrykVP\Rancor\Forums\Models\Board  $board;
-    * @param  \AndrykVP\Rancor\Forums\Models\Discussion  $discussion
+    * @param \Rancor\Forums\Models\Category  $category;
+    * @param \Rancor\Forums\Models\Board  $board;
+    * @param  \Rancor\Forums\Models\Discussion  $discussion
     * @return \Illuminate\Http\Response
     */
    public function discussion(Category $category, Board $board, Discussion $discussion)

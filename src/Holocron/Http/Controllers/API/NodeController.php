@@ -1,15 +1,15 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Http\Controllers\API;
+namespace Rancor\Holocron\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Holocron\Models\Node;
-use AndrykVP\Rancor\Holocron\Http\Resources\NodeResource;
-use AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm;
-use AndrykVP\Rancor\Holocron\Http\Requests\NewNodeForm;
-use AndrykVP\Rancor\Holocron\Http\Requests\NodeSearch;
+use Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Http\Resources\NodeResource;
+use Rancor\Holocron\Http\Requests\EditNodeForm;
+use Rancor\Holocron\Http\Requests\NewNodeForm;
+use Rancor\Holocron\Http\Requests\NodeSearch;
 
 class NodeController extends Controller
 {
@@ -29,7 +29,7 @@ class NodeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\NewNodeForm  $request
+     * @param  \Rancor\Holocron\Http\Requests\NewNodeForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewNodeForm $request)
@@ -53,7 +53,7 @@ class NodeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
+     * @param  \Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function show(Node $node)
@@ -67,8 +67,8 @@ class NodeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\EditNodeForm  $request
-     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
+     * @param  \Rancor\Holocron\Http\Requests\EditNodeForm  $request
+     * @param  \Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function update(EditNodeForm $request, Node $node)
@@ -91,7 +91,7 @@ class NodeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Models\Node  $node
+     * @param  \Rancor\Holocron\Models\Node  $node
      * @return \Illuminate\Http\Response
      */
     public function destroy(Node $node)
@@ -107,7 +107,7 @@ class NodeController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\NodeSearch  $request
+     * @param  \Rancor\Holocron\Http\Requests\NodeSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(NodeSearch $request)

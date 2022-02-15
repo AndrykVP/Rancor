@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Services;
+namespace Rancor\Scanner\Services;
 
 use Illuminate\Support\Facades\File;
-use AndrykVP\Rancor\Scanner\Models\Entry;
-use AndrykVP\Rancor\Scanner\Models\Territory;
+use Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Models\Territory;
 use App\Models\User;
 use Carbon\Carbon;
 

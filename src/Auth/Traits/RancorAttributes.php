@@ -1,8 +1,8 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Traits;
+namespace Rancor\Auth\Traits;
 
-use AndrykVP\Rancor\SWC\Models\Planet;
+use Rancor\SWC\Models\Planet;
 
 trait RancorAttributes
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Controllers\API;
+namespace Rancor\Auth\Http\Controllers\API;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Auth\Http\Requests\BanForm;
-use AndrykVP\Rancor\Auth\Http\Requests\UserForm;
-use AndrykVP\Rancor\Auth\Http\Requests\UserSearch;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
-use AndrykVP\Rancor\Auth\Services\AdminUpdatesUser;
+use Rancor\Auth\Http\Requests\BanForm;
+use Rancor\Auth\Http\Requests\UserForm;
+use Rancor\Auth\Http\Requests\UserSearch;
+use Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Auth\Services\AdminUpdatesUser;
 
 class UserController extends Controller
 {
@@ -48,7 +48,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  AndrykVP\Rancor\Auth\Http\Requests\UserForm  $request
+     * @param  Rancor\Auth\Http\Requests\UserForm  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -82,7 +82,7 @@ class UserController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\UserSearch  $request
+     * @param  \Rancor\Auth\Http\Requests\UserSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(UserSearch $request)
@@ -98,7 +98,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\BanForm  $request
+     * @param  \Rancor\Auth\Http\Requests\BanForm  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */

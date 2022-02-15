@@ -1,15 +1,15 @@
 <?php
 
-namespace AndrykVP\Rancor\Package\Traits;
+namespace Rancor\Package\Traits;
 
-use AndrykVP\Rancor\Audit\Traits\Auditable;
-use AndrykVP\Rancor\Auth\Traits\AuthRelations;
-use AndrykVP\Rancor\Auth\Traits\RancorAttributes;
-use AndrykVP\Rancor\Structure\Traits\FactionMember;
-use AndrykVP\Rancor\Forums\Traits\ForumUser;
-use AndrykVP\Rancor\News\Traits\Newscaster;
-use AndrykVP\Rancor\Scanner\Traits\CanScan;
-use AndrykVP\Rancor\Holocron\Traits\HoloRecorder;
+use Rancor\Audit\Traits\Auditable;
+use Rancor\Auth\Traits\AuthRelations;
+use Rancor\Auth\Traits\RancorAttributes;
+use Rancor\Structure\Traits\FactionMember;
+use Rancor\Forums\Traits\ForumUser;
+use Rancor\News\Traits\Newscaster;
+use Rancor\Scanner\Traits\CanScan;
+use Rancor\Holocron\Traits\HoloRecorder;
 
 trait RancorUser
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Traits;
+namespace Rancor\Structure\Traits;
 
-use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Models\Award;
+use Rancor\Structure\Models\Rank;
+use Rancor\Structure\Models\Award;
 
 trait FactionMember
 {

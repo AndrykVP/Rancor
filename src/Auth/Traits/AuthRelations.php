@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Traits;
+namespace Rancor\Auth\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
-use AndrykVP\Rancor\Audit\Models\BanLog;
-use AndrykVP\Rancor\Auth\Models\Permission;
-use AndrykVP\Rancor\Auth\Models\Role;
+use Rancor\Audit\Models\BanLog;
+use Rancor\Auth\Models\Permission;
+use Rancor\Auth\Models\Role;
 
 trait AuthRelations
 {

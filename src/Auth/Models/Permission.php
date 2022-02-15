@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Models;
+namespace Rancor\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AndrykVP\Rancor\DB\Factories\PermissionFactory;
+use Rancor\DB\Factories\PermissionFactory;
 use App\Models\User;
 
 class Permission extends Model

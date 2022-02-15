@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Policies;
+namespace Rancor\Auth\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;

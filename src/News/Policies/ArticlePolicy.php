@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Policies;
+namespace Rancor\News\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Models\User;
-use AndrykVP\Rancor\News\Models\Article;
+use Rancor\News\Models\Article;
 
 class ArticlePolicy
 {

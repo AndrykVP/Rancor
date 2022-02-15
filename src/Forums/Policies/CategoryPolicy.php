@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Policies;
+namespace Rancor\Forums\Policies;
 
 use App\Models\User;
-use AndrykVP\Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Category;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -41,7 +41,7 @@ class CategoryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
+     * @param  \Rancor\Forums\Models\Category  $category
      * @return mixed
      */
     public function view(User $user, Category $category)
@@ -69,7 +69,7 @@ class CategoryPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
+     * @param  \Rancor\Forums\Models\Category  $category
      * @return mixed
      */
     public function update(User $user, Category $category)
@@ -83,7 +83,7 @@ class CategoryPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \AndrykVP\Rancor\Forums\Models\Category  $category
+     * @param  \Rancor\Forums\Models\Category  $category
      * @return mixed
      */
     public function delete(User $user, Category $category)

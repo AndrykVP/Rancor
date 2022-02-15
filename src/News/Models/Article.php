@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Models;
+namespace Rancor\News\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\DB\Factories\ArticleFactory;
+use Rancor\DB\Factories\ArticleFactory;
 
 class Article extends Model
 {

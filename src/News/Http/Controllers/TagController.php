@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Http\Controllers;
+namespace Rancor\News\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\News\Models\Tag;
-use AndrykVP\Rancor\News\Http\Requests\TagForm;
-use AndrykVP\Rancor\News\Http\Requests\TagSearch;
+use Rancor\News\Models\Tag;
+use Rancor\News\Http\Requests\TagForm;
+use Rancor\News\Http\Requests\TagSearch;
 
 class TagController extends Controller
 {
@@ -53,7 +53,7 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\TagForm  $request
+     * @param  \Rancor\News\Http\Requests\TagForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(TagForm $request)
@@ -85,7 +85,7 @@ class TagController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\TagSearch  $request
+     * @param  \Rancor\News\Http\Requests\TagSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(TagSearch $request)
@@ -120,7 +120,7 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\News\Http\Requests\TagForm  $request
+     * @param  \Rancor\News\Http\Requests\TagForm  $request
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */

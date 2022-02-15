@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\Web;
+namespace Rancor\Tests\Feature\Web;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Models\Group;
-use AndrykVP\Rancor\Forums\Models\Reply;
+use Rancor\Tests\TestCase;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Models\Group;
+use Rancor\Forums\Models\Reply;
 use App\Models\User;
 
 class ReplyWebTest extends TestCase

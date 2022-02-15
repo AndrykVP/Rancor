@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Models;
+namespace Rancor\Structure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
-use AndrykVP\Rancor\DB\Factories\DepartmentFactory;
+use Rancor\DB\Factories\DepartmentFactory;
 
 class Department extends Model
 {

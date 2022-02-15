@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Controllers;
+namespace Rancor\Auth\Http\Controllers;
 
-use AndrykVP\Rancor\Auth\Models\Permission;
-use AndrykVP\Rancor\Auth\Http\Requests\PermissionForm;
-use AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch;
+use Rancor\Auth\Models\Permission;
+use Rancor\Auth\Http\Requests\PermissionForm;
+use Rancor\Auth\Http\Requests\PermissionSearch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -38,7 +38,7 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Auth\Models\Permission  $permission
+     * @param  \Rancor\Auth\Models\Permission  $permission
      * @return \Illuminate\Http\Response
      */
     public function show(Permission $permission)
@@ -53,7 +53,7 @@ class PermissionController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionSearch  $request
+     * @param  \Rancor\Auth\Http\Requests\PermissionSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(PermissionSearch $request)
@@ -88,7 +88,7 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionForm  $request
+     * @param  \Rancor\Auth\Http\Requests\PermissionForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PermissionForm $request)
@@ -123,7 +123,7 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Auth\Http\Requests\PermissionForm  $request
+     * @param  \Rancor\Auth\Http\Requests\PermissionForm  $request
      * @param  \App\Permission  $permission
      * @return \Illuminate\Http\Response
      */

@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Models;
+namespace Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use AndrykVP\Rancor\Audit\Enums\Access;
-use AndrykVP\Rancor\DB\Factories\IPLogFactory;
+use Rancor\Audit\Enums\Access;
+use Rancor\DB\Factories\IPLogFactory;
 use App\Models\User;
 
 class IPLog extends Model

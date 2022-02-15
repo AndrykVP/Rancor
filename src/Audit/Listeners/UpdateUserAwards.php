@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Listeners;
+namespace Rancor\Audit\Listeners;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use AndrykVP\Rancor\Audit\Events\UserAwards;
+use Rancor\Audit\Events\UserAwards;
 use Illuminate\Support\Collection;
 
 class UpdateUserAwards
@@ -31,7 +31,7 @@ class UpdateUserAwards
 	/**
 	 * Handle the event.
 	 *
-	 * @param  \AndrykVP\Rancor\Audit\Events\UserAwards  $event
+	 * @param  \Rancor\Audit\Events\UserAwards  $event
 	 * @return void
 	 */
 	public function handle(UserAwards $event)

@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Structure\Models\Faction;
+use Rancor\Structure\Models\Faction;
 
 class FactionFactory extends Factory
 {

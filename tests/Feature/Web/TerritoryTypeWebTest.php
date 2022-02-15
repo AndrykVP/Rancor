@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\Web;
+namespace Rancor\Tests\Feature\Web;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Scanner\Models\TerritoryType;
+use Rancor\Tests\TestCase;
+use Rancor\Scanner\Models\TerritoryType;
 use App\Models\User;
 
 class TerritoryTypeWebTest extends TestCase

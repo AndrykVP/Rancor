@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Resources;
+namespace Rancor\Forums\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Auth\Http\Resources\UserResource;
 
 class ReplyResource extends JsonResource
 {

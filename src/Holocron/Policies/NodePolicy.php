@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Policies;
+namespace Rancor\Holocron\Policies;
 
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Models\User;
-use AndrykVP\Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Models\Node;
 
 class NodePolicy
 {

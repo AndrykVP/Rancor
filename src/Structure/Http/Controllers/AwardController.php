@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Controllers;
+namespace Rancor\Structure\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\Award;
-use AndrykVP\Rancor\Structure\Models\AwardType;
-use AndrykVP\Rancor\Structure\Http\Requests\AwardForm;
-use AndrykVP\Rancor\Structure\Http\Requests\AwardSearch;
+use Rancor\Structure\Models\Award;
+use Rancor\Structure\Models\AwardType;
+use Rancor\Structure\Http\Requests\AwardForm;
+use Rancor\Structure\Http\Requests\AwardSearch;
 
 class AwardController extends Controller
 {
@@ -53,7 +53,7 @@ class AwardController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardForm  $request
+     * @param  \Rancor\Structure\Http\Requests\AwardForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AwardForm $request)
@@ -71,7 +71,7 @@ class AwardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
+     * @param  \Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function show(Award $award)
@@ -86,7 +86,7 @@ class AwardController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardSearch  $request
+     * @param  \Rancor\Structure\Http\Requests\AwardSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(AwardSearch $request)
@@ -104,7 +104,7 @@ class AwardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
+     * @param  \Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function edit(Award $award)
@@ -120,8 +120,8 @@ class AwardController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\AwardForm  $request
-     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
+     * @param  \Rancor\Structure\Http\Requests\AwardForm  $request
+     * @param  \Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function update(AwardForm $request, Award $award)
@@ -139,7 +139,7 @@ class AwardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Models\Award  $award
+     * @param  \Rancor\Structure\Models\Award  $award
      * @return \Illuminate\Http\Response
      */
     public function destroy(Award $award)

@@ -1,5 +1,5 @@
 <?php
-namespace AndrykVP\Rancor\Audit\Enums;
+namespace Rancor\Audit\Enums;
 
 enum Access: string
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Requests;
+namespace Rancor\Structure\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

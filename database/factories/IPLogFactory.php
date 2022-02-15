@@ -1,9 +1,9 @@
 <?php
 
-namespace AndrykVP\Rancor\DB\Factories;
+namespace Rancor\DB\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use AndrykVP\Rancor\Audit\Models\IPLog;
+use Rancor\Audit\Models\IPLog;
 use App\Models\User;
 
 class IPLogFactory extends Factory

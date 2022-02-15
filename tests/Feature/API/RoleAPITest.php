@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\API;
+namespace Rancor\Tests\Feature\API;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Auth\Models\Role;
-use AndrykVP\Rancor\DB\Seeders\RancorSeeder;
+use Rancor\Tests\TestCase;
+use Rancor\Auth\Models\Role;
+use Rancor\DB\Seeders\RancorSeeder;
 use App\Models\User;
 
 class RoleAPITest extends TestCase

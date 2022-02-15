@@ -1,8 +1,8 @@
 <?php
 
-namespace AndrykVP\Rancor\News\Traits;
+namespace Rancor\News\Traits;
 
-use AndrykVP\Rancor\News\Models\Article;
+use Rancor\News\Models\Article;
 
 trait Newscaster
 {

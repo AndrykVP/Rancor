@@ -2,16 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-use AndrykVP\Rancor\News\Models\Article;
-use AndrykVP\Rancor\News\Models\Tag;
-use AndrykVP\Rancor\Forums\Models\Group;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Models\Reply;
-use AndrykVP\Rancor\Holocron\Models\Node;
-use AndrykVP\Rancor\Holocron\Models\Collection;
-use AndrykVP\Rancor\Scanner\Models\Entry;
+use Rancor\News\Models\Article;
+use Rancor\News\Models\Tag;
+use Rancor\Forums\Models\Group;
+use Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Models\Reply;
+use Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Models\Collection;
+use Rancor\Scanner\Models\Entry;
 
 Route::group(['middleware' => array_merge(['web'], config('rancor.middleware.web'), ['admin'])], function(){
 

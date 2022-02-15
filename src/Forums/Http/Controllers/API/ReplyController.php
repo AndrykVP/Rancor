@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Http\Controllers\API;
+namespace Rancor\Forums\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use AndrykVP\Rancor\Forums\Models\Reply;
-use AndrykVP\Rancor\Forums\Http\Resources\ReplyResource;
-use AndrykVP\Rancor\Forums\Http\Requests\EditReplyForm;
-use AndrykVP\Rancor\Forums\Http\Requests\NewReplyForm;
+use Rancor\Forums\Models\Reply;
+use Rancor\Forums\Http\Resources\ReplyResource;
+use Rancor\Forums\Http\Requests\EditReplyForm;
+use Rancor\Forums\Http\Requests\NewReplyForm;
 
 class ReplyController extends Controller
 {    
@@ -30,7 +30,7 @@ class ReplyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\ReplyForm  $request
+     * @param  \Rancor\Forums\Http\Requests\ReplyForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(NewReplyForm $request)
@@ -48,7 +48,7 @@ class ReplyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
+     * @param  \Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function show(Reply $reply)
@@ -61,8 +61,8 @@ class ReplyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Http\Requests\ReplyForm  $request
-     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
+     * @param  \Rancor\Forums\Http\Requests\ReplyForm  $request
+     * @param  \Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function update(EditReplyForm $request, Reply $reply)
@@ -80,7 +80,7 @@ class ReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Forums\Models\Reply  $reply
+     * @param  \Rancor\Forums\Models\Reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reply $reply)

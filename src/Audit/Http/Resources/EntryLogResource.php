@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Http\Resources;
+namespace Rancor\Audit\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use AndrykVP\Rancor\Auth\Http\Resources\UserResource;
-use AndrykVP\Rancor\Scanner\Http\Resources\EntryResource;
+use Rancor\Auth\Http\Resources\UserResource;
+use Rancor\Scanner\Http\Resources\EntryResource;
 
 class EntryLogResource extends JsonResource
 {

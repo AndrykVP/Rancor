@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Http\Controllers;
+namespace Rancor\Holocron\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Holocron\Models\Node;
-use AndrykVP\Rancor\Holocron\Models\Collection;
+use Rancor\Holocron\Models\Node;
+use Rancor\Holocron\Models\Collection;
 
 class HolocronController extends Controller
 {
@@ -51,7 +51,7 @@ class HolocronController extends Controller
    /**
     * Displays all published Nodes under a specific Collection
     *
-    * @param \AndrykVP\Rancor\Holocron\Models\Collection  $collection;
+    * @param \Rancor\Holocron\Models\Collection  $collection;
     * @return \Illuminate\Http\Response
     */
    public function collection_show(Collection $collection)
@@ -69,7 +69,7 @@ class HolocronController extends Controller
    /**
     * Displays all published Nodes
     *
-    * @param \AndrykVP\Rancor\Holocron\Models\Node  $node
+    * @param \Rancor\Holocron\Models\Node  $node
     * @return \Illuminate\Http\Response
     */
    public function node_show(Node $node)

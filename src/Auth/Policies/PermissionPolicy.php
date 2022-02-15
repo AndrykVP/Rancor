@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Policies;
+namespace Rancor\Auth\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AndrykVP\Rancor\Auth\Models\Permission;
+use Rancor\Auth\Models\Permission;
 
 class PermissionPolicy
 {
@@ -41,7 +41,7 @@ class PermissionPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Auth\Models\Permission  $permission
+     * @param \Rancor\Auth\Models\Permission  $permission
      * @return mixed
      */
     public function view(User $user, Permission $permission)
@@ -68,7 +68,7 @@ class PermissionPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Auth\Models\Permission  $permission
+     * @param \Rancor\Auth\Models\Permission  $permission
      * @return mixed
      */
     public function update(User $user, Permission $permission)
@@ -82,7 +82,7 @@ class PermissionPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param \AndrykVP\Rancor\Auth\Models\Permission  $permission
+     * @param \Rancor\Auth\Models\Permission  $permission
      * @return mixed
      */
     public function delete(User $user, Permission $permission)

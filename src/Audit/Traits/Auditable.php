@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Traits;
+namespace Rancor\Audit\Traits;
 
-use AndrykVP\Rancor\Audit\Models\AwardLog;
-use AndrykVP\Rancor\Audit\Models\IPLog;
-use AndrykVP\Rancor\Audit\Models\NodeLog;
-use AndrykVP\Rancor\Audit\Models\UserLog;
+use Rancor\Audit\Models\AwardLog;
+use Rancor\Audit\Models\IPLog;
+use Rancor\Audit\Models\NodeLog;
+use Rancor\Audit\Models\UserLog;
 
 trait Auditable
 {

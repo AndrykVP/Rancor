@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Scanner\Models;
+namespace Rancor\Scanner\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Rancor\DB\Factories\TerritoryFactory;
+use Rancor\DB\Factories\TerritoryFactory;
 
 class Territory extends Model
 {

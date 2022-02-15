@@ -1,17 +1,17 @@
 <?php
 
-namespace AndrykVP\Rancor\Providers;
+namespace Rancor\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use AndrykVP\Rancor\Scanner\Models\Entry;
-use AndrykVP\Rancor\Scanner\Models\Quadrant;
-use AndrykVP\Rancor\Scanner\Models\Territory;
-use AndrykVP\Rancor\Scanner\Models\TerritoryType;
-use AndrykVP\Rancor\Scanner\Policies\EntryPolicy;
-use AndrykVP\Rancor\Scanner\Policies\QuadrantPolicy;
-use AndrykVP\Rancor\Scanner\Policies\TerritoryPolicy;
-use AndrykVP\Rancor\Scanner\Policies\TerritoryTypePolicy;
+use Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Models\Quadrant;
+use Rancor\Scanner\Models\Territory;
+use Rancor\Scanner\Models\TerritoryType;
+use Rancor\Scanner\Policies\EntryPolicy;
+use Rancor\Scanner\Policies\QuadrantPolicy;
+use Rancor\Scanner\Policies\TerritoryPolicy;
+use Rancor\Scanner\Policies\TerritoryTypePolicy;
 
 class ScannerServiceProvider extends ServiceProvider
 {

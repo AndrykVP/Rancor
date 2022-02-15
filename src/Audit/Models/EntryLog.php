@@ -1,14 +1,14 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Models;
+namespace Rancor\Audit\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use AndrykVP\Rancor\Audit\Contracts\LogContract;
-use AndrykVP\Rancor\DB\Factories\EntryLogFactory;
-use AndrykVP\Rancor\Scanner\Enums\Alliance;
-use AndrykVP\Rancor\Scanner\Models\Entry;
+use Rancor\Audit\Contracts\LogContract;
+use Rancor\DB\Factories\EntryLogFactory;
+use Rancor\Scanner\Enums\Alliance;
+use Rancor\Scanner\Models\Entry;
 
 class EntryLog extends Model implements LogContract
 {

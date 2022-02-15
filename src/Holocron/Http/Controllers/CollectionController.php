@@ -1,12 +1,12 @@
 <?php
 
-namespace AndrykVP\Rancor\Holocron\Http\Controllers;
+namespace Rancor\Holocron\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Holocron\Models\Collection;
-use AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm;
-use AndrykVP\Rancor\Holocron\Http\Requests\CollectionSearch;
+use Rancor\Holocron\Models\Collection;
+use Rancor\Holocron\Http\Requests\CollectionForm;
+use Rancor\Holocron\Http\Requests\CollectionSearch;
 
 class CollectionController extends Controller
 {
@@ -52,7 +52,7 @@ class CollectionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm  $request
+     * @param  \Rancor\Holocron\Http\Requests\CollectionForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CollectionForm $request)
@@ -70,7 +70,7 @@ class CollectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
+     * @param  \Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function show(Collection $collection)
@@ -85,7 +85,7 @@ class CollectionController extends Controller
     /**
      * Display the resources that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\CollectionSearch  $request
+     * @param  \Rancor\Holocron\Http\Requests\CollectionSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(CollectionSearch $request)
@@ -103,7 +103,7 @@ class CollectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
+     * @param  \Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function edit(Collection $collection)
@@ -119,8 +119,8 @@ class CollectionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Http\Requests\CollectionForm  $request
-     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
+     * @param  \Rancor\Holocron\Http\Requests\CollectionForm  $request
+     * @param  \Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function update(CollectionForm $request, Collection $collection)
@@ -138,7 +138,7 @@ class CollectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \AndrykVP\Rancor\Holocron\Models\Collection  $collection
+     * @param  \Rancor\Holocron\Models\Collection  $collection
      * @return \Illuminate\Http\Response
      */
     public function destroy(Collection $collection)

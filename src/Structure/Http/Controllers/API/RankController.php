@@ -1,13 +1,13 @@
 <?php
 
-namespace AndrykVP\Rancor\Structure\Http\Controllers\API;
+namespace Rancor\Structure\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AndrykVP\Rancor\Structure\Models\Rank;
-use AndrykVP\Rancor\Structure\Http\Resources\RankResource;
-use AndrykVP\Rancor\Structure\Http\Requests\RankForm;
-use AndrykVP\Rancor\Structure\Http\Requests\RankSearch;
+use Rancor\Structure\Models\Rank;
+use Rancor\Structure\Http\Resources\RankResource;
+use Rancor\Structure\Http\Requests\RankForm;
+use Rancor\Structure\Http\Requests\RankSearch;
 
 class RankController extends Controller
 {    
@@ -26,7 +26,7 @@ class RankController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankForm  $request
+     * @param  \Rancor\Structure\Http\Requests\RankForm  $request
      * @return \Illuminate\Http\Response
      */
     public function store(RankForm $request)
@@ -57,7 +57,7 @@ class RankController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankForm  $request
+     * @param  \Rancor\Structure\Http\Requests\RankForm  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -93,7 +93,7 @@ class RankController extends Controller
     /**
      * Display the results that match the search query.
      *
-     * @param  \AndrykVP\Rancor\Structure\Http\Requests\RankSearch  $request
+     * @param  \Rancor\Structure\Http\Requests\RankSearch  $request
      * @return \Illuminate\Http\Response
      */
     public function search(RankSearch $request)

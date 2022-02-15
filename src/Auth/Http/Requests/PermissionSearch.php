@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Requests;
+namespace Rancor\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Events;
+namespace Rancor\Audit\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use AndrykVP\Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Models\Entry;
 
 class EntryUpdate
 {
@@ -14,7 +14,7 @@ class EntryUpdate
 	/**
 	 * Entry model to audit
 	 * 
-	 * @var \AndrykVP\Rancor\Scanner\Models\Entry
+	 * @var \Rancor\Scanner\Models\Entry
 	 */
 	public $entry;
 

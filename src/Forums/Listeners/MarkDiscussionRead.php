@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Listeners;
+namespace Rancor\Forums\Listeners;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use AndrykVP\Rancor\Forums\Events\VisitDiscussion;
+use Rancor\Forums\Events\VisitDiscussion;
 
 class MarkDiscussionRead
 {

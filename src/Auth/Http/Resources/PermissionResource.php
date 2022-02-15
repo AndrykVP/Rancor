@@ -1,6 +1,6 @@
 <?php
 
-namespace AndrykVP\Rancor\Auth\Http\Resources;
+namespace Rancor\Auth\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

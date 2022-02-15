@@ -1,10 +1,10 @@
 <?php
 
-namespace AndrykVP\Rancor\Tests\Feature\Web;
+namespace Rancor\Tests\Feature\Web;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use AndrykVP\Rancor\Tests\TestCase;
-use AndrykVP\Rancor\Forums\Models\Category;
+use Rancor\Tests\TestCase;
+use Rancor\Forums\Models\Category;
 use App\Models\User;
 
 class CategoryWebTest extends TestCase

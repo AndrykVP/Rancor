@@ -1,11 +1,11 @@
 <?php
 
-namespace AndrykVP\Rancor\Forums\Traits;
-use AndrykVP\Rancor\Forums\Models\Board;
-use AndrykVP\Rancor\Forums\Models\Category;
-use AndrykVP\Rancor\Forums\Models\Discussion;
-use AndrykVP\Rancor\Forums\Models\Group;
-use AndrykVP\Rancor\Forums\Models\Reply;
+namespace Rancor\Forums\Traits;
+use Rancor\Forums\Models\Board;
+use Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Discussion;
+use Rancor\Forums\Models\Group;
+use Rancor\Forums\Models\Reply;
 
 trait ForumUser
 {

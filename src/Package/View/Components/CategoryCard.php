@@ -1,16 +1,16 @@
 <?php
 
-namespace AndrykVP\Rancor\Package\View\Components;
+namespace Rancor\Package\View\Components;
 
 use Illuminate\View\Component;
-use AndrykVP\Rancor\Forums\Models\Category;
+use Rancor\Forums\Models\Category;
 
 class CategoryCard extends Component
 {
    /**
     * The Categoy to render
     *
-    * @var  \AndrykVP\Rancor\Forums\Models\Category
+    * @var  \Rancor\Forums\Models\Category
     */
    public $category;
 

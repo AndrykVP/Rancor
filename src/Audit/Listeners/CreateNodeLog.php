@@ -1,8 +1,8 @@
 <?php
 
-namespace AndrykVP\Rancor\Audit\Listeners;
+namespace Rancor\Audit\Listeners;
 
-use AndrykVP\Rancor\Audit\Events\NodeUpdate;
+use Rancor\Audit\Events\NodeUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

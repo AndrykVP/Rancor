@@ -9,51 +9,55 @@ use AndrykVP\Rancor\Audit\Enums\Access;
 
 class UserRegisteredIP
 {
-    /**
-     * Class variables
-     * 
-     * @var Request $request
-     */
-    protected $request;
+	/**
+	 * IP of the user accessing the app
+	 * 
+	 * @var string
+	 */
+	protected $ip;
 
-    /**
-     * Create the event listener.
-     *
-     * @param  Request  $request
-     * @return void
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+	/**
+	 * Browser name of the user accessing the app
+	 * 
+	 * @var string
+	 */
+	protected $user_agent;
 
-    /**
-     * Handle the event.
-     *
-     * @param  Registered  $event
-     * @return void
-     */
-    public function handle(Registered $event)
-    {
-        $user_id = $event->user->id;
-        $ip = $this->request->ip();
-        $ua = $this->request->header('User-Agent');
+	/**
+	 * Create the event listener.
+	 *
+	 * @param  Request  $request
+	 * @return void
+	 */
+	public function __construct(Request $request)
+	{
+		$this->ip = $request->ip();
+		$this->user_agent = $request->user_agent();
+	}
 
-        DB::table('changelog_ips')->insert([
-            'user_id' => $user_id,
-            'ip_address' => $ip,
-            'user_agent' => $ua,
-            'type' => Access::REGISTRATION,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+	/**
+	 * Handle the event.
+	 *
+	 * @param  Registered  $event
+	 * @return void
+	 */
+	public function handle(Registered $event)
+	{
+		DB::table('changelog_ips')->insert([
+			'user_id' => $event->user->id,
+			'ip_address' => $this->ip,
+			'user_agent' => $this->user_agent,
+			'type' => Access::REGISTRATION,
+			'created_at' => now(),
+			'updated_at' => now(),
+		]);
 
-        DB::table('changelog_users')->insert([
-            'user_id' => $user_id,
-            'action' => 'registered a new account',
-            'color' => 'yellow',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-    }
+		DB::table('changelog_users')->insert([
+			'user_id' => $event->user->id,
+			'action' => 'registered a new account',
+			'color' => 'yellow',
+			'created_at' => now(),
+			'updated_at' => now(),
+		]);
+	}
 }

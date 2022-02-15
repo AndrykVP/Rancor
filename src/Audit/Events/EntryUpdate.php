@@ -9,17 +9,22 @@ use AndrykVP\Rancor\Scanner\Models\Entry;
 
 class EntryUpdate
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $entry;
+	/**
+	 * Entry model to audit
+	 * 
+	 * @var \AndrykVP\Rancor\Scanner\Models\Entry
+	 */
+	public $entry;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(Entry $entry)
-    {
-        $this->entry = $entry;
-    }
+	/**
+	 * Create a new event instance.
+	 *
+	 * @return void
+	 */
+	public function __construct(Entry $entry)
+	{
+		$this->entry = $entry;
+	}
 }

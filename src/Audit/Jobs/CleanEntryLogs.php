@@ -10,43 +10,44 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use AndrykVP\Rancor\Audit\Models\EntryLog;
+use Throwable;
 
 class CleanEntryLogs implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * The number of seconds after which the job's unique lock will be released.
-     *
-     * @var int
-     */
-    public $uniqueFor = 3600;
+	/**
+	 * The number of seconds after which the job's unique lock will be released.
+	 *
+	 * @var int
+	 */
+	public $uniqueFor = 3600;
 
-    /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
-    public $tries = 5;
+	/**
+	 * The number of times the job may be attempted.
+	 *
+	 * @var int
+	 */
+	public $tries = 5;
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        return EntryLog::where('created_at', '<', now()->subYear())->delete();
-    }
+	/**
+	 * Execute the job.
+	 *
+	 * @return void
+	 */
+	public function handle()
+	{
+		return EntryLog::where('created_at', '<', now()->subYear())->delete();
+	}
 
-    /**
-     * Handle a job failure.
-     *
-     * @param  \Throwable  $exception
-     * @return void
-     */
-    public function failed(Throwable $exception)
-    {
-        Log::channel('rancor')->warning('Error thrown while attempting to clean the scanner entry changelog: ' . $e->message());
-    }
+	/**
+	 * Handle a job failure.
+	 *
+	 * @param  \Throwable  $exception
+	 * @return void
+	 */
+	public function failed(Throwable $exception)
+	{
+		Log::channel('rancor')->warning('Error thrown while attempting to clean the scanner entry changelog: ' . $exception);
+	}
 }

@@ -3,15 +3,20 @@ namespace AndrykVP\Rancor\Audit\Enums;
 
 enum Access: string
 {
-   case LOGIN = 'login';
-   case REGISTRATION = 'registration';
+	case LOGIN = 'login';
+	case REGISTRATION = 'registration';
 
-   public function message(): string
-   {
-      return match($this)
-      {
-         Access::LOGIN => 'has logged in',
-         Access::REGISTRATION => 'has registered a new account',
-      };
-   }
+	/**
+	 * Method to create a message to render the Log in views
+	 *
+	 * @return string
+	 */
+	public function message()
+	{
+		return match($this)
+		{
+			Access::LOGIN => 'has logged in',
+			Access::REGISTRATION => 'has registered a new account',
+		};
+	}
 }

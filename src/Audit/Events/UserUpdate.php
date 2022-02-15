@@ -9,30 +9,30 @@ use App\Models\User;
 
 class UserUpdate
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Class Variable User
-     * 
-     * @var App\Models\User
-     */
-    public $user;
+	/**
+	 * User model to audit
+	 * 
+	 * @var App\Models\User
+	 */
+	public $user;
 
-    /**
-     * Class Variable GenerateI
-     * 
-     * @var boolean
-     */
-    public $generateId;
+	/**
+	 * Trigger for IDGen module
+	 * 
+	 * @var boolean
+	 */
+	public $generateId;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(User $user, Bool $generateId)
-    {
-        $this->user = $user;
-        $this->generateId = $generateId;
-    }
+	/**
+	 * Create a new event instance.
+	 *
+	 * @return void
+	 */
+	public function __construct(User $user, Bool $generateId)
+	{
+		$this->user = $user;
+		$this->generateId = $generateId;
+	}
 }

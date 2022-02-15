@@ -5,31 +5,35 @@ namespace AndrykVP\Rancor\Audit\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 use App\Models\User;
-use AndrykVP\Rancor\Structure\Models\Award;
 
 class UserAwards
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+	use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Class Variables
-     * 
-     * @var \App\Models\User
-     * @var \AndrykVP\Rancor\Structure\Models\Award
-     * @var integer
-     */
-    public $user;
-    public $awards;
+	/**
+	 * User model to audit
+	 * 
+	 * @var \App\Models\User
+	 */
+	public $user;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(User $user, Array $awards)
-    {
-        $this->user = $user->load('awards');
-        $this->awards = $awards;
-    }
+	/**
+	 * Collection of awards to associate to User
+	 * 
+	 * @var \Illuminate\Support\Collection
+	 */
+	public $awards;
+
+	/**
+	 * Create a new event instance.
+	 *
+	 * @return void
+	 */
+	public function __construct(User $user, Collection $awards)
+	{
+		$this->user = $user->load('awards');
+		$this->awards = $awards;
+	}
 }

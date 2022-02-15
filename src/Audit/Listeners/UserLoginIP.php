@@ -9,56 +9,48 @@ use AndrykVP\Rancor\Audit\Models\IPLog as Log;
 
 class UserLoginIP
 {
-    /**
-     * Class variables
-     * 
-     * @var Request $request
-     */
-    protected $request;
+	/**
+	 * IP of the user accessing the app
+	 * 
+	 * @var string
+	 */
+	protected $ip;
 
-    /**
-     * Create the event listener.
-     *
-     * @param  Request  $request
-     * @return void
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+	/**
+	 * Browser name of the user accessing the app
+	 * 
+	 * @var string
+	 */
+	protected $user_agent;
 
-    /**
-     * Handle the event.
-     *
-     * @param  Login  $event
-     * @return void
-     */
-    public function handle(Login $event)
-    {
-        $user_id = $event->user->id;
-        $ip = $this->request->ip();
-        $ua = $this->request->header('User-Agent');
+	/**
+	 * Create the event listener.
+	 *
+	 * @param  Request  $request
+	 * @return void
+	 */
+	public function __construct(Request $request)
+	{
+		$this->ip = $request->ip();
+		$this->user_agent = $request->user_agent();
+	}
 
-        $log = Log::where([
-                    ['user_id', $user_id],
-                    ['ip_address', $ip],
-                    ['type', Access::LOGIN]
-                ])->first();
+	/**
+	 * Handle the event.
+	 *
+	 * @param  Login  $event
+	 * @return void
+	 */
+	public function handle(Login $event)
+	{
+		$user_id = $event->user->id;
 
-        if($log != null)
-        {
-            $log->update([
-                'user_agent' => $ua,
-            ]);
-        }
-        else
-        {
-            Log::create([
-                'user_id' => $user_id,
-                'ip_address' => $ip,
-                'user_agent' => $ua,
-                'type' => Access::LOGIN,
-            ]);
-        }
-    }
+		Log::updateOrCreate([
+			'user_id' => $user_id,
+			'ip_address' => $this->ip,
+			'type' => Access::LOGIN,
+		], [
+			'user_agent' => $this->user_agent,
+		]);
+	}
 }

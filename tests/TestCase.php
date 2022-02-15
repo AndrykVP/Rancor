@@ -4,7 +4,6 @@ namespace AndrykVP\Rancor\Tests;
 
 use AndrykVP\Rancor\Providers\PackageServiceProvider;
 use Mews\Purifier\PurifierServiceProvider;
-use Illuminate\Routing\Router;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

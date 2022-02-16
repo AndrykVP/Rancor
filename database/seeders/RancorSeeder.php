@@ -7,19 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class RancorSeeder extends Seeder
 {
-   /**
-    * Run the database seeds.
-    *
-    * @return void
-    */
-   public function run()
-   {
-      $this->call([
-         GroupsSeeder::class,
-         PermissionsSeeder::class,
-         RolesSeeder::class,
-         PermissiblesSeeder::class,
-         TerritoryTypesSeeder::class,
-      ]);
-   }
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		$this->call([
+			GroupsSeeder::class,
+			PermissionsSeeder::class,
+			RolesSeeder::class,
+			PermissiblesSeeder::class,
+			TerritoryTypesSeeder::class,
+		]);
+	}
 }

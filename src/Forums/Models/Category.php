@@ -8,49 +8,49 @@ use Rancor\DB\Factories\CategoryFactory;
 
 class Category extends Model
 {
-    use HasFactory;
-    
-    /**
-     * Defines the table name
-     * 
-     * @var string
-     */
-    protected $table = 'forum_categories';
-    
-    /**
-     * Attributes available for mass assignment
-     * 
-     * @var array
-     */
-    protected $fillable = [ 'name', 'description', 'color', 'slug', 'lineup' ];
+	use HasFactory;
+	
+	/**
+	 * Defines the table name
+	 * 
+	 * @var string
+	 */
+	protected $table = 'forum_categories';
+	
+	/**
+	 * Attributes available for mass assignment
+	 * 
+	 * @var array
+	 */
+	protected $fillable = [ 'name', 'description', 'color', 'slug', 'lineup' ];
 
-    /**
-     * Relationship to Board model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function boards()
-    {
-        return $this->hasMany(Board::class)->orderBy('lineup');
-    }
+	/**
+	 * Relationship to Board model
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function boards()
+	{
+		return $this->hasMany(Board::class)->orderBy('lineup');
+	}
 
-    /**
-     * Relationship to Board model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function discussions()
-    {
-        return $this->hasManyThrough(Discussion::class, Board::class);
-    }
+	/**
+	 * Relationship to Discussion model
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+	 */
+	public function discussions()
+	{
+		return $this->hasManyThrough(Discussion::class, Board::class);
+	}
 
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
-    {
-        return CategoryFactory::new();
-    }
+	/**
+	 * Create a new factory instance for the model.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Factories\Factory
+	 */
+	protected static function newFactory()
+	{
+		return CategoryFactory::new();
+	}
 }

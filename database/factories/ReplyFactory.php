@@ -7,22 +7,22 @@ use Rancor\Forums\Models\Reply;
 
 class ReplyFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Reply::class;
+	/**
+	 * The name of the factory's corresponding model.
+	 *
+	 * @var string
+	 */
+	protected $model = Reply::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            'body' => $this->faker->paragraph(true),
-        ];
-    }
+	/**
+	 * Define the model's default state.
+	 *
+	 * @return array
+	 */
+	public function definition()
+	{
+		return [
+			'body' => $this->faker->paragraph(true),
+		];
+	}
 }

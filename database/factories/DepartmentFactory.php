@@ -7,24 +7,24 @@ use Rancor\Structure\Models\Department;
 
 class DepartmentFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Department::class;
+	/**
+	 * The name of the factory's corresponding model.
+	 *
+	 * @var string
+	 */
+	protected $model = Department::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            'name' => $this->faker->company,
-            'description' => $this->faker->catchPhrase,
-            'color' => $this->faker->hexcolor,
-        ];
-    }
+	/**
+	 * Define the model's default state.
+	 *
+	 * @return array
+	 */
+	public function definition()
+	{
+		return [
+			'name' => $this->faker->company,
+			'description' => $this->faker->catchPhrase,
+			'color' => $this->faker->hexcolor,
+		];
+	}
 }

@@ -33,7 +33,7 @@ class AwardLog extends Model implements LogContract
 	/**
 	 * Relationship to Award model
 	 * 
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function award()
 	{

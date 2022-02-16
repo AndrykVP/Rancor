@@ -7,23 +7,23 @@ use Rancor\Structure\Models\AwardType;
 
 class AwardTypeFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = AwardType::class;
+	/**
+	 * The name of the factory's corresponding model.
+	 *
+	 * @var string
+	 */
+	protected $model = AwardType::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            'name' => $this->faker->unique()->company,
-            'description' => $this->faker->text(150),
-        ];
-    }
+	/**
+	 * Define the model's default state.
+	 *
+	 * @return array
+	 */
+	public function definition()
+	{
+		return [
+			'name' => $this->faker->unique()->company,
+			'description' => $this->faker->text(150),
+		];
+	}
 }

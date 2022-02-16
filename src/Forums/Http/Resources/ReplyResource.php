@@ -7,22 +7,22 @@ use Rancor\Auth\Http\Resources\UserResource;
 
 class ReplyResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function toArray($request)
-    {
-        return [
-            'id' => $this->id,
-            'body' => clean($this->body),
-            'author' => new UserResource($this->whenLoaded('author')),
-            'editor' => new UserResource($this->whenLoaded('editor')),
-            'discussion' => new DiscussionResource($this->whenLoaded('discussion')),
-            'created_at' => $this->created_at->diffForHumans(),
-            'updated_at' => $this->updated_at->diffForHumans(),
-        ];
-    }
+	/**
+	 * Transform the resource into an array.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return array
+	 */
+	public function toArray($request)
+	{
+		return [
+			'id' => $this->id,
+			'body' => clean($this->body),
+			'author' => new UserResource($this->whenLoaded('author')),
+			'editor' => new UserResource($this->whenLoaded('editor')),
+			'discussion' => new DiscussionResource($this->whenLoaded('discussion')),
+			'created_at' => $this->created_at->diffForHumans(),
+			'updated_at' => $this->updated_at->diffForHumans(),
+		];
+	}
 }

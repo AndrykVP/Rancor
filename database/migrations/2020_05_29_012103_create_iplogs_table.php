@@ -6,30 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateIPLogsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('changelog_ips', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->ipAddress('ip_address');
-            $table->text('user_agent');
-            $table->enum('type', ['login', 'registration']);
-            $table->timestamps();
-        });
-    }
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('changelog_ips', function (Blueprint $table) {
+			$table->id();
+			$table->foreignId('user_id')->constrained()->onDelete('cascade');
+			$table->ipAddress('ip_address');
+			$table->text('user_agent');
+			$table->enum('type', ['login', 'registration']);
+			$table->timestamps();
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('changelog_ips');
-    }
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::dropIfExists('changelog_ips');
+	}
 }

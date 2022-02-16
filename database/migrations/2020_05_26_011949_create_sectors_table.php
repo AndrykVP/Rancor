@@ -6,28 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSectorsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('swc_sectors', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->unique();
-            $table->string('name')->nullable()->default(null);
-            $table->string('color')->default('#000000');
-            $table->timestamps();
-        });
-    }
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('swc_sectors', function (Blueprint $table) {
+			$table->unsignedBigInteger('id')->unique();
+			$table->string('name')->nullable()->default(null);
+			$table->string('color')->default('#000000');
+			$table->timestamps();
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('swc_sectors');
-    }
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::dropIfExists('swc_sectors');
+	}
 }

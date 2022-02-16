@@ -13,5 +13,5 @@ use Rancor\Holocron\Traits\HoloRecorder;
 
 trait RancorUser
 {
-   use Auditable, AuthRelations, FactionMember, ForumUser, Newscaster, CanScan, HoloRecorder, RancorAttributes;
+	use Auditable, AuthRelations, FactionMember, ForumUser, Newscaster, CanScan, HoloRecorder, RancorAttributes;
 }

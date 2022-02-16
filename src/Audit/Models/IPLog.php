@@ -45,9 +45,9 @@ class IPLog extends Model
 	}
 
 	/**
-	 * Relationship to Role model
+	 * Relationship to User model
 	 * 
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function creator()
 	{

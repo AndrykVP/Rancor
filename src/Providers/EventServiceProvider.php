@@ -29,46 +29,46 @@ use Rancor\Forums\Listeners\MarkDiscussionRead;
 class EventServiceProvider extends ServiceProvider
 {
 
-    protected $listen = [
-        Registered::class => [
-            UserRegisteredIP::class,
-            DefaultGroupUser::class,
-        ],
-        Login::class => [
-            UserLoginIP::class,
-        ],
-        UserUpdate::class => [
-            UserRank::class,
-        ],
-        VisitDiscussion::class => [
-            IncrementDiscussionViews::class,
-            MarkDiscussionRead::class,
-        ],
-        CreateReply::class => [
-            LinkUserDiscussion::class,
-        ],
-        EntryUpdate::class => [
-            CreateScanLog::class,
-        ],
-        NodeUpdate::class => [
-            CreateNodeLog::class,
-        ],
-        UserAwards::class => [
-            UpdateUserAwards::class,
-        ]
-    ];
+	protected $listen = [
+		Registered::class => [
+			UserRegisteredIP::class,
+			DefaultGroupUser::class,
+		],
+		Login::class => [
+			UserLoginIP::class,
+		],
+		UserUpdate::class => [
+			UserRank::class,
+		],
+		VisitDiscussion::class => [
+			IncrementDiscussionViews::class,
+			MarkDiscussionRead::class,
+		],
+		CreateReply::class => [
+			LinkUserDiscussion::class,
+		],
+		EntryUpdate::class => [
+			CreateScanLog::class,
+		],
+		NodeUpdate::class => [
+			CreateNodeLog::class,
+		],
+		UserAwards::class => [
+			UpdateUserAwards::class,
+		]
+	];
 
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
+	/**
+	 * Register any events for your application.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		parent::boot();
 
-        // Register Observers
-        Board::observe(BoardObserver::class);
-        Category::observe(CategoryObserver::class);
-    }
+		// Register Observers
+		Board::observe(BoardObserver::class);
+		Category::observe(CategoryObserver::class);
+	}
 }

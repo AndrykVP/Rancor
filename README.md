@@ -16,8 +16,8 @@ Rancor is a [Laravel](http://www.laravel.com) package built for quickly scaffold
 
 Before installing the Rancor package. Make sure that you meet the following requirements:
 
-- PHP 7^
-- Laravel 8^
+- PHP 8.1 or above
+- Laravel 8 or above
 
 ### Dependencies
 

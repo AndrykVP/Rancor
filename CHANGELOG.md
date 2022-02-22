@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [3.0.0] - 2022-02-01
+### Added
+- Factories for all Audit models
+- Unit Tests for all Audit models
+
+### Changed
+- Renamed `API` module to `SWC` for clarity. This is a breaking change, incompatible with older versions.
+- `Scanner\Models\Entry` now uses an enum for the `alliance` column.
+- Column `user_id` in `EntryLog` model has been renamed to `updated_by` for consistency with the rest of the Audit module.
+- `Audit\Models\IPLog` now uses an enum for the `type` column.
+- Formatting of files now use Tabs instead of Spaces for indentation. This is also a requirement specified in the [CONTRIBUTING](./CONTRIBUTING.md) file
+
+### Deleted
+- Removed `duty` and `show_nickname` columns from `user` table since they are only used by the IDGen feature that is now being moved to a separate package.
+- Removed `initials` column from `Structure\Models\Faction` since it is only used by the IDGen feature that is now being moved to a separate package.
+- Removed `logo` column from `Structure\Models\Department` since it is only used by the IDGen feature that is now being moved to a separate package.
+
 ## [2.1.0] - 2021-07-02
 ### Added
 - `PermissionFactory` and `RoleFactory` to use in Unit Testing
@@ -60,9 +77,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Views now use **Tailwind CSS** instead of Bootstrap, as per **Laravel 8** Startkits (Laravel Breeze specifically)
 - Renamed `FrameworkServiceProvider` to `PackageServiceProvider` for consistency of naming convention.
 - Scanner log moved to Audit module:
-  - `Scanner\Log` => `Audit\Models\EntryLog`
-  - `Scanner\Events\EditScan` => `Audit\Events\EntryUpdate`
-  - `Scanner\Listeners\CreateScanLog` => `Audit\Listeners\CreateScanLog`
+	- `Scanner\Log` => `Audit\Models\EntryLog`
+	- `Scanner\Events\EditScan` => `Audit\Events\EntryUpdate`
+	- `Scanner\Listeners\CreateScanLog` => `Audit\Listeners\CreateScanLog`
 - Turned Forums `views/includes` into View Components:  `BoardRow`, `CategoryCard` and `DiscussionList`
 - `Structure\Policies` and `Auth\Policies` now use model binding for potential future extensions
 - Column name `order` changed to `lineup` in the forums's `Category` and `Board` models, as well as their RequestForms, Controllers, Migrations, etc.
@@ -70,8 +87,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `API\Console\Commands\SyncDatabase` and all jobs in `API\Jobs` now use Laravel's Guzzle to make Http requests to **Combine WS v2.0** instead of using PHP's `file_get_contents()` function.
 - Forum Groups relationships changed from `categories` to `boards` for programatical simplicity.
 - Forum Table names changed for clarity:
-  - `forum_board_user` => `forum_moderators`
-  - `forum_discussion_user` => `forum_unread_discussions`
+	- `forum_board_user` => `forum_moderators`
+	- `forum_discussion_user` => `forum_unread_discussions`
 
 ### Deleted
 - Gate `manage-faction` became irrelevant after the addition of the permission `view-admin-panel` used for admin middleware.
@@ -205,6 +222,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-04-16
 ### Added
 - This CHANGELOG file to hopefully serve as an evolving example of a
-  standardized open source project CHANGELOG.
+	standardized open source project CHANGELOG.
 - Added a Work-in-Progress version of the Planetary Income Calculator page
-  available for beta-testers through password.
+	available for beta-testers through password.

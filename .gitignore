@@ -1,3 +1,5 @@
 app/
 vendor/
+.vscode/
+.prettierrc
 .phpunit.result.cache

@@ -1,60 +1,60 @@
 {
-   "name": "andrykvp/rancor",
-   "description": "A Laravel Package to make use of common features required by factions or groups of Star Wars Combine",
-   "version": "2.1.0",
-   "type": "library",
-   "keywords": [
-      "laravel",
-      "star wars",
-      "star wars combine",
-      "swcombine",
-      "swc"
-   ],
-   "license": "MIT",
-   "authors": [
-      {
-         "name": "Andrés Velázquez",
-         "email": "andriclucid@gmail.com",
-         "role": "Developer"
-      }
-   ],
-   "require": {
-      "php": "^7.0|^8.0",
-      "laravel/framework": "^8.0",
-      "mews/purifier": "^3.2",
-      "guzzlehttp/guzzle": "^7.0"
-   },
-   "require-dev": {
-      "orchestra/testbench": "^6.0",
-      "phpunit/phpunit": "^9.5",
-      "doctrine/dbal": "^3.1"
-   },
-   "support": {
-      "wiki": "https://github.com/AndrykVP/Rancor/wiki"
-   },
-   "autoload": {
-      "psr-4": {
-         "AndrykVP\\Rancor\\": "src/",
-         "AndrykVP\\Rancor\\DB\\Factories\\": "database/factories",
-         "AndrykVP\\Rancor\\DB\\Seeders\\": "database/seeders"
-      }
-   },
-   "autoload-dev": {
-      "psr-4": {
-         "App\\": "app/",
-         "AndrykVP\\Rancor\\Tests\\": "tests/"
-      }
-   },
-   "prefer-stable": true,
-   "extra": {
-      "laravel": {
-         "providers": [
-            "AndrykVP\\Rancor\\Providers\\PackageServiceProvider"
-         ]
-      }
-   },
-   "scripts": {
-      "test": "vendor/bin/phpunit",
-      "test-f": "vendor/bin/phpunit --filter"
-   }
+	"name": "andrykvp/rancor",
+	"description": "A Laravel Package to make use of common features required by factions or groups of Star Wars Combine",
+	"version": "3.0.0",
+	"type": "library",
+	"keywords": [
+		"laravel",
+		"star wars",
+		"star wars combine",
+		"swcombine",
+		"swc"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Andrés Velázquez",
+			"email": "andriclucid@gmail.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": "^8.1",
+		"laravel/framework": "^8.12|^9.0",
+		"mews/purifier": "^3.2",
+		"guzzlehttp/guzzle": "^7.0"
+	},
+	"require-dev": {
+		"orchestra/testbench": "^6.0",
+		"phpunit/phpunit": "^9.5",
+		"doctrine/dbal": "^3.1"
+	},
+	"support": {
+		"wiki": "https://github.com/AndrykVP/Rancor/wiki"
+	},
+	"autoload": {
+		"psr-4": {
+			"Rancor\\": "src/",
+			"Rancor\\DB\\Factories\\": "database/factories",
+			"Rancor\\DB\\Seeders\\": "database/seeders"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"App\\": "app/",
+			"Rancor\\Tests\\": "tests/"
+		}
+	},
+	"prefer-stable": true,
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Rancor\\Providers\\PackageServiceProvider"
+			]
+		}
+	},
+	"scripts": {
+		"test": "vendor/bin/phpunit",
+		"test-f": "vendor/bin/phpunit --filter"
+	}
 }

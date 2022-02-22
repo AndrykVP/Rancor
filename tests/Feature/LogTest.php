@@ -31,7 +31,8 @@ class LogTest extends TestCase
    }
 
    /** @test */
-   public function empty_logs_database()
+   public function count_award_logs()
    {
+      $this->assertCount(5, $this->awards);
    }
 }

@@ -28,7 +28,6 @@ class UserResource extends JsonResource
 			'nickname' => $this->nickname,
 			'quote' => $this->quote,
 			'rank' => new RankResource($this->whenLoaded('rank')),
-			'duty' => $this->duty,
 			$this->mergeWhen(Auth::check() && Auth::user()->can('viewAny',User::class), [
 				'is_admin' => $this->is_admin,
 				'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),

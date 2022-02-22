@@ -53,7 +53,7 @@ class UserLogModelTest extends TestCase
    function user_log_has_creator()
    {
       $this->assertNotEmpty($this->log->creator);
-      $this->assertEquals(2, $this->log->crreator->id);
+      $this->assertEquals(2, $this->log->creator->id);
    }
 
    /** 

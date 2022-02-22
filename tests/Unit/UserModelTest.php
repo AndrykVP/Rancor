@@ -23,8 +23,6 @@ class UserModelTest extends TestCase
             'email' => 'example@example.com',
             'nickname' => 'Johnny',
             'quote' => 'Lorem Ipsum',
-            'show_nickname' => 1,
-            'duty' => 'Cookie Monster',
         ]);
         
         $this->assertNotNull($user);
@@ -63,14 +61,6 @@ class UserModelTest extends TestCase
         $this->assertEquals('John Doe', $this->user->name);
     }
 
-    /** 
-     * @test
-     */
-    function user_has_full_name()
-    {
-        $this->assertEquals('John \'Johnny\' Doe', $this->user->full_name);
-    }
-
     /**
      * @test
      */
@@ -85,13 +75,5 @@ class UserModelTest extends TestCase
     function user_has_quote()
     {
         $this->assertEquals('Lorem Ipsum', $this->user->quote);
-    }
-    
-    /**
-     * @test
-     */
-    function user_has_duty()
-    {
-        $this->assertEquals('Cookie Monster', $this->user->duty);
     }
 }

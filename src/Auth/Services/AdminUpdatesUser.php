@@ -39,8 +39,7 @@ class AdminUpdatesUser
 			if($request->user()->can('changeRank', $user))
 			{
 				$user->rank_id = $data['rank_id'];
-				$user->duty = $data['duty'];
-				if($user->isDirty('rank_id') || $user->isDirty('duty')) $generateId = true;
+				if($user->isDirty('rank_id')) $generateId = true;
 			}
 
 			// Upload Artwork

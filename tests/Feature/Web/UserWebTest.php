@@ -89,8 +89,7 @@ class UserWebTest extends TestCase
                ->assertSee($user->email)
                ->assertSee($user->rank->department->faction->name)
                ->assertSee($user->rank->department->name)
-               ->assertSee($user->rank->name)
-               ->assertSee($user->duty);
+               ->assertSee($user->rank->name);
    }
 
    /** @test */
@@ -124,7 +123,6 @@ class UserWebTest extends TestCase
                ->assertSee($user->email)
                ->assertSee($user->nickname)
                ->assertSee($user->quote)
-               ->assertSee($user->duty)
                ->assertSee($user->avatar)
                ->assertSee($user->signature);
    }
@@ -162,7 +160,6 @@ class UserWebTest extends TestCase
                      'email' => 'example@example.com',
                      'nickname' => 'UwU',
                      'quote' => 'Lorem ipsum dolot',
-                     'duty' => 'Cookie Monster',
                      'avatar' => 'http://www.example.com/image.png',
                      'signature' => '<center><img src="http://www.example.com/image.png" /></center>',
                      'avatarFile' => $avatar,

@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Rancor\Tests\TestCase;
-use Rancor\DB\Seeders\RancorSeeder;
 use App\Models\User;
 
 class UserAPITest extends TestCase
@@ -86,7 +85,6 @@ class UserAPITest extends TestCase
             'email' => $user->email,
             'nickname' => $user->nickname,
             'quote' => $user->quote,
-            'duty' => $user->duty,
             'is_admin' => $user->is_admin,
          ]
       ]);
@@ -124,7 +122,6 @@ class UserAPITest extends TestCase
                      'email' => 'example@example.com',
                      'nickname' => 'Nick',
                      'quote' => 'Lorem Ipsum',
-                     'duty' => 'Cookie Monster',
                      'avatar' => 'http://www.example.com/image.png',
                      'signature' => '<center><img>http://www.example.com/image.png</img></center',
                      'avatarFile' => $avatar,

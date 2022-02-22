@@ -54,6 +54,6 @@ class CleanUnreadDiscussions implements ShouldQueue, ShouldBeUnique
 	 */
 	public function failed(Throwable $exception)
 	{
-		Log::channel('rancor')->warning('Error thrown while attempting to clean the unread discussions: ' . $exception);
+		Log::channel('rancor')->warning('Error thrown while attempting to clean the unread discussions: ' . $exception->getMessage());
 	}
 }

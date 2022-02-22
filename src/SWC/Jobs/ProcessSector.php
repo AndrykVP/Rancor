@@ -65,6 +65,6 @@ class ProcessSector implements ShouldQueue
 	 */
 	public function failed(Throwable $exception)
 	{
-		Log::channel('rancor')->error($exception->getMessage());
+		Log::channel('rancor')->error('Error thrown while attempting to process Sector: ' . $exception->getMessage());
 	}
 }

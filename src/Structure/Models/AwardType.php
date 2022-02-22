@@ -8,39 +8,39 @@ use Rancor\DB\Factories\AwardTypeFactory;
 
 class AwardType extends Model
 {
-   use HasFactory;
-   
-   /**
-    * Create a new factory instance for the model.
-    *
-    * @return \Illuminate\Database\Eloquent\Factories\Factory
-    */
-   protected static function newFactory()
-   {
-       return AwardTypeFactory::new();
-   }
-   
-   /**
-    * Defines the table name
-    * 
-    * @var string
-    */
-   protected $table = 'structure_award_types';
+	use HasFactory;
+	
+	/**
+	 * Defines the table name
+	 * 
+	 * @var string
+	 */
+	protected $table = 'structure_award_types';
 
-   /**
-    * Attributes available for mass assignment
-    * 
-    * @var array
-    */
-   protected $fillable = [ 'name', 'description' ];
+	/**
+	 * Attributes available for mass assignment
+	 * 
+	 * @var array
+	 */
+	protected $fillable = [ 'name', 'description' ];
 
-   /**
-    * Relationship to Award model
-    * 
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
-   public function awards()
-   {
-      return $this->hasMany(Award::class, 'type_id')->orderBy('priority', 'desc');
-   }
+	/**
+	 * Relationship to Award model
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function awards()
+	{
+		return $this->hasMany(Award::class, 'type_id')->orderBy('priority', 'desc');
+	}
+	
+	/**
+	 * Create a new factory instance for the model.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Factories\Factory
+	 */
+	protected static function newFactory()
+	{
+		return AwardTypeFactory::new();
+	}
 }

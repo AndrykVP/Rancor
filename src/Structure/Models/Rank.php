@@ -9,49 +9,49 @@ use Rancor\DB\Factories\RankFactory;
 
 class Rank extends Model
 {
-    use HasFactory;
-    
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
-    {
-        return RankFactory::new();
-    }
-    
-    /**
-     * Defines the table name
-     * 
-     * @var string
-     */
-    protected $table = 'structure_ranks';
+	use HasFactory;
+	
+	/**
+	 * Defines the table name
+	 * 
+	 * @var string
+	 */
+	protected $table = 'structure_ranks';
 
-    /**
-     * Attributes available for mass assignment
-     * 
-     * @var array
-     */
-    protected $fillable = [ 'name', 'description', 'department_id', 'level', 'color' ];
+	/**
+	 * Attributes available for mass assignment
+	 * 
+	 * @var array
+	 */
+	protected $fillable = [ 'name', 'description', 'department_id', 'level', 'color' ];
 
-    /**
-     * Relationship to User model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
+	/**
+	 * Relationship to User model
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function users()
+	{
+		return $this->hasMany(User::class);
+	}
 
-    /**
-     * Relationship to Department model
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
+	/**
+	 * Relationship to Department model
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function department()
+	{
+		return $this->belongsTo(Department::class);
+	}
+	
+	/**
+	 * Create a new factory instance for the model.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Factories\Factory
+	 */
+	protected static function newFactory()
+	{
+		return RankFactory::new();
+	}
 }

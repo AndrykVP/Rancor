@@ -14,52 +14,57 @@ use Rancor\SWC\Models\Sector;
 
 class ProcessSector implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $uid;
+	/**
+	 * Sector UID from SWC API
+	 * 
+	 * @var string
+	 */
+	protected $uid;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct($uid)
-    {
-        $this->uid = $uid;
-    }
+	/**
+	 * Create a new job instance.
+	 *
+	 * @return void
+	 */
+	public function __construct($uid)
+	{
+		$this->uid = $uid;
+	}
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        $id = (int)explode(':',$this->uid)[1];
-        $response = Http::withHeaders([
-            'Accept' => 'application/json'
-        ])->get(`https://www.swcombine.com/ws/v2.0/galaxy/sectors/{$this->uid}`);
+	/**
+	 * Execute the job.
+	 *
+	 * @return void
+	 */
+	public function handle()
+	{
+		$id = (int)explode(':',$this->uid)[1];
+		$response = Http::withHeaders([
+			'Accept' => 'application/json'
+		])->get(`https://www.swcombine.com/ws/v2.0/galaxy/sectors/{$this->uid}`);
 
-        if($response->successful())
-        {
-            $query = $response->json();
-            $query = query['swcapi']['sector'];
-    
-            $model = Sector::firstOrNew(['id' => $id]);
-            $model->name = $query['name'];
-            $model->color = sprintf("#%02x%02x%02x", $query['colour']['r'], $query['colour']['g'], $query['colour']['b']);
-            $model->save();
-        }
-    }
+		if($response->successful())
+		{
+			$query = $response->json();
+			$query = $query['swcapi']['sector'];
+	
+			$model = Sector::firstOrNew(['id' => $id]);
+			$model->name = $query['name'];
+			$model->color = sprintf("#%02x%02x%02x", $query['colour']['r'], $query['colour']['g'], $query['colour']['b']);
+			$model->save();
+		}
+	}
 
-    /**
-     * The job failed to process.
-     *
-     * @param  Throwable  $exception
-     * @return void
-     */
-    public function failed(Throwable $exception)
-    {
-        Log::channel('rancor')->error($exception->getMessage());
-    }
+	/**
+	 * The job failed to process.
+	 *
+	 * @param  Throwable  $exception
+	 * @return void
+	 */
+	public function failed(Throwable $exception)
+	{
+		Log::channel('rancor')->error($exception->getMessage());
+	}
 }

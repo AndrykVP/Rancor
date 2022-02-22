@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Rancor\Scanner\Http\Requests\EntryForm;
 use Rancor\Scanner\Http\Requests\EntrySearch;
 use Rancor\Scanner\Models\Entry;
+use Rancor\Scanner\Enums\Alliance;
 
 class EntryController extends Controller
 {
@@ -184,20 +185,12 @@ class EntryController extends Controller
 					'label' => 'IFF Status',
 					'attributes' => 'required',
 					'multiple' => false,
-					'options' => [
-						(object)[
-							'id' => 1,
-							'name' => 'Friend'
-						],
-						(object)[
-							'id' => 0,
-							'name' => 'Neutral'
-						],
-						(object)[
-							'id' => -1,
-							'name' => 'Enemy'
-						],
-					],
+					'options' => collect(Alliance::cases())->map(function ($item, $key) {
+						return (object)[
+							'id' => $key,
+							'name' => $item->value
+						];
+				  }),
 				],
 			],
 		];

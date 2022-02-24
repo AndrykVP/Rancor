@@ -23,7 +23,7 @@ class AwardFactory extends Factory
 	{
 		return [
 			'name' => $this->faker->unique()->company,
-			'code' => strtoupper($this->faker->unique()->word),
+			'code' => strtoupper($this->faker->unique()->lexify()),
 			'description' => $this->faker->text(150),
 			'levels' => $this->faker->numberBetween(1,12),
 			'priority' => $this->faker->numberBetween(1,20),

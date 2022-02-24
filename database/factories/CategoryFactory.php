@@ -26,7 +26,7 @@ class CategoryFactory extends Factory
 			'name' => $this->faker->sentence(5),
 			'description' => $this->faker->sentence(12),
 			'color' => $this->faker->hexcolor,
-			'slug' => $this->faker->unique()->word,
+			'slug' => $this->faker->unique()->slug,
 			'lineup' => $this->faker->unique()->numberBetween(1,20),
 		];
 	}

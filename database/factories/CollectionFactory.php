@@ -24,7 +24,7 @@ class CollectionFactory extends Factory
 	{
 		return [
 			'name' => $this->faker->sentence(5),
-			'slug' => $this->faker->unique()->word,
+			'slug' => $this->faker->unique()->slug,
 			'description' => $this->faker->text(150),
 		];
 	}

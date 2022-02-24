@@ -24,7 +24,7 @@ class BoardFactory extends Factory
 		return [
 			'name' => $this->faker->sentence(5),
 			'description' => $this->faker->sentence(12),
-			'slug' => $this->faker->unique()->word,
+			'slug' => $this->faker->unique()->slug,
 			'lineup' => $this->faker->numberBetween(1,20),
 		];
 	}

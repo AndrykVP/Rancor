@@ -17,7 +17,7 @@ class Territory extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'patrolled_by', 'last_patrol', 'type_id', 'subscription',
+		'name', 'type_id', 'subscription',
 	];
 
 	/**
@@ -26,7 +26,7 @@ class Territory extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'last_patrol' => 'datetime',
+		'last_patrol_at' => 'datetime',
 		'subscription' => 'boolean',
 	];
 
@@ -86,26 +86,26 @@ class Territory extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function patroller()
+	public function contributor()
 	{
-		return $this->belongsTo(User::class, 'patrolled_by');
+		return $this->belongsTo(User::class, 'updated_by');
 	}
 
 	/**
-	 * Set Color attribute based on the model's last_patrol field
+	 * Set Color attribute based on the model's last_patrol_at field
 	 * 
 	 * @return string|null
 	 */
 	public function getBackgroundColorAttribute()
 	{
-		if($this->last_patrol != null)
+		if($this->last_patrol_at != null)
 		{
-			if($this->last_patrol->lte(now()->subMonths(3)))
+			if($this->last_patrol_at->lte(now()->subMonths(3)))
 			{
 				return 'rgba(255, 0, 0, 0.2)';
 			}
 
-			if($this->last_patrol->lte(now()->subMonth()))
+			if($this->last_patrol_at->lte(now()->subMonth()))
 			{
 				return 'rgba(255, 255, 0, 0.2)';
 			}
@@ -124,5 +124,22 @@ class Territory extends Model
 	protected static function newFactory()
 	{
 		return TerritoryFactory::new();
+	}
+
+	/**
+	 * The "booted" method of the model.
+	 *
+	 * @return void
+	 */
+	protected static function booted()
+	{
+		static::updating(function ($territory) {
+			if ($territory->isClean('updated_by')) {
+				$territory->updated_by = auth()->user()->id;
+			}
+			if( $territory->isClean('last_patrol_at')) {
+				$territory->last_patrol_at = now();
+			}
+		});
 	}
 }

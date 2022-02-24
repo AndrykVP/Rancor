@@ -128,13 +128,13 @@
 							<span x-text="date"></span>
 						</div>
 					</div>
-					<template x-if="selectedTerritory.patrolled_by != null">
+					<template x-if="selectedTerritory.updated_by != null">
 						<div class="md:flex md:items-center mt-4 mb-6">
 							<div class="md:w-1/3 block text-xs font-bold md:text-right mb-1 md:mb-0 pr-4">
 								Patrolled By
 							</div>
 							<div class="md:w-2/3 dark:bg-gray-700 dark:text-white">
-								<a :href="'{{ url('/profile') }}' + '/' + selectedTerritory.patroller.id" x-text="selectedTerritory.patroller.name" class="text-indigo-800 hover:text-indigo-700"></a>
+								<a :href="'{{ url('/profile') }}' + '/' + selectedTerritory.contributor.id" x-text="selectedTerritory.contributor.name" class="text-indigo-800 hover:text-indigo-700"></a>
 							</div>
 						</div>
 					</template>
@@ -237,8 +237,8 @@
 			location: null,
 			setTerritory: function(territory) {
 				let date = 'Never'
-				if(territory.last_patrol != null) {
-					let parsedDate = new Date(territory.last_patrol);
+				if(territory.last_patrol_at != null) {
+					let parsedDate = new Date(territory.last_patrol_at);
 					date = parsedDate.toLocaleString('en-US');
 				}
 				this.date = date;

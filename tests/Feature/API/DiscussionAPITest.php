@@ -144,7 +144,7 @@ class DiscussionAPITest extends TestCase
                      'is_sticky' => true,
                      'is_locked' => false,
                      'board_id' => $discussion->board_id,
-                     'author_id' => $this->admin->id
+                     'created_by' => $this->admin->id
                   ]);
       $response->assertSuccessful()->assertExactJson([
          'message' => 'Discussion "Updated Discussion" has been updated'

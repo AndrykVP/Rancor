@@ -18,7 +18,7 @@ class CreateAwardsTable extends Migration
 			$table->string('name')->unique();
 			$table->text('description')->nullable()->default(null);
 			$table->string('code')->unique();
-			$table->foreignId('type_id')->on('structure_award_types')->onDelete('cascade');
+			$table->foreignId('type_id')->constrained('structure_award_types')->onDelete('cascade');
 			$table->unsignedInteger('levels')->default(1);
 			$table->unsignedInteger('priority')->default(1);
 			$table->timestamps();

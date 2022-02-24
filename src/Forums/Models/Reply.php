@@ -7,17 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use Rancor\Forums\Events\CreateReply;
 use Rancor\DB\Factories\ReplyFactory;
+use Rancor\Package\Traits\Userstamps;
 
 class Reply extends Model
 {
-	use HasFactory;
+	use HasFactory, Userstamps;
 	
 	/**
 	 * Attributes available for mass assignment
 	 * 
 	 * @var array
 	 */
-	protected $fillable = [ 'body', 'discussion_id', 'author_id', 'editor_id' ];
+	protected $fillable = [ 'body', 'discussion_id' ];
 
 	/**
 	 * Defines the table name
@@ -50,7 +51,7 @@ class Reply extends Model
 	 */
 	public function author()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'created_by');
 	}
 
 	/**
@@ -60,7 +61,7 @@ class Reply extends Model
 	 */
 	public function editor()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'updated_by');
 	}
 
 	/**

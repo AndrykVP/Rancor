@@ -7,8 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Rancor\Forums\Models\Reply;
 use Rancor\Forums\Models\Discussion;
-use Rancor\Forums\Http\Requests\NewReplyForm;
-use Rancor\Forums\Http\Requests\EditReplyForm;
+use Rancor\Forums\Http\Requests\ReplyForm;
 
 class ReplyController extends Controller
 {
@@ -64,10 +63,10 @@ class ReplyController extends Controller
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  \Rancor\Forums\Http\Requests\NewReplyForm  $request
+	 * @param  \Rancor\Forums\Http\Requests\ReplyForm  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(NewReplyForm $request)
+	public function store(ReplyForm $request)
 	{
 		$data = $request->validated();
 		$discussion = Discussion::with('board.moderators', 'board.category')->findOrFail($data['discussion_id']);
@@ -104,11 +103,11 @@ class ReplyController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  \Rancor\Forums\Http\Requests\EditReplyForm  $request
+	 * @param  \Rancor\Forums\Http\Requests\ReplyForm  $request
 	 * @param  \Rancor\Forums\Models\Reply  $reply
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(EditReplyForm $request, Reply $reply)
+	public function update(ReplyForm $request, Reply $reply)
 	{
 		$this->authorize('update',$reply);
 		

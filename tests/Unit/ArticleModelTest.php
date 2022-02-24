@@ -77,7 +77,7 @@ class ArticleModelTest extends TestCase
      */
     function article_has_author()
     {
-        $this->assertNotNull($this->article->author_id);
+        $this->assertNotNull($this->article->created_by);
     }
 
     /**
@@ -85,6 +85,6 @@ class ArticleModelTest extends TestCase
      */
     function article_has_editor()
     {
-        $this->assertNotNull($this->article->editor_id);
+        $this->assertNotNull($this->article->updated_by);
     }
 }

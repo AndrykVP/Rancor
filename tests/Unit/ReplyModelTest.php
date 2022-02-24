@@ -50,7 +50,7 @@ class ReplyModelTest extends TestCase
      */
     function reply_has_author()
     {
-        $this->assertNotNull($this->reply->author_id);
+        $this->assertNotNull($this->reply->created_by);
     }
 
     /**
@@ -58,6 +58,6 @@ class ReplyModelTest extends TestCase
      */
     function reply_has_editor()
     {
-        $this->assertNotNull($this->reply->editor_id);
+        $this->assertNotNull($this->reply->updated_by);
     }
 }

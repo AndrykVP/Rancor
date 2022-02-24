@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Rancor\Forums\Models\Reply;
 use Rancor\Forums\Http\Resources\ReplyResource;
-use Rancor\Forums\Http\Requests\EditReplyForm;
-use Rancor\Forums\Http\Requests\NewReplyForm;
+use Rancor\Forums\Http\Requests\ReplyForm;
 
 class ReplyController extends Controller
 {    
@@ -32,7 +31,7 @@ class ReplyController extends Controller
 	 * @param  \Rancor\Forums\Http\Requests\ReplyForm  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(NewReplyForm $request)
+	public function store(ReplyForm $request)
 	{
 		$this->authorize('create',Reply::class);
 		
@@ -64,7 +63,7 @@ class ReplyController extends Controller
 	 * @param  \Rancor\Forums\Models\Reply  $reply
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(EditReplyForm $request, Reply $reply)
+	public function update(ReplyForm $request, Reply $reply)
 	{
 		$this->authorize('update',$reply);
 		

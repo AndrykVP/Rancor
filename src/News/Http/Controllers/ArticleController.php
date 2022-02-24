@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Rancor\News\Models\Article;
 use Rancor\News\Models\Tag;
-use Rancor\News\Http\Requests\NewArticleForm;
-use Rancor\News\Http\Requests\EditArticleForm;
+use Rancor\News\Http\Requests\ArticleForm;
 use Rancor\News\Http\Requests\ArticleSearch;
 
 class ArticleController extends Controller
@@ -55,10 +54,10 @@ class ArticleController extends Controller
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  \Rancor\News\Http\Requests\NewArticleForm  $request
+	 * @param  \Rancor\News\Http\Requests\ArticleForm  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(NewArticleForm $request)
+	public function store(ArticleForm $request)
 	{
 		$this->authorize('create', Article::class);
 
@@ -133,7 +132,7 @@ class ArticleController extends Controller
 	 * @param  \App\Article  $article
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(EditArticleForm $request, Article $article)
+	public function update(ArticleForm $request, Article $article)
 	{
 		$this->authorize('update', $article);
 

@@ -4,7 +4,7 @@ namespace Rancor\Forums\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditReplyForm extends FormRequest
+class ReplyForm extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -14,18 +14,6 @@ class EditReplyForm extends FormRequest
 	public function authorize()
 	{
 		return true;
-	}
-	
-	/**
-	 * Prepare the data for validation
-	 *
-	 * @return void
-	 */
-	public function prepareForValidation()
-	{
-		$this->merge([
-			'editor_id' => $this->user()->id,
-		]);
 	}
 
 	/**
@@ -38,7 +26,6 @@ class EditReplyForm extends FormRequest
 		return [
 			'body' => 'required|string|min:6',
 			'discussion_id' => 'required|integer|exists:forum_discussions,id',
-			'editor_id' => 'required|integer|exists:users,id',
 		];
 	}
 }

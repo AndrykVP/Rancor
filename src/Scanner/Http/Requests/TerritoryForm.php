@@ -24,8 +24,6 @@ class TerritoryForm extends FormRequest
 	protected function prepareForValidation()
 	{
 		$this->merge([
-			'patrolled_by' => $this->user()->id,
-			'last_patrol' => now(),
 			'subscription' => $this->subscription ? true : false,
 		]);
 	}
@@ -40,8 +38,6 @@ class TerritoryForm extends FormRequest
 		return [
 			'name' => 'nullable|string',
 			'type_id' => 'nullable|integer|exists:scanner_territory_types,id',
-			'patrolled_by' => 'required|integer|exists:users,id',
-			'last_patrol' => 'required|date',
 			'subscription' => 'required|boolean',
 		];
 	}

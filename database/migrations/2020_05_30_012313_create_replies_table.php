@@ -16,8 +16,8 @@ class CreateRepliesTable extends Migration
 		Schema::create('forum_replies', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('discussion_id')->constrained('forum_discussions')->onDelete('cascade');
-			$table->foreignId('author_id')->constrained('users')->onDelete('cascade');
-			$table->foreignId('editor_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
+			$table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+			$table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
 			$table->mediumText('body');
 			$table->timestamps();
 		});

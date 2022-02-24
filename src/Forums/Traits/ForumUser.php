@@ -51,7 +51,7 @@ trait ForumUser
 	 */
 	public function replies()
 	{
-		return $this->hasMany(Reply::class, 'author_id')->latest();
+		return $this->hasMany(Reply::class, 'created_by')->latest();
 	}
 
 	/**

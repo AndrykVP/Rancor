@@ -20,7 +20,7 @@ class CreateDiscussionsTable extends Migration
 			$table->boolean('is_locked')->default(0);
 			$table->unsignedBigInteger('views')->default(0);
 			$table->foreignId('board_id')->constrained('forum_boards')->onDelete('cascade');
-			$table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+			$table->foreignId('created_by')->constrained('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

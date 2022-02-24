@@ -16,7 +16,7 @@ class Discussion extends Model
 	 * 
 	 * @var array
 	 */
-	protected $fillable = [ 'name', 'is_sticky', 'is_locked', 'board_id', 'author_id' ];
+	protected $fillable = [ 'name', 'is_sticky', 'is_locked', 'board_id' ];
 
 	/**
 	 * Defines the table name
@@ -42,7 +42,7 @@ class Discussion extends Model
 	 */
 	public function author()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'created_by');
 	}
 
 	/**
@@ -124,5 +124,19 @@ class Discussion extends Model
 	protected static function newFactory()
 	{
 		return DiscussionFactory::new();
+	}
+
+	/**
+	 * The "booted" method of the model.
+	 *
+	 * @return void
+	 */
+	protected static function booted()
+	{
+		static::creating(function ($discussion) {
+			if ($discussion->isClean('created_by')) {
+				$discussion->created_by = auth()->user()->id;
+			}
+		});
 	}
 }

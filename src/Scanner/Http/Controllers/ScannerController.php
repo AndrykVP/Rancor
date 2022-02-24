@@ -62,7 +62,7 @@ class ScannerController extends Controller
 	{
 		$this->authorize('view', $quadrant);
 
-		$quadrant->load('territories.type', 'territories.patroller');
+		$quadrant->load('territories.type', 'territories.contributor');
 		$types = TerritoryType::all();
 
 		return view('rancor::scanner.quadrant', compact('quadrant', 'types'));
@@ -108,8 +108,8 @@ class ScannerController extends Controller
 			$territory->update([
 				'name' => null,
 				'type_id' => null,
-				'patrolled_by' => null,
-				'last_patrol' => null,
+				'updated_by' => null,
+				'last_patrol_at' => null,
 				'subscription' => false,
 			]);
 			$action = 'reset';

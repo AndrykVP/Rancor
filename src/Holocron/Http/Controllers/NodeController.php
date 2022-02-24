@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Rancor\Holocron\Models\Node;
 use Rancor\Holocron\Models\Collection;
-use Rancor\Holocron\Http\Requests\NewNodeForm;
-use Rancor\Holocron\Http\Requests\EditNodeForm;
+use Rancor\Holocron\Http\Requests\NodeForm;
 use Rancor\Holocron\Http\Requests\NodeSearch;
 
 class NodeController extends Controller
@@ -54,10 +53,10 @@ class NodeController extends Controller
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  \Rancor\Holocron\Http\Requests\NewNodeForm  $request
+	 * @param  \Rancor\Holocron\Http\Requests\NodeForm  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(NewNodeForm $request)
+	public function store(NodeForm $request)
 	{
 		$this->authorize('create', Node::class);
 
@@ -128,11 +127,11 @@ class NodeController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  \Rancor\Holocron\Http\Requests\EditNodeForm  $request
+	 * @param  \Rancor\Holocron\Http\Requests\NodeForm  $request
 	 * @param  \Rancor\Holocron\Models\Node  $node
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(EditNodeForm $request, Node $node)
+	public function update(NodeForm $request, Node $node)
 	{
 		$this->authorize('update', $node);
 

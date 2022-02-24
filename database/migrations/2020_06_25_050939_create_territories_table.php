@@ -21,8 +21,8 @@ class CreateTerritoriesTable extends Migration
 			$table->integer('x_coordinate');
 			$table->integer('y_coordinate');
 			$table->boolean('subscription');
-			$table->foreignId('patrolled_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
-			$table->timestamp('last_patrol')->nullable()->default(null);
+			$table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
+			$table->timestamp('last_patrol_at')->nullable()->default(null);
 			$table->timestamps();
 			
 			$table->unique(['x_coordinate', 'y_coordinate']);

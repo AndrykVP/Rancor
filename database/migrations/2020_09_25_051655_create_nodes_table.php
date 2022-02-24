@@ -17,8 +17,8 @@ class CreateNodesTable extends Migration
 			$table->id();
 			$table->string('name');
 			$table->longText('body');
-			$table->foreignId('author_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
-			$table->foreignId('editor_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
+			$table->foreignId('created_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
+			$table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
 			$table->boolean('is_public');
 			$table->timestamps();
 		});

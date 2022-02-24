@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Rancor\Audit\Events\NodeUpdate;
 use Rancor\DB\Factories\NodeFactory;
+use Rancor\Package\Traits\Userstamps;
 
 class Node extends Model
 {
-	use HasFactory;
+	use HasFactory, Userstamps;
 	
 	/**
 	 * Defines the table name
@@ -26,7 +27,7 @@ class Node extends Model
 	 * 
 	 * @var array
 	 */
-	protected $fillable = [ 'name', 'body', 'is_public', 'author_id', 'editor_id' ];
+	protected $fillable = [ 'name', 'body', 'is_public', 'published_at' ];
 
 	/**
 	 * Attributes casted to native types
@@ -34,8 +35,7 @@ class Node extends Model
 	 * @var array
 	 */
 	protected $casts = [
-		'is_published' => 'boolean',
-		'is_private' => 'boolean',
+		'is_public' => 'boolean',
 		'published_at' => 'datetime',
 	];
 
@@ -81,7 +81,7 @@ class Node extends Model
 	 */
 	public function author()
 	{
-		return $this->belongsTo(User::class, 'author_id');
+		return $this->belongsTo(User::class, 'created_by');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Node extends Model
 	 */
 	public function editor()
 	{
-		return $this->belongsTo(User::class, 'editor_id');
+		return $this->belongsTo(User::class, 'updated_by');
 	}
 
 	/**

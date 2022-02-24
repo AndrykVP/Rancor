@@ -19,8 +19,8 @@ class CreateArticlesTable extends Migration
 			$table->longText('body');
 			$table->text('description');
 			$table->boolean('is_published')->default(0);
-			$table->foreignId('author_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
-			$table->foreignId('editor_id')->nullable()->default(null)->constrained('users')->onDelete('set null');
+			$table->foreignId('created_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
+			$table->foreignId('updated_by')->nullable()->default(null)->constrained('users')->onDelete('set null');
 			$table->timestamp('published_at')->nullable()->default(null);
 			$table->timestamps();
 		});

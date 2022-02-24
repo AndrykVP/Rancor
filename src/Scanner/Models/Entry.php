@@ -98,4 +98,18 @@ class Entry extends Model
 	{
 		return EntryFactory::new();
 	}
+
+	/**
+	 * The "booted" method of the model.
+	 *
+	 * @return void
+	 */
+	protected static function booted()
+	{
+		static::updating(function ($entry) {
+			if ($entry->isClean('updated_by')) {
+				$entry->updated_by = auth()->user()->id;
+			}
+		});
+	}
 }

@@ -51,11 +51,11 @@ class PatrolReminder
 		return Territory::select(['x_coordinate', 'y_coordinate'])
 					->where('subscription', true)
 					->when($old, function($query) {
-						return $query->where('last_patrol', '<', now()->subMonths(3));
+						return $query->where('last_patrol_at', '<', now()->subMonths(3));
 					}, function($query) {
 						return $query->where([
-							['last_patrol', '>=', now()->subMonths(3)],
-							['last_patrol', '<', now()->subMonth()],
+							['last_patrol_at', '>=', now()->subMonths(3)],
+							['last_patrol_at', '<', now()->subMonth()],
 						]);
 					})
 					->get();

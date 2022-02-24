@@ -17,18 +17,6 @@ class EntryForm extends FormRequest
 	}
 
 	/**
-	 * Prepare the data for validation.
-	 *
-	 * @return void
-	 */
-	protected function prepareForValidation()
-	{
-		$this->merge([
-			'updated_by' => $this->user()->id,
-		]);
-	}
-
-	/**
 	 * Get the validation rules that apply to the request.
 	 *
 	 * @return array
@@ -41,7 +29,6 @@ class EntryForm extends FormRequest
 			'name' => 'required|string',
 			'owner' => 'required|string',
 			'alliance' => 'required|string|in:Neutral,Enemy,Friend',
-			'updated_by' => 'required|exists:users,id',
 		];
 	}
 }

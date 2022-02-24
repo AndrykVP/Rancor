@@ -61,7 +61,7 @@ class DiscussionModelTest extends TestCase
      */
     function discussion_has_author()
     {
-        $this->assertNotNull($this->discussion->author_id);
+        $this->assertNotNull($this->discussion->created_by);
     }
 
     /** 

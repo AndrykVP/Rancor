@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use Rancor\DB\Factories\ArticleFactory;
+use Rancor\Package\Traits\Userstamps;
 
 class Article extends Model
 {
-	use HasFactory;
+	use HasFactory, Userstamps;
 	
 	/**
 	 * Defines the table name
@@ -23,7 +24,7 @@ class Article extends Model
 	 * 
 	 * @var array
 	 */
-	protected $fillable = [ 'name', 'body', 'description', 'is_published', 'author_id', 'editor_id', 'published_at' ];
+	protected $fillable = [ 'name', 'body', 'description', 'is_published', 'published_at' ];
 
 	/**
 	 * Attributes casted to native types
@@ -49,7 +50,7 @@ class Article extends Model
 	 */
 	public function author()
 	{
-		return $this->belongsTo(User::class, 'author_id');
+		return $this->belongsTo(User::class, 'created_by');
 	}
 
 	/**
@@ -59,7 +60,7 @@ class Article extends Model
 	 */
 	public function editor()
 	{
-		return $this->belongsTo(User::class, 'editor_id');
+		return $this->belongsTo(User::class, 'updated_by');
 	}
 
 	/**

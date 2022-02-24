@@ -4,7 +4,7 @@ namespace Rancor\Holocron\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewNodeForm extends FormRequest
+class NodeForm extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class NewNodeForm extends FormRequest
 	public function prepareForValidation()
 	{
 		$this->merge([
-			'author_id' => $this->user()->id,
 			'is_public' => $this->is_public ? true : false,
 		]);
 	}
@@ -36,14 +35,11 @@ class NewNodeForm extends FormRequest
 	 */
 	public function rules()
 	{
-		$id = $this->segment(3);
-
 		return [
 			'name' => 'required|string',
 			'body' => 'required|min:3',
 			'is_public' => 'required|boolean',
 			'collections' => 'nullable|array',
-			'author_id' => 'required|integer|exists:users,id',
 		];
 	}
 }

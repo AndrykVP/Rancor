@@ -32,7 +32,7 @@ class UserLoginIP
 	public function __construct(Request $request)
 	{
 		$this->ip = $request->ip();
-		$this->user_agent = $request->user_agent();
+		$this->user_agent = $request->header('User-Agent');
 	}
 
 	/**

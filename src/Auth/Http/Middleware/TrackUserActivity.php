@@ -11,6 +11,7 @@ use App\Models\User;
 
 class TrackUserActivity
 {
+<<<<<<< HEAD
 	/**
 	 * Handle an incoming request.
 	 *
@@ -21,6 +22,11 @@ class TrackUserActivity
 	public function handle(Request $request, Closure $next)
 	{
 		if(Auth::check()) $this->store_cache(Auth::user());
+=======
+   public function handle(Request $request, Closure $next): Request|Closure
+   {
+      $user = $request->user();
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 
 		return $next($request);
 	}
@@ -38,6 +44,7 @@ class TrackUserActivity
 			$previous_activity = Cache::get('user-is-online-' . $user->id);
 			$increment = $previous_activity->diffInMinutes(now());
 
+<<<<<<< HEAD
 			if($increment > 0)
 			{
 				Cache::put('user-is-online-' . $user->id, now(), now()->addMinutes(15));
@@ -68,4 +75,36 @@ class TrackUserActivity
 			})
 			->update(['last_seen_at' => now()]);
 	}
+=======
+   public function store_cache(User $user): void
+   {
+      if(Cache::has('user-is-online-' . $user->id))
+      {
+         $previous_activity = Cache::get('user-is-online-' . $user->id);
+         $increment = $previous_activity->diffInMinutes(now());
+
+         if($increment > 0)
+         {
+            Cache::put('user-is-online-' . $user->id, now(), now()->addMinutes(15));
+            $this->update_activity($user->id, $increment);
+         }
+      }
+      else
+      {
+         Cache::add('user-is-online-' . $user->id, now(), now()->addMinutes(15));
+         $this->update_activity($user->id);
+      }
+
+   }
+
+   public function update_activity(Int $user_id, Int $increment = 0): void
+   {
+      DB::table('users')
+         ->where('id', $user_id)
+         ->when($increment > 0, function($query) use ($increment) {
+            $query->increment('online_time', $increment);
+         })
+         ->update(['last_seen_at' => now()]);
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

@@ -2,10 +2,14 @@
 
 namespace Rancor\Auth\Policies;
 
-use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
+<<<<<<< HEAD
 use Rancor\Auth\Models\Role;
+=======
+use AndrykVP\Rancor\Auth\Models\Role;
+use App\Models\User;
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 
 class RolePolicy
 {

@@ -2,8 +2,10 @@
 
 namespace Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use Rancor\Audit\Contracts\LogContract;
 use Rancor\DB\Factories\EntryLogFactory;
@@ -12,6 +14,7 @@ use Rancor\Scanner\Models\Entry;
 
 class EntryLog extends Model implements LogContract
 {
+<<<<<<< HEAD
 	use HasFactory;
 
 	/**
@@ -84,4 +87,43 @@ class EntryLog extends Model implements LogContract
 	{
 		return EntryLogFactory::new();
 	}
+=======
+   use HasFactory;
+
+   protected $table = 'changelog_entries';
+
+   protected $fillable = [
+      'updated_by',
+      'entry_id',
+      'old_type',
+      'old_name',
+      'old_owner',
+      'old_teritory_id',
+      'old_alliance',
+   ];
+   
+   protected $casts = [
+      'old_alliance' => Alliance::class,
+   ];
+   
+   public function creator(): BelongsTo
+   {
+      return $this->belongsTo(User::class, 'updated_by');
+   }
+
+   public function entry(): BelongsTo
+   {
+      return $this->belongsTo(Entry::class);
+   }
+
+   public function message(): string
+   {
+      return 'Entry #' . $this->entry->entity_id . ' has been modified by ' . $this->creator->name;
+   }
+
+   protected static function newFactory(): Factory
+   {
+      return EntryLogFactory::new();
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

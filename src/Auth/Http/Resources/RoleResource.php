@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoleResource extends JsonResource
 {
+<<<<<<< HEAD
 	/**
 	 * Transform the resource into an array.
 	 *
@@ -24,4 +25,18 @@ class RoleResource extends JsonResource
 			'updated_at' => $this->updated_at->diffForHumans(),
 		];
 	}
+=======
+    public function toArray($request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'users' => UserResource::collection($this->whenLoaded('users')),
+            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
+        ];
+    }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

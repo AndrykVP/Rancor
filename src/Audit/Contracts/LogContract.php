@@ -2,6 +2,8 @@
 
 namespace Rancor\Audit\Contracts;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 interface LogContract
 {
 	/**

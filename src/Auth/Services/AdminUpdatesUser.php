@@ -10,6 +10,7 @@ use App\Models\User;
 
 class AdminUpdatesUser
 {
+<<<<<<< HEAD
 	/**
 	 * Updates the given User model based on Permissions
 	 *
@@ -21,6 +22,13 @@ class AdminUpdatesUser
 		$data = $request->validated();
 		$generateId = false;
 		DB::transaction(function () use(&$user, $data, $request, &$generateId) {
+=======
+   public function __invoke(UserForm $request, User &$user): void
+   {           
+      $data = $request->validated();
+      $generateId = false;
+      DB::transaction(function () use(&$user, $data, $request, &$generateId) {
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 
 			// Change User Data
 			if($request->user()->can('update', $user))

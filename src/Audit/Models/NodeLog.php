@@ -2,8 +2,10 @@
 
 namespace Rancor\Audit\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use Rancor\Audit\Contracts\LogContract;
 use Rancor\DB\Factories\NodeLogFactory;
@@ -11,6 +13,7 @@ use Rancor\Holocron\Models\Node;
 
 class NodeLog extends Model implements LogContract
 {
+<<<<<<< HEAD
 	use HasFactory;
 
 	/**
@@ -59,4 +62,29 @@ class NodeLog extends Model implements LogContract
 	{
 		return NodeLogFactory::new();
 	}
+=======
+   use HasFactory;
+
+   protected $table = 'changelog_nodes';
+
+   public function creator(): BelongsTo
+   {
+      return $this->belongsTo(User::class, 'updated_by');
+   }
+
+   public function node(): BelongsTo
+   {
+      return $this->belongsTo(Node::class)->withoutGlobalScope('access');
+   }
+
+   public function message(): string
+   {
+      return 'Node "' . $this->node->name . '" has been modified by ' . $this->creator->name;
+   }
+
+   protected static function newFactory(): Factory
+   {
+      return NodeLogFactory::new();
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

@@ -3,10 +3,10 @@
 namespace Rancor\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UserSearch extends FormRequest
 {
+<<<<<<< HEAD
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -41,4 +41,25 @@ class UserSearch extends FormRequest
 			'attribute.in' => 'The selected :attribute is invalid. Acceptable options are: "id", "first_name", "last_name" and "email"'
 		];
 	}
+=======
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'attribute' => 'required|in:id,first_name,last_name,email',
+            'value' => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'attribute.in' => 'The selected :attribute is invalid. Acceptable options are: "id", "first_name", "last_name" and "email"'
+        ];
+    }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

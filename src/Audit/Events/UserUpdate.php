@@ -9,6 +9,7 @@ use App\Models\User;
 
 class UserUpdate
 {
+<<<<<<< HEAD
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
 	/**
@@ -35,4 +36,16 @@ class UserUpdate
 		$this->user = $user;
 		$this->generateId = $generateId;
 	}
+=======
+   use Dispatchable, InteractsWithSockets, SerializesModels;
+
+   public $user;
+   public $generateId;
+
+   public function __construct(User $user, Bool $generateId)
+   {
+      $this->user = $user;
+      $this->generateId = $generateId;
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

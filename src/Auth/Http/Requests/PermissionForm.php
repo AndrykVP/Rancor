@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 class PermissionForm extends FormRequest
 {
+<<<<<<< HEAD
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -42,4 +43,25 @@ class PermissionForm extends FormRequest
 			'description' => 'required|min:3|max:3000',
 		];
 	}
+=======
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'name' => Str::slug($this->name),
+        ]);
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', Rule::unique('rancor_permissions')->ignore($this->id)],
+            'description' => 'required|min:3|max:3000',
+        ];
+    }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

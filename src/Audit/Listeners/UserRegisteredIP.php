@@ -9,6 +9,7 @@ use Rancor\Audit\Enums\Access;
 
 class UserRegisteredIP
 {
+<<<<<<< HEAD
 	/**
 	 * IP of the user accessing the app
 	 * 
@@ -60,4 +61,36 @@ class UserRegisteredIP
 			'updated_at' => now(),
 		]);
 	}
+=======
+   protected $request;
+   
+   public function __construct(Request $request)
+   {
+      $this->request = $request;
+   }
+
+   public function handle(Registered $event): void
+   {
+      $user_id = $event->user->id;
+      $ip = $this->request->ip();
+      $ua = $this->request->header('User-Agent');
+
+      DB::table('changelog_ips')->insert([
+         'user_id' => $user_id,
+         'ip_address' => $ip,
+         'user_agent' => $ua,
+         'type' => Access::REGISTRATION,
+         'created_at' => now(),
+         'updated_at' => now(),
+      ]);
+
+      DB::table('changelog_users')->insert([
+         'user_id' => $user_id,
+         'action' => 'registered a new account',
+         'color' => 'yellow',
+         'created_at' => now(),
+         'updated_at' => now(),
+      ]);
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

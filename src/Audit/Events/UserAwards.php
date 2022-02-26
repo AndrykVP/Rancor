@@ -10,6 +10,7 @@ use App\Models\User;
 
 class UserAwards
 {
+<<<<<<< HEAD
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
 	/**
@@ -36,4 +37,16 @@ class UserAwards
 		$this->user = $user->load('awards');
 		$this->awards = $awards;
 	}
+=======
+   use Dispatchable, InteractsWithSockets, SerializesModels;
+
+   public $user;
+   public $awards;
+
+   public function __construct(User $user, Array $awards)
+   {
+      $this->user = $user->load('awards');
+      $this->awards = $awards;
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

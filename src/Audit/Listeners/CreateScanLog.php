@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class CreateScanLog
 {
+<<<<<<< HEAD
 	/**
 	 * ID of user making edits to an entry
 	 * 
@@ -65,4 +66,50 @@ class CreateScanLog
 			$log->save();
 		}
 	}
+=======
+   public $contributor;
+
+   public function __construct(Request $request)
+   {
+      $this->contributor = $request->user()->id;
+   }
+
+   /**
+    * Handle the event.
+    */
+   public function handle(EntryUpdate $event): void
+   {
+      if($event->entry->isDirty('type')
+      || $event->entry->isDirty('name')
+      || $event->entry->isDirty('owner') 
+      || $event->entry->isDirty('alliance')
+      || $event->entry->isDirty('territory_id'))
+      {
+         $log = new EntryLog;
+         $log->entry_id = $event->entry->id;
+         $log->updated_by = $this->contributor;
+         if($event->entry->isDirty('type'))
+         {
+               $log->old_type = $event->entry->getOriginal('type');
+         }
+         if($event->entry->isDirty('name'))
+         {
+               $log->old_name = $event->entry->getOriginal('name');
+         }
+         if($event->entry->isDirty('owner'))
+         {
+               $log->old_owner = $event->entry->getOriginal('owner');
+         }
+         if($event->entry->isDirty('alliance'))
+         {
+               $log->old_alliance = $event->entry->getOriginal('alliance');
+         }
+         if($event->entry->isDirty('territory_id'))
+         {
+               $log->old_territory_id = $event->entry->getOriginal('territory_id');
+         }
+         $log->save();
+      }
+   }
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 }

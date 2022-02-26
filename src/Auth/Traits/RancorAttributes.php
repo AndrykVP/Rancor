@@ -2,6 +2,7 @@
 
 namespace Rancor\Auth\Traits;
 
+<<<<<<< HEAD
 use Rancor\SWC\Models\Planet;
 
 trait RancorAttributes
@@ -35,6 +36,26 @@ trait RancorAttributes
 	public function getOnlineTimeAttribute($value)
 	{
 		$string = '';
+=======
+use AndrykVP\Rancor\SWC\Models\Planet;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+trait RancorAttributes
+{
+    public function homeplanet(): BelongsTo
+    {
+        return $this->belongsTo(Planet::class, 'homeplanet_id');
+    }
+
+    public function getNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function getOnlineTimeAttribute(Int $value): string
+    {
+        $string = '';
+>>>>>>> 8bd043e14dcbac3ba78d5d48ea033afbdbdeb2d6
 
 		$years = floor ($value / 525600);
 		if($years > 0) $string .= $years . 'Y ';

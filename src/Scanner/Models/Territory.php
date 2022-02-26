@@ -98,22 +98,13 @@ class Territory extends Model
 	 */
 	public function getBackgroundColorAttribute()
 	{
-		if($this->last_patrol_at != null)
-		{
-			if($this->last_patrol_at->lte(now()->subMonths(3)))
-			{
-				return 'rgba(255, 0, 0, 0.2)';
-			}
+		if($this->last_patrol_at == null) return null;
 
-			if($this->last_patrol_at->lte(now()->subMonth()))
-			{
-				return 'rgba(255, 255, 0, 0.2)';
-			}
+		if($this->last_patrol_at->lte(now()->subMonth())) return config('rancor.scanner.colors.warning');
 
-			return 'rgba(0, 255, 0, 0.2)';
-		}
+		if($this->last_patrol_at->lte(now()->subMonths(3))) return config('rancor.scanner.colors.urgent');
 
-		return null;
+		return config('rancor.scanner.colors.active');
 	}
 
 	/**

@@ -104,7 +104,17 @@ return [
 		// The id of the quadrant containing the home system of your
 		// faction. You can find this in the database, or you can contact
 		// the dev team of the Rancor package for help
-		'index' => 24
+		'index' => 24,
+
+		// Background colors of the systems displayed in the scanner page
+		// Preferably in rgba format with transparency
+		'colors' => [
+			'active' => 'rgba(0, 255, 0, 0.2)',
+
+			'warning' => 'rgba(255, 255, 0, 0.2)',
+
+			'urgent' => 'rgba(255, 0, 0, 0.2)',
+		]
 	],
 
 
